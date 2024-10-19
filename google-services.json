@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "68426704552",
+    "project_id": "metalconstructionsestimates",
+    "storage_bucket": "metalconstructionsestimates.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68426704552:android:a2502b0bfe77349f10849d",
+        "android_client_info": {
+          "package_name": "com.example.metalconstructionsestimates"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJg52RnnNrBE8mpImduUe-ud27eA1_eWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

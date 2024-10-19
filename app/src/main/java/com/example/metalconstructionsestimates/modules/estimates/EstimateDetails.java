@@ -1,0 +1,531 @@
+package com.example.metalconstructionsestimates.modules.estimates;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.metalconstructionsestimates.R;
+import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListAdapter;
+import com.example.metalconstructionsestimates.databinding.ActivityEstimateDetailsBinding;
+import com.example.metalconstructionsestimates.modules.customers.Customers;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded;
+import com.example.metalconstructionsestimates.db.DBAdapter;
+import com.example.metalconstructionsestimates.models.Estimate;
+import com.example.metalconstructionsestimates.models.EstimateLine;
+import com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons;
+import com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons;
+import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
+import com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Objects;
+
+public class EstimateDetails extends AppCompatActivity {
+
+    Integer customerId;
+    Integer estimateId;
+
+    Estimate estimate;
+
+    DBAdapter dbAdapter;
+    TextView expirationDate,issueDate;
+
+    String expirationDateLabelAndValue = "",issueDateLabelAndValue = "";
+    String expirationDateValue,issueDateValue;
+
+    private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
+    EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
+    RefreshDeleteEstimateButtons refreshDeleteEstimateButtons;
+    NewEstimateLineUpdateButtons newEstimateLineUpdateButtons;
+    EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+    EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer;
+
+    EstimateDoneInIsPaid estimateDetailsDoneInIsPaid;
+    IssueDateExpirationDate issueDateExpirationDate;
+
+    ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activityEstimateDetailsBinding = ActivityEstimateDetailsBinding.inflate(getLayoutInflater());
+        setContentView(activityEstimateDetailsBinding.getRoot());
+        Toolbar toolbar = findViewById(R.id.toolbar_estimate_details);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        String estimateIdExtra = getIntent().getStringExtra("estimateIdExtra");
+        estimateId = Integer.parseInt(estimateIdExtra);
+        dbAdapter = new DBAdapter(getApplicationContext());
+        estimate = dbAdapter.getEstimateById(estimateId);
+
+        issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_estimate_details);
+        estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+        estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+        estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
+        estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+
+        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_details);
+
+        newEstimateLineUpdateButtons = findViewById(R.id.new_estimate_line_update_buttons);
+        refreshDeleteEstimateButtons = findViewById(R.id.delete_estimate_refresh_buttons);
+
+        Button newEstimateLine = newEstimateLineUpdateButtons.getButtonNewEstimateLine();
+        Button updateEstimate = newEstimateLineUpdateButtons.getButtonUpdateEstimate();
+        Button refreshEstimateLinesList = refreshDeleteEstimateButtons.getButtonRefreshEstimate();
+        Button deleteEstimate = refreshDeleteEstimateButtons.getButtonDeleteEstimate();
+        TextInputEditText doneInTextInputEditText = estimateDetailsDoneInIsPaid.getTextInputEditTextDoneIn();
+        TextInputEditText estimateCustomerTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+        TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
+        TextInputEditText discountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
+        TextInputEditText totalExcludingTaxTotalAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+        TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
+        TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
+        CheckBox isEstimatePaid = findViewById(R.id.checkBox_is_estimate_paid);
+
+        DBAdapter db = new DBAdapter(getApplicationContext());
+        ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(estimateId);
+        TextView noEstimateLinesTextView = findViewById(R.id.noEstimateLinesTextView);
+
+        if (!estimateLinesList.isEmpty()) {
+            noEstimateLinesTextView.setVisibility(View.GONE);
+            activityEstimateDetailsBinding.recyclerViewEstimateLines.setLayoutManager(new LinearLayoutManager(this));
+            EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(this, estimateLinesList);
+            activityEstimateDetailsBinding.recyclerViewEstimateLines.setAdapter(estimatesLinesListAdapter);
+        } else {
+            noEstimateLinesTextView.setVisibility(View.VISIBLE);
+            activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.GONE);
+        }
+
+        if(!estimate.getExpirationDate().isEmpty()){
+            expirationDateValue = estimate.getExpirationDate();
+            expirationDateLabelAndValue = "Expiration Date: " + estimate.getExpirationDate();
+        }
+        else{
+            expirationDateValue = "";
+            expirationDateLabelAndValue = "Expiration Date: --/--/--";
+        }
+
+        if(!estimate.getIssueDate().isEmpty()){
+            issueDateValue = estimate.getIssueDate();
+            issueDateLabelAndValue = "Issue Date : " + estimate.getIssueDate();
+        }
+        else{
+            issueDateValue = "";
+            issueDateLabelAndValue = "Issue Date : --/--/--";
+        }
+
+        estimateIdTextInputEditText.setText(String.format(estimate.getId().toString()));
+        doneInTextInputEditText.setText(estimate.getDoneIn());
+        issueDateExpirationDate.getTextViewEstimateIssueDate().setText(issueDateLabelAndValue);
+        issueDateExpirationDate.getTextViewEstimateExpirationDate().setText(expirationDateLabelAndValue);
+
+        if(estimate.getCustomer() == null){
+            estimateCustomerTextInputEditText.setText("");
+        }
+        else{
+            estimateCustomerTextInputEditText.setText(String.format(estimate.getCustomer().toString()));
+        }
+
+
+        if(estimate.getExcludingTaxTotal() == null){
+            totalExcludingTaxTextInputEditText.setText("");
+        }
+        else{
+            totalExcludingTaxTextInputEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
+        }
+
+        totalExcludingTaxTextInputEditText.setEnabled(false);
+
+        if(estimate.getDiscount() == null){
+            discountTextInputEditText.setText("");
+        }
+        else{
+            discountTextInputEditText.setText(String.format(estimate.getDiscount().toString()));
+        }
+
+        if(estimate.getExcludingTaxTotalAfterDiscount() == null){
+            totalExcludingTaxTotalAfterDiscountTextInputEditText.setText("");
+        }
+        else{
+            totalExcludingTaxTotalAfterDiscountTextInputEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
+        }
+
+        totalExcludingTaxTotalAfterDiscountTextInputEditText.setEnabled(false);
+
+        if(estimate.getVat() == null){
+            vatTextInputEditText.setText("");
+        }
+        else{
+            vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
+        }
+
+        if(estimate.getAllTaxIncludedTotal() == null){
+            totalAllTaxIncludedTextInputEditText.setText("");
+        }
+        else{
+            totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
+        }
+
+        totalAllTaxIncludedTextInputEditText.setEnabled(false);
+
+        if(Objects.equals(estimate.getIsEstimatePaid(), "true")){
+            isEstimatePaid.setChecked(true);
+        }
+        else{
+            isEstimatePaid.setChecked(false);
+        }
+
+        newEstimateLineUpdateButtons = findViewById(R.id.new_estimate_line_update_buttons);
+
+        refreshDeleteEstimateButtons = findViewById(R.id.delete_estimate_refresh_buttons);
+
+        Button selectCustomer = estimateDetailsCustomerIdSelectCustomer.getButtonSelectCustomer();
+        selectCustomer.setOnClickListener(v -> startActivityForResult());
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        String customerIdExtraResult;
+                        customerIdExtraResult = Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).getString("customerIdExtraResult");
+                        customerId = Integer.parseInt(Objects.requireNonNull(customerIdExtraResult));
+                        TextInputEditText customerIdTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+                        String customerName = dbAdapter.getCustomerById(customerId).getName();
+                        customerIdTextInputEditText.setText(customerName);
+                    }
+                }
+        );
+        
+        newEstimateLine.setOnClickListener(view -> {
+            Intent intent = new Intent(EstimateDetails.this, AddEstimateLine.class);
+            intent.putExtra("estimateIdExtra", estimateId.toString());
+            startActivity(intent);
+        });
+
+        deleteEstimate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDelete = new AlertDialog.Builder(EstimateDetails.this);
+                alertDelete.setTitle("Confirmation de suppression");
+                alertDelete.setMessage("Voulez-vous vraiment supprimer le devis?");
+                alertDelete.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_details);
+                        dbAdapter.deleteEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                        Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Suppression du devis a été effectuée avec succés", Toast.LENGTH_LONG);
+                        deleteSuccessToast.show();
+                    }
+                });
+                alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alertDelete.show();
+            }
+        });
+
+        updateEstimate.setOnClickListener(new View.OnClickListener() {
+            EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = (EstimateCustomerIdSelectCustomer) findViewById(R.id.estimate_details_customer_id_select_customer);
+            EstimateDoneInIsPaid estimateDetailsDoneInIsPaid = (EstimateDoneInIsPaid) findViewById(R.id.done_in_is_paid_estimate_details);
+            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+            IssueDateExpirationDate issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_estimate_details);
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertUpdate = new AlertDialog.Builder(EstimateDetails.this);
+                alertUpdate.setTitle("Confirmation de modification");
+                alertUpdate.setMessage("Voulez-vous vraiment modifier le devis?");
+                alertUpdate.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        estimate = new Estimate();
+                        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_details);
+                        TextInputEditText doneInTextInputEditText = estimateDetailsDoneInIsPaid.getTextInputEditTextDoneIn();
+                        CheckBox isEstimatePaid = estimateDetailsDoneInIsPaid.getCheckBoxIsEstimatePaid();
+                        TextInputEditText estimateCustomerTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+                        TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+                        TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
+                        TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
+
+                        TextInputEditText discountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
+
+                        estimate.setId(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+
+                        if (!doneInTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setDoneIn(doneInTextInputEditText.getText().toString());
+                        } else {
+                            estimate.setDoneIn("");
+                        }
+
+                        if (!issueDateValue.isEmpty()) {
+                            estimate.setIssueDate(issueDateValue);
+                        } else {
+                            estimate.setIssueDate("");
+                        }
+
+                        if (!expirationDateValue.isEmpty()) {
+                            estimate.setExpirationDate(expirationDateValue);
+                        } else {
+                            estimate.setExpirationDate("");
+                        }
+
+                        if (!estimateCustomerTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setCustomer(Integer.parseInt(estimateCustomerTextInputEditText.getText().toString()));
+                        } else {
+                            estimate.setCustomer(null);
+                        }
+
+                        Float totalExcludingTax = 0.0f;
+                        totalExcludingTax = dbAdapter.getEstimateExcludingTaxTotal(estimateId);
+                        estimate.setExcludingTaxTotal(totalExcludingTax);
+
+                        if (!discountTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setDiscount(Float.parseFloat(discountTextInputEditText.getText().toString()));
+                        } else {
+                            estimate.setDiscount(null);
+                        }
+
+                        if (!totalExcludingTaxAfterDiscountTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setExcludingTaxTotalAfterDiscount(Float.parseFloat(totalExcludingTaxAfterDiscountTextInputEditText.getText().toString()));
+                        } else {
+                            estimate.setExcludingTaxTotalAfterDiscount(null);
+                        }
+
+                        if (!vatTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setVat(Float.parseFloat(vatTextInputEditText.getText().toString()));
+                        } else {
+                            estimate.setVat(null);
+                        }
+
+                        if (!totalAllTaxIncludedTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setAllTaxIncludedTotal(Float.parseFloat(totalAllTaxIncludedTextInputEditText.getText().toString()));
+                        } else {
+                            estimate.setAllTaxIncludedTotal(null);
+                        }
+
+                        if (!isEstimatePaid.isChecked()) {
+                            estimate.setIsEstimatePaid("false");
+                        } else {
+                            estimate.setIsEstimatePaid("true");
+                        }
+
+                        dbAdapter.updateEstimate(estimate);
+                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "La modification du devis a été effectué avec succés", Toast.LENGTH_LONG);
+                        updateSuccessToast.show();
+                        Intent intent = new Intent(EstimateDetails.this, Estimates.class);
+                        startActivity(intent);
+                    }
+                });
+
+                alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alertUpdate.show();
+            }
+        });
+
+        refreshEstimateLinesList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+                estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                doneInTextInputEditText.setText(estimate.getDoneIn());
+                TextView issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
+                TextView expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
+                issueDate.setText(estimate.getIssueDate());
+                expirationDate.setText(estimate.getExpirationDate());
+                estimateCustomerTextInputEditText.setText(String.format(estimate.getCustomer().toString()));
+                totalExcludingTaxTextInputEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
+                discountTextInputEditText.setText(String.format(estimate.getDiscount().toString()));
+                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+                totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
+                vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
+                totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
+
+                if (Objects.equals(estimate.getIsEstimatePaid(), "true")) {
+                    isEstimatePaid.setChecked(true);
+                } else {
+                    isEstimatePaid.setChecked(false);
+                }
+
+                ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+
+                if (estimateLinesList.isEmpty()) {
+                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.GONE);
+                    activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.VISIBLE);
+                } else {
+                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.VISIBLE);
+                    activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.GONE);
+                    EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(EstimateDetails.this, estimateLinesList);
+                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setAdapter(estimatesLinesListAdapter);
+                }
+
+            }
+        });
+
+        discountTextInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+                EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = (TextInputEditText) estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+                TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
+                TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
+                TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
+                String discount = s.toString();
+                Float totalExcludingTax, totalExcludingTaxAfterDiscount, vat, totalAllTaxIncluded;
+                totalExcludingTax = Float.parseFloat(totalExcludingTaxTextInputEditText.getText().toString());
+                vat = Float.parseFloat(vatTextInputEditText.getText().toString());
+                if (!discount.isEmpty()) {
+                    totalExcludingTaxAfterDiscount = totalExcludingTax - totalExcludingTax * Float.parseFloat(discount) / 100;
+                    totalExcludingTaxAfterDiscountTextInputEditText.setText(totalExcludingTaxAfterDiscount.toString());
+                    if (!vat.toString().isEmpty()) {
+                        totalAllTaxIncluded = totalExcludingTaxAfterDiscount + totalExcludingTaxAfterDiscount * vat / 100;
+                    } else {
+                        totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
+                    }
+                    totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+                } else {
+                    totalExcludingTaxAfterDiscountTextInputEditText.setText(totalExcludingTax.toString());
+                    if (!vat.toString().isEmpty()) {
+                        totalAllTaxIncluded = totalExcludingTax + totalExcludingTax * vat / 100;
+                    } else {
+                        totalAllTaxIncluded = totalExcludingTax;
+                    }
+                    totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+                }
+            }
+        });
+
+        vatTextInputEditText.addTextChangedListener(new TextWatcher() {
+            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+                TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
+                String vat = s.toString();
+                Float totalExcludingTaxAfterDiscount, totalAllTaxIncluded;
+                totalExcludingTaxAfterDiscount = Float.parseFloat(totalExcludingTaxAfterDiscountTextInputEditText.getText().toString());
+                if (!vat.isEmpty()) {
+                    totalAllTaxIncluded = totalExcludingTaxAfterDiscount + totalExcludingTaxAfterDiscount * Float.parseFloat(vat) / 100;
+                } else {
+                    totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
+                }
+                totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+            }
+        });
+
+        issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
+        expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
+
+        issueDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(
+                        EstimateDetails.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        issueDateSetListener,
+                        year, month, day
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        expirationDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(
+                        EstimateDetails.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        expirationDateSetListner,
+                        year, month, day
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        expirationDateSetListner = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker picker, int year, int month, int day) {
+                String date;
+                month = month + 1;
+                expirationDateValue = year + "-" + month + "-" + day;
+                expirationDate.setText("Expiration Date : " + expirationDateValue);
+            }
+        };
+
+        issueDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker picker, int year, int month, int day) {
+                month = month + 1;
+                issueDateValue = year + "-" + month + "-" + day;
+                issueDate.setText("Issue Date : " + issueDateValue);
+            }
+        };
+
+    }
+    public void startActivityForResult() {
+        Intent intent = new Intent(EstimateDetails.this, Customers.class);
+        activityResultLauncher.launch(intent);
+    }
+}

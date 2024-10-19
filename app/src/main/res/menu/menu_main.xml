@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/connectToGoogleDrive"
+        android:title="@string/connectToGoogleDrive" />
+    <item
+        android:id="@+id/localBackup"
+        android:title="@string/localBackup" />
+    <item
+        android:id="@+id/localRestore"
+        android:title="@string/localRestore" />
+    <item
+        android:id="@+id/googleDriveBackup"
+        android:title="@string/googleDriveBackup" />
+    <item
+        android:id="@+id/googleDriveRestore"
+        android:title="@string/googleDriveRestore" />
+
+</menu>

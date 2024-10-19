@@ -1,0 +1,119 @@
+<resources>
+    <string-array name="geometric_shapes">
+        <item>Geometric Shape</item>
+        <item>Profile</item>
+        <item>Surface</item>
+        <item>Volume</item>
+    </string-array>
+    <string-array name="units">
+        <item>Unit</item>
+        <item>Meter</item>
+        <item>Square Meter</item>
+        <item>Cubic Meter</item>
+    </string-array>
+    <string name="app_name">Metal Constructions Estimates</string>
+    <string name="estimates">Estimates</string>
+    <string name="steels">Steels</string>
+    <string name="customers">Customers</string>
+    <string name="estimate">Estimate</string>
+    <string name="steel">Steel</string>
+    <string name="customer">Customer</string>
+    <string name="backups">Backups</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="steelId">Steel Id</string>
+    <string name="steelDetails">Steel Details</string>
+    <string name="estimateLineDetails">Estimate Line Details</string>
+    <string name="select_steel">Select Steel</string>
+    <string name="issue_date">Issue Date : --/--/--</string>
+    <string name="estimate_id">Estimate Id</string>
+    <string name="expiration_date">Expiration Date : --/--/--</string>
+    <string name="weight">Weight</string>
+    <string name="width">Width</string>
+    <string name="length">Lenght</string>
+    <string name="height">Height</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="add">Add</string>
+    <string name="quantity">Quantity</string>
+    <string name="margin">Margin</string>
+    <string name="total">Total</string>
+    <string name="netQuantityPlusMargin">Net Quantity Plus Margin</string>
+    <string name="unitPrice">Unit Price</string>
+    <string name="totalPrice">Total Price</string>
+    <string name="totalExcludingTax">Ex. VAT</string>
+    <string name="doneIn">Location</string>
+    <string name="totalExcludingTaxAfterDiscount">Ex. VAT After Discount</string>
+    <string name="newEstimateLine">New Estimate Line</string>
+    <string name="EstimateLineDetails">Estimate Line Details</string>
+    <string name="newSteel">New Steel</string>
+    <string name="selectEstimate">Select Estimate</string>
+    <string name="totalAllTaxIncluded">Incl. VAT</string>
+    <string name="estimateId">Estimate Id</string>
+    <string name="estimateLineId">Estimate Line Id</string>
+    <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
+    <string name="discount">Discount</string>
+    <string name="vat">Vat</string>
+    <string name="unit">Unit</string>
+    <string name="steelType">Steel Type</string>
+    <string name="localBackup">Local Backup</string>
+    <string name="localRestore">Local Restore</string>
+    <string name="message_drive_client_is_ready">Google Drive Client is ready</string>
+    <string name="message_google_sign_in_failed">Google Drive sign in failed</string>
+    <string name="google_drive_sign_in">Sign in to Google Drive</string>
+    <string name="googleDriveBackup">Google Drive Backup</string>
+    <string name="googleDriveRestore">Google Drive Restore</string>
+    <string name="selectcustomer">Select Customer</string>
+    <string name="customer_id">Customer Id</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_email">Email</string>
+    <string name="customer_phone">Phone</string>
+    <string name="customer_mobile">Mobile</string>
+    <string name="customer_fax">Fax</string>
+    <string name="customer_address">Address</string>
+    <string name="select_customer">Select Customer</string>
+    <string name="addEstimate">Add New Estimate</string>
+    <string name="addCustomer">Add New Customer</string>
+    <string name="addSteel">Add New Steel</string>
+    <string name="addEstimateLine">Add New Estimate Line</string>
+    <string name="steelsList">Steels List</string>
+    <string name="customersList">Customers List</string>
+    <string name="estimatesList">Estimates List</string>
+    <string name="steelsCount">Steels Count : </string>
+    <string name="estimatesCount">Estimates Count :</string>
+    <string name="customersCount">Customers Count :</string>
+    <string name="estimatesTotal">Total Amount of Registered Estimates :</string>
+    <string name="currentDayEstimatesTotal">Daily Total of Estimates :</string>
+    <string name="currentWeekEstimatesTotal">Weekly Total of Estimates :</string>
+    <string name="currentMonthEstimatesTotal">Monthly Total of Estimates :</string>
+    <string name="currentYearEstimatesTotal">Yearly Total of Estimates :</string>
+    <string name="currentDayEstimatesCount">Daily Number of Estimates :</string>
+    <string name="currentWeekEstimatesCount">Weekly Number of Estimates :</string>
+    <string name="currentMonthEstimatesCount">Monthly Number of Estimates :</string>
+    <string name="currentYearEstimatesCount">Yearly Number of Estimates :</string>
+    <string name="imageViewDescription">menuElement</string>
+    <string name="allEstimates">Tous</string>
+    <string name="unpaidEstimates">Unpaid</string>
+    <string name="paidEstimates">Paid</string>
+    <string name="isEstimatePaid">Is Paid</string>
+    <string name="zeroDH">0 DH</string>
+    <string name="noSteelInDB">No steels recorded in the database</string>
+    <string name="noEstimateInDB">No estimates recorded in the database</string>
+    <string name="noCustomerInDB">No customers recorded in the database</string>
+    <string name="connectToGoogleDrive">Connect to Google Drive</string>
+    <string name="backuprestore">Backup and Restore</string>
+    <string name="noDailyEstimates">No daily estimates recorded</string>
+    <string name="noWeeklyEstimates">No weekly estimates recorded</string>
+    <string name="noMonthlyEstimates">No monthly estimates recorded</string>
+    <string name="noYearlyEstimates">No yearly estimates recorded</string>
+    <string name="noUnpaidEstimates">No unpaid estimates recorded</string>
+    <string name="noPaidEstimates">No paid estimates recorded</string>
+    <string name="noEstimates">No estimates recorded</string>
+    <string name="estimateRecorded">estimate recorded</string>
+    <string name="estimatesRecorded">estimates recorded</string>
+    <string name="noCustomers">No customers recorded</string>
+    <string name="noSteels">No steels recorded</string>
+    <string name="noEstimateLines">No estimates lines recorded</string>
+</resources>
