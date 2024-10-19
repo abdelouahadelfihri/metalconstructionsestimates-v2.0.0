@@ -6,6 +6,12 @@ android {
     namespace = "com.example.metalconstructionsestimates"
     compileSdk = 34
 
+    packaging {
+        resources {
+            excludes += "META-INF/DEPENDENCIES"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.metalconstructionsestimates"
         minSdk = 24
@@ -29,11 +35,27 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    dataBinding {
+        enable = true
+    }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
 
     implementation(libs.appcompat)
+    implementation("com.google.android.gms:play-services-base:18.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.api-client:google-api-client:2.2.0")
+    implementation("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
+    implementation("com.google.apis:google-api-services-drive:v3-rev136-1.25.0")
+    implementation("com.google.api-client:google-api-client-android:1.34.1")
+    implementation("com.google.http-client:google-http-client-android:1.41.5")
+    implementation("com.google.api-client:google-api-client:2.2.0")
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
