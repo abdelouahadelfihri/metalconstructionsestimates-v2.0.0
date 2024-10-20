@@ -78,13 +78,13 @@ public class Customers extends AppCompatActivity {
 
             Customer customer = new Customer();
 
-            if(customer_id.getText().toString().isEmpty() &&
-            customer_name.getText().toString().isEmpty() &&
-            customer_email.getText().toString().isEmpty() &&
-            customer_phone.getText().toString().isEmpty() &&
-            customer_mobile.getText().toString().isEmpty() &&
-            customer_fax.getText().toString().isEmpty() &&
-            customer_address.getText().toString().isEmpty()) {
+            if(Objects.requireNonNull(customer_id.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_name.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_email.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_phone.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_mobile.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_fax.getText()).toString().isEmpty() &&
+            Objects.requireNonNull(customer_address.getText()).toString().isEmpty()) {
                 Toast emptyFieldsToast = Toast.makeText(getApplicationContext(), "Champs vides", Toast.LENGTH_LONG);
                 emptyFieldsToast.show();
             }
@@ -94,35 +94,35 @@ public class Customers extends AppCompatActivity {
                 } else {
                     customer.setId(null);
                 }
-                if (!customer_name.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_name.getText()).toString().isEmpty()) {
                     customer.setName(customer_name.getText().toString());
                 } else {
                     customer.setName(null);
                 }
-                if (!customer_email.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_email.getText()).toString().isEmpty()) {
                     customer.setEmail(customer_email.getText().toString());
                 } else {
                     customer.setEmail(null);
                 }
-                if (!customer_phone.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_phone.getText()).toString().isEmpty()) {
                     customer.setTelephone(customer_phone.getText().toString());
                 } else {
                     customer.setTelephone(null);
                 }
 
-                if (!customer_mobile.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_mobile.getText()).toString().isEmpty()) {
                     customer.setMobile(customer_mobile.getText().toString());
                 } else {
                     customer.setMobile(null);
                 }
 
-                if (!customer_fax.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_fax.getText()).toString().isEmpty()) {
                     customer.setFax(customer_fax.getText().toString());
                 } else {
                     customer.setFax(null);
                 }
 
-                if (!customer_address.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customer_address.getText()).toString().isEmpty()) {
                     customer.setAddress(customer_address.getText().toString());
                 } else {
                     customer.setAddress(null);
@@ -153,13 +153,13 @@ public class Customers extends AppCompatActivity {
             customer_mobile = findViewById(R.id.editText_customer_mobile_customers);
             customer_fax = findViewById(R.id.editText_customer_fax_customers);
             customer_address = findViewById(R.id.editText_customer_address_customers);
-            customer_id.getText().clear();
-            customer_name.getText().clear();
-            customer_email.getText().clear();
-            customer_phone.getText().clear();
-            customer_mobile.getText().clear();
-            customer_fax.getText().clear();
-            customer_address.getText().clear();
+            Objects.requireNonNull(customer_id.getText()).clear();
+            Objects.requireNonNull(customer_name.getText()).clear();
+            Objects.requireNonNull(customer_email.getText()).clear();
+            Objects.requireNonNull(customer_phone.getText()).clear();
+            Objects.requireNonNull(customer_mobile.getText()).clear();
+            Objects.requireNonNull(customer_fax.getText()).clear();
+            Objects.requireNonNull(customer_address.getText()).clear();
         });
     }
 }
