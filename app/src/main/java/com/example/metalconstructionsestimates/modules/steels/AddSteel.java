@@ -150,13 +150,13 @@ public class AddSteel extends AppCompatActivity {
                 Object item = parent.getItemAtPosition(pos);
                 Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
                 switch(item.toString()){
-                    case "Métre":
+                    case "Meter":
                         steelGeometricShapeSpinner.setSelection(1);
                         break;
-                    case "Métre Carré":
+                    case "Square Meter":
                         steelGeometricShapeSpinner.setSelection(2);
                         break;
-                    case "Métre Cube":
+                    case "Cubic Meter":
                         steelGeometricShapeSpinner.setSelection(3);
                         break;
                 }

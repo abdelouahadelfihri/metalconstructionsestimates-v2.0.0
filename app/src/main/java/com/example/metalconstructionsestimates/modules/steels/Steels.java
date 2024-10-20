@@ -53,13 +53,13 @@ public class Steels extends AppCompatActivity {
                 TextInputEditText unitTextInputEditText = findViewById(R.id.editText_steel_unit_steels);
                 switch(item.toString()){
                     case "Profile":
-                        unitTextInputEditText.setText("Métre");
+                        unitTextInputEditText.setText("Meter");
                         break;
                     case "Surface":
-                        unitTextInputEditText.setText("Métre carré");
+                        unitTextInputEditText.setText("Square Meter");
                         break;
                     case "Volume":
-                        unitTextInputEditText.setText("Métre cube");
+                        unitTextInputEditText.setText("Cubic Meter");
                         break;
                 }
             }
