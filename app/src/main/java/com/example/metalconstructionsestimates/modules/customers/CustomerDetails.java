@@ -24,7 +24,7 @@ public class CustomerDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_customer_details);
+        Toolbar toolbar = findViewById(R.id.toolbar_customer_details);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String customerIdExtra = getIntent().getStringExtra("customerIdExtra");
@@ -32,13 +32,13 @@ public class CustomerDetails extends AppCompatActivity {
         adapter = new DBAdapter(getApplicationContext());
         customer = adapter.getCustomerById(customerId);
 
-        TextInputEditText customerIdTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_id_details);
-        TextInputEditText customerNameTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_name_details);
-        TextInputEditText customerEmailTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_email_details);
-        TextInputEditText customerPhoneTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_phone_details);
-        TextInputEditText customerMobileTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_mobile_details);
-        TextInputEditText customerFaxTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_fax_details);
-        TextInputEditText customerAddressTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_address_details);
+        TextInputEditText customerIdTextInputEditText = findViewById(R.id.editText_customer_id_details);
+        TextInputEditText customerNameTextInputEditText = findViewById(R.id.editText_customer_name_details);
+        TextInputEditText customerEmailTextInputEditText = findViewById(R.id.editText_customer_email_details);
+        TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.editText_customer_phone_details);
+        TextInputEditText customerMobileTextInputEditText = findViewById(R.id.editText_customer_mobile_details);
+        TextInputEditText customerFaxTextInputEditText = findViewById(R.id.editText_customer_fax_details);
+        TextInputEditText customerAddressTextInputEditText = findViewById(R.id.editText_customer_address_details);
 
         customerIdTextInputEditText.setText(customerId.toString());
         customerNameTextInputEditText.setText(customer.getName());
@@ -48,14 +48,14 @@ public class CustomerDetails extends AppCompatActivity {
         customerFaxTextInputEditText.setText(customer.getFax());
         customerAddressTextInputEditText.setText(customer.getAddress());
 
-        updateDeleteButtons = (UpdateDeleteButtons) findViewById(R.id.customers_details_update_delete_buttons);
+        updateDeleteButtons = findViewById(R.id.customers_details_update_delete_buttons);
         Button deleteCustomer = updateDeleteButtons.getDeleteButton();
         Button updateCustomer = updateDeleteButtons.getUpdateButton();
 
         deleteCustomer.setOnClickListener(view -> {
             AlertDialog.Builder alertDelete = new AlertDialog.Builder(CustomerDetails.this);
-            alertDelete.setTitle("Confirmation de suppression");
-            alertDelete.setMessage("Voulez-vous vraiment supprimer le client?");
+            alertDelete.setTitle("Delete Confirmation");
+            alertDelete.setMessage("Do you really want to delete the customer ?");
             alertDelete.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
                 customer = new Customer();
@@ -75,57 +75,50 @@ public class CustomerDetails extends AppCompatActivity {
 
         updateCustomer.setOnClickListener(view -> {
             AlertDialog.Builder alertUpdate = new AlertDialog.Builder(CustomerDetails.this);
-            alertUpdate.setTitle("Confirmation de modification");
-            alertUpdate.setMessage("Voulez-vous vraiment modifier les informations client?");
+            alertUpdate.setTitle("Update Confirmation");
+            alertUpdate.setMessage("Do you really want to update customer ?");
             alertUpdate.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
                 customer = new Customer();
-                TextInputEditText customerIdTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_id_details);
-                TextInputEditText customerNameTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_name_details);
-                TextInputEditText customerEmailTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_email_details);
-                TextInputEditText customerPhoneTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_phone_details);
-                TextInputEditText customerMobileTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_mobile_details);
-                TextInputEditText customerFaxTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_fax_details);
-                TextInputEditText customerAddressTextInputEditText1 = (TextInputEditText) findViewById(R.id.editText_customer_address_details);
 
-                if (!customerIdTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setId(Integer.parseInt(customerIdTextInputEditText1.getText().toString()));
+                if (!customerIdTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setId(Integer.parseInt(customerIdTextInputEditText.getText().toString()));
                 } else {
                     customer.setId(Integer.valueOf(""));
                 }
 
-                if (!customerNameTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setName(customerNameTextInputEditText1.getText().toString());
+                if (!customerNameTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setName(customerNameTextInputEditText.getText().toString());
                 } else {
                     customer.setName("");
                 }
 
-                if (!customerEmailTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setEmail(customerEmailTextInputEditText1.getText().toString());
+                if (!customerEmailTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setEmail(customerEmailTextInputEditText.getText().toString());
                 } else {
                     customer.setEmail("");
                 }
 
-                if (!customerPhoneTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setTelephone(customerPhoneTextInputEditText1.getText().toString());
+                if (!customerPhoneTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setTelephone(customerPhoneTextInputEditText.getText().toString());
                 } else {
                     customer.setTelephone("");
                 }
 
-                if (!customerMobileTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setMobile(customerMobileTextInputEditText1.getText().toString());
+                if (!customerMobileTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setMobile(customerMobileTextInputEditText.getText().toString());
                 } else {
                     customer.setMobile("");
                 }
 
-                if (!customerFaxTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setFax(customerFaxTextInputEditText1.getText().toString());
+                if (!customerFaxTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setFax(customerFaxTextInputEditText.getText().toString());
                 } else {
                     customer.setFax("");
                 }
 
-                if (!customerAddressTextInputEditText1.getText().toString().isEmpty()) {
-                    customer.setAddress(customerAddressTextInputEditText1.getText().toString());
+                if (!customerAddressTextInputEditText.getText().toString().isEmpty()) {
+                    customer.setAddress(customerAddressTextInputEditText.getText().toString());
                 } else {
                     customer.setAddress("");
                 }
