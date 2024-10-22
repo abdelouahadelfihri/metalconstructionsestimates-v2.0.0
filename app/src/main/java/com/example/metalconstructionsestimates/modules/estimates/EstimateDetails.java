@@ -418,7 +418,7 @@ public class EstimateDetails extends AppCompatActivity {
                 String discount = s.toString();
                 Float totalExcludingTax, totalExcludingTaxAfterDiscount, vat, totalAllTaxIncluded;
                 totalExcludingTax = Float.parseFloat(totalExcludingTaxTextInputEditText.getText().toString());
-                vat = Float.parseFloat(vatTextInputEditText.getText().toString());
+                vat = Float.parseFloat(Objects.requireNonNull(vatTextInputEditText.getText()).toString());
                 if (!discount.isEmpty()) {
                     totalExcludingTaxAfterDiscount = totalExcludingTax - totalExcludingTax * Float.parseFloat(discount) / 100;
                     totalExcludingTaxAfterDiscountTextInputEditText.setText(totalExcludingTaxAfterDiscount.toString());
@@ -470,57 +470,46 @@ public class EstimateDetails extends AppCompatActivity {
         issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
         expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
 
-        issueDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EstimateDetails.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        issueDateSetListener,
-                        year, month, day
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
+        issueDate.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    EstimateDetails.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    issueDateSetListener,
+                    year, month, day
+            );
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         });
 
-        expirationDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EstimateDetails.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        expirationDateSetListner,
-                        year, month, day
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
+        expirationDate.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    EstimateDetails.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    expirationDateSetListner,
+                    year, month, day
+            );
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         });
 
-        expirationDateSetListner = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker picker, int year, int month, int day) {
-                String date;
-                month = month + 1;
-                expirationDateValue = year + "-" + month + "-" + day;
-                expirationDate.setText("Expiration Date : " + expirationDateValue);
-            }
+        expirationDateSetListner = (picker, year, month, day) -> {
+            month = month + 1;
+            expirationDateValue = year + "-" + month + "-" + day;
+            expirationDate.setText("Expiration Date : " + expirationDateValue);
         };
 
-        issueDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker picker, int year, int month, int day) {
-                month = month + 1;
-                issueDateValue = year + "-" + month + "-" + day;
-                issueDate.setText("Issue Date : " + issueDateValue);
-            }
+        issueDateSetListener = (picker, year, month, day) -> {
+            month = month + 1;
+            issueDateValue = year + "-" + month + "-" + day;
+            issueDate.setText("Issue Date : " + issueDateValue);
         };
 
     }
