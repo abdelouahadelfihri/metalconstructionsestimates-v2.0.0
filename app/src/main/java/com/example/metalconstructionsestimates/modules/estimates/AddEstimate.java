@@ -38,7 +38,7 @@ public class AddEstimate extends AppCompatActivity {
     Integer customerId;
     DBAdapter dbAdapter;
     TextView expirationDate,issueDate;
-    String expirationDateString = "",issueDateString = "";
+    String expirationDateValue = "", issueDateValue = "";
     EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;
@@ -91,14 +91,12 @@ public class AddEstimate extends AppCompatActivity {
             public void onClick(View view) {
                 TextInputEditText estimateDoneInTextInputEditText = estimateDoneInIsPaid.getTextInputEditTextDoneIn();
                 CheckBox isPaidCheckBox = estimateDoneInIsPaid.getCheckBoxIsEstimatePaid();
-                TextView estimateIssueDateTextView = issueDateExpirationDate.getTextViewEstimateIssueDate();
-                TextView estimateExpirationDateTextView = issueDateExpirationDate.getTextViewEstimateExpirationDate();
                 TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
                 TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
                 TextInputEditText vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
 
-                if (Objects.requireNonNull(estimateDoneInTextInputEditText.getText()).toString().isEmpty() && estimateIssueDateTextView.toString().equals(R.string.issue_date) && estimateExpirationDateTextView.toString().equals(R.string.expiration_date) && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !isPaidCheckBox.isChecked()) {
-                    Toast emptyFields = Toast.makeText(getApplicationContext(), "Champs vides.", Toast.LENGTH_LONG);
+                if (estimateDoneInTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !isPaidCheckBox.isChecked()) {
+                    Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
                     AlertDialog.Builder alertAdd = new AlertDialog.Builder(AddEstimate.this);
@@ -149,14 +147,14 @@ public class AddEstimate extends AppCompatActivity {
                                 return;
                             }
 
-                            if (!issueDateString.isEmpty()) {
-                                estimate.setIssueDate(issueDateString);
+                            if (!issueDateValue.isEmpty()) {
+                                estimate.setIssueDate(issueDateValue);
                             } else {
                                 estimate.setIssueDate("");
                             }
 
-                            if (!expirationDateString.isEmpty()){
-                                estimate.setExpirationDate(expirationDateString);
+                            if (!expirationDateValue.isEmpty()){
+                                estimate.setExpirationDate(expirationDateValue);
                             } else {
                                 estimate.setExpirationDate("");
                             }
@@ -267,20 +265,18 @@ public class AddEstimate extends AppCompatActivity {
         expirationDateSetListner = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker picker, int year, int month, int day) {
-                String date;
                 month = month + 1;
-                expirationDateString = year + "-" + month + "-" + day;
-                expirationDate.setText("Expiration Date : " + expirationDateString);
+                expirationDateValue = year + "-" + month + "-" + day;
+                expirationDate.setText("Expiration Date : " + expirationDateValue);
             }
         };
 
         issueDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker picker, int year, int month, int day) {
-                String date;
                 month = month + 1;
-                issueDateString = year + "-" + month + "-" + day;
-                issueDate.setText("Issue Date : " + issueDateString);
+                issueDateValue = year + "-" + month + "-" + day;
+                issueDate.setText("Issue Date : " + issueDateValue);
             }
         };
     }

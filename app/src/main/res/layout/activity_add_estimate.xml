@@ -92,7 +92,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_estimate_vat_add_estimate"
         android:layout_width="0dp"
