@@ -57,7 +57,7 @@ public class EstimateDetails extends AppCompatActivity {
     TextView expirationDate,issueDate;
 
     String expirationDateLabelAndValue = "",issueDateLabelAndValue = "";
-    String expirationDateValue,issueDateValue;
+    String expirationDateValue, issueDateValue;
 
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
     EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
@@ -256,16 +256,16 @@ public class EstimateDetails extends AppCompatActivity {
         });
 
         updateEstimate.setOnClickListener(new View.OnClickListener() {
-            EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = (EstimateCustomerIdSelectCustomer) findViewById(R.id.estimate_details_customer_id_select_customer);
-            EstimateDoneInIsPaid estimateDetailsDoneInIsPaid = (EstimateDoneInIsPaid) findViewById(R.id.done_in_is_paid_estimate_details);
-            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
-            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-            IssueDateExpirationDate issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_estimate_details);
+            EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
+            EstimateDoneInIsPaid estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertUpdate = new AlertDialog.Builder(EstimateDetails.this);
-                alertUpdate.setTitle("Confirmation de modification");
-                alertUpdate.setMessage("Voulez-vous vraiment modifier le devis?");
+                alertUpdate.setTitle("Update Confirmation");
+                alertUpdate.setMessage("Do you really want to update the estimate ?");
                 alertUpdate.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
@@ -341,7 +341,7 @@ public class EstimateDetails extends AppCompatActivity {
                         }
 
                         dbAdapter.updateEstimate(estimate);
-                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "La modification du devis a été effectué avec succés", Toast.LENGTH_LONG);
+                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate have been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
                         Intent intent = new Intent(EstimateDetails.this, Estimates.class);
                         startActivity(intent);
@@ -361,7 +361,7 @@ public class EstimateDetails extends AppCompatActivity {
         refreshEstimateLinesList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
                 doneInTextInputEditText.setText(estimate.getDoneIn());
                 TextView issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
@@ -409,9 +409,9 @@ public class EstimateDetails extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-                EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
-                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = (TextInputEditText) estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
+                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+                EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
                 TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
                 TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
                 TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
@@ -441,8 +441,8 @@ public class EstimateDetails extends AppCompatActivity {
         });
 
         vatTextInputEditText.addTextChangedListener(new TextWatcher() {
-            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = (EstimatesDiscountTotalAfterDiscount) findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = (EstimatesVatTotalAllTaxIncluded) findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
