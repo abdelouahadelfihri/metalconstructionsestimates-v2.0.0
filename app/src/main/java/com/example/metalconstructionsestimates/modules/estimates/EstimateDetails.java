@@ -44,6 +44,7 @@ import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimat
 import com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EstimateDetails extends AppCompatActivity {
@@ -362,7 +363,7 @@ public class EstimateDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-                estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                estimate = dbAdapter.getEstimateById(Integer.parseInt(Objects.requireNonNull(estimateIdTextInputEditText.getText()).toString()));
                 doneInTextInputEditText.setText(estimate.getDoneIn());
                 TextView issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
                 TextView expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
@@ -376,11 +377,7 @@ public class EstimateDetails extends AppCompatActivity {
                 vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
                 totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
 
-                if (Objects.equals(estimate.getIsEstimatePaid(), "true")) {
-                    isEstimatePaid.setChecked(true);
-                } else {
-                    isEstimatePaid.setChecked(false);
-                }
+                isEstimatePaid.setChecked(Objects.equals(estimate.getIsEstimatePaid(), "true"));
 
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
 
@@ -417,25 +414,29 @@ public class EstimateDetails extends AppCompatActivity {
                 TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
                 String discount = s.toString();
                 Float totalExcludingTax, totalExcludingTaxAfterDiscount, vat, totalAllTaxIncluded;
-                totalExcludingTax = Float.parseFloat(totalExcludingTaxTextInputEditText.getText().toString());
+                totalExcludingTax = Float.parseFloat(Objects.requireNonNull(totalExcludingTaxTextInputEditText.getText()).toString());
                 vat = Float.parseFloat(Objects.requireNonNull(vatTextInputEditText.getText()).toString());
                 if (!discount.isEmpty()) {
                     totalExcludingTaxAfterDiscount = totalExcludingTax - totalExcludingTax * Float.parseFloat(discount) / 100;
-                    totalExcludingTaxAfterDiscountTextInputEditText.setText(totalExcludingTaxAfterDiscount.toString());
+                    totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTaxAfterDiscount));
                     if (!vat.toString().isEmpty()) {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount + totalExcludingTaxAfterDiscount * vat / 100;
                     } else {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
                     }
-                    totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+
+                    totalAllTaxIncludedTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
+
+
                 } else {
-                    totalExcludingTaxAfterDiscountTextInputEditText.setText(totalExcludingTax.toString());
+                    totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTax));
                     if (!vat.toString().isEmpty()) {
                         totalAllTaxIncluded = totalExcludingTax + totalExcludingTax * vat / 100;
                     } else {
                         totalAllTaxIncluded = totalExcludingTax;
                     }
-                    totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+
+                    totalAllTaxIncludedTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
                 }
             }
         });
