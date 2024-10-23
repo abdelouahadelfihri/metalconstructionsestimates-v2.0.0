@@ -363,7 +363,7 @@ public class EstimateDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-                estimate = dbAdapter.getEstimateById(Integer.parseInt(Objects.requireNonNull(estimateIdTextInputEditText.getText()).toString()));
+                estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
                 doneInTextInputEditText.setText(estimate.getDoneIn());
                 TextView issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
                 TextView expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
@@ -377,7 +377,11 @@ public class EstimateDetails extends AppCompatActivity {
                 vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
                 totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
 
-                isEstimatePaid.setChecked(Objects.equals(estimate.getIsEstimatePaid(), "true"));
+                if (Objects.equals(estimate.getIsEstimatePaid(), "true")) {
+                    isEstimatePaid.setChecked(true);
+                } else {
+                    isEstimatePaid.setChecked(false);
+                }
 
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
 
