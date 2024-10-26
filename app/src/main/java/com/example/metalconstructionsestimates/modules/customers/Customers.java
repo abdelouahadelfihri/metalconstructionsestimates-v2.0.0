@@ -27,7 +27,7 @@ public class Customers extends AppCompatActivity {
 
 
     TextInputEditText customer_id,customer_name,customer_email,customer_phone,customer_mobile,customer_fax,customer_address;
-    FloatingActionButton addCustomer,searchCustomers,clearCustomerForm;
+    FloatingActionButton addCustomer,searchCustomers,clearCustomerForm,reloadCustomersList;
 
     private ActivityCustomersBinding binding;
 
@@ -143,6 +143,25 @@ public class Customers extends AppCompatActivity {
                     binding.recyclerViewCustomers.setAdapter(customers_list_adapter);
                 }
             }
+        });
+
+        reloadCustomersList.setOnClickListener(view -> {
+
+            binding.recyclerViewCustomers.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
+            DBAdapter db = new DBAdapter(getApplicationContext());
+            ArrayList<Customer> customersList = db.retrieveCustomers();
+            CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersList);
+            if (customersList.isEmpty()) {
+                binding.recyclerViewCustomers.setVisibility(View.GONE);
+                findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                Toast reloatResultToast = Toast.makeText(getApplicationContext(), "Customers List is empty", Toast.LENGTH_LONG);
+                reloatResultToast.show();
+            } else {
+                findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                binding.recyclerViewCustomers.setVisibility(View.VISIBLE);
+                binding.recyclerViewCustomers.setAdapter(customers_list_adapter);
+            }
+
         });
 
         clearCustomerForm.setOnClickListener(view -> {
