@@ -141,6 +141,7 @@ public class Steels extends AppCompatActivity {
             }
         });
 
+        reloadSteelsList = findViewById(R.id.fab_refresh_steels_list);
         reloadSteelsList.setOnClickListener(view -> {
 
             recyclerViewSteels.set(findViewById(R.id.recycler_view_steels));
