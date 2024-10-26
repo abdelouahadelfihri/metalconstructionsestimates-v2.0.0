@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -128,9 +129,11 @@ public class Steels extends AppCompatActivity {
             }
 
             DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-            ArrayList<Steel> steels_list = dbAdapter.retrieveSteels();
+            ArrayList<Steel> steels_list = dbAdapter.searchSteels(steel);
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
+                Toast emptyResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                emptyResultToast.show();
                 recyclerViewSteels.get().setVisibility(View.GONE);
                 findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
             } else {
