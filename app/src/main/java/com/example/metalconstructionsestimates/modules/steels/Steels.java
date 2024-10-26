@@ -21,13 +21,15 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Steels extends AppCompatActivity {
     Intent intent;
     SteelsListAdapter steelsListAdapter;
     TextInputEditText steel_id,steel_type,steel_weight,steel_unit;
-    FloatingActionButton addSteel, searchSteels, clearSearchSteelForm;
+    FloatingActionButton addSteel, searchSteels, clearSearchSteelForm, reloadSteelsList;
     Spinner geometric_shape;
     ActivitySteelsBinding activitySteelsBinding;
 
@@ -72,7 +74,8 @@ public class Steels extends AppCompatActivity {
 
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Steel> steelsList = db.retrieveSteels();
-        RecyclerView recyclerViewSteels = findViewById(R.id.recycler_view_steels);
+        AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.recycler_view_steels));
+
         if (steelsList.isEmpty()) {
             activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
             activitySteelsBinding.emptyView.setVisibility(View.VISIBLE);
@@ -81,64 +84,77 @@ public class Steels extends AppCompatActivity {
             activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
             activitySteelsBinding.emptyView.setVisibility(View.GONE);
             steelsListAdapter = new SteelsListAdapter(this, steelsList);
-            recyclerViewSteels.setHasFixedSize(true);
-            recyclerViewSteels.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerViewSteels.setAdapter(steelsListAdapter);
+            recyclerViewSteels.get().setHasFixedSize(true);
+            recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerViewSteels.get().setAdapter(steelsListAdapter);
         }
 
 
 
         searchSteels = findViewById(R.id.fab_search_steels);
 
-        searchSteels.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                steel_id = (TextInputEditText) findViewById(R.id.editText_steel_id_steels);
-                steel_type = (TextInputEditText) findViewById(R.id.editText_steel_type_steels);
-                geometric_shape = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_steels);
-                steel_weight = (TextInputEditText) findViewById(R.id.editText_steel_weight_steels);
-                steel_unit = (TextInputEditText) findViewById(R.id.editText_steel_unit_steels);
-                Steel steel = new Steel();
-                if (!steel_id.getText().toString().isEmpty()) {
-                    steel.setId(Integer.parseInt(steel_id.getText().toString()));
-                } else {
-                    steel.setId(null);
-                }
-                if (!steel_type.getText().toString().isEmpty()) {
-                    steel.setType(steel_type.getText().toString());
-                } else {
-                    steel.setType(null);
-                }
-                if (!geometric_shape.getSelectedItem().toString().isEmpty() && (!geometric_shape.getSelectedItem().toString().equals("Family"))) {
-                    steel.setGeometricShape(geometric_shape.getSelectedItem().toString());
-                } else {
-                    steel.setGeometricShape(null);
-                }
-                if (!steel_weight.getText().toString().isEmpty()) {
-                    steel.setWeight(Float.parseFloat(steel_weight.getText().toString()));
-                } else {
-                    steel.setWeight(null);
-                }
+        searchSteels.setOnClickListener(view -> {
+            steel_id = findViewById(R.id.editText_steel_id_steels);
+            steel_type = findViewById(R.id.editText_steel_type_steels);
+            geometric_shape = findViewById(R.id.spinner_steel_geometric_shape_steels);
+            steel_weight = findViewById(R.id.editText_steel_weight_steels);
+            steel_unit = findViewById(R.id.editText_steel_unit_steels);
+            Steel steel = new Steel();
+            if (!Objects.requireNonNull(steel_id.getText()).toString().isEmpty()) {
+                steel.setId(Integer.parseInt(steel_id.getText().toString()));
+            } else {
+                steel.setId(null);
+            }
+            if (!Objects.requireNonNull(steel_type.getText()).toString().isEmpty()) {
+                steel.setType(steel_type.getText().toString());
+            } else {
+                steel.setType(null);
+            }
+            if (!geometric_shape.getSelectedItem().toString().isEmpty() && (!geometric_shape.getSelectedItem().toString().equals("Family"))) {
+                steel.setGeometricShape(geometric_shape.getSelectedItem().toString());
+            } else {
+                steel.setGeometricShape(null);
+            }
+            if (!Objects.requireNonNull(steel_weight.getText()).toString().isEmpty()) {
+                steel.setWeight(Float.parseFloat(steel_weight.getText().toString()));
+            } else {
+                steel.setWeight(null);
+            }
 
-                if (!steel_unit.getText().toString().isEmpty()) {
-                    steel.setUnit(steel_unit.getText().toString());
-                } else {
-                    steel.setUnit(null);
-                }
+            if (!Objects.requireNonNull(steel_unit.getText()).toString().isEmpty()) {
+                steel.setUnit(steel_unit.getText().toString());
+            } else {
+                steel.setUnit(null);
+            }
 
-                RecyclerView recyclerViewSteels = (RecyclerView) findViewById(R.id.recycler_view_steels);
-                DBAdapter db = new DBAdapter(getApplicationContext());
-                ArrayList<Steel> steelsList = db.searchSteels(steel);
-                steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList);
-                if (steelsList.isEmpty()) {
-                    recyclerViewSteels.setVisibility(View.GONE);
-                    findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.empty_view).setVisibility(View.GONE);
-                    recyclerViewSteels.setVisibility(View.VISIBLE);
-                    recyclerViewSteels.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    recyclerViewSteels.setAdapter(steelsListAdapter);
-                }
+            DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+            ArrayList<Steel> steels_list = dbAdapter.retrieveSteels();
+            steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
+            if (steels_list.isEmpty()) {
+                recyclerViewSteels.get().setVisibility(View.GONE);
+                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                recyclerViewSteels.get().setVisibility(View.VISIBLE);
+                recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerViewSteels.get().setAdapter(steelsListAdapter);
+            }
+        });
+
+        reloadSteelsList.setOnClickListener(view -> {
+
+            recyclerViewSteels.set(findViewById(R.id.recycler_view_steels));
+            DBAdapter db1 = new DBAdapter(getApplicationContext());
+            ArrayList<Steel> steelsList1 = db1.retrieveSteels();
+            steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList1);
+            if (steelsList1.isEmpty()) {
+                recyclerViewSteels.get().setVisibility(View.GONE);
+                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                recyclerViewSteels.get().setVisibility(View.VISIBLE);
+                recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerViewSteels.get().setAdapter(steelsListAdapter);
             }
         });
 
