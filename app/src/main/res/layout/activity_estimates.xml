@@ -168,6 +168,20 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_refresh_estimates_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/clear"
+        app:backgroundTint="#4F5EB1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_popup_sync"
+        app:tint="@color/fabIconTint" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_clear_estimate_form"
         android:layout_width="wrap_content"
@@ -176,7 +190,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/clear"
         app:backgroundTint="#4F5EB1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fab_refresh_estimates_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
         app:tint="@color/fabIconTint" />
