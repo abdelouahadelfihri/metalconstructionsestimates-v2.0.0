@@ -145,9 +145,9 @@ public class Steels extends AppCompatActivity {
 
             recyclerViewSteels.set(findViewById(R.id.recycler_view_steels));
             DBAdapter db1 = new DBAdapter(getApplicationContext());
-            ArrayList<Steel> steelsList1 = db1.retrieveSteels();
-            steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList1);
-            if (steelsList1.isEmpty()) {
+            ArrayList<Steel> steels_list = db1.retrieveSteels();
+            steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
+            if (steels_list.isEmpty()) {
                 recyclerViewSteels.get().setVisibility(View.GONE);
                 findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
             } else {
