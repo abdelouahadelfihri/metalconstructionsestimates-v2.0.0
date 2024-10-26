@@ -60,6 +60,7 @@ public class Customers extends AppCompatActivity {
         addCustomer = findViewById(R.id.fab_add_customer);
         searchCustomers = findViewById(R.id.fab_search_customer);
         clearCustomerForm = findViewById(R.id.fab_clear_customer_form);
+        reloadCustomersList = findViewById(R.id.fab_refresh_customers_list);
 
         addCustomer.setOnClickListener(view -> {
             Intent intent = new Intent(Customers.this, AddCustomer.class);
