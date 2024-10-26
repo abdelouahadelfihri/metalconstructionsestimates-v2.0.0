@@ -315,7 +315,7 @@ public class Estimates extends AppCompatActivity {
                 if(estimatesSearchList.isEmpty()){
                     activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
                     activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "La recherche n'a retourné aucun résultat", Toast.LENGTH_LONG);
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
                 }
                 else{
