@@ -217,6 +217,7 @@ public class Estimates extends AppCompatActivity {
         FloatingActionButton clearEstimateForm = findViewById(R.id.fab_clear_estimate_form);
         FloatingActionButton addEstimate = findViewById(R.id.fab_add_estimate);
         FloatingActionButton searchEstimate = findViewById(R.id.fab_search_estimates);
+        FloatingActionButton reloadEstimatesList = findViewById(R.id.fab_refresh_estimates_list);
 
         searchEstimate.setOnClickListener(view -> {
             estimate_id = findViewById(R.id.editText_estimate_id_estimates);
@@ -323,6 +324,26 @@ public class Estimates extends AppCompatActivity {
                     estimateListAdapter.updateEstimates(estimatesSearchList);
                 }
             }
+        });
+
+        reloadEstimatesList.setOnClickListener(view -> {
+
+            DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+
+            ArrayList<Estimate> estimatesSearchList = dbAdapter.retrieveEstimates();
+
+            if(estimatesSearchList.isEmpty()){
+                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                Toast reloadResultToast = Toast.makeText(getApplicationContext(), "Estimates list is empty", Toast.LENGTH_LONG);
+                reloadResultToast.show();
+            }
+            else{
+                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                estimateListAdapter.updateEstimates(estimatesSearchList);
+            }
+
         });
 
         addEstimate.setOnClickListener(view -> {
