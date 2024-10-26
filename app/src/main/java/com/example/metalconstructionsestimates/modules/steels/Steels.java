@@ -160,53 +160,47 @@ public class Steels extends AppCompatActivity {
 
         addSteel = findViewById(R.id.fab_add_steel);
 
-        addSteel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(Steels.this, AddSteel.class);
-                startActivity(intent);
-            }
+        addSteel.setOnClickListener(view -> {
+            intent = new Intent(Steels.this, AddSteel.class);
+            startActivity(intent);
         });
 
         clearSearchSteelForm = findViewById(R.id.fab_clear_steel_form);
 
-        clearSearchSteelForm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DBAdapter db;
+        clearSearchSteelForm.setOnClickListener(view -> {
+            DBAdapter db2;
 
-                ArrayList<Steel> steelsList;
-                SteelsListAdapter steelsListAdapter;
-                steel_id = (TextInputEditText) findViewById(R.id.editText_steel_id_steels);
-                steel_type = (TextInputEditText) findViewById(R.id.editText_steel_type_steels);
-                geometric_shape = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_steels);
-                steel_weight = (TextInputEditText) findViewById(R.id.editText_steel_weight_steels);
-                steel_unit = (TextInputEditText) findViewById(R.id.editText_steel_unit_steels);
-                steel_id.getText().clear();
-                steel_type.getText().clear();
-                geometric_shape.setSelection(0);
-                steel_weight.getText().clear();
-                steel_unit.getText().clear();
+            ArrayList<Steel> steelsList1;
+            SteelsListAdapter steelsListAdapter;
+            steel_id = findViewById(R.id.editText_steel_id_steels);
+            steel_type = findViewById(R.id.editText_steel_type_steels);
+            geometric_shape = findViewById(R.id.spinner_steel_geometric_shape_steels);
+            steel_weight = findViewById(R.id.editText_steel_weight_steels);
+            steel_unit = findViewById(R.id.editText_steel_unit_steels);
+            steel_id.getText().clear();
+            steel_type.getText().clear();
+            geometric_shape.setSelection(0);
+            steel_weight.getText().clear();
+            steel_unit.getText().clear();
 
-                db = new DBAdapter(getApplicationContext());
+            db2 = new DBAdapter(getApplicationContext());
 
-                steelsList = db.retrieveSteels();
+            steelsList1 = db2.retrieveSteels();
 
-                RecyclerView recyclerViewSteels = findViewById(R.id.recycler_view_steels);
+            RecyclerView recyclerViewSteels1 = findViewById(R.id.recycler_view_steels);
 
-                if (steelsList.isEmpty()) {
+            if (steelsList1.isEmpty()) {
 
-                    recyclerViewSteels.setVisibility(View.GONE);
-                    findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                recyclerViewSteels1.setVisibility(View.GONE);
+                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 
-                } else {
+            } else {
 
-                    findViewById(R.id.empty_view).setVisibility(View.GONE);
-                    recyclerViewSteels.setVisibility(View.VISIBLE);
-                    steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList);
-                    recyclerViewSteels.setAdapter(steelsListAdapter);
+                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                recyclerViewSteels1.setVisibility(View.VISIBLE);
+                steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList1);
+                recyclerViewSteels1.setAdapter(steelsListAdapter);
 
-                }
             }
         });
     }
