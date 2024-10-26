@@ -132,8 +132,8 @@ public class Steels extends AppCompatActivity {
             ArrayList<Steel> steels_list = dbAdapter.searchSteels(steel);
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
-                Toast emptyResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                emptyResultToast.show();
+                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                searchResultToast.show();
                 recyclerViewSteels.get().setVisibility(View.GONE);
                 findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
             } else {
