@@ -136,7 +136,7 @@ public class Customers extends AppCompatActivity {
                 if (customersList.isEmpty()) {
                     binding.recyclerViewCustomers.setVisibility(View.GONE);
                     findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Empty Search Result", Toast.LENGTH_LONG);
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
                 } else {
                     findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
