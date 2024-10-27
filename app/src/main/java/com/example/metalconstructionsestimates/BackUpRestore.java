@@ -47,8 +47,8 @@ public class BackUpRestore extends GoogleDriveActivity {
     private static final String GOOGLE_DRIVE_DB_LOCATION = "db";
     IntermediateDBAdapter intermediateDBAdapter;
     DBAdapter dbAdapter;
-    public static final String INTERMEDIATE_DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/estimatesdb";
-    public static final String DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/intermediateestimatesdb";
+    public static final String INTERMEDIATE_DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/intermediateestimatesdb";
+    public static final String DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/estimatesdb" ;
     private GoogleDriveApiDataRepository googleDriveRepository;
 
 
