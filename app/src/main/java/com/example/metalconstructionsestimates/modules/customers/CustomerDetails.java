@@ -63,6 +63,9 @@ public class CustomerDetails extends AppCompatActivity {
                 adapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText12.getText().toString()));
                 Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
                 deletesuccess.show();
+                if(adapter.retrieveCustomers().isEmpty()){
+                    adapter.setSeqCustomers();
+                }
             });
             alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
