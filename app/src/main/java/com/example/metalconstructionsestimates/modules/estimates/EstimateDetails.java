@@ -244,6 +244,9 @@ public class EstimateDetails extends AppCompatActivity {
                         dbAdapter.deleteEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
                         Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Suppression du devis a été effectuée avec succés", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
+                        if(dbAdapter.retrieveEstimates().isEmpty()){
+                            dbAdapter.setSeqEstimates();
+                        }
                     }
                 });
                 alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
