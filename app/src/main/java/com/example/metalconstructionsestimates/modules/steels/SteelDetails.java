@@ -164,6 +164,11 @@ public class SteelDetails extends AppCompatActivity {
                         dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
                         Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "La suppression de l\'acier a été effectuée avec succés", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
+
+                        if(dbAdapter.retrieveSteels().isEmpty()){
+                            dbAdapter.setSeqSteels();
+                        }
+
                         intent = new Intent(SteelDetails.this, Steels.class);
                         startActivity(intent);
                     }
