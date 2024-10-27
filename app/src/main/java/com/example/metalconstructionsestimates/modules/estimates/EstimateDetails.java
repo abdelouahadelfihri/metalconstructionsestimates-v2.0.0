@@ -18,6 +18,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.metalconstructionsestimates.modules.steels.SteelDetails;
+import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -244,9 +246,13 @@ public class EstimateDetails extends AppCompatActivity {
                         dbAdapter.deleteEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
                         Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Suppression du devis a été effectuée avec succés", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
+
                         if(dbAdapter.retrieveEstimates().isEmpty()){
                             dbAdapter.setSeqEstimates();
                         }
+
+                        Intent intent = new Intent(EstimateDetails.this, Estimates.class);
+                        startActivity(intent);
                     }
                 });
                 alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
