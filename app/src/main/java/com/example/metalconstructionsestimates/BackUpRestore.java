@@ -91,6 +91,8 @@ public class BackUpRestore extends GoogleDriveActivity {
                 BackUpRestore.this.showMessage("Google Drive sign in failed");
             }
             else {
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                SQLiteDatabase estimatesDatabase = dbHelper.getWritableDatabase();
                 googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                         .addOnSuccessListener(r -> BackUpRestore.this.showMessage("Upload success"))
                         .addOnFailureListener(e -> {

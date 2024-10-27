@@ -53,10 +53,10 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Steel steel = steelsList.get(position);
-        String steelId = "Id Acier : " + steel.getId().toString();
-        String steelType = "Type Acier : " + steel.getType();
-        String geometricShape = "Forme Géometrique : " + steel.getGeometricShape();
-        String steelWeight = "Poids : " + steel.getWeight().toString();
+        String steelId = "Steel Id : " + steel.getId().toString();
+        String steelType = "Steel Type : " + steel.getType();
+        String geometricShape = "Geometric Shape : " + steel.getGeometricShape();
+        String steelWeight = "Weight : " + steel.getWeight().toString();
         holder.textViewSteelId.setText(steelId);
         holder.textViewSteelType.setText(steelType);
         holder.textViewGeometricShape.setText(geometricShape);
