@@ -29,9 +29,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Steels extends AppCompatActivity {
     Intent intent;
     SteelsListAdapter steelsListAdapter;
-    TextInputEditText steel_id,steel_type,steel_weight,steel_unit;
+    TextInputEditText steel_id,steel_type,steel_weight;
     FloatingActionButton addSteel, searchSteels, clearSearchSteelForm, reloadSteelsList;
-    Spinner geometric_shape;
+    Spinner geometric_shape, steel_unit;
     ActivitySteelsBinding activitySteelsBinding;
 
 
@@ -53,16 +53,16 @@ public class Steels extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
-                TextInputEditText unitTextInputEditText = findViewById(R.id.editText_steel_unit_steels);
+                Spinner unitSpinner = findViewById(R.id.spinner_steel_unit_steels);
                 switch(item.toString()){
                     case "Profile":
-                        unitTextInputEditText.setText("Meter");
+                        unitSpinner.setSelection(1);
                         break;
                     case "Surface":
-                        unitTextInputEditText.setText("Square Meter");
+                        unitSpinner.setSelection(2);
                         break;
                     case "Volume":
-                        unitTextInputEditText.setText("Cubic Meter");
+                        unitSpinner.setSelection(3);
                         break;
                 }
             }
@@ -71,6 +71,11 @@ public class Steels extends AppCompatActivity {
 
             }
         });
+
+        steel_unit = findViewById(R.id.spinner_steel_unit_steels);
+        ArrayAdapter<CharSequence> adapterUnit = ArrayAdapter.createFromResource(getApplicationContext(), R.array.geometric_shapes, android.R.layout.simple_spinner_item);
+        adapterUnit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        steel_unit.setAdapter(adapterUnit);
 
 
         DBAdapter db = new DBAdapter(getApplicationContext());
@@ -99,7 +104,7 @@ public class Steels extends AppCompatActivity {
             steel_type = findViewById(R.id.editText_steel_type_steels);
             geometric_shape = findViewById(R.id.spinner_steel_geometric_shape_steels);
             steel_weight = findViewById(R.id.editText_steel_weight_steels);
-            steel_unit = findViewById(R.id.editText_steel_unit_steels);
+            steel_unit = findViewById(R.id.spinner_steel_unit_steels);
             Steel steel = new Steel();
             if (!Objects.requireNonNull(steel_id.getText()).toString().isEmpty()) {
                 steel.setId(Integer.parseInt(steel_id.getText().toString()));
@@ -111,6 +116,7 @@ public class Steels extends AppCompatActivity {
             } else {
                 steel.setType(null);
             }
+
             if (!geometric_shape.getSelectedItem().toString().isEmpty() && (!geometric_shape.getSelectedItem().toString().equals("Family"))) {
                 steel.setGeometricShape(geometric_shape.getSelectedItem().toString());
             } else {
@@ -122,8 +128,8 @@ public class Steels extends AppCompatActivity {
                 steel.setWeight(null);
             }
 
-            if (!Objects.requireNonNull(steel_unit.getText()).toString().isEmpty()) {
-                steel.setUnit(steel_unit.getText().toString());
+            if (!steel_unit.getSelectedItem().toString().isEmpty() && (!steel_unit.getSelectedItem().toString().equals("Unit"))) {
+                steel.setUnit(steel_unit.getSelectedItem().toString());
             } else {
                 steel.setUnit(null);
             }
@@ -180,12 +186,12 @@ public class Steels extends AppCompatActivity {
             steel_type = findViewById(R.id.editText_steel_type_steels);
             geometric_shape = findViewById(R.id.spinner_steel_geometric_shape_steels);
             steel_weight = findViewById(R.id.editText_steel_weight_steels);
-            steel_unit = findViewById(R.id.editText_steel_unit_steels);
+            steel_unit = findViewById(R.id.spinner_steel_unit_steels);
             steel_id.getText().clear();
             steel_type.getText().clear();
             geometric_shape.setSelection(0);
             steel_weight.getText().clear();
-            steel_unit.getText().clear();
+            steel_unit.setSelection(0);
 
             db2 = new DBAdapter(getApplicationContext());
 
