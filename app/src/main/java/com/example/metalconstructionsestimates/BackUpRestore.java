@@ -314,6 +314,7 @@ public class BackUpRestore extends GoogleDriveActivity {
             customer.setTelephone(customersListFromIntermediateDB.get(i).getTelephone());
             customer.setMobile(customersListFromIntermediateDB.get(i).getMobile());
             customer.setFax(customersListFromIntermediateDB.get(i).getFax());
+            customer.setAddress(customersListFromIntermediateDB.get(i).getAddress());
 
             if (dbAdapter.getCustomerById(customerId) == null) {
                 dbAdapter.saveCustomer(customer);
