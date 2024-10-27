@@ -45,10 +45,10 @@ public class SteelDetails extends AppCompatActivity {
         steelGeometricShapeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelGeometricShapeSpinner.setAdapter(steelGeometricShapeSpinnerAdapter);
         TextInputEditText steelWeightTextInputEditText = findViewById(R.id.editText_steel_weight_steel_details);
-        Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
-        ArrayAdapter<CharSequence> steelGeometricShapeSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
-        steelGeometricShapeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        steelGeometricShapeSpinner.setAdapter(steelGeometricShapeSpinnerAdapter);
+        Spinner steelUnitSpinner = findViewById(R.id.spinner_steel_unit_steel_details);
+        ArrayAdapter<CharSequence> steelUnitSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
+        steelUnitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        steelUnitSpinner.setAdapter(steelUnitSpinnerAdapter);
         steelIdTextInputEditText.setText(steelId.toString());
         steelTypeTextInputEditText.setText(steel.getType());
 
@@ -74,13 +74,21 @@ public class SteelDetails extends AppCompatActivity {
         }
 
         if(steel.getUnit().isEmpty()){
-            steelUnitTextInputEditText.setText("");
+            steelUnitSpinner.setSelection(0);
         }
         else{
-            steelUnitTextInputEditText.setText(steel.getUnit());
+            switch(steel.getUnit()){
+                case "Meter":
+                    steelUnitSpinner.setSelection(1);
+                case "Square Meter":
+                    steelUnitSpinner.setSelection(2);
+                case "Cubic Meter":
+                    steelUnitSpinner.setSelection(3);
+
+            }
         }
 
-        updateDeleteButtons = (UpdateDeleteButtons) findViewById(R.id.steels_details_update_delete_buttons);
+        updateDeleteButtons = findViewById(R.id.steels_details_update_delete_buttons);
         Button updateSteel = updateDeleteButtons.getUpdateButton();
 
         updateSteel.setOnClickListener(new View.OnClickListener() {
@@ -95,9 +103,9 @@ public class SteelDetails extends AppCompatActivity {
                         steel = new Steel();
                         TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_id_steel_details);
                         TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_type_steel_details);
-                        Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_steel_details);
-                        TextInputEditText weightTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_weight_steel_details);
-                        TextInputEditText unitTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_unit_steel_details);
+                        Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
+                        TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_steel_details);
+                        Spinner unitSpinner = findViewById(R.id.spinner_steel_unit_steel_details);
                         steel.setId(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
 
                         if (!steelTypeTextInputEditText.getText().toString().isEmpty()) {
@@ -118,8 +126,8 @@ public class SteelDetails extends AppCompatActivity {
                             steel.setWeight(null);
                         }
 
-                        if (!unitTextInputEditText.getText().toString().isEmpty()) {
-                            steel.setUnit(unitTextInputEditText.getText().toString());
+                        if (!steelUnitSpinner.getSelectedItem().toString().isEmpty()) {
+                            steel.setUnit(steelUnitSpinner.getSelectedItem().toString());
                         } else {
                             steel.setUnit("");
                         }
