@@ -122,6 +122,7 @@ public class Steels extends AppCompatActivity {
             } else {
                 steel.setGeometricShape(null);
             }
+
             if (!Objects.requireNonNull(steel_weight.getText()).toString().isEmpty()) {
                 steel.setWeight(Float.parseFloat(steel_weight.getText().toString()));
             } else {
