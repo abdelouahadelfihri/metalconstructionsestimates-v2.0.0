@@ -73,7 +73,7 @@ public class Steels extends AppCompatActivity {
         });
 
         steel_unit = findViewById(R.id.spinner_steel_unit_steels);
-        ArrayAdapter<CharSequence> adapterUnit = ArrayAdapter.createFromResource(getApplicationContext(), R.array.geometric_shapes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterUnit = ArrayAdapter.createFromResource(getApplicationContext(), R.array.units, android.R.layout.simple_spinner_item);
         adapterUnit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steel_unit.setAdapter(adapterUnit);
 
