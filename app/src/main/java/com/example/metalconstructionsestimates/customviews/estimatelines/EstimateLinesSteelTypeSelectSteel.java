@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.example.metalconstructionsestimates.R;
 
-public class EstimateLinesSteelIdSelectSteel extends LinearLayout {
+public class EstimateLinesSteelTypeSelectSteel extends LinearLayout {
     private TextInputEditText editTextSteelType;
     private Button selectSteelButton;
 
@@ -22,7 +22,7 @@ public class EstimateLinesSteelIdSelectSteel extends LinearLayout {
         return selectSteelButton;
     }
 
-    public EstimateLinesSteelIdSelectSteel(Context context, AttributeSet attrs){
+    public EstimateLinesSteelTypeSelectSteel(Context context, AttributeSet attrs){
         super(context, attrs);
         init();
     }

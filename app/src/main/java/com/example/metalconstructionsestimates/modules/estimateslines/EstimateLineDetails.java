@@ -23,7 +23,7 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
 
-import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelIdSelectSteel;
+import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel;
 import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesLengthWidthHeight;
 import com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons;
 
@@ -39,7 +39,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
-    EstimateLinesSteelIdSelectSteel estimateLinesSteelIdSelectSteel;
+    EstimateLinesSteelTypeSelectSteel estimateLinesSteelIdSelectSteel;
     EstimateLinesLengthWidthHeight estimateLinesLengthWidthHeight;
     UpdateDeleteButtons updateDeleteButtons;
 
@@ -52,7 +52,7 @@ public class EstimateLineDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         estimateLinesLengthWidthHeight = (EstimateLinesLengthWidthHeight) findViewById(R.id.estimate_lines_details_length_width_height);
-        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelIdSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
+        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
         TextInputEditText estimateLineIdTextInputEditText = findViewById(R.id.editText_estimate_line_id_estimate_line_details);
         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
         AtomicReference<TextInputEditText> steelIdTextInputEditText = new AtomicReference<>(estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId());
@@ -310,7 +310,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
         Button updateEstimateLine = updateDeleteButtons.getUpdateButton();
         Button deleteEstimateLine = updateDeleteButtons.getDeleteButton();
-        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelIdSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
+        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
         Button selectSteel = estimateLinesSteelIdSelectSteel.getSelectSteelButton();
 
         selectSteel.setOnClickListener(new View.OnClickListener() {

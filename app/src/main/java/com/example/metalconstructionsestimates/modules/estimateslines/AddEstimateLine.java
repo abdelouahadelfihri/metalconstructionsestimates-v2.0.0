@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesLengthWidthHeight;
-import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelIdSelectSteel;
+import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
 import com.example.metalconstructionsestimates.models.Estimate;
@@ -33,7 +33,7 @@ import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 public class AddEstimateLine extends AppCompatActivity {
     Intent intent;
     DBAdapter dbAdapter;
-    EstimateLinesSteelIdSelectSteel estimateLinesSteelIdSelectSteel;
+    EstimateLinesSteelTypeSelectSteel estimateLinesSteelIdSelectSteel;
     EstimateLinesLengthWidthHeight estimateLinesLengthWidthHeight;
     public ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;

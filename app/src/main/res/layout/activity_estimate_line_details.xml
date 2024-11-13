@@ -65,7 +65,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelIdSelectSteel
+                <com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel
                     android:id="@+id/estimate_lines_details_steel_id_select_steel"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
