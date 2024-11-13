@@ -14,7 +14,6 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentDayEstimatesBinding;
 
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
