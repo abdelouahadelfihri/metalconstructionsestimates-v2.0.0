@@ -46,10 +46,10 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
 
         Estimate estimate = estimates.get(position);
 
-        String estimateId = "Id Devis : " + estimate.getId().toString();
-        String estimateCreationDate = "Date Création : " + estimate.getIssueDate();
-        String estimateDoneIn = "Fait à : " + estimate.getDoneIn();
-        String estimateTotalAllTaxIncluded = "Total TTC : " + estimate.getAllTaxIncludedTotal().toString();
+        String estimateId = "Estimate Id : " + estimate.getId().toString();
+        String estimateCreationDate = "Issue Date : " + estimate.getIssueDate();
+        String estimateDoneIn = "Location : " + estimate.getDoneIn();
+        String estimateTotalAllTaxIncluded = "Incl. VAT : " + estimate.getAllTaxIncludedTotal().toString();
 
         holder.estimateIdTextView.setText(estimateId);
         holder.estimateCreationDateTextView.setText(estimateCreationDate);
