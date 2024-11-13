@@ -11,11 +11,11 @@ import android.widget.LinearLayout;
 import com.example.metalconstructionsestimates.R;
 
 public class EstimateLinesSteelIdSelectSteel extends LinearLayout {
-    private TextInputEditText editTextSteelId;
+    private TextInputEditText editTextSteelType;
     private Button selectSteelButton;
 
-    public TextInputEditText getTextInputEditTextSteelId(){
-        return editTextSteelId;
+    public TextInputEditText getTextInputEditTextSteelType(){
+        return editTextSteelType;
     }
 
     public Button getSelectSteelButton(){
@@ -29,7 +29,7 @@ public class EstimateLinesSteelIdSelectSteel extends LinearLayout {
 
     private void init(){
         LayoutInflater.from(getContext()).inflate(R.layout.estimate_lines_steel_id_select_steel, this, true);
-        editTextSteelId = findViewById(R.id.editText_steel_id_textInputEditText);
+        editTextSteelType = findViewById(R.id.editText_steel_id_textInputEditText);
         selectSteelButton = findViewById(R.id.button_select_steel);
     }
 }
