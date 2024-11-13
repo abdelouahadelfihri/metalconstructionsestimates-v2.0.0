@@ -105,12 +105,15 @@ public class Steels extends AppCompatActivity {
             geometric_shape = findViewById(R.id.spinner_steel_geometric_shape_steels);
             steel_weight = findViewById(R.id.editText_steel_weight_steels);
             steel_unit = findViewById(R.id.spinner_steel_unit_steels);
+
             Steel steel = new Steel();
+
             if (!Objects.requireNonNull(steel_id.getText()).toString().isEmpty()) {
                 steel.setId(Integer.parseInt(steel_id.getText().toString()));
             } else {
                 steel.setId(null);
             }
+
             if (!Objects.requireNonNull(steel_type.getText()).toString().isEmpty()) {
                 steel.setType(steel_type.getText().toString());
             } else {
