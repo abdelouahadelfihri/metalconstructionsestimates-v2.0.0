@@ -21,7 +21,7 @@
             app:titleTextColor="@android:color/white" />
 
         <com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel
-            android:id="@+id/estimate_lines_steel_id_select_steel_add_estimate_line"
+            android:id="@+id/estimate_lines_steel_type_select_steel_add_estimate_line"
             android:layout_width="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_height="48dp"

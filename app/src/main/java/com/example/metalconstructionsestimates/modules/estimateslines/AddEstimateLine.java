@@ -29,11 +29,13 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 
+import java.util.Objects;
+
 
 public class AddEstimateLine extends AppCompatActivity {
     Intent intent;
     DBAdapter dbAdapter;
-    EstimateLinesSteelTypeSelectSteel estimateLinesSteelIdSelectSteel;
+    EstimateLinesSteelTypeSelectSteel estimateLinesSteelTypeSelectSteel;
     EstimateLinesLengthWidthHeight estimateLinesLengthWidthHeight;
     public ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;
@@ -52,10 +54,10 @@ public class AddEstimateLine extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         estimateId = Integer.parseInt(getIntent().getStringExtra("estimateIdExtra"));
-        estimateLinesSteelIdSelectSteel = findViewById(R.id.estimate_lines_steel_id_select_steel_add_estimate_line);
+        estimateLinesSteelTypeSelectSteel = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
         estimateLinesLengthWidthHeight = findViewById(R.id.length_width_height_add_estimate_line);
 
-        TextInputEditText steelIdTextInputEditText = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
+        TextInputEditText steelTypeTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
         TextInputEditText weightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
         TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
         TextInputEditText widthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
@@ -78,7 +80,7 @@ public class AddEstimateLine extends AppCompatActivity {
                             // get String data from Intent
                             Float total, netQuantityPlusMargin, totalPrice;
                             String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
-                            Integer steelId = Integer.parseInt(steelIdExtraResult);
+                            steelId = Integer.parseInt(steelIdExtraResult);
 
                             Steel steel;
                             dbAdapter = new DBAdapter(getApplicationContext());
@@ -86,7 +88,7 @@ public class AddEstimateLine extends AppCompatActivity {
 
                             geometricShape = steel.getGeometricShape();
 
-                            steelIdTextInputEditText.setText(steelId.toString());
+                            steelTypeTextInputEditText.setText(steel.getType());
 
 
                             if (steel.getWeight() == null) {
@@ -199,40 +201,37 @@ public class AddEstimateLine extends AppCompatActivity {
                 }
         );
 
-        addClearButtons = (AddClearButtons) findViewById(R.id.add_clear_buttons_add_estimate_line);
+        addClearButtons = findViewById(R.id.add_clear_buttons_add_estimate_line);
         Button addEstimateLine = addClearButtons.getAddButton();
         Button clearEstimateLineForm = addClearButtons.getClearButton();
 
-        clearEstimateLineForm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextInputEditText steelIdTextInputEditText = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
-                TextInputEditText steelWeightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
-                estimateLinesLengthWidthHeight = findViewById(R.id.length_width_height_add_estimate_line);
-                TextInputEditText steelLengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
-                TextInputEditText steelWidthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
-                TextInputEditText steelHeightTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
-                TextInputEditText steelQuantityTextInputEditText = findViewById(R.id.textInputEditText_quantity_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.textInputEditText_total_add_estimate_line);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.textInputEditText_margin_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
-                steelIdTextInputEditText.getText().clear();
-                steelWeightTextInputEditText.getText().clear();
-                steelLengthTextInputEditText.getText().clear();
-                steelWidthTextInputEditText.getText().clear();
-                steelHeightTextInputEditText.getText().clear();
-                steelQuantityTextInputEditText.getText().clear();
-                totalTextInputEditText.getText().clear();
-                marginTextInputEditText.getText().clear();
-                netQuantityPlusMarginTextInputEditText.getText().clear();
-                unitPriceTextInputEditText.getText().clear();
-                totalPriceTextInputEditText.getText().clear();
-            }
+        clearEstimateLineForm.setOnClickListener(view -> {
+            TextInputEditText steelTypeTextInputEditText1 = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
+            TextInputEditText steelWeightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
+            estimateLinesLengthWidthHeight = findViewById(R.id.length_width_height_add_estimate_line);
+            TextInputEditText steelLengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
+            TextInputEditText steelWidthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
+            TextInputEditText steelHeightTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
+            TextInputEditText steelQuantityTextInputEditText = findViewById(R.id.textInputEditText_quantity_add_estimate_line);
+            TextInputEditText totalTextInputEditText1 = findViewById(R.id.textInputEditText_total_add_estimate_line);
+            TextInputEditText marginTextInputEditText1 = findViewById(R.id.textInputEditText_margin_add_estimate_line);
+            TextInputEditText netQuantityPlusMarginTextInputEditText1 = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
+            TextInputEditText unitPriceTextInputEditText1 = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
+            TextInputEditText totalPriceTextInputEditText1 = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
+            Objects.requireNonNull(steelTypeTextInputEditText1.getText()).clear();
+            Objects.requireNonNull(steelWeightTextInputEditText.getText()).clear();
+            Objects.requireNonNull(steelLengthTextInputEditText.getText()).clear();
+            Objects.requireNonNull(steelWidthTextInputEditText.getText()).clear();
+            Objects.requireNonNull(steelHeightTextInputEditText.getText()).clear();
+            Objects.requireNonNull(steelQuantityTextInputEditText.getText()).clear();
+            Objects.requireNonNull(totalTextInputEditText1.getText()).clear();
+            Objects.requireNonNull(marginTextInputEditText1.getText()).clear();
+            Objects.requireNonNull(netQuantityPlusMarginTextInputEditText1.getText()).clear();
+            Objects.requireNonNull(unitPriceTextInputEditText1.getText()).clear();
+            Objects.requireNonNull(totalPriceTextInputEditText1.getText()).clear();
         });
 
-        Button selectSteel = estimateLinesSteelIdSelectSteel.getSelectSteelButton();
+        Button selectSteel = estimateLinesSteelTypeSelectSteel.getSelectSteelButton();
 
         selectSteel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,11 +251,11 @@ public class AddEstimateLine extends AppCompatActivity {
                 TextInputEditText steelLengthTextInputEditText;
                 TextInputEditText steelHeightTextInputEditText;
                 TextInputEditText unitPriceTextInputEditText;
-                TextInputEditText steelIdTextInputEditText;
+                TextInputEditText steelTypeTextInputEditText;
                 TextInputEditText steelQuantityTextInputEditText;
                 TextInputEditText steelWidthTextInputEditText;
                 EstimateLine estimateLine = new EstimateLine();
-                steelIdTextInputEditText = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
+                steelTypeTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
                 estimateLinesLengthWidthHeight = findViewById(R.id.length_width_height_add_estimate_line);
                 steelLengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
                 steelWidthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
@@ -268,106 +267,113 @@ public class AddEstimateLine extends AppCompatActivity {
                 netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
                 unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
                 totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
-                if (steelIdTextInputEditText.getText().toString().isEmpty()) {
-                    Toast steelEmptyToast = Toast.makeText(getApplication(), "Veuillez renseigner l\'acier", Toast.LENGTH_LONG);
+
+                if (Objects.requireNonNull(steelTypeTextInputEditText.getText()).toString().isEmpty()) {
+                    Toast steelEmptyToast = Toast.makeText(getApplication(), "Steel type empty", Toast.LENGTH_LONG);
                     steelEmptyToast.show();
                 } else {
-                    estimateLine.setSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
-                    estimateLine.setEstimate(estimateId);
-                    if (!steelWeightTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setWeight(Float.parseFloat(steelWeightTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setWeight(null);
+                    if(dbAdapter.getSteelByType(steelTypeTextInputEditText.getText().toString()) == null){
+                        Toast steelEmptyToast = Toast.makeText(getApplication(), "Steel does not exist in database", Toast.LENGTH_LONG);
+                        steelEmptyToast.show();
                     }
-
-                    if (!steelLengthTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setLength(Float.parseFloat(steelLengthTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setLength(null);
-                    }
-
-                    if (!steelWidthTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setWidth(Float.parseFloat(steelWidthTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setWidth(null);
-                    }
-
-                    if (!steelHeightTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setHeight(Float.parseFloat(steelHeightTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setHeight(null);
-                    }
-
-                    if (!steelQuantityTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setQuantity(Integer.parseInt(steelQuantityTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setQuantity(null);
-                    }
-
-                    if (!totalTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setTotal(Float.parseFloat(totalTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setTotal(null);
-                    }
-
-                    if (!marginTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setMargin(Integer.parseInt(marginTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setMargin(null);
-                    }
-
-                    if (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setNetQuantityPlusMargin(Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setNetQuantityPlusMargin(null);
-                    }
-
-                    if (!unitPriceTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setUnitPrice(Float.parseFloat(unitPriceTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setUnitPrice(null);
-                    }
-
-                    if (!totalPriceTextInputEditText.getText().toString().isEmpty()) {
-                        estimateLine.setTotalPrice(Float.parseFloat(totalPriceTextInputEditText.getText().toString()));
-                    } else {
-                        estimateLine.setTotalPrice(null);
-                    }
-
-                    dbAdapter.saveEstimateLine(estimateLine);
-                    Toast saveResultToast;
-                    saveResultToast = Toast.makeText(getApplicationContext(),
-                            "La ligne de devis a été enregistrer avec succés", Toast.LENGTH_LONG);
-                    saveResultToast.show();
-                    Float estimateExcludingTaxTotal = dbAdapter.getEstimateExcludingTaxTotal(estimateId);
-                    Float excludingTaxTotalAfterDiscount;
-                    Float allTaxIncludedTotal;
-                    Estimate estimate;
-                    estimate = dbAdapter.getEstimateById(estimateId);
-                    estimate.setExcludingTaxTotal(estimateExcludingTaxTotal);
-                    if (estimate.getDiscount() != null) {
-                        excludingTaxTotalAfterDiscount = estimateExcludingTaxTotal - estimateExcludingTaxTotal * (estimate.getDiscount() / 100);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        if (estimate.getVat() != null) {
-                            allTaxIncludedTotal = excludingTaxTotalAfterDiscount + excludingTaxTotalAfterDiscount * estimate.getVat()/100;
+                    else{
+                        estimateLine.setSteel(steelId);
+                        estimateLine.setEstimate(estimateId);
+                        if (!Objects.requireNonNull(steelWeightTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setWeight(Float.parseFloat(steelWeightTextInputEditText.getText().toString()));
                         } else {
-                            allTaxIncludedTotal = excludingTaxTotalAfterDiscount;
+                            estimateLine.setWeight(null);
                         }
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                    } else {
-                        estimate.setExcludingTaxTotalAfterDiscount(estimateExcludingTaxTotal);
-                        if (estimate.getVat() != null) {
-                            allTaxIncludedTotal = estimateExcludingTaxTotal + estimateExcludingTaxTotal * estimate.getVat()/100;
-                        } else {
-                            allTaxIncludedTotal = estimateExcludingTaxTotal;
-                        }
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                    }
 
-                    dbAdapter.updateEstimate(estimate);
-                    intent = new Intent(AddEstimateLine.this, EstimateDetails.class);
-                    intent.putExtra("estimateIdExtra", estimateId.toString());
-                    startActivity(intent);
+                        if (!Objects.requireNonNull(steelLengthTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setLength(Float.parseFloat(steelLengthTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setLength(null);
+                        }
+
+                        if (!Objects.requireNonNull(steelWidthTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setWidth(Float.parseFloat(steelWidthTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setWidth(null);
+                        }
+
+                        if (!Objects.requireNonNull(steelHeightTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setHeight(Float.parseFloat(steelHeightTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setHeight(null);
+                        }
+
+                        if (!Objects.requireNonNull(steelQuantityTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setQuantity(Integer.parseInt(steelQuantityTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setQuantity(null);
+                        }
+
+                        if (!Objects.requireNonNull(totalTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setTotal(Float.parseFloat(totalTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setTotal(null);
+                        }
+
+                        if (!Objects.requireNonNull(marginTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setMargin(Integer.parseInt(marginTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setMargin(null);
+                        }
+
+                        if (!Objects.requireNonNull(netQuantityPlusMarginTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setNetQuantityPlusMargin(Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setNetQuantityPlusMargin(null);
+                        }
+
+                        if (!Objects.requireNonNull(unitPriceTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setUnitPrice(Float.parseFloat(unitPriceTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setUnitPrice(null);
+                        }
+
+                        if (!Objects.requireNonNull(totalPriceTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setTotalPrice(Float.parseFloat(totalPriceTextInputEditText.getText().toString()));
+                        } else {
+                            estimateLine.setTotalPrice(null);
+                        }
+
+                        dbAdapter.saveEstimateLine(estimateLine);
+                        Toast saveResultToast;
+                        saveResultToast = Toast.makeText(getApplicationContext(),
+                                "Estimate line have been successfully added", Toast.LENGTH_LONG);
+                        saveResultToast.show();
+                        Float estimateExcludingTaxTotal = dbAdapter.getEstimateExcludingTaxTotal(estimateId);
+                        Float excludingTaxTotalAfterDiscount;
+                        Float allTaxIncludedTotal;
+                        Estimate estimate;
+                        estimate = dbAdapter.getEstimateById(estimateId);
+                        estimate.setExcludingTaxTotal(estimateExcludingTaxTotal);
+                        if (estimate.getDiscount() != null) {
+                            excludingTaxTotalAfterDiscount = estimateExcludingTaxTotal - estimateExcludingTaxTotal * (estimate.getDiscount() / 100);
+                            estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                            if (estimate.getVat() != null) {
+                                allTaxIncludedTotal = excludingTaxTotalAfterDiscount + excludingTaxTotalAfterDiscount * estimate.getVat()/100;
+                            } else {
+                                allTaxIncludedTotal = excludingTaxTotalAfterDiscount;
+                            }
+                            estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                        } else {
+                            estimate.setExcludingTaxTotalAfterDiscount(estimateExcludingTaxTotal);
+                            if (estimate.getVat() != null) {
+                                allTaxIncludedTotal = estimateExcludingTaxTotal + estimateExcludingTaxTotal * estimate.getVat()/100;
+                            } else {
+                                allTaxIncludedTotal = estimateExcludingTaxTotal;
+                            }
+                            estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                        }
+
+                        dbAdapter.updateEstimate(estimate);
+                        intent = new Intent(AddEstimateLine.this, EstimateDetails.class);
+                        intent.putExtra("estimateIdExtra", estimateId.toString());
+                        startActivity(intent);
+                    }
                 }
             }
         });
