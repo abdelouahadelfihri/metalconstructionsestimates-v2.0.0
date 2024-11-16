@@ -95,8 +95,9 @@
     <string name="currentMonthEstimatesCount">Monthly Number of Estimates :</string>
     <string name="currentYearEstimatesCount">Yearly Number of Estimates :</string>
     <string name="imageViewDescription">menuElement</string>
-    <string name="allEstimates">Tous</string>
+    <string name="allEstimates">All</string>
     <string name="unpaidEstimates">Unpaid</string>
+    <string name="partiallyPaidEstimates">Partially Paid</string>
     <string name="paidEstimates">Paid</string>
     <string name="isEstimatePaid">Is Paid</string>
     <string name="zeroDH">0 DH</string>
