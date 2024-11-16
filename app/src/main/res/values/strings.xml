@@ -44,7 +44,7 @@
     <string name="unitPrice">Unit Price</string>
     <string name="totalPrice">Total Price</string>
     <string name="totalExcludingTax">Ex. VAT</string>
-    <string name="doneIn">Location</string>
+    <string name="location">Location</string>
     <string name="totalExcludingTaxAfterDiscount">Ex. VAT After Discount</string>
     <string name="newEstimateLine">New Estimate Line</string>
     <string name="EstimateLineDetails">Estimate Line Details</string>
