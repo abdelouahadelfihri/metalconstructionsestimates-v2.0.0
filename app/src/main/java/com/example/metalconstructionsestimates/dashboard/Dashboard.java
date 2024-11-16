@@ -43,10 +43,10 @@ public class Dashboard extends AppCompatActivity {
         else{
             customersCount = String.valueOf(dbAdapter.getCustomersCount());
             if(dbAdapter.getCustomersCount() == 1){
-                customersCount += "Customer";
+                customersCount += " Customer";
             }
             else{
-                customersCount += "Customers";
+                customersCount += " Customers";
             }
 
             customersCountTextView.setText(customersCount);
