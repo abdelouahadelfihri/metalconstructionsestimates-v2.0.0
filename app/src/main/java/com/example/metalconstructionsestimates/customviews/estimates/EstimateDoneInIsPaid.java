@@ -23,7 +23,7 @@ public class EstimateDoneInIsPaid extends LinearLayout {
         init();
     }
     private void init(){
-        LayoutInflater.from(getContext()).inflate(R.layout.estimate_done_in_is_paid, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.estimate_location_amount_paid, this, true);
         editTextDoneIn = findViewById(R.id.editText_done_in);
         checkBoxIsEstimatePaid = findViewById(R.id.checkBox_is_estimate_paid);
     }
