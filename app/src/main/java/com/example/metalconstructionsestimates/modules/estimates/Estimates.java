@@ -49,18 +49,18 @@ public class Estimates extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
     public EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
-    public EstimateLocationAmountPaid estimateDoneInIsPaid;
+    public EstimateLocationAmountPaid estimateLocationAmountPaid;
     public EstimateCustomerIdSelectCustomer estimateCustomerIdSelectCustomer;
     public EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
-    public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidUnpaid;
+    public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidPartiallyPaidUnpaid;
     public IssueDateExpirationDate issueDateExpirationDate;
     String expirationDateString = "",issueDateString = "";
 
     Integer customerId;
-    TextInputEditText estimate_id,done_in,customer_id,total_excluding_tax,discount,total_excluding_tax_after_discount,vat,total_all_tax_included;
+    TextInputEditText estimate_id,location,amount_paid,customer_id,total_excluding_tax,discount,total_excluding_tax_after_discount,vat,total_all_tax_included;
     private DatePickerDialog.OnDateSetListener issueDateSetListener,expirationDateSetListener;
-    TextView issueDate,expirationDate,issue_date,expiration_date,allEstimates,paidEstimates,unpaidEstimates;
-    CheckBox isPaid;
+    TextView issueDate,expirationDate,issue_date,expiration_date,allEstimates,paidEstimates, partiallyPaidEstimates,unpaidEstimates;
+
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +77,19 @@ public class Estimates extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        estimateDoneInIsPaid = findViewById(R.id.done_in_estimate_date_estimates);
+        estimateLocationAmountPaid = findViewById(R.id.done_in_estimate_date_estimates);
 
         issueDateExpirationDate = activityEstimatesBinding.issueDateExpirationDateEstimates;
         issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
         expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
         estimateCustomerIdSelectCustomer = activityEstimatesBinding.customerIdSelectCustomerEstimates;
         Button selectCustomer = estimateCustomerIdSelectCustomer.getButtonSelectCustomer();
-        estimatesAllPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+        estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
 
-        allEstimates = estimatesAllPaidUnpaid.getTextViewAllEstimates();
-        unpaidEstimates = estimatesAllPaidUnpaid.getTextViewUnpaidEstimates();
-        paidEstimates = estimatesAllPaidUnpaid.getTextViewPaidEstimates();
+        allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
+        unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
+        partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
+        paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
 
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
@@ -116,19 +117,24 @@ public class Estimates extends AppCompatActivity {
         allEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
         paidEstimates.setBackgroundColor(Color.LTGRAY);
         unpaidEstimates.setBackgroundColor(Color.LTGRAY);
+        partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
         allEstimates.setTextColor(Color.WHITE);
         paidEstimates.setTextColor(Color.BLACK);
         unpaidEstimates.setTextColor(Color.BLACK);
+        partiallyPaidEstimates.setTextColor(Color.BLACK);
 
         allEstimates.setOnClickListener(view -> {
-            estimatesAllPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidUnpaid.getTextViewUnpaidEstimates();
-            paidEstimates = estimatesAllPaidUnpaid.getTextViewPaidEstimates();
+            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
+            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
+            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
+            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
             allEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
             allEstimates.setTextColor(Color.WHITE);
             paidEstimates.setBackgroundColor(Color.LTGRAY);
             paidEstimates.setTextColor(Color.BLACK);
+            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
+            partiallyPaidEstimates.setTextColor(Color.BLACK);
             unpaidEstimates.setBackgroundColor(Color.LTGRAY);
             unpaidEstimates.setTextColor(Color.BLACK);
 
@@ -146,16 +152,19 @@ public class Estimates extends AppCompatActivity {
         });
 
         paidEstimates.setOnClickListener(view -> {
-            estimatesAllPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidUnpaid.getTextViewUnpaidEstimates();
-            paidEstimates = estimatesAllPaidUnpaid.getTextViewPaidEstimates();
+            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
+            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
+            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
+            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
             allEstimates.setBackgroundColor(Color.LTGRAY);
             allEstimates.setTextColor(Color.BLACK);
             paidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
             paidEstimates.setTextColor(Color.WHITE);
             unpaidEstimates.setBackgroundColor(Color.LTGRAY);
             unpaidEstimates.setTextColor(Color.BLACK);
+            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
+            partiallyPaidEstimates.setTextColor(Color.BLACK);
 
             ArrayList<Estimate> paidEstimatesList = db.retrievePaidEstimates();
 
@@ -171,14 +180,17 @@ public class Estimates extends AppCompatActivity {
         });
 
         unpaidEstimates.setOnClickListener(view -> {
-            estimatesAllPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidUnpaid.getTextViewUnpaidEstimates();
-            paidEstimates = estimatesAllPaidUnpaid.getTextViewPaidEstimates();
+            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
+            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
+            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
+            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
             allEstimates.setBackgroundColor(Color.LTGRAY);
             allEstimates.setTextColor(Color.BLACK);
             paidEstimates.setBackgroundColor(Color.LTGRAY);
             paidEstimates.setTextColor(Color.BLACK);
+            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
+            partiallyPaidEstimates.setTextColor(Color.BLACK);
             unpaidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
             unpaidEstimates.setTextColor(Color.WHITE);
 
@@ -221,18 +233,18 @@ public class Estimates extends AppCompatActivity {
 
         searchEstimate.setOnClickListener(view -> {
             estimate_id = findViewById(R.id.editText_estimate_id_estimates);
-            done_in = estimateDoneInIsPaid.getTextInputEditTextDoneIn();
+            location = estimateLocationAmountPaid.getTextInputEditTextLocation();
             customer_id = estimateCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
             total_excluding_tax = findViewById(R.id.editText_total_excluding_tax_estimates);
             discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
             total_excluding_tax_after_discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
             vat = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
             total_all_tax_included = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-            isPaid = estimateDoneInIsPaid.getCheckBoxIsEstimatePaid();
+            amount_paid = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
             Estimate estimate = new Estimate();
             DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
             boolean isEstimateIdEmpty = estimate_id.getText().toString().isEmpty();
-            boolean isDoneInEmpty = done_in.getText().toString().isEmpty();
+            boolean isLocationEmpty = location.getText().toString().isEmpty();
             boolean isCustomerIdEmpty = customer_id.getText().toString().isEmpty();
             boolean isTotalExcludingTaxEmpty = total_excluding_tax.getText().toString().isEmpty();
             boolean isDiscountEmpty = discount.getText().toString().isEmpty();
@@ -240,7 +252,7 @@ public class Estimates extends AppCompatActivity {
             boolean isVatEmpty = vat.getText().toString().isEmpty();
             boolean isTotalAllTaxIncludedEmpty = total_all_tax_included.getText().toString().isEmpty();
 
-            if (isEstimateIdEmpty && isDoneInEmpty && issueDateString.isEmpty() && expirationDateString.isEmpty() &&
+            if (isEstimateIdEmpty && isLocationEmpty && issueDateString.isEmpty() && expirationDateString.isEmpty() &&
                     isCustomerIdEmpty && isTotalExcludingTaxEmpty && isDiscountEmpty &&
                     isTotalExcludingTaxAfterDiscountEmpty && isVatEmpty && isTotalAllTaxIncludedEmpty) {
 
@@ -280,10 +292,10 @@ public class Estimates extends AppCompatActivity {
                     estimate.setExpirationDate("");
                 }
 
-                if (done_in.getText().toString().isEmpty()) {
+                if (location.getText().toString().isEmpty()) {
                     estimate.setDoneIn("");
                 } else {
-                    estimate.setDoneIn(done_in.getText().toString());
+                    estimate.setDoneIn(location.getText().toString());
                 }
 
                 if (discount.getText().toString().isEmpty()) {
@@ -304,10 +316,10 @@ public class Estimates extends AppCompatActivity {
                     estimate.setAllTaxIncludedTotal(Float.parseFloat(total_all_tax_included.getText().toString()));
                 }
 
-                if (isPaid.isChecked()) {
-                    estimate.setIsEstimatePaid("true");
+                if (amount_paid.getText().toString().isEmpty()) {
+                    estimate.setAmountPaid(null);
                 } else {
-                    estimate.setIsEstimatePaid("false");
+                    estimate.setAmountPaid(Float.parseFloat(amount_paid.getText().toString()));
                 }
 
                 ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(estimate);
@@ -360,9 +372,9 @@ public class Estimates extends AppCompatActivity {
             total_excluding_tax_after_discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
             vat = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
             total_all_tax_included = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-            isPaid = estimateDoneInIsPaid.getCheckBoxIsEstimatePaid();
+            amount_paid = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
             estimate_id.getText().clear();
-            done_in.getText().clear();
+            location.getText().clear();
             issueDateString = "";
             expirationDateString = "";
             issue_date.setText(R.string.issue_date);
@@ -373,196 +385,7 @@ public class Estimates extends AppCompatActivity {
             total_excluding_tax_after_discount.getText().clear();
             vat.getText().clear();
             total_all_tax_included.getText().clear();
-            isPaid.setChecked(false);
-        });
-
-        estimatesDiscountTotalAfterDiscount = findViewById(R.id.customEstimatesDiscountTotalAfterDiscount);
-        estimatesVatTotalAllTaxIncluded = findViewById(R.id.customEstimatesVatTotalAllTaxIncluded);
-
-        allEstimates = estimatesAllPaidUnpaid.getTextViewAllEstimates();
-        unpaidEstimates = estimatesAllPaidUnpaid.getTextViewUnpaidEstimates();
-        paidEstimates = estimatesAllPaidUnpaid.getTextViewPaidEstimates();
-
-        discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
-        total_excluding_tax_after_discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-
-        vat = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
-
-        total_all_tax_included = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-
-        TextInputEditText total_excluding_tax_edit_text = findViewById(R.id.editText_total_excluding_tax_estimates);
-        TextInputEditText discount_edit_text = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
-        TextInputEditText total_after_discount_edit_text = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-        TextInputEditText vat_edit_text = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
-        TextInputEditText total_all_tax_included_edit_text = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-        total_excluding_tax_edit_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Locale moroccoLocale = new Locale("ar", "MA");
-                NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-                String totalAfterDiscountFormattedValue;
-                String totalTaxExcluded = s.toString();
-                Float totalAfterDiscount;
-                Float totalAllTaxIncluded;
-                if(!totalTaxExcluded.isEmpty()){
-                    if(!discount_edit_text.getText().toString().isEmpty()){
-                        totalAfterDiscount = Float.parseFloat(totalTaxExcluded) - Float.parseFloat(totalTaxExcluded) * Float.parseFloat(discount_edit_text.getText().toString())/100;
-                    }
-                    else{
-                        totalAfterDiscount = Float.parseFloat(totalTaxExcluded);
-                    }
-                    totalAfterDiscountFormattedValue = numberFormat.format(totalAfterDiscount);
-                    total_after_discount_edit_text.setText(totalAfterDiscountFormattedValue);
-                    if(!vat_edit_text.getText().toString().isEmpty()){
-                        totalAllTaxIncluded = totalAfterDiscount + totalAfterDiscount * Float.parseFloat(vat_edit_text.getText().toString())/100;
-                    }
-                    else{
-                        totalAllTaxIncluded = totalAfterDiscount;
-                    }
-                    total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                }
-                else{
-                    total_after_discount_edit_text.setText("");
-                    total_all_tax_included_edit_text.setText("");
-                }
-            }
-        });
-
-        discount_edit_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String discount = s.toString();
-                Float totalAfterDiscount = 0.0f;
-                Float totalAllTaxIncluded = 0.0f;
-                Locale moroccoLocale = new Locale("ar", "MA");
-                NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-                if(!discount.isEmpty()){
-                    if(!total_excluding_tax_edit_text.getText().toString().isEmpty()){
-                        totalAfterDiscount = Float.parseFloat(total_excluding_tax_edit_text.getText().toString()) - Float.parseFloat(total_excluding_tax_edit_text.getText().toString()) * Float.parseFloat(discount) /100;
-                        total_after_discount_edit_text.setText(numberFormat.format(totalAfterDiscount));
-                        if(!vat_edit_text.getText().toString().isEmpty()){
-                            totalAllTaxIncluded = totalAfterDiscount + totalAfterDiscount * Float.parseFloat(vat_edit_text.getText().toString())/100;
-                        }
-                        else{
-                            totalAllTaxIncluded = totalAfterDiscount;
-                        }
-                        if(totalAllTaxIncluded != 0.0f){
-                            total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                        }
-                    }
-                    else{
-                        total_after_discount_edit_text.setText("");
-                        total_all_tax_included_edit_text.setText("");
-                    }
-                }
-                else{
-                    if(!total_excluding_tax_edit_text.getText().toString().isEmpty()){
-                        totalAfterDiscount = Float.parseFloat(total_excluding_tax_edit_text.getText().toString());
-                        total_after_discount_edit_text.setText(numberFormat.format(totalAfterDiscount));
-                        if(!vat_edit_text.getText().toString().isEmpty()){
-                            totalAllTaxIncluded = totalAfterDiscount + totalAfterDiscount * Float.parseFloat(vat_edit_text.getText().toString())/100;
-                        }
-                        else{
-                            totalAllTaxIncluded = totalAfterDiscount;
-                        }
-                        total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                    }
-                    else{
-                        total_after_discount_edit_text.setText("");
-                        total_all_tax_included_edit_text.setText("");
-                    }
-                }
-            }
-        });
-
-        total_after_discount_edit_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Locale morroccoLocale = new Locale("ar","MA");
-                NumberFormat numberFormat = NumberFormat.getNumberInstance(morroccoLocale);
-                String totalAfterDiscount = s.toString();
-                Float totalAllTaxIncluded;
-                if(!totalAfterDiscount.isEmpty()){
-                    if(!vat_edit_text.getText().toString().isEmpty()){
-                        totalAllTaxIncluded = Float.parseFloat(totalAfterDiscount) + Float.parseFloat(totalAfterDiscount) * Float.parseFloat(vat_edit_text.getText().toString())/100;
-                        total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                    }
-                    else{
-                        total_all_tax_included_edit_text.setText(numberFormat.format(totalAfterDiscount));
-                    }
-                }
-                else{
-                    total_all_tax_included_edit_text.setText("");
-                }
-            }
-        });
-
-        vat_edit_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String vat = s.toString();
-                Float totalAllTaxIncluded;
-                Locale moroccoLocale = new Locale("ar", "MA");
-                NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-                if(!vat.isEmpty()){
-                    if(!total_after_discount_edit_text.getText().toString().isEmpty()){
-                        totalAllTaxIncluded = Float.parseFloat(total_after_discount_edit_text.getText().toString()) + Float.parseFloat(total_after_discount_edit_text.getText().toString()) * Float.parseFloat(vat)/100;
-                        total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                    }
-                    else{
-                        total_all_tax_included_edit_text.setText("");
-                    }
-                }
-                else{
-                    if(!total_after_discount_edit_text.getText().toString().isEmpty()){
-                        totalAllTaxIncluded = Float.parseFloat(total_after_discount_edit_text.getText().toString());
-                        total_all_tax_included_edit_text.setText(numberFormat.format(totalAllTaxIncluded));
-                    }
-                    else{
-                        total_all_tax_included_edit_text.setText("");
-                    }
-                }
-            }
+            amount_paid.getText().clear();
         });
 
         issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
