@@ -45,7 +45,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
             android:id="@+id/done_in_estimate_date_estimates"
             android:layout_width="match_parent"
             android:layout_height="48dp"

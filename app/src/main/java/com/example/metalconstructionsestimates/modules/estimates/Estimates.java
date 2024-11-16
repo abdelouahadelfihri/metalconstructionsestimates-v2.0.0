@@ -20,7 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -49,7 +49,7 @@ public class Estimates extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
     public EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
-    public EstimateDoneInIsPaid estimateDoneInIsPaid;
+    public EstimateLocationAmountPaid estimateDoneInIsPaid;
     public EstimateCustomerIdSelectCustomer estimateCustomerIdSelectCustomer;
     public EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
     public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidUnpaid;

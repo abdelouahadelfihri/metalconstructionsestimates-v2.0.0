@@ -20,7 +20,7 @@
         app:title="@string/addEstimate"
         app:titleTextColor="@android:color/white" />
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid
+    <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
         android:id="@+id/done_in_is_paid_add_estimate"
         android:layout_width="0dp"
         android:layout_height="48dp"

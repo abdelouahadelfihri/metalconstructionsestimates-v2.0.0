@@ -10,23 +10,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.metalconstructionsestimates.modules.steels.SteelDetails;
-import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.metalconstructionsestimates.R;
@@ -34,7 +29,7 @@ import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListA
 import com.example.metalconstructionsestimates.databinding.ActivityEstimateDetailsBinding;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded;
 import com.example.metalconstructionsestimates.db.DBAdapter;
@@ -70,7 +65,7 @@ public class EstimateDetails extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer;
 
-    EstimateDoneInIsPaid estimateDetailsDoneInIsPaid;
+    EstimateLocationAmountPaid estimateDetailsDoneInIsPaid;
     IssueDateExpirationDate issueDateExpirationDate;
 
     ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
@@ -267,7 +262,7 @@ public class EstimateDetails extends AppCompatActivity {
 
         updateEstimate.setOnClickListener(new View.OnClickListener() {
             EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
-            EstimateDoneInIsPaid estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+            EstimateLocationAmountPaid estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
             EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
             EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
 

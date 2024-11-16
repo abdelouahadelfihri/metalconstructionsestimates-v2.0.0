@@ -23,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimateDoneInIsPaid;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
 import com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.db.DBAdapter;
@@ -42,7 +42,7 @@ public class AddEstimate extends AppCompatActivity {
     EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;
-    EstimateDoneInIsPaid estimateDoneInIsPaid;
+    EstimateLocationAmountPaid estimateDoneInIsPaid;
     IssueDateExpirationDate issueDateExpirationDate;
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
     Intent intent;
