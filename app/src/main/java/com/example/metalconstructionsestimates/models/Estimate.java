@@ -13,7 +13,7 @@ public class Estimate implements Serializable {
     private Float excludingTaxTotalAfterDiscount;
     private Float vat;
     private Float allTaxIncludedTotal;
-    private String isEstimatePaid;
+    private Float amountPaid;
 
     public Estimate(){
 
@@ -63,6 +63,6 @@ public class Estimate implements Serializable {
     public Float getAllTaxIncludedTotal(){ return allTaxIncludedTotal; }
     public void setAllTaxIncludedTotal(Float allTaxIncludedTotal){ this.allTaxIncludedTotal = allTaxIncludedTotal; }
 
-    public String getIsEstimatePaid(){ return isEstimatePaid; }
-    public void setIsEstimatePaid(String isEstimatePaid){ this.isEstimatePaid = isEstimatePaid; }
+    public Float getAmountPaid(){ return amountPaid; }
+    public void setAmountPaid(Float amountPaid){ this.amountPaid = amountPaid; }
 }
