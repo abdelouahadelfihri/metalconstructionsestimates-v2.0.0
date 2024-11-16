@@ -126,7 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidUnpaid
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid
             android:id="@+id/customEstimatesAllPaidUnpaid"
             android:layout_width="match_parent"
             android:layout_height="48dp"

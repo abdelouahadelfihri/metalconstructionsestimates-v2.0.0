@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidUnpaid;
+import com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded;
 import com.example.metalconstructionsestimates.db.DBAdapter;
@@ -52,7 +52,7 @@ public class Estimates extends AppCompatActivity {
     public EstimateDoneInIsPaid estimateDoneInIsPaid;
     public EstimateCustomerIdSelectCustomer estimateCustomerIdSelectCustomer;
     public EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
-    public EstimatesAllPaidUnpaid estimatesAllPaidUnpaid;
+    public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidUnpaid;
     public IssueDateExpirationDate issueDateExpirationDate;
     String expirationDateString = "",issueDateString = "";
 

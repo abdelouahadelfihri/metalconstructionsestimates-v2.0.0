@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.example.metalconstructionsestimates.R;
 
-public class EstimatesAllPaidUnpaid extends LinearLayout {
+public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
     private TextView textViewAllEstimates;
     private TextView textViewPaidEstimates;
-    private TextView textViewPartiallyPaidEstimates
+    private TextView textViewPartiallyPaidEstimates;
     private TextView textViewUnpaidEstimates;
 
-    public EstimatesAllPaidUnpaid(Context context, AttributeSet attrs){
+    public EstimatesAllPaidPartiallyPaidUnpaid(Context context, AttributeSet attrs){
         super(context, attrs);
         init();
     }
@@ -24,7 +24,7 @@ public class EstimatesAllPaidUnpaid extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.estimates_all_paid_partiallypaid_unpaid, this, true);
         textViewAllEstimates = findViewById(R.id.textView_allEstimates);
         textViewPaidEstimates = findViewById(R.id.textView_paidEstimates);
-        textViewPartiallyPaidEstimates = findViewById(R.id.textView_partiallyPaidEstimates)
+        textViewPartiallyPaidEstimates = findViewById(R.id.textView_partiallyPaidEstimates);
         textViewUnpaidEstimates = findViewById(R.id.textView_unpaidEstimates);
         textViewAllEstimates.setBackgroundColor(Color.LTGRAY);
         textViewPartiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
@@ -44,7 +44,7 @@ public class EstimatesAllPaidUnpaid extends LinearLayout {
         return textViewPaidEstimates;
     }
 
-    public TextView getTextViewPartiallyUnpaidEstimates(){
+    public TextView getTextViewPartiallyPaidEstimates(){
         return textViewPartiallyPaidEstimates;
     }
 
