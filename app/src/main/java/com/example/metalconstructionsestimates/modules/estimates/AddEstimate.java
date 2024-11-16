@@ -42,7 +42,7 @@ public class AddEstimate extends AppCompatActivity {
     EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;
-    EstimateLocationAmountPaid estimateDoneInIsPaid;
+    EstimateLocationAmountPaid estimateLocationAmountPaid;
     IssueDateExpirationDate issueDateExpirationDate;
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
     Intent intent;
@@ -57,7 +57,7 @@ public class AddEstimate extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_add_estimate);
-        estimateDoneInIsPaid = findViewById(R.id.done_in_is_paid_add_estimate);
+        estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
         estimatesCustomerIdSelectCustomer = findViewById(R.id.customer_id_select_customer_add_estimate);
         Button selectCustomer = estimatesCustomerIdSelectCustomer.getButtonSelectCustomer();
         addClearButtons = findViewById(R.id.add_clear_buttons_add_estimates);
@@ -89,13 +89,13 @@ public class AddEstimate extends AppCompatActivity {
         addEstimate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText estimateDoneInTextInputEditText = estimateDoneInIsPaid.getTextInputEditTextDoneIn();
-                CheckBox isPaidCheckBox = estimateDoneInIsPaid.getCheckBoxIsEstimatePaid();
+                TextInputEditText estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
+                TextInputEditText amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
                 TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
                 TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
                 TextInputEditText vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
 
-                if (estimateDoneInTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !isPaidCheckBox.isChecked()) {
+                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !amountPaidTextInputEditText.getText().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
@@ -105,11 +105,11 @@ public class AddEstimate extends AppCompatActivity {
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dbAdapter = new DBAdapter(getApplicationContext());
-                            TextInputEditText estimateDoneInTextInputEditText = estimateDoneInIsPaid.getTextInputEditTextDoneIn();
+                            TextInputEditText estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
                             TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
                             TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
                             TextInputEditText vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
-                            CheckBox isPaidCheckBox = findViewById(R.id.checkBox_is_estimate_paid);
+                            TextInputEditText amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
 
                             Estimate estimate = new Estimate();
 
@@ -159,10 +159,10 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setExpirationDate("");
                             }
 
-                            if (estimateDoneInTextInputEditText.getText().toString().isEmpty()) {
+                            if (estimateLocationTextInputEditText.getText().toString().isEmpty()) {
                                 estimate.setDoneIn("");
                             } else {
-                                estimate.setDoneIn(estimateDoneInTextInputEditText.getText().toString());
+                                estimate.setDoneIn(estimateLocationTextInputEditText.getText().toString());
                             }
 
                             if (estimateDiscountTextInputEditText.getText().toString().isEmpty()) {
@@ -177,14 +177,14 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setVat(Float.parseFloat(vatTextInputEditText.getText().toString()));
                             }
 
-                            if (isPaidCheckBox.isChecked()) {
-                                estimate.setIsEstimatePaid("true");
+                            if (amountPaidTextInputEditText.getText().toString().isEmpty()) {
+                                estimate.setAmountPaid(null);
                             } else {
-                                estimate.setIsEstimatePaid("false");
+                                estimate.setAmountPaid(Float.parseFloat(amountPaidTextInputEditText.getText().toString()));
                             }
 
                             dbAdapter.saveEstimate(estimate);
-                            Toast saveSuccessToast = Toast.makeText(getApplicationContext(), "L\'ajout du devis a été éffectué avec succés", Toast.LENGTH_LONG);
+                            Toast saveSuccessToast = Toast.makeText(getApplicationContext(), "Estimate have been successfully added", Toast.LENGTH_LONG);
                             saveSuccessToast.show();
                             intent = new Intent(AddEstimate.this, Estimates.class);
                             startActivity(intent);
@@ -201,83 +201,71 @@ public class AddEstimate extends AppCompatActivity {
             }
         });
 
-        clearAddEstimateForm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextInputEditText estimateDiscountTextInputEditText;
-                TextInputEditText vatTextInputEditText;
-                TextInputEditText estimateDoneInTextInputEditText;
-                TextInputEditText customerIdTextInputEditText;
-                estimateDoneInTextInputEditText = estimateDoneInIsPaid.getTextInputEditTextDoneIn();
-                CheckBox isPaid = estimateDoneInIsPaid.getCheckBoxIsEstimatePaid();
-                issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
-                expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
-                customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-                estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
-                vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
-                estimateDoneInTextInputEditText.getText().clear();
-                issueDate.setText(R.string.issue_date);
-                expirationDate.setText(R.string.expiration_date);
-                customerIdTextInputEditText.getText().clear();
-                estimateDiscountTextInputEditText.getText().clear();
-                vatTextInputEditText.getText().clear();
-                isPaid.setChecked(false);
-            }
+        clearAddEstimateForm.setOnClickListener(view -> {
+            TextInputEditText estimateDiscountTextInputEditText;
+            TextInputEditText vatTextInputEditText;
+            TextInputEditText estimateLocationTextInputEditText;
+            TextInputEditText customerIdTextInputEditText;
+            TextInputEditText amountPaidTextInputEditText;
+            estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
+            amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
+            issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
+            expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
+            customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+            estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
+            vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
+            Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
+            issueDate.setText(R.string.issue_date);
+            expirationDate.setText(R.string.expiration_date);
+            Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
+            Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
+            Objects.requireNonNull(vatTextInputEditText.getText()).clear();
+            Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
         issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
         expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
 
-        issueDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(
-                        AddEstimate.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        issueDateSetListener,
-                        year, month, day
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
+        issueDate.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    AddEstimate.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    issueDateSetListener,
+                    year, month, day
+            );
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         });
 
-        expirationDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(
-                        AddEstimate.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        expirationDateSetListner,
-                        year, month, day
-                );
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
+        expirationDate.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    AddEstimate.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    expirationDateSetListner,
+                    year, month, day
+            );
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         });
 
-        expirationDateSetListner = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker picker, int year, int month, int day) {
-                month = month + 1;
-                expirationDateValue = year + "-" + month + "-" + day;
-                expirationDate.setText("Expiration Date : " + expirationDateValue);
-            }
+        expirationDateSetListner = (picker, year, month, day) -> {
+            month = month + 1;
+            expirationDateValue = year + "-" + month + "-" + day;
+            expirationDate.setText("Expiration Date : " + expirationDateValue);
         };
 
-        issueDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker picker, int year, int month, int day) {
-                month = month + 1;
-                issueDateValue = year + "-" + month + "-" + day;
-                issueDate.setText("Issue Date : " + issueDateValue);
-            }
+        issueDateSetListener = (picker, year, month, day) -> {
+            month = month + 1;
+            issueDateValue = year + "-" + month + "-" + day;
+            issueDate.setText("Issue Date : " + issueDateValue);
         };
     }
     public void startActivityForResult() {
