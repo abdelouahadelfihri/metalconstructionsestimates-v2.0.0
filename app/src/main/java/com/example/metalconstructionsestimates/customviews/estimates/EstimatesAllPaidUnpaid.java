@@ -20,7 +20,7 @@ public class EstimatesAllPaidUnpaid extends LinearLayout {
     }
 
     private void init(){
-        LayoutInflater.from(getContext()).inflate(R.layout.estimates_all_paid_unpaid, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.estimates_all_paid_partiallypaid_unpaid, this, true);
         textViewAllEstimates = findViewById(R.id.textView_allEstimates);
         textViewPaidEstimates = findViewById(R.id.textView_paidEstimates);
         textViewUnpaidEstimates = findViewById(R.id.textView_unpaidEstimates);
