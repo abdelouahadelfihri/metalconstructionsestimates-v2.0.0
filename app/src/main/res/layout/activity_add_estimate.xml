@@ -13,7 +13,7 @@
         android:layout_marginBottom="5dp"
         android:background="#4F5EB1"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/done_in_is_paid_add_estimate"
+        app:layout_constraintBottom_toTopOf="@+id/location_amount_paid_add_estimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@+id/customer_id_select_customer_add_estimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done_in_is_paid_add_estimate" />
+        app:layout_constraintTop_toBottomOf="@+id/location_amount_paid_add_estimate" />
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
         android:id="@+id/customer_id_select_customer_add_estimate"
@@ -124,7 +124,6 @@
         android:layout_marginTop="305dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/isEstimatePaid"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
