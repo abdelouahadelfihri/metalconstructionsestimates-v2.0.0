@@ -180,7 +180,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -192,7 +192,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -399,7 +399,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -411,7 +411,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -444,7 +444,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -456,7 +456,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -489,7 +489,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -501,7 +501,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -534,7 +534,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -546,7 +546,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -580,7 +580,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -592,7 +592,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -625,7 +625,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -637,7 +637,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -670,7 +670,7 @@ public class DBAdapter {
                         Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                         Float vat = cursor.getFloat(8);
                         Float allTaxIncludedTotal = cursor.getFloat(9);
-                        String isEstimatePaid = cursor.getString(10);
+                        Float amountPaid = cursor.getFloat(10);
                         estimate = new Estimate();
                         estimate.setId(estimateId);
                         estimate.setDoneIn(doneIn);
@@ -682,7 +682,7 @@ public class DBAdapter {
                         estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                         estimate.setVat(vat);
                         estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setIsEstimatePaid(isEstimatePaid);
+                        estimate.setAmountPaid(amountPaid);
                         estimatesList.add(estimate);
                     }
                 }
@@ -911,7 +911,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -923,7 +923,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1045,7 +1045,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1057,7 +1057,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1326,7 +1326,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(7));
                 estimate.setVat(cursor.getFloat(8));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(9));
-                estimate.setIsEstimatePaid(cursor.getString(10));
+                estimate.setAmountPaid(cursor.getFloat(10));
             }
             else{
                 estimate = null;
@@ -1406,41 +1406,6 @@ public class DBAdapter {
         return steel;
     }
 
-    public ArrayList<EstimateLine> getEstimateLinesByEstimateId(Integer estimateId){
-        ArrayList<EstimateLine> estimatesLines = new ArrayList<>();
-        try{
-            db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimateline where estimate=?",
-                    new String []{estimateId.toString()});
-            EstimateLine estimateLine;
-            estimatesLines.clear();
-            if(cursor.moveToNext()){
-                cursor.moveToFirst();
-                estimateLine = new EstimateLine();
-                estimateLine.setEstimate(cursor.getInt(0));
-                estimateLine.setSteel(cursor.getInt(1));
-                estimateLine.setWeight(cursor.getFloat(6));
-                estimateLine.setLength(cursor.getFloat(7));
-                estimateLine.setWidth(cursor.getFloat(8));
-                estimateLine.setHeight(cursor.getFloat(9));
-                estimateLine.setQuantity(cursor.getInt(10));
-                estimateLine.setTotal(cursor.getFloat(11));
-                estimateLine.setMargin(cursor.getInt(12));
-                estimateLine.setNetQuantityPlusMargin(cursor.getFloat(13));
-                estimateLine.setUnitPrice(cursor.getFloat(14));
-                estimateLine.setTotalPrice(cursor.getFloat(15));
-                estimatesLines.add(estimateLine);
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            helper.close();
-        }
-        return estimatesLines;
-    }
-
     public Steel getSteelById(Integer steelId){
         Steel steel = new Steel();
         try{
@@ -1498,7 +1463,7 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("isPaid", estimate.getIsEstimatePaid());
+            cv.put("amountPaid", estimate.getAmountPaid());
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
@@ -1628,7 +1593,7 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("isPaid", estimate.getIsEstimatePaid());
+            cv.put("amountPaid", estimate.getAmountPaid());
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
@@ -1701,7 +1666,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1713,7 +1678,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1745,7 +1710,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1757,7 +1722,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1789,7 +1754,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1801,7 +1766,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1937,6 +1902,15 @@ public class DBAdapter {
                 }
             }
 
+            if(estimate.getAllTaxIncludedTotal() != null){
+                if(query.equals("select * from estimate where ")){
+                    query = query + " amountPaid =" + estimate.getAmountPaid();
+                }
+                else{
+                    query = query + " and amountPaid =" + estimate.getAmountPaid();
+                }
+            }
+
             Cursor cursor = db.rawQuery(query,null);
             estimatesList.clear();
             while(cursor.moveToNext()){
@@ -1950,7 +1924,7 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                String isEstimatePaid = cursor.getString(10);
+                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1962,7 +1936,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setIsEstimatePaid(isEstimatePaid);
+                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
