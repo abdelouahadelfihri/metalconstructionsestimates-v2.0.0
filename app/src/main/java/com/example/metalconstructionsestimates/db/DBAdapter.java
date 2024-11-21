@@ -1696,7 +1696,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where isPaid = 'true'",null);
+            Cursor cursor = db.rawQuery("select * from estimate where amountPaid = allTaxIncludedTotal",null);
             Estimate estimate;
             estimatesList.clear();
             while(cursor.moveToNext()){
@@ -1740,7 +1740,53 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where isPaid = 'false'",null);
+            Cursor cursor = db.rawQuery("select * from estimate where amountPaid = 0",null);
+            Estimate estimate;
+            estimatesList.clear();
+            while(cursor.moveToNext()){
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                Integer customer = cursor.getInt(4);
+                Float excludingTaxTotal = cursor.getFloat(5);
+                Float discount = cursor.getFloat(6);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+                Float vat = cursor.getFloat(8);
+                Float allTaxIncludedTotal = cursor.getFloat(9);
+                Float amountPaid = cursor.getFloat(10);
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setAmountPaid(amountPaid);
+                estimatesList.add(estimate);
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        finally{
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
+
+
+    public ArrayList<Estimate> retrievePartiallyPaidEstimates(){
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        try{
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from estimate where amountPaid < allTaxIncludedTotal and amountPaid != 0",null);
             Estimate estimate;
             estimatesList.clear();
             while(cursor.moveToNext()){
