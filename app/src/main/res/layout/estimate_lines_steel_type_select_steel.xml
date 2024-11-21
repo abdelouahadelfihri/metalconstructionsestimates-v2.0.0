@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:hint="@string/steelId">
+        android:hint="@string/steelType">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_steel_id_textInputEditText"

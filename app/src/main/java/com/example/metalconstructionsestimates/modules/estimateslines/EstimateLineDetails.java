@@ -55,7 +55,7 @@ public class EstimateLineDetails extends AppCompatActivity {
         estimateLinesSteelIdSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
         TextInputEditText estimateLineIdTextInputEditText = findViewById(R.id.editText_estimate_line_id_estimate_line_details);
         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
-        AtomicReference<TextInputEditText> steelIdTextInputEditText = new AtomicReference<>(estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId());
+        AtomicReference<TextInputEditText> steelTypeTextInputEditText = new AtomicReference<>(estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelType());
         AtomicReference<TextInputEditText> weightTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_steel_weight_estimate_line_details));
         AtomicReference<TextInputEditText> lengthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextLength());
         AtomicReference<TextInputEditText> widthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextWidth());
@@ -73,7 +73,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
         estimateLineIdTextInputEditText.setText(estimateLine.getId().toString());
         estimateIdTextInputEditText.setText(estimateLine.getEstimate().toString());
-        steelIdTextInputEditText.get().setText(estimateLine.getSteel().toString());
+        steelTypeTextInputEditText.get().setText(estimateLine.getSteel().toString());
 
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
         switch (geometricShape) {
