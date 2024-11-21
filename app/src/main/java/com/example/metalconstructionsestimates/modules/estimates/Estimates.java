@@ -179,6 +179,35 @@ public class Estimates extends AppCompatActivity {
             }
         });
 
+
+        partiallyPaidEstimates.setOnClickListener(view -> {
+            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
+            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
+            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
+            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
+            allEstimates.setBackgroundColor(Color.LTGRAY);
+            allEstimates.setTextColor(Color.BLACK);
+            paidEstimates.setBackgroundColor(Color.LTGRAY);
+            paidEstimates.setTextColor(Color.BLACK);
+            unpaidEstimates.setBackgroundColor(Color.LTGRAY);
+            unpaidEstimates.setTextColor(Color.BLACK);
+            partiallyPaidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
+            partiallyPaidEstimates.setTextColor(Color.WHITE);
+
+            ArrayList<Estimate> partiallyPaidEstimatesList = db.retrievePartiallyPaidEstimates();
+
+            if (partiallyPaidEstimatesList.isEmpty()) {
+                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
+                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+            } else {
+                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
+            }
+        });
+
         unpaidEstimates.setOnClickListener(view -> {
             estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
             allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
