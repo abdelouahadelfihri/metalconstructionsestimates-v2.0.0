@@ -39,7 +39,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
-    EstimateLinesSteelTypeSelectSteel estimateLinesSteelIdSelectSteel;
+    EstimateLinesSteelTypeSelectSteel estimateLinesSteelTypeSelectSteel;
     EstimateLinesLengthWidthHeight estimateLinesLengthWidthHeight;
     UpdateDeleteButtons updateDeleteButtons;
 
@@ -51,11 +51,11 @@ public class EstimateLineDetails extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_estimate_line_details);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        estimateLinesLengthWidthHeight = (EstimateLinesLengthWidthHeight) findViewById(R.id.estimate_lines_details_length_width_height);
-        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
+        estimateLinesLengthWidthHeight = findViewById(R.id.estimate_lines_details_length_width_height);
+        estimateLinesSteelTypeSelectSteel = findViewById(R.id.estimate_lines_details_steel_id_select_steel);
         TextInputEditText estimateLineIdTextInputEditText = findViewById(R.id.editText_estimate_line_id_estimate_line_details);
         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
-        AtomicReference<TextInputEditText> steelTypeTextInputEditText = new AtomicReference<>(estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelType());
+        AtomicReference<TextInputEditText> steelTypeTextInputEditText = new AtomicReference<>(estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType());
         AtomicReference<TextInputEditText> weightTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_steel_weight_estimate_line_details));
         AtomicReference<TextInputEditText> lengthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextLength());
         AtomicReference<TextInputEditText> widthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextWidth());
@@ -73,7 +73,8 @@ public class EstimateLineDetails extends AppCompatActivity {
 
         estimateLineIdTextInputEditText.setText(estimateLine.getId().toString());
         estimateIdTextInputEditText.setText(estimateLine.getEstimate().toString());
-        steelTypeTextInputEditText.get().setText(estimateLine.getSteel().toString());
+        String steelType = dbAdapter.getSteelById(estimateLine.getSteel()).getType();
+        steelTypeTextInputEditText.get().setText(steelType);
 
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
         switch (geometricShape) {
@@ -181,14 +182,14 @@ public class EstimateLineDetails extends AppCompatActivity {
                         netQuantityPlusMarginTextInputEditText.set(findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details));
                         String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
                         Integer steelId = Integer.parseInt(steelIdExtraResult);
-                        steelIdTextInputEditText.set(findViewById(R.id.editText_estimate_id_estimate_line_details));
+                        steelTypeTextInputEditText.set(estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType());
                         weightTextInputEditText.set(findViewById(R.id.editText_steel_weight_estimate_line_details));
 
                         Steel steel;
 
                         steel = dbAdapter.getSteelById(steelId);
                         geometricShape = steel.getGeometricShape();
-                        steelIdTextInputEditText.get().setText(steelId.toString());
+                        steelTypeTextInputEditText.get().setText(steel.getType());
 
                         if(steel.getWeight() == null){
                             weightTextInputEditText.get().setText("");
@@ -310,8 +311,8 @@ public class EstimateLineDetails extends AppCompatActivity {
 
         Button updateEstimateLine = updateDeleteButtons.getUpdateButton();
         Button deleteEstimateLine = updateDeleteButtons.getDeleteButton();
-        estimateLinesSteelIdSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
-        Button selectSteel = estimateLinesSteelIdSelectSteel.getSelectSteelButton();
+        estimateLinesSteelTypeSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
+        Button selectSteel = estimateLinesSteelTypeSelectSteel.getSelectSteelButton();
 
         selectSteel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,7 +325,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
-                TextInputEditText steelIdTextInputEditText = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
+                TextInputEditText steelTypeTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
                 TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_estimate_line_details);
                 TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
                 TextInputEditText widthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
@@ -337,7 +338,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.editText_total_price_estimate_line_details);
                 EstimateLine estimateLine = new EstimateLine();
                 estimateLine.setEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
-                estimateLine.setSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
+                estimateLine.setSteel(Integer.parseInt(steelTypeTextInputEditText.getText().toString()));
 
                 if(weightTextInputEditText.getText().toString().isEmpty()){
                     estimateLine.setWeight(null);
@@ -444,13 +445,10 @@ public class EstimateLineDetails extends AppCompatActivity {
         deleteEstimateLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText estimate_id = findViewById(R.id.editText_estimate_id_estimate_line_details);
-                Integer quoteId = Integer.parseInt(estimate_id.getText().toString());
-                TextInputEditText editTextSteelId = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
-                Integer steelId = Integer.parseInt((editTextSteelId).getText().toString());
+                TextInputEditText estimateLineId = findViewById(R.id.editText_estimate_line_id_estimate_line_details);
                 DBAdapter adapter = new DBAdapter(getApplicationContext());
-                adapter.deleteEstimateLine(estimateLineId);
-                Toast deleteResult = Toast.makeText(getApplicationContext(), "Suppression du ligne de devis a été éffectué avec succés ", Toast.LENGTH_LONG);
+                adapter.deleteEstimateLine(Integer.parseInt(estimateLineId.getText().toString()));
+                Toast deleteResult = Toast.makeText(getApplicationContext(), "The estimate line has been successfully deleted.", Toast.LENGTH_LONG);
                 deleteResult.show();
             }
         });
@@ -1034,7 +1032,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                     TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details);
                     String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
                     Integer steelId = Integer.parseInt(steelIdExtraResult);
-                    TextInputEditText steelIdTextInputEditText = estimateLinesSteelIdSelectSteel.getTextInputEditTextSteelId();
+                    TextInputEditText steelIdTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
                     TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_estimate_line_details);
 
                     Steel steel;
