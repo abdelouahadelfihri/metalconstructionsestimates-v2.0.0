@@ -65,7 +65,7 @@ public class EstimateDetails extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer;
 
-    EstimateLocationAmountPaid estimateDetailsDoneInIsPaid;
+    EstimateLocationAmountPaid estimateDetailsLocationAmountPaid;
     IssueDateExpirationDate issueDateExpirationDate;
 
     ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
@@ -84,7 +84,7 @@ public class EstimateDetails extends AppCompatActivity {
 
         issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_estimate_details);
         estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-        estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+        estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
         estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
         estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
 
@@ -97,14 +97,14 @@ public class EstimateDetails extends AppCompatActivity {
         Button updateEstimate = newEstimateLineUpdateButtons.getButtonUpdateEstimate();
         Button refreshEstimateLinesList = refreshDeleteEstimateButtons.getButtonRefreshEstimate();
         Button deleteEstimate = refreshDeleteEstimateButtons.getButtonDeleteEstimate();
-        TextInputEditText doneInTextInputEditText = estimateDetailsDoneInIsPaid.getTextInputEditTextDoneIn();
+        TextInputEditText locationTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextLocation();
         TextInputEditText estimateCustomerTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
         TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
         TextInputEditText discountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
         TextInputEditText totalExcludingTaxTotalAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
         TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
         TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-        CheckBox isEstimatePaid = findViewById(R.id.checkBox_is_estimate_paid);
+        TextInputEditText amountPaidTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextAmountPaid();
 
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(estimateId);
@@ -139,7 +139,7 @@ public class EstimateDetails extends AppCompatActivity {
         }
 
         estimateIdTextInputEditText.setText(String.format(estimate.getId().toString()));
-        doneInTextInputEditText.setText(estimate.getDoneIn());
+        locationTextInputEditText.setText(estimate.getDoneIn());
         issueDateExpirationDate.getTextViewEstimateIssueDate().setText(issueDateLabelAndValue);
         issueDateExpirationDate.getTextViewEstimateExpirationDate().setText(expirationDateLabelAndValue);
 
@@ -192,11 +192,11 @@ public class EstimateDetails extends AppCompatActivity {
 
         totalAllTaxIncludedTextInputEditText.setEnabled(false);
 
-        if(Objects.equals(estimate.getIsEstimatePaid(), "true")){
-            isEstimatePaid.setChecked(true);
+        if(estimate.getAmountPaid() == null){
+            amountPaidTextInputEditText.setText("");
         }
         else{
-            isEstimatePaid.setChecked(false);
+            amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
         }
 
         newEstimateLineUpdateButtons = findViewById(R.id.new_estimate_line_update_buttons);
@@ -262,7 +262,7 @@ public class EstimateDetails extends AppCompatActivity {
 
         updateEstimate.setOnClickListener(new View.OnClickListener() {
             EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
-            EstimateLocationAmountPaid estimateDetailsDoneInIsPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+            EstimateLocationAmountPaid estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
             EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
             EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
 
@@ -276,8 +276,8 @@ public class EstimateDetails extends AppCompatActivity {
                         // continue with delete
                         estimate = new Estimate();
                         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_details);
-                        TextInputEditText doneInTextInputEditText = estimateDetailsDoneInIsPaid.getTextInputEditTextDoneIn();
-                        CheckBox isEstimatePaid = estimateDetailsDoneInIsPaid.getCheckBoxIsEstimatePaid();
+                        TextInputEditText locationTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextLocation();
+                        TextInputEditText amountPaidTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextAmountPaid();
                         TextInputEditText estimateCustomerTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
                         TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
                         TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
@@ -287,8 +287,8 @@ public class EstimateDetails extends AppCompatActivity {
 
                         estimate.setId(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
 
-                        if (!doneInTextInputEditText.getText().toString().isEmpty()) {
-                            estimate.setDoneIn(doneInTextInputEditText.getText().toString());
+                        if (!locationTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setDoneIn(locationTextInputEditText.getText().toString());
                         } else {
                             estimate.setDoneIn("");
                         }
@@ -339,10 +339,10 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setAllTaxIncludedTotal(null);
                         }
 
-                        if (!isEstimatePaid.isChecked()) {
-                            estimate.setIsEstimatePaid("false");
+                        if (!amountPaidTextInputEditText.getText().toString().isEmpty()) {
+                            estimate.setAmountPaid(Float.parseFloat(amountPaidTextInputEditText.getText().toString()));
                         } else {
-                            estimate.setIsEstimatePaid("true");
+                            estimate.setAmountPaid(null);
                         }
 
                         dbAdapter.updateEstimate(estimate);
@@ -368,7 +368,7 @@ public class EstimateDetails extends AppCompatActivity {
             public void onClick(View view) {
                 EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
-                doneInTextInputEditText.setText(estimate.getDoneIn());
+                locationTextInputEditText.setText(estimate.getDoneIn());
                 TextView issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
                 TextView expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
                 issueDate.setText(estimate.getIssueDate());
@@ -380,13 +380,9 @@ public class EstimateDetails extends AppCompatActivity {
                 totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
                 vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
                 totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
-
-                if (Objects.equals(estimate.getIsEstimatePaid(), "true")) {
-                    isEstimatePaid.setChecked(true);
-                } else {
-                    isEstimatePaid.setChecked(false);
-                }
-
+                TextInputEditText amountPaidTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextAmountPaid();
+                amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
+                totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
 
                 if (estimateLinesList.isEmpty()) {
