@@ -35,6 +35,7 @@ public class EstimateLineDetails extends AppCompatActivity {
     DBAdapter dbAdapter;
     Integer estimateLineId;
     String geometricShape = "";
+    Integer steelId;
     Float total,netQuantityPlusMargin,totalPrice;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -181,7 +182,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                         marginTextInputEditText.set(findViewById(R.id.editText_margin_estimate_line_details));
                         netQuantityPlusMarginTextInputEditText.set(findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details));
                         String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
-                        Integer steelId = Integer.parseInt(steelIdExtraResult);
+                        steelId = Integer.parseInt(steelIdExtraResult);
                         steelTypeTextInputEditText.set(estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType());
                         weightTextInputEditText.set(findViewById(R.id.editText_steel_weight_estimate_line_details));
 
@@ -337,8 +338,9 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.editText_unit_price_estimate_line_details);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.editText_total_price_estimate_line_details);
                 EstimateLine estimateLine = new EstimateLine();
+
                 estimateLine.setEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
-                estimateLine.setSteel(Integer.parseInt(steelTypeTextInputEditText.getText().toString()));
+                estimateLine.setSteel(steelId);
 
                 if(weightTextInputEditText.getText().toString().isEmpty()){
                     estimateLine.setWeight(null);
@@ -1032,7 +1034,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                     TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details);
                     String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
                     Integer steelId = Integer.parseInt(steelIdExtraResult);
-                    TextInputEditText steelIdTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
+                    TextInputEditText steelTypeTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
                     TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_estimate_line_details);
 
                     Steel steel;
@@ -1041,7 +1043,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
                     geometricShape = steel.getGeometricShape();
 
-                    steelIdTextInputEditText.setText(steelId.toString());
+                    steelTypeTextInputEditText.setText(steel.getType());
 
                     TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
                     TextInputEditText widthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
