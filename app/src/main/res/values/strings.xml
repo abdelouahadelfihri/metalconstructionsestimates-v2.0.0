@@ -112,6 +112,7 @@
     <string name="noYearlyEstimates">No yearly estimates recorded</string>
     <string name="noUnpaidEstimates">No unpaid estimates recorded</string>
     <string name="noPaidEstimates">No paid estimates recorded</string>
+    <string name="noPartiallyPaidEstimates">No partially paid estimates recorded</string>
     <string name="noEstimates">No estimates recorded</string>
     <string name="estimateRecorded">estimate recorded</string>
     <string name="estimatesRecorded">estimates recorded</string>
