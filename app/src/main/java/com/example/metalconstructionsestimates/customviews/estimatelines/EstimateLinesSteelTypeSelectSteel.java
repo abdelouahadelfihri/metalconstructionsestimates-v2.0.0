@@ -29,7 +29,7 @@ public class EstimateLinesSteelTypeSelectSteel extends LinearLayout {
 
     private void init(){
         LayoutInflater.from(getContext()).inflate(R.layout.estimate_lines_steel_type_select_steel, this, true);
-        editTextSteelType = findViewById(R.id.editText_steel_id_textInputEditText);
+        editTextSteelType = findViewById(R.id.editText_steel_type_textInputEditText);
         selectSteelButton = findViewById(R.id.button_select_steel);
     }
 }
