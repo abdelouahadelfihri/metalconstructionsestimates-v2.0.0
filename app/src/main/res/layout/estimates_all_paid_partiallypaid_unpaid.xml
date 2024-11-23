@@ -4,49 +4,26 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/textView_allEstimates"
+        android:id="@+id/textView_payment_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.3"
         android:background="@color/white"
         android:padding="15dp"
-        android:text="@string/allEstimates"
+        android:text="@string/paymentStatus"
         android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/textView_paidEstimates"
+    <Spinner
+        android:id="@+id/spinner_steel_geometric_shape_add_steel"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="0.6"
-        android:background="@color/white"
-        android:padding="15dp"
-        android:text="@string/paidEstimates"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/textView_unpaidEstimates"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="0.8"
-        android:background="@color/white"
-        android:padding="15dp"
-        android:text="@string/unpaidEstimates"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/textView_partiallyPaidEstimates"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1.2"
-        android:background="@color/white"
-        android:padding="15dp"
-        android:text="@string/partiallyPaidEstimates"
-        android:textColor="@color/black" />
+        android:layout_weight="0.9"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp" />
 
 
 
