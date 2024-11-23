@@ -16,7 +16,7 @@
         android:textColor="@color/black" />
 
     <Spinner
-        android:id="@+id/spinner_steel_geometric_shape_add_steel"
+        android:id="@+id/spinner_payment_status"
         android:layout_width="0dp"
         android:layout_weight="0.9"
         android:layout_height="48dp"
