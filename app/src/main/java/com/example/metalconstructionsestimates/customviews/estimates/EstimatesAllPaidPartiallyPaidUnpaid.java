@@ -10,10 +10,8 @@ import android.widget.TextView;
 import com.example.metalconstructionsestimates.R;
 
 public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
-    private TextView textViewAllEstimates;
-    private TextView textViewPaidEstimates;
-    private TextView textViewPartiallyPaidEstimates;
-    private TextView textViewUnpaidEstimates;
+    private TextView textViewPaymentStatus;
+    private TextView spinnerPaymentStatus;
 
     public EstimatesAllPaidPartiallyPaidUnpaid(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -22,33 +20,16 @@ public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
 
     private void init(){
         LayoutInflater.from(getContext()).inflate(R.layout.estimates_all_paid_partiallypaid_unpaid, this, true);
-        textViewAllEstimates = findViewById(R.id.textView_allEstimates);
-        textViewPaidEstimates = findViewById(R.id.textView_paidEstimates);
-        textViewPartiallyPaidEstimates = findViewById(R.id.textView_partiallyPaidEstimates);
-        textViewUnpaidEstimates = findViewById(R.id.textView_unpaidEstimates);
-        textViewAllEstimates.setBackgroundColor(Color.LTGRAY);
-        textViewPartiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
-        textViewPaidEstimates.setBackgroundColor(Color.LTGRAY);
-        textViewUnpaidEstimates.setBackgroundColor(Color.LTGRAY);
-        textViewAllEstimates.setTextColor(Color.BLACK);
-        textViewPaidEstimates.setTextColor(Color.BLACK);
-        textViewPartiallyPaidEstimates.setTextColor(Color.BLACK);
-        textViewUnpaidEstimates.setTextColor(Color.BLACK);
+        textViewPaymentStatus = findViewById(R.id.textView_payment_status);
+        spinnerPaymentStatus = findViewById(R.id.spinner_payment_status);
     }
 
-    public TextView getTextViewAllEstimates(){
-        return textViewAllEstimates;
+    public TextView getTextViewPaymentStatus(){
+        return textViewPaymentStatus;
     }
 
-    public TextView getTextViewPaidEstimates(){
-        return textViewPaidEstimates;
+    public TextView getSpinnerPaymentStatus(){
+        return spinnerPaymentStatus;
     }
 
-    public TextView getTextViewPartiallyPaidEstimates(){
-        return textViewPartiallyPaidEstimates;
-    }
-
-    public TextView getTextViewUnpaidEstimates(){
-        return textViewUnpaidEstimates;
-    }
 }
