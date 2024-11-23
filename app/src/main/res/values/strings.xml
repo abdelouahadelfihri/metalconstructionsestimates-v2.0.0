@@ -118,5 +118,6 @@
     <string name="estimatesRecorded">estimates recorded</string>
     <string name="noCustomers">No customers recorded</string>
     <string name="noSteels">No steels recorded</string>
+    <string name="paymentStatus">Payment Status</string>
     <string name="noEstimateLines">No estimates lines recorded</string>
 </resources>
