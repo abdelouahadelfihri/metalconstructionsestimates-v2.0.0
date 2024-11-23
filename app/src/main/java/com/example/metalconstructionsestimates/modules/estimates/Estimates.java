@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import com.google.android.material.textfield.TextInputEditText;
+
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +59,7 @@ public class Estimates extends AppCompatActivity {
     public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidPartiallyPaidUnpaid;
     public IssueDateExpirationDate issueDateExpirationDate;
     String expirationDateString = "",issueDateString = "";
-
+    Spinner paymentStatusSpinner;
     Integer customerId;
     TextInputEditText estimate_id,location,amount_paid,customer_id,total_excluding_tax,discount,total_excluding_tax_after_discount,vat,total_all_tax_included;
     private DatePickerDialog.OnDateSetListener issueDateSetListener,expirationDateSetListener;
@@ -85,11 +89,13 @@ public class Estimates extends AppCompatActivity {
         estimateCustomerIdSelectCustomer = activityEstimatesBinding.customerIdSelectCustomerEstimates;
         Button selectCustomer = estimateCustomerIdSelectCustomer.getButtonSelectCustomer();
         estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
+        paymentStatusSpinner = estimatesAllPaidPartiallyPaidUnpaid.getSpinnerPaymentStatus();
 
-        allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
-        unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
-        partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
-        paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
+        ArrayAdapter<CharSequence> paymentStatusAdapter = ArrayAdapter.createFromResource(this, R.array.payment_status, android.R.layout.simple_spinner_item);
+
+        paymentStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        paymentStatusSpinner.setAdapter(paymentStatusAdapter);
 
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
@@ -114,125 +120,65 @@ public class Estimates extends AppCompatActivity {
             estimateListAdapter.updateEstimates(estimatesList);
         }
 
-        allEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
-        paidEstimates.setBackgroundColor(Color.LTGRAY);
-        unpaidEstimates.setBackgroundColor(Color.LTGRAY);
-        partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
-        allEstimates.setTextColor(Color.WHITE);
-        paidEstimates.setTextColor(Color.BLACK);
-        unpaidEstimates.setTextColor(Color.BLACK);
-        partiallyPaidEstimates.setTextColor(Color.BLACK);
+        paymentStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+                switch(item.toString()){
+                    case "All":
+                        ArrayList<Estimate> allEstimatesList = db.retrieveEstimates();
 
-        allEstimates.setOnClickListener(view -> {
-            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
-            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
-            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
-            allEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
-            allEstimates.setTextColor(Color.WHITE);
-            paidEstimates.setBackgroundColor(Color.LTGRAY);
-            paidEstimates.setTextColor(Color.BLACK);
-            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
-            partiallyPaidEstimates.setTextColor(Color.BLACK);
-            unpaidEstimates.setBackgroundColor(Color.LTGRAY);
-            unpaidEstimates.setTextColor(Color.BLACK);
+                        if (allEstimatesList.isEmpty()) {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noEstimates);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                        } else {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            estimateListAdapter.updateEstimates(allEstimatesList);
+                        }
+                        break;
+                    case "Paid":
+                        ArrayList<Estimate> paidEstimatesList = db.retrievePaidEstimates();
 
-            ArrayList<Estimate> allEstimatesList = db.retrieveEstimates();
+                        if (paidEstimatesList.isEmpty()) {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                        } else {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            estimateListAdapter.updateEstimates(paidEstimatesList);
+                        }
+                        break;
+                    case "Partially Paid":
+                        ArrayList<Estimate> partiallyPaidEstimatesList = db.retrievePartiallyPaidEstimates();
 
-            if (allEstimatesList.isEmpty()) {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.noEstimatesTextView.setText(R.string.noEstimates);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-            } else {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                estimateListAdapter.updateEstimates(allEstimatesList);
+                        if (partiallyPaidEstimatesList.isEmpty()) {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                        } else {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
+                        }
+                        break;
+                    case "Unpaid":
+                        ArrayList<Estimate> unPaidEstimatesList = db.retrieveUnpaidEstimates();
+
+                        if (unPaidEstimatesList.isEmpty()) {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noUnpaidEstimates);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                        } else {
+                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            estimateListAdapter.updateEstimates(unPaidEstimatesList);
+                        }
+                        break;
+                }
             }
-        });
-
-        paidEstimates.setOnClickListener(view -> {
-            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
-            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
-            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
-            allEstimates.setBackgroundColor(Color.LTGRAY);
-            allEstimates.setTextColor(Color.BLACK);
-            paidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
-            paidEstimates.setTextColor(Color.WHITE);
-            unpaidEstimates.setBackgroundColor(Color.LTGRAY);
-            unpaidEstimates.setTextColor(Color.BLACK);
-            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
-            partiallyPaidEstimates.setTextColor(Color.BLACK);
-
-            ArrayList<Estimate> paidEstimatesList = db.retrievePaidEstimates();
-
-            if (paidEstimatesList.isEmpty()) {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-            } else {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                estimateListAdapter.updateEstimates(paidEstimatesList);
-            }
-        });
-
-
-        partiallyPaidEstimates.setOnClickListener(view -> {
-            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
-            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
-            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
-            allEstimates.setBackgroundColor(Color.LTGRAY);
-            allEstimates.setTextColor(Color.BLACK);
-            paidEstimates.setBackgroundColor(Color.LTGRAY);
-            paidEstimates.setTextColor(Color.BLACK);
-            unpaidEstimates.setBackgroundColor(Color.LTGRAY);
-            unpaidEstimates.setTextColor(Color.BLACK);
-            partiallyPaidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
-            partiallyPaidEstimates.setTextColor(Color.WHITE);
-
-            ArrayList<Estimate> partiallyPaidEstimatesList = db.retrievePartiallyPaidEstimates();
-
-            if (partiallyPaidEstimatesList.isEmpty()) {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-            } else {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
-            }
-        });
-
-        unpaidEstimates.setOnClickListener(view -> {
-            estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-            allEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewAllEstimates();
-            unpaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewUnpaidEstimates();
-            partiallyPaidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPartiallyPaidEstimates();
-            paidEstimates = estimatesAllPaidPartiallyPaidUnpaid.getTextViewPaidEstimates();
-            allEstimates.setBackgroundColor(Color.LTGRAY);
-            allEstimates.setTextColor(Color.BLACK);
-            paidEstimates.setBackgroundColor(Color.LTGRAY);
-            paidEstimates.setTextColor(Color.BLACK);
-            partiallyPaidEstimates.setBackgroundColor(Color.LTGRAY);
-            partiallyPaidEstimates.setTextColor(Color.BLACK);
-            unpaidEstimates.setBackgroundColor(Color.parseColor("#4F5EB1"));
-            unpaidEstimates.setTextColor(Color.WHITE);
-
-            ArrayList<Estimate> unPaidEstimatesList = db.retrieveUnpaidEstimates();
-
-            if (unPaidEstimatesList.isEmpty()) {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.noEstimatesTextView.setText(R.string.noUnpaidEstimates);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-            } else {
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                estimateListAdapter.updateEstimates(unPaidEstimatesList);
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
