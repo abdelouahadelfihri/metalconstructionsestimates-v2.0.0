@@ -27,6 +27,17 @@
         android:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/textView_unpaidEstimates"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="0.6"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:text="@string/unpaidEstimates"
+        android:textColor="@color/black" />
+
+    <TextView
         android:id="@+id/textView_partiallyPaidEstimates"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,15 +48,6 @@
         android:text="@string/partiallyPaidEstimates"
         android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/textView_unpaidEstimates"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="0.6"
-        android:background="@color/white"
-        android:padding="15dp"
-        android:text="@string/unpaidEstimates"
-        android:textColor="@color/black" />
+
 
 </LinearLayout>
