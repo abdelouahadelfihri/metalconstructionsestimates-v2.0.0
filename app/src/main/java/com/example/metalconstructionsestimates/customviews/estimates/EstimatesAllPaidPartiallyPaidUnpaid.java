@@ -5,13 +5,14 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.metalconstructionsestimates.R;
 
 public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
     private TextView textViewPaymentStatus;
-    private TextView spinnerPaymentStatus;
+    private Spinner spinnerPaymentStatus;
 
     public EstimatesAllPaidPartiallyPaidUnpaid(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -28,7 +29,7 @@ public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
         return textViewPaymentStatus;
     }
 
-    public TextView getSpinnerPaymentStatus(){
+    public Spinner getSpinnerPaymentStatus(){
         return spinnerPaymentStatus;
     }
 
