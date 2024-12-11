@@ -9,13 +9,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/estimatesSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/steelsSection">
+        app:layout_constraintEnd_toStartOf="@id/steelsSection"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/estimatesCount_label"
@@ -48,13 +49,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/steelsSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toEndOf="@id/estimatesSection"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/customersSection">
+        app:layout_constraintEnd_toStartOf="@id/customersSection"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/steelsCount_label"
@@ -87,13 +89,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/customersSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toEndOf="@id/steelsSection"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/customersCount_label"
