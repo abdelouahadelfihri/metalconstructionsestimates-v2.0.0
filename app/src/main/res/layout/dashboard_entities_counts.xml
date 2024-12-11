@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/steelsSection"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -56,6 +57,7 @@
         app:layout_constraintStart_toEndOf="@id/estimatesSection"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/customersSection"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
@@ -96,6 +98,7 @@
         app:layout_constraintStart_toEndOf="@id/steelsSection"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
