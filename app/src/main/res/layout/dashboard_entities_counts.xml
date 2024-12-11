@@ -1,91 +1,122 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:baselineAligned="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/estimatesSection"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_weight="1"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/steelsSection"
+        app:layout_constraintWidth_percent="0.33">
 
         <TextView
             android:id="@+id/estimatesCount_label"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:hint="@string/estimatesCount"
             android:padding="11dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/estimatesCount"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:padding="5dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estimatesCount_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Steels Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/steelsSection"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_weight="1"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
-        android:orientation="vertical">
+        app:layout_constraintStart_toEndOf="@id/estimatesSection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/customersSection"
+        app:layout_constraintWidth_percent="0.33">
 
         <TextView
             android:id="@+id/steelsCount_label"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:hint="@string/steelsCount"
             android:padding="11dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/steelsCount"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:padding="5dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/steelsCount_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Customers Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/customersSection"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_weight="1"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
-        android:orientation="vertical">
+        app:layout_constraintStart_toEndOf="@id/steelsSection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.33">
 
         <TextView
             android:id="@+id/customersCount_label"
-            android:layout_width="match_parent"
-            android:layout_height="57dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:hint="@string/customersCount"
             android:padding="11dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/customersCount"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:padding="5dp"
+            android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-</LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/customersCount_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
