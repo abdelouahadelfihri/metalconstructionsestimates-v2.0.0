@@ -1,19 +1,22 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
 
+    <!-- Estimates Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/estimatesSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/steelsSection"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_percent="0.33">
 
         <TextView
@@ -46,13 +49,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/steelsSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toEndOf="@id/estimatesSection"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/customersSection"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_percent="0.33">
 
         <TextView
@@ -85,13 +89,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/customersSection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintStart_toEndOf="@id/steelsSection"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_percent="0.33">
 
         <TextView
