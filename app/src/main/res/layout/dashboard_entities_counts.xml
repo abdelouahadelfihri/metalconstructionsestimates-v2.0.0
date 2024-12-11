@@ -5,6 +5,19 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
+    <!-- Guideline to divide the screen equally for each section -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.67" />
+
     <!-- Estimates Section -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/estimatesSection"
@@ -14,10 +27,9 @@
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/steelsSection"
-        app:layout_constraintHorizontal_chainStyle="packed">
+        app:layout_constraintEnd_toStartOf="@id/steelsSection">
 
         <TextView
             android:id="@+id/estimatesCount_label"
@@ -54,11 +66,10 @@
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_top"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintStart_toEndOf="@id/estimatesSection"
-        app:layout_constraintEnd_toStartOf="@id/customersSection"
-        app:layout_constraintHorizontal_chainStyle="packed">
+        app:layout_constraintEnd_toStartOf="@id/customersSection">
 
         <TextView
             android:id="@+id/steelsCount_label"
@@ -95,11 +106,10 @@
         android:layout_margin="5dp"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#80BFFF"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/steelsSection"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/customersCount_label"
