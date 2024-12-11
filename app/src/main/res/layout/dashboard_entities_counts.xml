@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/steelsSection"
-        app:layout_constraintHorizontal_weight="1">
+        app:layout_constraintHorizontal_chainStyle="packed">
 
         <TextView
             android:id="@+id/estimatesCount_label"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/estimatesSection"
         app:layout_constraintEnd_toStartOf="@id/customersSection"
-        app:layout_constraintHorizontal_weight="1">
+        app:layout_constraintHorizontal_chainStyle="packed">
 
         <TextView
             android:id="@+id/steelsCount_label"
@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/steelsSection"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1">
+        app:layout_constraintHorizontal_chainStyle="packed">
 
         <TextView
             android:id="@+id/customersCount_label"
