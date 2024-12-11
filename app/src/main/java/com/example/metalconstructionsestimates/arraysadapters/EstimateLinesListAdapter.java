@@ -51,10 +51,10 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EstimateLine estimateLine = estimateLinesList.get(position);
-        String estimateLineId = "Id Ligne De Devis : " + estimateLine.getId().toString();
-        String estimateId = "Id Devis : " + estimateLine.getEstimate();
-        String steelId = "Id Acier : " + estimateLine.getSteel();
-        String totalPrice = "Prix Total : " + estimateLine.getTotalPrice();
+        String estimateLineId = "Estimate Line Id : " + estimateLine.getId().toString();
+        String estimateId = "Estimate Id : " + estimateLine.getEstimate();
+        String steelId = "Steel Id : " + estimateLine.getSteel();
+        String totalPrice = "Estimate Line Total : " + estimateLine.getTotalPrice();
         holder.textViewEstimateLineId.setText(estimateLineId);
         holder.textViewEstimateId.setText(estimateId);
         holder.textViewSteelId.setText(steelId);
