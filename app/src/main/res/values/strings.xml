@@ -88,7 +88,7 @@
     <string name="steelsList">Steels List</string>
     <string name="customersList">Customers List</string>
     <string name="estimatesList">Estimates List</string>
-    <string name="steelsCount"># Steels : </string>
+    <string name="steelsCount"># Steels :</string>
     <string name="estimatesCount"># Estimates :</string>
     <string name="customersCount"># Customers :</string>
     <string name="estimatesTotal">Total Amount of Registered Estimates :</string>
