@@ -10,7 +10,6 @@ import com.example.metalconstructionsestimates.customviews.dashboard.DashboardDa
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
 import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ public class Dashboard extends AppCompatActivity {
     private TabLayout tabLayout;
     DashboardDatabaseEntitiesTotals dashboardDatabaseEntitiesTotals;
     String customersCount, steelsCount, estimatesCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class Dashboard extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager2) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new DashboardPagerAdapter(this));
         dashboardDatabaseEntitiesTotals = findViewById(R.id.dashboard_database_entities_totals);
         TextView customersCountTextView = dashboardDatabaseEntitiesTotals.getTextViewCustomersCount();
@@ -39,71 +39,52 @@ public class Dashboard extends AppCompatActivity {
         TextView steelsCountTextView = dashboardDatabaseEntitiesTotals.getTextViewSteelsCount();
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
 
-        if(dbAdapter.getCustomersCount() == 0){
-            String zeroCustomers = "0 Customers";
-            customersCountTextView.setText(zeroCustomers);
-        }
-        else{
-            customersCount = String.valueOf(dbAdapter.getCustomersCount());
-            if(dbAdapter.getCustomersCount() == 1){
-                customersCount += " Customer";
-            }
-            else{
-                customersCount += " Customers";
-            }
-
-            customersCountTextView.setText(customersCount);
-
-        }
-
-        if(dbAdapter.getEstimatesCount() == 0){
-            String zeroEstimates = "0 Estimates";
-            estimatesCountTextView.setText(zeroEstimates);
-        }
-        else{
-            estimatesCount = String.valueOf(dbAdapter.getEstimatesCount());
-            if(dbAdapter.getEstimatesCount() == 1){
-                estimatesCount += " Estimate";
-            }
-            else{
-                estimatesCount += " Estimates";
-            }
-
-            estimatesCountTextView.setText(estimatesCount);
-
-        }
-
-        if(dbAdapter.getSteelsCount() == 0){
-            String zeroSteels = "0 Steels";
-            steelsCountTextView.setText(zeroSteels);
-        }
-        else{
-            steelsCount = String.valueOf(dbAdapter.getSteelsCount());
-            if(dbAdapter.getSteelsCount() == 1){
-                steelsCount += " Steel";
-            }
-            else{
-                steelsCount += " Steels";
-            }
-
-            steelsCountTextView.setText(steelsCount);
-
-        }
+        // Set counts for each category
+        setCounts(dbAdapter, customersCountTextView, estimatesCountTextView, steelsCountTextView);
 
         tabLayout = findViewById(R.id.tabLayout);
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(getTabTitle(position))
-        ).attach();
 
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if (tab != null) {
-                // Access the tab's view (the TabLayout view)
-                TextView textView = (TextView) ((ViewGroup) tab.view).getChildAt(1);  // Access the TextView
-                if (textView != null) {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 18sp
+        // Use TabLayoutMediator to connect TabLayout with ViewPager2
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
+
+        // Update the tab text size after the tabs have been initialized
+        tabLayout.post(() -> {
+            for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                if (tab != null) {
+                    // Access the tab's view and modify the text size
+                    TextView textView = (TextView) ((ViewGroup) tab.view).getChildAt(1);  // Access the TextView
+                    if (textView != null) {
+                        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 10sp
+                    }
                 }
             }
+        });
+    }
+
+    private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
+        if (dbAdapter.getCustomersCount() == 0) {
+            customersCountTextView.setText("0 Customers");
+        } else {
+            customersCount = String.valueOf(dbAdapter.getCustomersCount());
+            customersCount += dbAdapter.getCustomersCount() == 1 ? " Customer" : " Customers";
+            customersCountTextView.setText(customersCount);
+        }
+
+        if (dbAdapter.getEstimatesCount() == 0) {
+            estimatesCountTextView.setText("0 Estimates");
+        } else {
+            estimatesCount = String.valueOf(dbAdapter.getEstimatesCount());
+            estimatesCount += dbAdapter.getEstimatesCount() == 1 ? " Estimate" : " Estimates";
+            estimatesCountTextView.setText(estimatesCount);
+        }
+
+        if (dbAdapter.getSteelsCount() == 0) {
+            steelsCountTextView.setText("0 Steels");
+        } else {
+            steelsCount = String.valueOf(dbAdapter.getSteelsCount());
+            steelsCount += dbAdapter.getSteelsCount() == 1 ? " Steel" : " Steels";
+            steelsCountTextView.setText(steelsCount);
         }
     }
 
