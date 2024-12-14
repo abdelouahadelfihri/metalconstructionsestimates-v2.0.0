@@ -90,7 +90,7 @@
     <string name="estimatesList">Estimates List</string>
     <string name="steelsCount"># Steels :</string>
     <string name="estimatesCount"># Estimates :</string>
-    <string name="customersCount"># Customers :</string>
+    <string name="customersCount"># Cust :</string>
     <string name="estimatesTotal">Total Amount of Registered Estimates :</string>
     <string name="currentDayEstimatesTotal">Daily Total of Estimates :</string>
     <string name="currentWeekEstimatesTotal">Weekly Total of Estimates :</string>
