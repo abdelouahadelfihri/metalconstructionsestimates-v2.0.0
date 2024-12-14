@@ -43,6 +43,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
 import com.example.metalconstructionsestimates.db.IntermediateDBAdapter;
 
@@ -70,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
         GridAdapter gridAdapter = new GridAdapter(this, values, images);
         gridView.setAdapter(gridAdapter);
         ImageView menuButton = findViewById(R.id.menu_button);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+// Handle insets manually if needed
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_main), (view, insets) -> {
+            Insets statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            view.setPadding(0, statusBarInsets.top, 0, 0); // Adjust for the status bar height
+            return insets;
+        });
 
         menuButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, BackUpRestore.class);

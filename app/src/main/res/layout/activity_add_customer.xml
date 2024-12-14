@@ -41,6 +41,8 @@
             android:id="@+id/editText_customer_name_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,6 +67,8 @@
             android:id="@+id/editText_customer_email_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +93,8 @@
             android:id="@+id/editText_customer_phone_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -113,6 +119,8 @@
             android:id="@+id/editText_customer_mobile_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +145,8 @@
             android:id="@+id/editText_customer_fax_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -161,6 +171,8 @@
             android:id="@+id/editText_customer_address_add"
             android:layout_width="match_parent"
             android:layout_height="125dp"
+            android:textColor="#595959"
+            android:background="#F4F4F4"
             android:inputType="textMultiLine" />
 
     </com.google.android.material.textfield.TextInputLayout>
