@@ -10,6 +10,9 @@ import com.example.metalconstructionsestimates.customviews.dashboard.DashboardDa
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.Objects;
 
@@ -91,6 +94,17 @@ public class Dashboard extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(getTabTitle(position))
         ).attach();
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null) {
+                // Access the tab's view (the TabLayout view)
+                TextView textView = (TextView) ((ViewGroup) tab.view).getChildAt(1);  // Access the TextView
+                if (textView != null) {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);  // Set text size to 18sp
+                }
+            }
+        }
     }
 
     private String getTabTitle(int position) {
