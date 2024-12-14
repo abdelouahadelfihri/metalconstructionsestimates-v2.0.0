@@ -104,7 +104,7 @@ public class Dashboard extends AppCompatActivity {
                     TextView tab = (TextView) tabViewGroup.getChildAt(j);
                     if (tab != null) {
                         tab.setTypeface(Typeface.createFromAsset(context.getAssets(), "font.ttf"));
-                        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21f);
+                        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
                     }
                 }
             }
