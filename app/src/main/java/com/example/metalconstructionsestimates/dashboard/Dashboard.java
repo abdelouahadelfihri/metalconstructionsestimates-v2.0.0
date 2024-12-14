@@ -47,7 +47,10 @@ public class Dashboard extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
 
-        customizeTabDesign(tabLayout, this);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
+        // Update the tab text size after the tabs have been initialized
+        customizeTabDesign(tabLayout, getApplicationContext());
+
     }
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
