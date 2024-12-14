@@ -101,7 +101,7 @@ public class Dashboard extends AppCompatActivity {
                 // Access the tab's view (the TabLayout view)
                 TextView textView = (TextView) ((ViewGroup) tab.view).getChildAt(1);  // Access the TextView
                 if (textView != null) {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);  // Set text size to 18sp
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 18sp
                 }
             }
         }
