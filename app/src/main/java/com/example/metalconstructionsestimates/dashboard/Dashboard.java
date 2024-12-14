@@ -11,6 +11,7 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.Objects;
@@ -44,22 +45,25 @@ public class Dashboard extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
 
-        // Use TabLayoutMediator to connect TabLayout with ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
-
         // Update the tab text size after the tabs have been initialized
         tabLayout.post(() -> {
             for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 TabLayout.Tab tab = tabLayout.getTabAt(i);
                 if (tab != null) {
-                    // Access the tab's view and modify the text size
-                    TextView textView = (TextView) ((ViewGroup) tab.view).getChildAt(1);  // Access the TextView
-                    if (textView != null) {
-                        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 10sp
+                    View tabView = tab.view;
+                    if (tabView != null) {
+                        // Find the TextView within the tab's view
+                        TextView textView = tabView.findViewById(android.R.id.title);
+                        if (textView != null) {
+                            // Set the text size
+                            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 10sp
+                        }
                     }
                 }
             }
         });
+
     }
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
