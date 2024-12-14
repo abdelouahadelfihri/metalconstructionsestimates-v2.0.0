@@ -1,6 +1,7 @@
 package com.example.metalconstructionsestimates.dashboard;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.Objects;
+import android.content.Context;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -45,25 +47,7 @@ public class Dashboard extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
 
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
-        // Update the tab text size after the tabs have been initialized
-        tabLayout.post(() -> {
-            for (int i = 0; i < tabLayout.getTabCount(); i++) {
-                TabLayout.Tab tab = tabLayout.getTabAt(i);
-                if (tab != null) {
-                    View tabView = tab.view;
-                    if (tabView != null) {
-                        // Find the TextView within the tab's view
-                        TextView textView = tabView.findViewById(android.R.id.title);
-                        if (textView != null) {
-                            // Set the text size
-                            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);  // Set text size to 10sp
-                        }
-                    }
-                }
-            }
-        });
-
+        customizeTabDesign(tabLayout, this);
     }
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
@@ -105,6 +89,22 @@ public class Dashboard extends AppCompatActivity {
                 return "Yearly Estimates";
             default:
                 return null;
+        }
+    }
+
+    public static void customizeTabDesign(TabLayout tabLayout, Context context) {
+        ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            ViewGroup tabViewGroup = (ViewGroup) viewGroup.getChildAt(i);
+            if (tabViewGroup != null) {
+                for (int j = 0; j < tabViewGroup.getChildCount(); j++) {
+                    TextView tab = (TextView) tabViewGroup.getChildAt(j);
+                    if (tab != null) {
+                        tab.setTypeface(Typeface.createFromAsset(context.getAssets(), "font.ttf"));
+                        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21f);
+                    }
+                }
+            }
         }
     }
 }
