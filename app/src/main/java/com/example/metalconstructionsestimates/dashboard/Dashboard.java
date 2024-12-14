@@ -48,9 +48,6 @@ public class Dashboard extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
-        // Update the tab text size after the tabs have been initialized
-        customizeTabDesign(tabLayout, getApplicationContext());
-
     }
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
@@ -92,22 +89,6 @@ public class Dashboard extends AppCompatActivity {
                 return "Yearly Estimates";
             default:
                 return null;
-        }
-    }
-
-    public static void customizeTabDesign(TabLayout tabLayout, Context context) {
-        ViewGroup viewGroup = (ViewGroup) tabLayout.getChildAt(0);
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            ViewGroup tabViewGroup = (ViewGroup) viewGroup.getChildAt(i);
-            if (tabViewGroup != null) {
-                for (int j = 0; j < tabViewGroup.getChildCount(); j++) {
-                    TextView tab = (TextView) tabViewGroup.getChildAt(j);
-                    if (tab != null) {
-                        tab.setTypeface(Typeface.createFromAsset(context.getAssets(), "font.ttf"));
-                        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                    }
-                }
-            }
         }
     }
 }
