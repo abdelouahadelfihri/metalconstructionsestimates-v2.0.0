@@ -151,7 +151,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_customer_adress_customer_add"
         android:layout_width="0dp"
@@ -159,7 +158,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="166dp"
+        android:layout_marginBottom="200dp"
         android:hint="@string/customer_address"
         app:hintEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/add_clear_button_add_customer"
@@ -183,7 +182,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
