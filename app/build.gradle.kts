@@ -13,6 +13,14 @@ android {
     }
 
     defaultConfig {
+        manifestPlaceholders.putAll(
+            mapOf(
+                "smallScreens" to "true",
+                "normalScreens" to "true",
+                "largeScreens" to "false",
+                "xlargeScreens" to "false"
+            )
+        )
         applicationId = "com.example.metalconstructionsestimates"
         minSdk = 24
         targetSdk = 34

@@ -145,4 +145,12 @@
         </activity>
     </application>
 
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="false"
+        android:xlargeScreens="false"
+        android:resizeable="false"
+        android:anyDensity="true" />
+
 </manifest>
