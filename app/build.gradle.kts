@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(libs.appcompat)
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.api-client:google-api-client:1.31.5")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
