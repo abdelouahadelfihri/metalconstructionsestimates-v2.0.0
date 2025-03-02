@@ -129,7 +129,6 @@
         app:constraint_referenced_ids="recycler_view_estimate_lines,noEstimateLinesTextView"
         android:visibility="visible"/>
 
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_estimate_lines"
         android:layout_width="match_parent"
