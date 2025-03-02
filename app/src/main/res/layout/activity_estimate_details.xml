@@ -127,7 +127,9 @@
     <androidx.constraintlayout.widget.Group
         android:id="@+id/recycler_view_group"
         app:constraint_referenced_ids="recycler_view_estimate_lines,noEstimateLinesTextView"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_estimate_lines"
