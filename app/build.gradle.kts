@@ -64,6 +64,7 @@ dependencies {
     implementation("com.google.api-client:google-api-client-android:1.34.1")
     implementation("com.google.http-client:google-http-client-android:1.41.5")
     implementation(libs.material)
+    implementation(libs.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
