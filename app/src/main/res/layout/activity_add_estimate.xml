@@ -4,129 +4,134 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_estimate"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:background="#4F5EB1"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/location_amount_paid_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:title="@string/addEstimate"
-        app:titleTextColor="@android:color/white" />
-
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
-        android:id="@+id/location_amount_paid_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:enabled="true"
-        android:importantForAutofill="no"
-        app:layout_constraintBottom_toTopOf="@+id/issue_date_expiration_date_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_estimate" />
-
-    <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
-        android:id="@+id/issue_date_expiration_date_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:enabled="true"
-        android:importantForAutofill="no"
-        app:layout_constraintBottom_toTopOf="@+id/customer_id_select_customer_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_amount_paid_add_estimate" />
-
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
-        android:id="@+id/customer_id_select_customer_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:enabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_estimate_discount_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/issue_date_expiration_date_add_estimate" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_estimate_discount_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/discount"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_estimate_vat_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_id_select_customer_add_estimate">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText_estimate_discount_add"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white">
+    <!-- Wrap content in ScrollView -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_clear_button_add_customer">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:maxLength="2"
-            android:inputType="number" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#4F5EB1"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintBottom_toTopOf="@+id/location_amount_paid_add_estimate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:title="@string/addEstimate"
+                app:titleTextColor="@android:color/white" />
+            <!-- TextInputLayouts -->
+            <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
+                android:id="@+id/location_amount_paid_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:ems="10"
+                android:enabled="true"
+                android:importantForAutofill="no" />
+            <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
+                android:id="@+id/issue_date_expiration_date_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:enabled="true"
+                android:importantForAutofill="no"
+                app:layout_constraintBottom_toTopOf="@+id/customer_id_select_customer_add_estimate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_amount_paid_add_estimate" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
+                android:id="@+id/customer_id_select_customer_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:enabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout_estimate_discount_add_estimate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/issue_date_expiration_date_add_estimate" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_estimate_vat_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/vat"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/add_clear_buttons_add_estimates"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_estimate_discount_add_estimate">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_estimate_discount_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/discount"
+                app:hintEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout_estimate_vat_add_estimate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customer_id_select_customer_add_estimate">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText_estimate_vat_add"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:maxLength="2"
-            android:inputType="numberDecimal" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_estimate_discount_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:maxLength="2"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_estimate_vat_add_estimate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/vat"
+                app:hintEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/add_clear_buttons_add_estimates"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_estimate_discount_add_estimate">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditText_estimate_vat_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:maxLength="2"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
+    <!-- Fixed button at the bottom -->
     <com.example.metalconstructionsestimates.customviews.AddClearButtons
-        android:id="@+id/add_clear_buttons_add_estimates"
-        android:layout_width="0dp"
+        android:id="@+id/add_clear_button_add_customer"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="305dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="parent"
+        android:ems="10"
+        android:gravity="center"
+        android:importantForAutofill="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_estimate_vat_add_estimate" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
