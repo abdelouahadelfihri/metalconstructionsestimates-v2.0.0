@@ -21,7 +21,7 @@ android:backgroundTint="@color/white">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_customer_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:background="#4F5EB1"
@@ -31,7 +31,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_id_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -51,7 +51,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_name_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -70,7 +70,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_email_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -89,7 +89,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_phone_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -108,7 +108,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_mobile_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -127,7 +127,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_fax_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -146,7 +146,7 @@ android:backgroundTint="@color/white">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout_customer_adress_details"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
@@ -171,7 +171,7 @@ android:backgroundTint="@color/white">
     <!-- Fixed button at the bottom -->
     <com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons
         android:id="@+id/customers_details_update_delete_buttons"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
