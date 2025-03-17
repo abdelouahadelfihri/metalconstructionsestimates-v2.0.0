@@ -1,226 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-
     android:id="@+id/activity_customers"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <LinearLayout
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_customers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="#4F5EB1"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_id_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/customersList"
+        app:titleTextColor="@android:color/white" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_customers"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_id_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_id"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_name_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_id_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:background="#4F5EB1"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_id_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:title="@string/customersList"
-            app:titleTextColor="@android:color/white" />
+            android:layout_height="48dp"
+            android:inputType="number" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_id_customers"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_name_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_name"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_id_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_email_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_name_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_id"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_name_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="48dp"
+            android:inputType="text" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_id_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_name_customers"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_email_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_email"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_name_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_phone_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_email_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_name"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_id_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_email_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="48dp"
+            android:inputType="textEmailAddress" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_name_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_phone_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_phone"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_email_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_mobile_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_email_customers"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_phone_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_email"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_name_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_phone_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="48dp"
+            android:inputType="phone" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_email_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_mobile_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_mobile"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_phone_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_fax_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_phone_customers"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_mobile_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_phone"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_email_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_mobile_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="48dp"
+            android:inputType="phone" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_phone_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_mobile_customers"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_fax_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_fax"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_mobile_customers"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_address_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_fax_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_mobile"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_phone_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_fax_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="48dp"
+            android:inputType="phone" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_mobile_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="phone" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_fax_customers"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_customer_address_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/customer_address"
+        app:hintEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_fax_customers"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_customer_address_customers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_fax"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_mobile_customers"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_customer_address_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="100dp"
+            android:inputType="textMultiLine" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_fax_customers"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_customers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_address_customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/fabBackground"
+        app:tint="@color/fabIconTint"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/noCustomersTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/noCustomers"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_address_customers"
+        android:layout_marginTop="16dp"/>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_customer_address_customers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/customer_address"
-            app:hintEnabled="true"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_fax_customers"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_view_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_customer_address_customers"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:inputType="textMultiLine" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_customers"
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout_customer_address_customers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:backgroundTint="@color/fabBackground"
-            app:tint="@color/fabIconTint"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/noCustomersTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="210dp"
-                android:text="@string/noCustomers"
-                android:visibility="gone"
-                android:layout_centerInParent="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"/>
-
-        </RelativeLayout>
-    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_refresh_customers_list"
