@@ -21,12 +21,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_estimate_id_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:hint="@string/estimate_id"
         app:hintEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_estimates"
@@ -44,12 +44,12 @@
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
         android:id="@+id/done_in_estimate_date_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="3dp"
         android:ems="10"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_estimate_id_estimates"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,11 +57,11 @@
 
     <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
         android:id="@+id/issue_date_expiration_date_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
         app:layout_constraintTop_toBottomOf="@+id/done_in_estimate_date_estimates"
@@ -70,12 +70,12 @@
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
         android:id="@+id/customer_id_select_customer_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
         android:ems="10"
         app:layout_constraintTop_toBottomOf="@+id/issue_date_expiration_date_estimates"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,12 +84,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_total_excluding_tax_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:hint="@string/totalExcludingTax"
         app:hintEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/customer_id_select_customer_estimates"
@@ -106,36 +106,36 @@
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount
         android:id="@+id/customEstimatesDiscountTotalAfterDiscount"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_total_excluding_tax_estimates"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded
         android:id="@+id/customEstimatesVatTotalAllTaxIncluded"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintTop_toBottomOf="@+id/customEstimatesDiscountTotalAfterDiscount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid
         android:id="@+id/customEstimatesAllPaidUnpaid"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintTop_toBottomOf="@+id/customEstimatesVatTotalAllTaxIncluded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -143,12 +143,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_estimates"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="26dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:backgroundTint="@color/fabBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customEstimatesAllPaidUnpaid"
@@ -158,16 +158,17 @@
 
     <TextView
         android:id="@+id/noEstimatesTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/noEstimates"
         android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customEstimatesAllPaidUnpaid"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_refresh_estimates_list"
