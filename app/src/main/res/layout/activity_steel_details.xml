@@ -1,141 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/activity_steel_details"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".modules.steels.SteelDetails"
-    xmlns:tools="http://schemas.android.com/tools">
+android:id="@+id/activity_steel_details"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".modules.steels.SteelDetails"
+xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_steel_details"
-            android:layout_width="0dp"
+    <!-- Wrap content in ScrollView -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/steels_details_update_delete_buttons">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="#4F5EB1"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout_steel_id_steel_details"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:title="@string/steelDetails"
-            app:titleTextColor="@android:color/white" />
+            android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="#4F5EB1"
+                android:theme="?attr/actionBarTheme"
+                app:title="@string/steelDetails"
+                app:titleTextColor="@android:color/white" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_steel_id_steel_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/steelId"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_steel_type_steel_details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_steel_details">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_steel_id_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/steelId"
+                app:hintEnabled="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_steel_id_steel_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="number" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_steel_id_steel_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="number" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_steel_type_steel_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/steelType"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_steel_geometric_shape_steel_details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_steel_id_steel_details">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_steel_type_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/steelType"
+                app:hintEnabled="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_steel_type_steel_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_steel_type_steel_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="text" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinner_steel_geometric_shape_steel_details"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout_steel_weight_steel_details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_steel_type_steel_details"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            <Spinner
+                android:id="@+id/spinner_steel_geometric_shape_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_steel_weight_steel_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/weight"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_steel_unit_steel_details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_steel_geometric_shape_steel_details">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout_steel_weight_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/weight"
+                app:hintEnabled="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_steel_weight_steel_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:inputType="numberDecimal" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_steel_weight_steel_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="numberDecimal" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinner_steel_unit_steel_details"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/unit"
+                app:hintEnabled="true" />
 
-    <Spinner
-        android:id="@+id/spinner_steel_unit_steel_details"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:hint="@string/unit"
-        app:hintEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/steels_details_update_delete_buttons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_steel_weight_steel_details" />
+        </LinearLayout>
 
+    </androidx.core.widget.NestedScrollView>
 
+    <!-- Fixed button at the bottom -->
     <com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons
         android:id="@+id/steels_details_update_delete_buttons"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="297dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_steel_unit_steel_details" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
