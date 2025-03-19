@@ -60,7 +60,7 @@ public class AddEstimate extends AppCompatActivity {
         estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
         estimatesCustomerIdSelectCustomer = findViewById(R.id.customer_id_select_customer_add_estimate);
         Button selectCustomer = estimatesCustomerIdSelectCustomer.getButtonSelectCustomer();
-        addClearButtons = findViewById(R.id.add_clear_buttons_add_estimates);
+        addClearButtons = findViewById(R.id.add_clear_buttons_add_estimate);
         Button addEstimate = addClearButtons.getAddButton();
         Button clearAddEstimateForm = addClearButtons.getClearButton();
 
