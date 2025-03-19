@@ -11,7 +11,7 @@ android:backgroundTint="@color/white">
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/add_clear_button_add_customer">
+        app:layout_constraintBottom_toTopOf="@id/add_clear_buttons_add_estimate_line">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,7 +208,7 @@ android:backgroundTint="@color/white">
 
     <!-- Fixed button at the bottom -->
     <com.example.metalconstructionsestimates.customviews.AddClearButtons
-        android:id="@+id/add_clear_button_add_customer"
+        android:id="@+id/add_clear_buttons_add_estimate_line"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
