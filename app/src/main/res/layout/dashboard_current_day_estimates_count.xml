@@ -7,8 +7,8 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_weight="1.7"
-        android:padding="1dp"
+        android:layout_weight="1.5"
+        android:padding="10dp"
         android:text="@string/currentDayEstimatesCount" />
     <TextView
         android:id="@+id/textView_current_day_estimates_count"
@@ -16,5 +16,5 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:layout_marginEnd="8dp"
-        android:padding="1dp" />
+        android:padding="10dp" />
 </LinearLayout>
