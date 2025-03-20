@@ -5,16 +5,16 @@
     <TextView
         android:id="@+id/textView_current_year_estimates_total_label"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="2"
-        android:padding="1dp"
+        android:padding="10dp"
         android:text="@string/currentYearEstimatesTotal" />
     <TextView
         android:id="@+id/textView_current_year_estimates_total"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:padding="1dp" />
+        android:padding="10dp" />
 </LinearLayout>
