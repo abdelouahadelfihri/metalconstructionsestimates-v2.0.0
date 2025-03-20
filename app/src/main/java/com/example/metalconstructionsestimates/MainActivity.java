@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     String[] values = {
-            "Dashboard", "Estimates", "Customers", "Steels"
+            "Dashboard", "Estimates", "Customers", "Steels","Backups Restore"
     } ;
 
     int[] images = {
-            R.drawable.dashboard, R.drawable.estimates, R.drawable.customers, R.drawable.steels
+            R.drawable.dashboard, R.drawable.estimates, R.drawable.customers, R.drawable.steels,R.drawable.backups
     };
 
     public DBAdapter db;
