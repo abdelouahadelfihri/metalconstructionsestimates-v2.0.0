@@ -32,18 +32,18 @@ public class FragmentCurrentMonthEstimates extends Fragment {
         fragmentCurrentMonthEstimatesBinding = FragmentCurrentMonthEstimatesBinding.inflate(inflater, container, false);
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
-        String currentMonthEstimatesCount = String.valueOf(dbAdapter.getCurrentMonthEstimatesCount());
         if(dbAdapter.getCurrentMonthEstimatesCount() == 0)
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(R.string.noMonthlyEstimates);
         else{
             if(dbAdapter.getCurrentMonthEstimatesCount() == 1){
-                currentMonthEstimatesCount += " estimate recorded";
+                currentMonthEstimatesCount = "Monthly Number of Estimates : 1 estimate recorded";
             }
             else{
-                currentMonthEstimatesCount += " estimates recorded";
+                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount() + " estimates recorded";
             }
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(currentMonthEstimatesCount);
         }
+
 
         if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(R.string.zeroDH);
