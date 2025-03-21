@@ -35,8 +35,8 @@ public class DashboardDatabaseEntitiesTotals extends LinearLayout {
 
     private void init(){
         LayoutInflater.from(getContext()).inflate(R.layout.dashboard_entities_counts, this, true);
-        textViewEstimatesCount = findViewById(R.id.estimatesCount);
-        textViewSteelsCount = findViewById(R.id.steelsCount);
-        textViewCustomersCount = findViewById(R.id.customersCount);
+        textViewEstimatesCount = findViewById(R.id.textView_estimates_count);
+        textViewSteelsCount = findViewById(R.id.textView_steels_count);
+        textViewCustomersCount = findViewById(R.id.textView_customers_count);
     }
 }
