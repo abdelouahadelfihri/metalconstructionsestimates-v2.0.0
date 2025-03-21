@@ -31,15 +31,15 @@ public class FragmentCurrentDayEstimates extends Fragment {
         fragmentCurrentDayEstimatesBinding = FragmentCurrentDayEstimatesBinding.inflate(inflater,container,false);
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
-        String currentDayEstimatesCount = String.valueOf(dbAdapter.getCurrentDayEstimatesCount());
+        String currentDayEstimatesCount;
         if(dbAdapter.getCurrentDayEstimatesCount() == 0)
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(R.string.noDailyEstimates);
         else{
             if(dbAdapter.getCurrentDayEstimatesCount() == 1){
-                currentDayEstimatesCount+= " estimate recorded";
+                currentDayEstimatesCount= "Daily Number of Estimates : 1 estimate recorded";
             }
             else{
-                currentDayEstimatesCount = currentDayEstimatesCount + " estimates recorded";
+                currentDayEstimatesCount = "Daily Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount() + " estimates recorded";
             }
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(currentDayEstimatesCount);
         }
