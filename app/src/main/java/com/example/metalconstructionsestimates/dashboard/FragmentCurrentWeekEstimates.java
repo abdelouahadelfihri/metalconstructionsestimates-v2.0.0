@@ -22,7 +22,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
     FragmentCurrentWeekEstimatesBinding fragmentCurrentWeekEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-
+    String currentWeekEstimatesCount;
     public FragmentCurrentWeekEstimates() {
     }
 
@@ -36,13 +36,11 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         if(dbAdapter.getCurrentWeekEstimatesCount() == 0)
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(R.string.noWeeklyEstimates);
         else{
-
-            String currentWeekEstimatesCount = String.valueOf(dbAdapter.getCurrentWeekEstimatesCount());
             if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
-                currentWeekEstimatesCount+= " estimate recorded";
+                currentWeekEstimatesCount = "Weekly Number of Estimates : 1 estimate recorded";
             }
             else{
-                currentWeekEstimatesCount = currentWeekEstimatesCount + " estimates recorded";
+                currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount() + " estimates recorded";
             }
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(currentWeekEstimatesCount);
         }
