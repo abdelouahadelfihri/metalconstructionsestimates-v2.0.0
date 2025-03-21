@@ -1,7 +1,6 @@
 package com.example.metalconstructionsestimates.dashboard;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,12 +10,9 @@ import com.example.metalconstructionsestimates.customviews.dashboard.DashboardDa
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.Objects;
-import android.content.Context;
+
 
 public class Dashboard extends AppCompatActivity {
 
@@ -52,25 +48,28 @@ public class Dashboard extends AppCompatActivity {
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
         if (dbAdapter.getCustomersCount() == 0) {
-            customersCountTextView.setText("0 Customers");
+            customersCountTextView.setText("Customers Count: 0 Customers");
         } else {
-            customersCount = String.valueOf(dbAdapter.getCustomersCount());
+            customersCount = "Customers Count:";
+            customersCount += String.valueOf(dbAdapter.getCustomersCount());
             customersCount += dbAdapter.getCustomersCount() == 1 ? " Customer" : " Customers";
             customersCountTextView.setText(customersCount);
         }
 
         if (dbAdapter.getEstimatesCount() == 0) {
-            estimatesCountTextView.setText("0 Estimates");
+            estimatesCountTextView.setText("Estimates Count: 0 Estimates");
         } else {
-            estimatesCount = String.valueOf(dbAdapter.getEstimatesCount());
+            estimatesCount = "Estimates Count:";
+            estimatesCount += String.valueOf(dbAdapter.getEstimatesCount());
             estimatesCount += dbAdapter.getEstimatesCount() == 1 ? " Estimate" : " Estimates";
             estimatesCountTextView.setText(estimatesCount);
         }
 
         if (dbAdapter.getSteelsCount() == 0) {
-            steelsCountTextView.setText("0 Steels");
+            steelsCountTextView.setText("Steels Count: 0 Steels");
         } else {
-            steelsCount = String.valueOf(dbAdapter.getSteelsCount());
+            steelsCount = "Steels Count:";
+            steelsCount += String.valueOf(dbAdapter.getSteelsCount());
             steelsCount += dbAdapter.getSteelsCount() == 1 ? " Steel" : " Steels";
             steelsCountTextView.setText(steelsCount);
         }
