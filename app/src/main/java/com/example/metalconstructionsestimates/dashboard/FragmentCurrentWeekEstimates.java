@@ -23,6 +23,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
     String currentWeekEstimatesCount;
+    String currentWeekEstimatesTotal;
     public FragmentCurrentWeekEstimates() {
     }
 
@@ -50,6 +51,9 @@ public class FragmentCurrentWeekEstimates extends Fragment {
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(R.string.zeroDH);
         }
         else{
+            currentWeekEstimatesTotal = "Daily Total of Estimates :";
+            currentWeekEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
+            currentWeekEstimatesTotal += " DH";
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(String.valueOf(numberFormat.format(dbAdapter.getCurrentWeekEstimatesTotal())));
         }
 
