@@ -22,7 +22,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
     FragmentCurrentYearEstimatesBinding fragmentCurrentYearEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-
+    String currentYearEstimatesTotal;
     public FragmentCurrentYearEstimates() {
     }
 
@@ -51,7 +51,10 @@ public class FragmentCurrentYearEstimates extends Fragment {
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(R.string.zeroDH);
         }
         else{
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(String.valueOf(numberFormat.format(dbAdapter.getCurrentYearEstimatesTotal())));
+            currentYearEstimatesTotal = "Yearly Total of Estimates :";
+            currentYearEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
+            currentYearEstimatesTotal += " DH";
+            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(currentYearEstimatesTotal);
         }
 
         ArrayList<Estimate> currentYearEstimatesList = dbAdapter.getCurrentYearEstimates();
