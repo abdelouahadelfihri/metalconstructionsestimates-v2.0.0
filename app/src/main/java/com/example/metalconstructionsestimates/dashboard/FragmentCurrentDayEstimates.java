@@ -22,7 +22,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
     FragmentCurrentDayEstimatesBinding fragmentCurrentDayEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-
+    String currentDayEstimatesTotal;
     public FragmentCurrentDayEstimates() {
     }
 
@@ -48,7 +48,10 @@ public class FragmentCurrentDayEstimates extends Fragment {
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText(R.string.zeroDH);
         }
         else{
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText(String.valueOf(numberFormat.format(dbAdapter.getCurrentDayEstimatesTotal())));
+            currentDayEstimatesTotal = "Daily Total of Estimates :";
+            currentDayEstimatesTotal += String.valueOf(dbAdapter.getCurrentDayEstimatesTotal());
+            currentDayEstimatesTotal += " DH";
+            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText(currentDayEstimatesTotal);
         }
 
         ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
