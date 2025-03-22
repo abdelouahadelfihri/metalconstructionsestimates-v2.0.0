@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.metalconstructionsestimates.R;
 
 public class CurrentMonthEstimatesTotal extends LinearLayout {
-    private TextView textViewCurrentMonthEstimatesTotalLabel;
+
     private TextView textViewCurrentMonthEstimatesTotal;
 
     public CurrentMonthEstimatesTotal(Context context) {
@@ -28,7 +28,6 @@ public class CurrentMonthEstimatesTotal extends LinearLayout {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.dashboard_current_month_estimates_total, this, true);
-        textViewCurrentMonthEstimatesTotalLabel = findViewById(R.id.textView_current_month_estimates_total_label);
         textViewCurrentMonthEstimatesTotal = findViewById(R.id.textView_current_month_estimates_total);
     }
 }
