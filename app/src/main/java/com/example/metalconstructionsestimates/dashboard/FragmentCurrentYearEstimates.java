@@ -38,10 +38,10 @@ public class FragmentCurrentYearEstimates extends Fragment {
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(R.string.noYearlyEstimates);
         else{
             if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
-                currentYearEstimatesCount = "Yearly Number of Estimates : 1 estimate recorded";
+                currentYearEstimatesCount = "Yearly Number of Estimates : 1";
             }
             else{
-                currentYearEstimatesCount = "Yearly Number of Estimates : " + dbAdapter.getCurrentYearEstimatesCount() + " estimates recorded";
+                currentYearEstimatesCount = "Yearly Number of Estimates : " + dbAdapter.getCurrentYearEstimatesCount();
             }
 
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(currentYearEstimatesCount);
