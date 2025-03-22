@@ -28,7 +28,6 @@ public class DashboardEstimatesTotal extends LinearLayout {
 
     private void init(){
         LayoutInflater.from(getContext()).inflate(R.layout.dashboard_total_all_estimates, this, true);
-        textView_all_estimates_total_label = findViewById(R.id.textView_all_estimates_total_label);
         textView_all_estimates_total = findViewById(R.id.textView_all_estimates_total);
     }
 }
