@@ -40,7 +40,7 @@ public class FragmentCurrentMonthEstimates extends Fragment {
                 currentMonthEstimatesCount = "Monthly Number of Estimates : 1 estimate recorded";
             }
             else{
-                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount() + " estimates recorded";
+                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentMonthEstimatesCount() + " estimates recorded";
             }
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(currentMonthEstimatesCount);
         }
