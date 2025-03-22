@@ -36,10 +36,10 @@ public class FragmentCurrentDayEstimates extends Fragment {
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(R.string.noDailyEstimates);
         else{
             if(dbAdapter.getCurrentDayEstimatesCount() == 1){
-                currentDayEstimatesCount= "Daily Number of Estimates : 1 estimate recorded";
+                currentDayEstimatesCount= "Daily Number of Estimates : 1";
             }
             else{
-                currentDayEstimatesCount = "Daily Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount() + " estimates recorded";
+                currentDayEstimatesCount = "Daily Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
             }
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(currentDayEstimatesCount);
         }
