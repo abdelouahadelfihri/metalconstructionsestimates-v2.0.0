@@ -42,6 +42,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
             else{
                 currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount() + " estimates recorded";
             }
+
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(currentWeekEstimatesCount);
         }
 
