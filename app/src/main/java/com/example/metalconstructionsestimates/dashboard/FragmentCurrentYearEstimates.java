@@ -52,7 +52,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
         }
         else{
             currentYearEstimatesTotal = "Yearly Total of Estimates :";
-            currentYearEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
+            currentYearEstimatesTotal += String.valueOf(dbAdapter.getCurrentYearEstimatesTotal());
             currentYearEstimatesTotal += " DH";
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(currentYearEstimatesTotal);
         }
