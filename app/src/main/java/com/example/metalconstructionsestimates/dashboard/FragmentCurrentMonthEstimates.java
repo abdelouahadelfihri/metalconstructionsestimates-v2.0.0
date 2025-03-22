@@ -23,6 +23,7 @@ public class FragmentCurrentMonthEstimates extends Fragment {
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
     String currentMonthEstimatesCount;
+    String currentMonthEstimatesTotal;
     public FragmentCurrentMonthEstimates() {
     }
 
@@ -49,7 +50,10 @@ public class FragmentCurrentMonthEstimates extends Fragment {
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(R.string.zeroDH);
         }
         else{
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(String.valueOf(numberFormat.format(dbAdapter.getCurrentMonthEstimatesTotal())));
+            currentMonthEstimatesTotal = "Monthly Total of Estimates :";
+            currentMonthEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
+            currentMonthEstimatesTotal += " DH";
+            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(currentMonthEstimatesTotal);
         }
 
         ArrayList<Estimate> currentMonthEstimatesList = dbAdapter.getCurrentMonthEstimates();

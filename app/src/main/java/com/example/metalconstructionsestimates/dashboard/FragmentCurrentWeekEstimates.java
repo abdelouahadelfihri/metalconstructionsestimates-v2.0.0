@@ -54,7 +54,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
             currentWeekEstimatesTotal = "Daily Total of Estimates :";
             currentWeekEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
             currentWeekEstimatesTotal += " DH";
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(String.valueOf(numberFormat.format(dbAdapter.getCurrentWeekEstimatesTotal())));
+            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(currentWeekEstimatesTotal);
         }
 
         ArrayList<Estimate> currentWeekEstimatesList = dbAdapter.getCurrentWeekEstimates();
