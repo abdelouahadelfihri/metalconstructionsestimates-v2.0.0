@@ -38,10 +38,10 @@ public class FragmentCurrentWeekEstimates extends Fragment {
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(R.string.noWeeklyEstimates);
         else{
             if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
-                currentWeekEstimatesCount = "Weekly Number of Estimates : 1 estimate recorded";
+                currentWeekEstimatesCount = "Weekly Number of Estimates : 1";
             }
             else{
-                currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount() + " estimates recorded";
+                currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount();
             }
 
             fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(currentWeekEstimatesCount);
