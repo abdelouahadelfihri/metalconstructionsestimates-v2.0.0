@@ -28,7 +28,6 @@ public class CurrentDayEstimatesCount extends LinearLayout {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.dashboard_current_day_estimates_count, this, true);
-        textViewCurrentDayEstimatesCountLabel = findViewById(R.id.textView_current_day_estimates_count_label);
         textViewCurrentDayEstimatesCount = findViewById(R.id.textView_current_day_estimates_count);
     }
 }
