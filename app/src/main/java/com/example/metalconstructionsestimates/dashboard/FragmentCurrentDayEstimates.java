@@ -23,6 +23,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
     String currentDayEstimatesTotal;
+    String currentDayEstimatesCount;
     public FragmentCurrentDayEstimates() {
     }
 
@@ -31,7 +32,6 @@ public class FragmentCurrentDayEstimates extends Fragment {
         fragmentCurrentDayEstimatesBinding = FragmentCurrentDayEstimatesBinding.inflate(inflater,container,false);
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
-        String currentDayEstimatesCount;
         if(dbAdapter.getCurrentDayEstimatesCount() == 0)
             fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(R.string.noDailyEstimates);
         else{
