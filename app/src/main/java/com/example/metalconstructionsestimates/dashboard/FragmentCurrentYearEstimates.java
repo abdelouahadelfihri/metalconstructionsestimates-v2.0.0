@@ -23,6 +23,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
     String currentYearEstimatesTotal;
+    String currentYearEstimatesCount;
     public FragmentCurrentYearEstimates() {
     }
 
@@ -36,14 +37,13 @@ public class FragmentCurrentYearEstimates extends Fragment {
         if(dbAdapter.getCurrentYearEstimatesCount() == 0)
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(R.string.noYearlyEstimates);
         else{
-
-            String currentYearEstimatesCount = String.valueOf(dbAdapter.getCurrentYearEstimatesCount());
-            if(dbAdapter.getCurrentYearEstimatesCount() == 1){
-                currentYearEstimatesCount+= " estimate recorded";
+            if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
+                currentYearEstimatesCount = "Yearly Number of Estimates : 1 estimate recorded";
             }
             else{
-                currentYearEstimatesCount = currentYearEstimatesCount + " estimates recorded";
+                currentYearEstimatesCount = "Yearly Number of Estimates : " + dbAdapter.getCurrentYearEstimatesCount() + " estimates recorded";
             }
+
             fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(currentYearEstimatesCount);
         }
 
