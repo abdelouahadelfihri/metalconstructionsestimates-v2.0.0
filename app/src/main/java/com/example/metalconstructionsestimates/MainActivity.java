@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.griview);
         GridAdapter gridAdapter = new GridAdapter(this, values, images);
         gridView.setAdapter(gridAdapter);
-        ImageView menuButton = findViewById(R.id.menu_button);
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
@@ -82,11 +81,6 @@ public class MainActivity extends AppCompatActivity {
             Insets statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
             view.setPadding(0, statusBarInsets.top, 0, 0); // Adjust for the status bar height
             return insets;
-        });
-
-        menuButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, BackUpRestore.class);
-            startActivity(intent);
         });
 
     }
