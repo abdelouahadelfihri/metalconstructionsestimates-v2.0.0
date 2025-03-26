@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.customviews.dashboard.DashboardDatabaseEntitiesTotals;
+import com.example.metalconstructionsestimates.customviews.dashboard.DashboardEstimatesTotal;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -19,6 +20,7 @@ public class Dashboard extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     DashboardDatabaseEntitiesTotals dashboardDatabaseEntitiesTotals;
+    DashboardEstimatesTotal dashboardEstimatesTotal;
     String customersCount, steelsCount, estimatesCount;
 
     @Override
@@ -33,10 +35,13 @@ public class Dashboard extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new DashboardPagerAdapter(this));
         dashboardDatabaseEntitiesTotals = findViewById(R.id.dashboard_database_entities_totals);
+        dashboardEstimatesTotal = findViewById(R.id.dashboard_estimates_totals);
+        TextView allEstimatesTotalTextView = dashboardEstimatesTotal.getTextViewAllEstimatesTotal();
         TextView customersCountTextView = dashboardDatabaseEntitiesTotals.getTextViewCustomersCount();
         TextView estimatesCountTextView = dashboardDatabaseEntitiesTotals.getTextViewEstimatesCount();
         TextView steelsCountTextView = dashboardDatabaseEntitiesTotals.getTextViewSteelsCount();
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+        allEstimatesTotalTextView.setText(String.valueOf(dbAdapter.getAllEstimatesTotal()));
 
         // Set counts for each category
         setCounts(dbAdapter, customersCountTextView, estimatesCountTextView, steelsCountTextView);

@@ -61,23 +61,21 @@ public class DBAdapter {
     public Float getEstimatesTotal(){
         Float estimatesTotal = 0.0f;
         Cursor cursor = null;
-        try{
+        try {
             db = helper.getReadableDatabase();
-            String query = "select sum(allTaxIncludedTotal) as 'estimatesTotal' from estimate";
+            String query = "SELECT SUM(allTaxIncludedTotal) FROM estimate";
             cursor = db.rawQuery(query, null);
-            while(cursor.moveToNext()){
-                estimatesTotal = cursor.getFloat(0);
+
+            if (cursor.moveToFirst()) {  // Ensure the cursor contains data
+                estimatesTotal = cursor.isNull(0) ? 0 : cursor.getFloat(0);  // Handle NULL case
+            } else {
+                estimatesTotal = 0f;  // Default value if no rows exist
             }
+        } finally {
+            if (cursor != null) cursor.close();  // Close the cursor
+            if (db != null) db.close();  // Close the database
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            if(cursor != null){
-                cursor.close();
-            }
-            helper.close();
-        }
+
         return estimatesTotal;
     }
 
