@@ -41,7 +41,7 @@ public class Dashboard extends AppCompatActivity {
         TextView estimatesCountTextView = dashboardDatabaseEntitiesTotals.getTextViewEstimatesCount();
         TextView steelsCountTextView = dashboardDatabaseEntitiesTotals.getTextViewSteelsCount();
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-        allEstimatesTotalTextView.setText(String.valueOf(dbAdapter.getAllEstimatesTotal()));
+        allEstimatesTotalTextView.setText(String.valueOf(dbAdapter.getEstimatesTotal()));
 
         // Set counts for each category
         setCounts(dbAdapter, customersCountTextView, estimatesCountTextView, steelsCountTextView);
