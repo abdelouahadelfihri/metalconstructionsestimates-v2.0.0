@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     String[] values = {
-            "Dashboard", "Estimates", "Customers", "Steels","Backups Restore"
+            "Dashboard", "Estimates", "Customers", "Steels","Backups"
     } ;
 
     int[] images = {
