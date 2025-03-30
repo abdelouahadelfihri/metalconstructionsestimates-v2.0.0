@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolBar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         gridView = findViewById(R.id.griview);
         GridAdapter gridAdapter = new GridAdapter(this, values, images);
         gridView.setAdapter(gridAdapter);
