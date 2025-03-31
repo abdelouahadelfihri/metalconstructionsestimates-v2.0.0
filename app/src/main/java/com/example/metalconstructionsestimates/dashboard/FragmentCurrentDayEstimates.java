@@ -45,7 +45,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
         }
 
         if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText(R.string.zeroDH);
+            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText("Daily Total of Estimates : 0 DH");
         }
         else{
             currentDayEstimatesTotal = "Daily Total of Estimates :";
