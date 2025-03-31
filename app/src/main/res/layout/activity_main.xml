@@ -9,14 +9,22 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_activity_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#4F5EB1"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:title="@string/app_name"
-        app:titleTextColor="@android:color/white" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <GridView
         android:id="@+id/griview"
