@@ -1,179 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/activity_estimate_details"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_estimate_details"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="5dp"
-        android:background="#4F5EB1"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:title="@string/estimateDetails"
-        app:titleTextColor="@color/white" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_estimate_id_estimate_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_estimate_details"
-        android:hint="@string/estimate_id"
-        app:hintEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_estimate_id_estimate_details"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_estimate_details"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:inputType="number" />
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="4dp"
+            android:background="#4F5EB1"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:title="@string/estimateDetails"
+            app:titleTextColor="@color/white" />
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
-        android:id="@+id/done_in_is_paid_estimate_details"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_estimate_id_estimate_details" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_estimate_id_estimate_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/estimate_id"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
-        android:id="@+id/issue_date_expiration_date_estimate_details"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/done_in_is_paid_estimate_details" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_estimate_id_estimate_details"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:inputType="number" />
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
-        android:id="@+id/estimate_details_customer_id_select_customer"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/done_in_is_paid_estimate_details"
-        android:ems="10"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_total_excluding_tax_estimate_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:hint="@string/totalExcludingTax"
-        app:hintEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/estimate_details_customer_id_select_customer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_total_excluding_tax_estimate_details"
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
+            android:id="@+id/done_in_is_paid_estimate_details"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:inputType="numberDecimal" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:ems="10"
+            app:layout_constraintBottom_toTopOf="@+id/issue_date_expiration_date_estimate_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_add_estimate" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
+            android:id="@+id/issue_date_expiration_date_estimate_details"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:ems="10"
+            app:layout_constraintBottom_toTopOf="@+id/estimates_customer_id_select_customer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/done_in_is_paid_estimate_details" />
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount
-        android:id="@+id/estimatesDetailsDiscountTotalAfterDiscount"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_total_excluding_tax_estimate_details"
-        android:layout_marginBottom="5dp" />
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
+            android:id="@+id/estimate_details_customer_id_select_customer"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:ems="10"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded
-        android:id="@+id/estimatesDetailsVatTotalAllTaxIncluded"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/estimatesDetailsDiscountTotalAfterDiscount"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_total_excluding_tax_estimate_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:hint="@string/totalExcludingTax"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/noEstimateLinesTextView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="No items available"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:visibility="gone"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/estimatesDetailsVatTotalAllTaxIncluded"
-        app:layout_constraintBottom_toTopOf="@+id/new_estimate_line_update_buttons"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_total_excluding_tax_estimate_details"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:inputType="numberDecimal" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_estimate_lines"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/estimates"
-        app:layout_constraintTop_toBottomOf="@+id/estimatesDetailsVatTotalAllTaxIncluded"
-        app:layout_constraintBottom_toTopOf="@+id/new_estimate_line_update_buttons"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons
-        android:id="@+id/new_estimate_line_update_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_estimate_lines"
-        app:layout_constraintBottom_toTopOf="@+id/delete_estimate_refresh_buttons"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount
+            android:id="@+id/estimatesDetailsDiscountTotalAfterDiscount"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp" />
 
-    <com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons
-        android:id="@+id/delete_estimate_refresh_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp" />
+        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded
+            android:id="@+id/estimatesDetailsVatTotalAllTaxIncluded"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_estimate_lines"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp" />
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/noEstimateLinesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="135dp"
+                android:text="@string/noEstimateLines"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
+
+        </RelativeLayout>
+
+        <com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons
+            android:id="@+id/new_estimate_line_update_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp" />
+
+        <com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons
+            android:id="@+id/delete_estimate_refresh_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
