@@ -3,14 +3,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <TextView
-        android:id="@+id/textView_current_month_estimates_count_label"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1.5"
-        android:padding="10dp"
-        android:text="@string/currentMonthEstimatesCount" />
-    <TextView
         android:id="@+id/textView_current_month_estimates_count"
         android:layout_width="0dp"
         android:layout_height="48dp"

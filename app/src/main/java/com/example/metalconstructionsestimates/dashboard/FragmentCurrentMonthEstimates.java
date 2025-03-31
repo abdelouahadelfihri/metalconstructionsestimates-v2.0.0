@@ -37,10 +37,10 @@ public class FragmentCurrentMonthEstimates extends Fragment {
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(R.string.noMonthlyEstimates);
         else{
             if(dbAdapter.getCurrentMonthEstimatesCount() == 1){
-                currentMonthEstimatesCount = "Monthly Number of Estimates : 1";
+                currentMonthEstimatesCount= "Monthly Number of Estimates : 1";
             }
             else{
-                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentMonthEstimatesCount();
+                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
             }
             fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(currentMonthEstimatesCount);
         }
