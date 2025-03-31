@@ -48,7 +48,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         }
 
         if(dbAdapter.getCurrentWeekEstimatesTotal() == 0.0f){
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(R.string.zeroDH);
+            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText("Weekly Total of Estimates : 0 DH");
         }
         else{
             currentWeekEstimatesTotal = "Weekly Total of Estimates :";
