@@ -28,6 +28,7 @@ import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.google.android.gms.common.api.ApiException;
 import com.google.api.services.drive.Drive;
 import android.net.Uri;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
@@ -69,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolBar = findViewById(R.id.main_activity_toolbar);
-        setSupportActionBar(toolBar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Toolbar toolbar = findViewById(R.id.main_activity_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false); // Hide default title
+        TextView title = findViewById(R.id.toolbar_title);
+        title.setText(R.string.app_name);
         gridView = findViewById(R.id.griview);
         GridAdapter gridAdapter = new GridAdapter(this, values, images);
         gridView.setAdapter(gridAdapter);
