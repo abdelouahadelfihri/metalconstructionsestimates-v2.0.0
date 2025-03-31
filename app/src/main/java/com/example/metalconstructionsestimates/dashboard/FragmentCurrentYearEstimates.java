@@ -48,7 +48,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
         }
 
         if(dbAdapter.getCurrentYearEstimatesTotal() == 0.0f){
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(R.string.zeroDH);
+            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText("Yearly Total of Estimates : 0 DH");
         }
         else{
             currentYearEstimatesTotal = "Yearly Total of Estimates :";
