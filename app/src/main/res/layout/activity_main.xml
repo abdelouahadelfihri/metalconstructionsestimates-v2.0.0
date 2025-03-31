@@ -8,15 +8,15 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_activity_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#4F5EB1"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:title="@string/app_name"
-        app:titleTextColor="@android:color/white"
-        app:titleTextAppearance="@style/ToolbarTitleStyle" />
+        app:title="@string/addCustomer"
+        app:titleTextColor="@android:color/white" />
 
     <GridView
         android:id="@+id/griview"
