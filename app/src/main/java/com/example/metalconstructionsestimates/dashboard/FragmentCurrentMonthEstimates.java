@@ -47,7 +47,7 @@ public class FragmentCurrentMonthEstimates extends Fragment {
 
 
         if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(R.string.zeroDH);
+            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText("Monthly Total of Estimates : 0 DH");
         }
         else{
             currentMonthEstimatesTotal = "Monthly Total of Estimates :";
