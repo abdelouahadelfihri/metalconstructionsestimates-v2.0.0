@@ -32,8 +32,6 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
-
     <GridView
         android:id="@+id/griview"
         android:layout_width="0dp"
