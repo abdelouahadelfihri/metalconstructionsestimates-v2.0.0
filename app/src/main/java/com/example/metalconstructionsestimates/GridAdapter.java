@@ -78,7 +78,7 @@ public class GridAdapter extends BaseAdapter {
                     intent = new Intent(context, Steels.class);
                     context.startActivity(intent);
                     break;
-                case "Backups Restore":
+                case "Backups":
                     intent = new Intent(context, BackUpRestore.class);
                     context.startActivity(intent);
                     break;
