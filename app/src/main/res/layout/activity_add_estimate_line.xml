@@ -57,6 +57,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_steel_weight_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +82,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_quantity_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,6 +119,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_total_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,6 +145,9 @@ android:backgroundTint="@color/white">
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:maxLength="2"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -158,6 +170,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_net_quantity_plus_margin_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -179,6 +194,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_unit_price_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -200,6 +218,9 @@ android:backgroundTint="@color/white">
                     android:id="@+id/textInputEditText_total_price_add_estimate_line"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
