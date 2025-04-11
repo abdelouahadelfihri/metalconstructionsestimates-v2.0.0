@@ -41,6 +41,7 @@
                 android:ems="10"
                 android:enabled="true"
                 android:importantForAutofill="no" />
+
             <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
                 android:id="@+id/issue_date_expiration_date_add_estimate"
                 android:layout_width="match_parent"
@@ -80,6 +81,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:maxLength="2"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +102,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:maxLength="2"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
