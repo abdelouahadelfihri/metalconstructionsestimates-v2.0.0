@@ -14,6 +14,9 @@
             android:id="@+id/editText_customer_id"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
