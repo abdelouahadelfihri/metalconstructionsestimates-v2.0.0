@@ -60,7 +60,6 @@ public class Customers extends AppCompatActivity {
         }
 
         addCustomer = findViewById(R.id.fab_add_customer);
-        searchCustomers = findViewById(R.id.fab_search_customer);
         clearCustomerForm = findViewById(R.id.fab_clear_customer_form);
         reloadCustomersList = findViewById(R.id.fab_refresh_customers_list);
 
@@ -102,84 +101,6 @@ public class Customers extends AppCompatActivity {
                 }
             }
         });
-        searchCustomers.setOnClickListener(view -> {
-
-            customer_id = Customers.this.findViewById(R.id.editText_customer_id_customers);
-            customer_name = Customers.this.findViewById(R.id.editText_customer_name_customers);
-            customer_email = Customers.this.findViewById(R.id.editText_customer_email_customers);
-            customer_phone = Customers.this.findViewById(R.id.editText_customer_phone_customers);
-            customer_mobile = Customers.this.findViewById(R.id.editText_customer_mobile_customers);
-            customer_fax = Customers.this.findViewById(R.id.editText_customer_fax_customers);
-            customer_address = Customers.this.findViewById(R.id.editText_customer_address_customers);
-
-            Customer customer = new Customer();
-
-            if(Objects.requireNonNull(customer_id.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_name.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_email.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_phone.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_mobile.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_fax.getText()).toString().isEmpty() &&
-            Objects.requireNonNull(customer_address.getText()).toString().isEmpty()) {
-                Toast emptyFieldsToast = Toast.makeText(getApplicationContext(), "Champs vides", Toast.LENGTH_LONG);
-                emptyFieldsToast.show();
-            }
-            else {
-                if (!customer_id.getText().toString().isEmpty()) {
-                    customer.setId(Integer.parseInt(customer_id.getText().toString()));
-                } else {
-                    customer.setId(null);
-                }
-                if (!Objects.requireNonNull(customer_name.getText()).toString().isEmpty()) {
-                    customer.setName(customer_name.getText().toString());
-                } else {
-                    customer.setName(null);
-                }
-                if (!Objects.requireNonNull(customer_email.getText()).toString().isEmpty()) {
-                    customer.setEmail(customer_email.getText().toString());
-                } else {
-                    customer.setEmail(null);
-                }
-                if (!Objects.requireNonNull(customer_phone.getText()).toString().isEmpty()) {
-                    customer.setTelephone(customer_phone.getText().toString());
-                } else {
-                    customer.setTelephone(null);
-                }
-
-                if (!Objects.requireNonNull(customer_mobile.getText()).toString().isEmpty()) {
-                    customer.setMobile(customer_mobile.getText().toString());
-                } else {
-                    customer.setMobile(null);
-                }
-
-                if (!Objects.requireNonNull(customer_fax.getText()).toString().isEmpty()) {
-                    customer.setFax(customer_fax.getText().toString());
-                } else {
-                    customer.setFax(null);
-                }
-
-                if (!Objects.requireNonNull(customer_address.getText()).toString().isEmpty()) {
-                    customer.setAddress(customer_address.getText().toString());
-                } else {
-                    customer.setAddress(null);
-                }
-
-                binding.recyclerViewCustomers.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
-                DBAdapter db = new DBAdapter(getApplicationContext());
-                ArrayList<Customer> customersList = db.searchCustomers(customer);
-                CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersList);
-                if (customersList.isEmpty()) {
-                    binding.recyclerViewCustomers.setVisibility(View.GONE);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                    searchResultToast.show();
-                } else {
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
-                    binding.recyclerViewCustomers.setVisibility(View.VISIBLE);
-                    binding.recyclerViewCustomers.setAdapter(customers_list_adapter);
-                }
-            }
-        });
 
         reloadCustomersList.setOnClickListener(view -> {
 
@@ -201,20 +122,8 @@ public class Customers extends AppCompatActivity {
         });
 
         clearCustomerForm.setOnClickListener(view -> {
-            customer_id = findViewById(R.id.editText_customer_id_customers);
-            customer_name = findViewById(R.id.editText_customer_name_customers);
-            customer_email = findViewById(R.id.editText_customer_email_customers);
-            customer_phone = findViewById(R.id.editText_customer_phone_customers);
-            customer_mobile = findViewById(R.id.editText_customer_mobile_customers);
-            customer_fax = findViewById(R.id.editText_customer_fax_customers);
-            customer_address = findViewById(R.id.editText_customer_address_customers);
-            Objects.requireNonNull(customer_id.getText()).clear();
-            Objects.requireNonNull(customer_name.getText()).clear();
-            Objects.requireNonNull(customer_email.getText()).clear();
-            Objects.requireNonNull(customer_phone.getText()).clear();
-            Objects.requireNonNull(customer_mobile.getText()).clear();
-            Objects.requireNonNull(customer_fax.getText()).clear();
-            Objects.requireNonNull(customer_address.getText()).clear();
+            customerSearchEditText = findViewById(R.id.editText_search_customers);
+            customerSearchEditText.getText().clear();
         });
     }
 }
