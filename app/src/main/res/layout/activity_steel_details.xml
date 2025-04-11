@@ -45,6 +45,9 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/editText_steel_id_steel_details"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -65,6 +68,9 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/editText_steel_type_steel_details"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,6 +101,9 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:id="@+id/editText_steel_weight_steel_details"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
