@@ -39,6 +39,9 @@
                             android:id="@+id/editText_estimate_line_id_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -60,6 +63,9 @@
                             android:id="@+id/editText_estimate_id_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +100,9 @@
                             android:id="@+id/editText_steel_weight_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +124,9 @@
                             android:id="@+id/editText_quantity_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -148,6 +160,9 @@
                             android:id="@+id/editText_total_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -170,6 +185,9 @@
                             android:id="@+id/editText_margin_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:maxLength="2"
                             android:inputType="number" />
 
@@ -193,6 +211,9 @@
                             android:id="@+id/editText_net_quantity_plus_margin_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -214,6 +235,9 @@
                             android:id="@+id/editText_unit_price_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -236,6 +260,9 @@
                             android:id="@+id/editText_total_price_estimate_line_details"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:minHeight="56dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
                             android:inputType="numberDecimal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
