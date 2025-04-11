@@ -45,6 +45,9 @@
                     android:layout_height="48dp"
                     android:background="#F4F4F4"
                     android:inputType="text"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textColor="#595959" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +67,9 @@
                     android:layout_height="48dp"
                     android:background="#F4F4F4"
                     android:inputType="textEmailAddress"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textColor="#595959" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +89,9 @@
                     android:layout_height="48dp"
                     android:background="#F4F4F4"
                     android:inputType="number"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textColor="#595959" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,6 +111,9 @@
                     android:layout_height="48dp"
                     android:background="#F4F4F4"
                     android:inputType="number"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:textColor="#595959" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +133,9 @@
                     android:layout_height="48dp"
                     android:textColor="#595959"
                     android:background="#F4F4F4"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,6 +155,9 @@
                     android:layout_height="125dp"
                     android:textColor="#595959"
                     android:background="#F4F4F4"
+                    android:minHeight="56dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
