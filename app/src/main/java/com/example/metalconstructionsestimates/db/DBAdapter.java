@@ -1204,6 +1204,191 @@ public class DBAdapter {
         return customersList;
     }
 
+    public ArrayList<Steel> searchSteels(String searchText){
+        ArrayList<Steel> steelsList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM steel WHERE ";
+        String whereQuery = "";
+
+        try{
+            String[] steelsTableColumns = {"id","type","geometricShape","unit","weight"};
+            if(searchText.contains(" ")){
+                String[] searchTextArray = searchText.split(" ");
+                for(int i = 0; i < searchTextArray.length; i++){
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for(int j = 0; j < steelsTableColumns.length; j++){
+                        if(i == 0){
+                            if(whereQuery.equals("")){
+                                whereQuery = whereQuery + "("  + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                            else{
+                                whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                        else{
+                            if(whereQuery.charAt(whereQuery.length() - 1) == '('){
+                                whereQuery = whereQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            }
+                            else{
+                                whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if(i < searchTextArray.length - 1){
+                        whereQuery = whereQuery + ") AND (";
+                    }
+                    else{
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            }
+            else{
+                for(int i = 0; i < steelsTableColumns.length; i++){
+                    if(whereQuery == ""){
+                        whereQuery = whereQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                    else{
+                        whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+
+            Cursor cursor = db.rawQuery(query,null);
+
+            Steel steel;
+
+            steelsList.clear();
+
+            while(cursor.moveToNext()){
+                Integer steelId = cursor.getInt(0);
+                String type = cursor.getString(1);
+                String geometricShape = cursor.getString(2);
+                String unit = cursor.getString(3);
+                Float weight = cursor.getFloat(4);
+                steel = new Steel();
+                steel.setId(steelId);
+                steel.setType(type);
+                steel.setGeometricShape(geometricShape);
+                steel.setUnit(unit);
+                steel.setWeight(weight);
+                steelsList.add(steel);
+            }
+
+            cursor.close();
+
+        }
+        catch(SQLException e){
+
+            e.printStackTrace();
+
+        }
+        finally{
+
+            helper.close();
+
+        }
+
+        return steelsList;
+    }
+
+    public ArrayList<Estimate> searchEstimates(String searchText) {
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM estimate WHERE ";
+        String whereQuery = "";
+
+        try {
+
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+
+            if (searchText.contains(" ")) {
+                String[] searchTextArray = searchText.split(" ");
+                for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for (int j = 0; j < estimateTableColumns.length; j++) {
+                        if (i == 0) {
+                            if (whereQuery.equals("")) {
+                                whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        } else {
+                            if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if (i < searchTextArray.length - 1) {
+                        whereQuery = whereQuery + ") AND (";
+                    } else {
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            } else {
+                for (int i = 0; i < estimateTableColumns.length; i++) {
+                    if (whereQuery == "") {
+                        whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    } else {
+                        whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            Estimate estimate;
+
+            estimatesList.clear();
+
+            while (cursor.moveToNext()) {
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                Integer customer = cursor.getInt(4);
+                Float excludingTaxTotal = cursor.getFloat(5);
+                Float discount = cursor.getFloat(6);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+                Float vat = cursor.getFloat(8);
+                Float allTaxIncludedTotal = cursor.getFloat(9);
+                Float amountPaid = cursor.getFloat(10);
+                estimatesList.clear();
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setAmountPaid(amountPaid);
+                estimatesList.add(estimate);
+            }
+            cursor.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
+
+
     public ArrayList<Customer> retrieveCustomers(){
         ArrayList<Customer> customersList = new ArrayList<>();
         try{
@@ -1859,216 +2044,7 @@ public class DBAdapter {
         return steelsList;
     }
 
-    public ArrayList<Estimate> searchEstimates(Estimate estimate){
-        ArrayList<Estimate> estimatesList = new ArrayList<>();
 
-        try{
-            db = helper.getReadableDatabase();
-            String query = "select * from estimate where ";
-            if(estimate.getId() != null){
-                query = query + "id=" + estimate.getId();
-            }
-
-            if(estimate.getDoneIn()!= null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " lower(doneIn) ='" + estimate.getDoneIn().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(doneIn) = '" + estimate.getDoneIn().toLowerCase() + "'";
-                }
-            }
-
-            if(estimate.getIssueDate() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " issueDate ='" + estimate.getIssueDate() + "'";
-                }
-                else{
-                    query = query + " and issueDate = '" + estimate.getIssueDate() + "'";
-                }
-            }
-
-            if(estimate.getExpirationDate() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " expirationDate ='" + estimate.getExpirationDate() + "'";
-                }
-                else{
-                    query = query + " and expirationDate = '" + estimate.getExpirationDate() + "'";
-                }
-            }
-
-            if(estimate.getCustomer() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " customer =" + estimate.getCustomer();
-                }
-                else{
-                    query = query + " and customer = " + estimate.getCustomer();
-                }
-            }
-
-            if(estimate.getExcludingTaxTotal() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " excludingTaxTotal =" + estimate.getExcludingTaxTotal();
-                }
-                else{
-                    query = query + " and excludingTaxTotal =" + estimate.getExcludingTaxTotal();
-                }
-            }
-
-            if(estimate.getDiscount() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " discount =" + estimate.getDiscount();
-                }
-                else{
-                    query = query + " and discount =" + estimate.getDiscount();
-                }
-            }
-
-            if(estimate.getExcludingTaxTotalAfterDiscount() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " excludingTaxTotalAfterDiscount =" + estimate.getExcludingTaxTotalAfterDiscount();
-                }
-                else{
-                    query = query + " and excludingTaxTotalAfterDiscount =" + estimate.getExcludingTaxTotalAfterDiscount();
-                }
-            }
-
-            if(estimate.getVat() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " vat =" + estimate.getVat();
-                }
-                else{
-                    query = query + " and vat =" + estimate.getVat();
-                }
-            }
-
-            if(estimate.getAllTaxIncludedTotal() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " allTaxIncludedTotal =" + estimate.getAllTaxIncludedTotal();
-                }
-                else{
-                    query = query + " and allTaxIncludedTotal =" + estimate.getAllTaxIncludedTotal();
-                }
-            }
-
-            if(estimate.getAllTaxIncludedTotal() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " amountPaid =" + estimate.getAmountPaid();
-                }
-                else{
-                    query = query + " and amountPaid =" + estimate.getAmountPaid();
-                }
-            }
-
-            Cursor cursor = db.rawQuery(query,null);
-            estimatesList.clear();
-            while(cursor.moveToNext()){
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                Integer customer = cursor.getInt(4);
-                Float excludingTaxTotal = cursor.getFloat(5);
-                Float discount = cursor.getFloat(6);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                Float vat = cursor.getFloat(8);
-                Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
-                estimatesList.add(estimate);
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            helper.close();
-        }
-
-        return estimatesList;
-    }
-
-    public ArrayList<Steel> searchSteels(Steel steel){
-        ArrayList<Steel> steelsList = new ArrayList<>();
-        try{
-            db = helper.getReadableDatabase();
-            String query = "select * from steel where ";
-            if(steel.getId() != null){
-                query = query + "id=" + steel.getId();
-            }
-
-            if(steel.getType() != null){
-                if(query.equals("select * from steel where ")){
-                    query = query + " lower(type) ='" + steel.getType().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(type) = '" + steel.getType().toLowerCase() + "'";
-                }
-            }
-
-            if(steel.getGeometricShape() != null){
-                if(query.equals("select * from steel where ")){
-                    query = query + " lower(geometricShape) ='" + steel.getGeometricShape().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(geometricShape) = '" + steel.getGeometricShape().toLowerCase() + "'";
-                }
-            }
-
-            if(steel.getUnit() != null){
-                if(query.equals("select * from steel where ")){
-                    query = query + " lower(unit) ='" + steel.getUnit().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(unit) = '" + steel.getUnit().toLowerCase() + "'";
-                }
-            }
-
-            if(steel.getWeight() != null){
-                if(query.equals("select * from steel where ")){
-                    query = query + " weight =" + steel.getWeight();
-                }
-                else{
-                    query = query + " and weight =" + steel.getWeight();
-                }
-            }
-
-            Cursor cursor = db.rawQuery(query,null);
-            Steel stl;
-            steelsList.clear();
-            while(cursor.moveToNext()){
-                Integer steelId = cursor.getInt(0);
-                String type = cursor.getString(1);
-                String geometricShape = cursor.getString(2);
-                String unit = cursor.getString(3);
-                Float weight = cursor.getFloat(4);
-                stl = new Steel();
-                stl.setId(steelId);
-                stl.setType(type);
-                stl.setGeometricShape(geometricShape);
-                stl.setUnit(unit);
-                stl.setWeight(weight);
-                steelsList.add(stl);
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            helper.close();
-        }
-        return steelsList;
-    }
 
     public ArrayList<EstimateLine> searchEstimateLines(Integer estimateId){
         ArrayList<EstimateLine> estimateLinesList = new ArrayList<>();
