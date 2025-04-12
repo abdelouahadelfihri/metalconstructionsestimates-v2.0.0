@@ -1261,8 +1261,6 @@ public class DBAdapter {
 
             Steel steel;
 
-            steelsList.clear();
-
             while(cursor.moveToNext()){
                 Integer steelId = cursor.getInt(0);
                 String type = cursor.getString(1);
@@ -1310,7 +1308,7 @@ public class DBAdapter {
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for (int j = 0; j < estimateTableColumns.length; j++) {
                         if (i == 0) {
-                            if (whereQuery.equals("")) {
+                            if (whereQuery.isEmpty()) {
                                 whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                             } else {
                                 whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
@@ -1332,7 +1330,7 @@ public class DBAdapter {
                 }
             } else {
                 for (int i = 0; i < estimateTableColumns.length; i++) {
-                    if (whereQuery == "") {
+                    if (whereQuery.isEmpty()) {
                         whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
                     } else {
                         whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
@@ -1347,8 +1345,6 @@ public class DBAdapter {
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
-
-            estimatesList.clear();
 
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
@@ -1386,8 +1382,6 @@ public class DBAdapter {
 
         return estimatesList;
     }
-
-
 
     public ArrayList<Customer> retrieveCustomers(){
         ArrayList<Customer> customersList = new ArrayList<>();
