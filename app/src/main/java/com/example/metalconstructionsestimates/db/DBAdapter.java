@@ -1275,19 +1275,13 @@ public class DBAdapter {
                 steel.setWeight(weight);
                 steelsList.add(steel);
             }
-
             cursor.close();
-
         }
         catch(SQLException e){
-
             e.printStackTrace();
-
         }
         finally{
-
             helper.close();
-
         }
 
         return steelsList;
