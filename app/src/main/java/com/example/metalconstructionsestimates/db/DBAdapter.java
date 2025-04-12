@@ -1111,7 +1111,7 @@ public class DBAdapter {
 
     public ArrayList<Customer> searchCustomers(String searchText){
         ArrayList<Customer> customersList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM CUSTOMER WHERE ";
+        String selectQuery = "SELECT * FROM customer WHERE ";
         String whereQuery = "";
 
         try{
