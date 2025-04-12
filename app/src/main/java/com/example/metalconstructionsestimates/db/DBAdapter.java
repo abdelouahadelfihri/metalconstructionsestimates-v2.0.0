@@ -1109,12 +1109,109 @@ public class DBAdapter {
         return currentYearEstimatesCount;
     }
 
+    public ArrayList<Customer> searchCustomers(String searchText){
+        ArrayList<Customer> customersList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM CUSTOMER WHERE ";
+        String whereQuery = "";
+
+        try{
+            String [] customerTableColumns = {"id","name","email","tel","mobile","fax","address"};
+            if(searchText.contains(" ")){
+                String[] searchTextArray = searchText.split(" ");
+                for(int i = 0; i < searchTextArray.length; i++){
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for(int j = 0; j < customerTableColumns.length; j++){
+                        if(i == 0){
+                            if(whereQuery.equals("")){
+                                whereQuery = whereQuery + "("  + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                            else{
+                                whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                        else{
+                            if(whereQuery.charAt(whereQuery.length() - 1) == '('){
+                                whereQuery = whereQuery + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            }
+                            else{
+                                whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if(i < searchTextArray.length - 1){
+                        whereQuery = whereQuery + ") AND (";
+                    }
+                    else{
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            }
+            else{
+                for(int i = 0; i < customerTableColumns.length; i++){
+                    if(whereQuery == ""){
+                        whereQuery = whereQuery + " " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                    else{
+                        whereQuery = whereQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+
+            Cursor cursor = db.rawQuery(query,null);
+
+            Customer customer;
+
+            customersList.clear();
+
+            while(cursor.moveToNext()){
+                Integer idCustomer = cursor.getInt(0);
+                String name = cursor.getString(1);
+                String email = cursor.getString(2);
+                String telephone = cursor.getString(3);
+                String mobile = cursor.getString(4);
+                String fax = cursor.getString(5);
+                String address = cursor.getString(6);
+                customer = new Customer();
+                customer.setId(idCustomer);
+                customer.setName(name);
+                customer.setEmail(email);
+                customer.setTelephone(telephone);
+                customer.setMobile(mobile);
+                customer.setFax(fax);
+                customer.setAddress(address);
+                customersList.add(customer);
+            }
+
+            cursor.close();
+
+        }
+        catch(SQLException e){
+
+            e.printStackTrace();
+
+        }
+        finally{
+
+            helper.close();
+
+        }
+
+        return customersList;
+    }
+
     public ArrayList<Customer> retrieveCustomers(){
         ArrayList<Customer> customersList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from customer",null);
             Customer customer;
+            customersList.clear();
+            db = helper.getReadableDatabase();
             customersList.clear();
             while(cursor.moveToNext()){
                 Integer idCustomer = cursor.getInt(0);
@@ -1144,6 +1241,7 @@ public class DBAdapter {
         }
 
         return customersList;
+
     }
 
     public void saveCustomer(Customer customer){
@@ -1210,100 +1308,6 @@ public class DBAdapter {
             helper.close();
         }
         return customer;
-    }
-
-    public ArrayList<Customer> searchCustomers(Customer customer){
-        ArrayList<Customer> customersList = new ArrayList<>();
-        try{
-            db = helper.getReadableDatabase();
-            String query = "select * from customer where ";
-            if(customer.getId() != null){
-                query = query + "id=" + customer.getId();
-            }
-
-            if(customer.getName()!= null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " lower(name) ='" + customer.getName().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(name) = '" + customer.getName().toLowerCase() + "'";
-                }
-            }
-
-            if(customer.getEmail() != null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " email ='" + customer.getEmail() + "'";
-                }
-                else{
-                    query = query + " and email = '" + customer.getEmail() + "'";
-                }
-            }
-
-            if(customer.getTelephone() != null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " tel ='" + customer.getTelephone() + "'";
-                }
-                else{
-                    query = query + " and tel = '" + customer.getTelephone() + "'";
-                }
-            }
-
-            if(customer.getMobile() != null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " mobile ='" + customer.getMobile() + "'";
-                }
-                else{
-                    query = query + " and mobile = '" + customer.getMobile() + "'";
-                }
-            }
-
-            if(customer.getFax() != null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " fax ='" + customer.getFax() + "'";
-                }
-                else{
-                    query = query + " and fax = '" + customer.getFax() + "'";
-                }
-            }
-
-            if(customer.getAddress() != null){
-                if(query.equals("select * from customer where ")){
-                    query = query + " lower(address) ='" + customer.getAddress().toLowerCase() + "'";
-                }
-                else{
-                    query = query + " and lower(address) = '" + customer.getAddress().toLowerCase() + "'";
-                }
-            }
-
-            Cursor cursor = db.rawQuery(query,null);
-            Customer cstmr;
-            customersList.clear();
-            while(cursor.moveToNext()){
-                Integer customerId = cursor.getInt(0);
-                String name = cursor.getString(1);
-                String email = cursor.getString(2);
-                String tel = cursor.getString(3);
-                String mobile = cursor.getString(4);
-                String fax = cursor.getString(5);
-                String address = cursor.getString(6);
-                cstmr = new Customer();
-                cstmr.setId(customerId);
-                cstmr.setName(name);
-                cstmr.setEmail(email);
-                cstmr.setTelephone(tel);
-                cstmr.setMobile(mobile);
-                cstmr.setFax(fax);
-                cstmr.setAddress(address);
-                customersList.add(cstmr);
-            }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        finally{
-            helper.close();
-        }
-        return customersList;
     }
 
     public Estimate getEstimateById(Integer estimateId){
