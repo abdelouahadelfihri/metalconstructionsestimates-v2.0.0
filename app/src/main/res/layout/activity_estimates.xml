@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_estimate_id_estimates"
+            android:id="@+id/editText_search_estimates"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="56dp"

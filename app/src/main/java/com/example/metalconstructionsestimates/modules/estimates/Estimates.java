@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+
+import com.example.metalconstructionsestimates.arraysadapters.CustomersListAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import android.widget.Spinner;
@@ -61,7 +63,7 @@ public class Estimates extends AppCompatActivity {
     String expirationDateString = "",issueDateString = "";
     Spinner paymentStatusSpinner;
     Integer customerId;
-    TextInputEditText estimate_id,location,amount_paid,customer_id,total_excluding_tax,discount,total_excluding_tax_after_discount,vat,total_all_tax_included;
+    TextInputEditText estimatesSearchEditText;
     private DatePickerDialog.OnDateSetListener issueDateSetListener,expirationDateSetListener;
     TextView issueDate,expirationDate,issue_date,expiration_date,allEstimates,paidEstimates, partiallyPaidEstimates,unpaidEstimates;
 
@@ -80,16 +82,6 @@ public class Estimates extends AppCompatActivity {
         setSupportActionBar(toolBar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        estimateLocationAmountPaid = findViewById(R.id.done_in_estimate_date_estimates);
-
-        issueDateExpirationDate = activityEstimatesBinding.issueDateExpirationDateEstimates;
-        issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
-        expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
-        estimateCustomerIdSelectCustomer = activityEstimatesBinding.customerIdSelectCustomerEstimates;
-        Button selectCustomer = estimateCustomerIdSelectCustomer.getButtonSelectCustomer();
-        estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.customEstimatesAllPaidUnpaid;
-        paymentStatusSpinner = estimatesAllPaidPartiallyPaidUnpaid.getSpinnerPaymentStatus();
 
         ArrayAdapter<CharSequence> paymentStatusAdapter = ArrayAdapter.createFromResource(this, R.array.payment_status, android.R.layout.simple_spinner_item);
 
@@ -199,116 +191,36 @@ public class Estimates extends AppCompatActivity {
                 }
         );
 
-        selectCustomer.setOnClickListener(view -> startActivityForResult());
-
         FloatingActionButton clearEstimateForm = findViewById(R.id.fab_clear_estimate_form);
         FloatingActionButton addEstimate = findViewById(R.id.fab_add_estimate);
-        FloatingActionButton searchEstimate = findViewById(R.id.fab_search_estimates);
         FloatingActionButton reloadEstimatesList = findViewById(R.id.fab_refresh_estimates_list);
 
-        searchEstimate.setOnClickListener(view -> {
-            estimate_id = findViewById(R.id.editText_estimate_id_estimates);
-            location = estimateLocationAmountPaid.getTextInputEditTextLocation();
-            customer_id = estimateCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-            total_excluding_tax = findViewById(R.id.editText_total_excluding_tax_estimates);
-            discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
-            total_excluding_tax_after_discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-            vat = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
-            total_all_tax_included = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-            amount_paid = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
-            Estimate estimate = new Estimate();
-            DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-            boolean isEstimateIdEmpty = estimate_id.getText().toString().isEmpty();
-            boolean isLocationEmpty = location.getText().toString().isEmpty();
-            boolean isCustomerIdEmpty = customer_id.getText().toString().isEmpty();
-            boolean isTotalExcludingTaxEmpty = total_excluding_tax.getText().toString().isEmpty();
-            boolean isDiscountEmpty = discount.getText().toString().isEmpty();
-            boolean isTotalExcludingTaxAfterDiscountEmpty = total_excluding_tax_after_discount.getText().toString().isEmpty();
-            boolean isVatEmpty = vat.getText().toString().isEmpty();
-            boolean isTotalAllTaxIncludedEmpty = total_all_tax_included.getText().toString().isEmpty();
+        estimatesSearchEditText = findViewById(R.id.editText_search_estimates);
 
-            if (isEstimateIdEmpty && isLocationEmpty && issueDateString.isEmpty() && expirationDateString.isEmpty() &&
-                    isCustomerIdEmpty && isTotalExcludingTaxEmpty && isDiscountEmpty &&
-                    isTotalExcludingTaxAfterDiscountEmpty && isVatEmpty && isTotalAllTaxIncludedEmpty) {
-
-                Toast emptyFields = Toast.makeText(getApplicationContext(), "Champs vides.", Toast.LENGTH_LONG);
-                emptyFields.show();
+        estimatesSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-            else{
-                if (customer_id.getText().toString().isEmpty()) {
-                    estimate.setCustomer(null);
-                } else {
-                    if (allDigitString(customer_id.getText().toString())) {
-                        Customer customer = dbAdapter.getCustomerById(Integer.parseInt(customer_id.getText().toString()));
-                        if (customer != null) {
-                            estimate.setCustomer(customer.getId());
-                        } else {
-                            estimate.setCustomer(null);
-                        }
-                    } else {
-                        Integer customer = dbAdapter.getCustomerIdByName(customer_id.getText().toString());
-                        if (customer != null) {
-                            estimate.setCustomer(customer);
-                        } else {
-                            estimate.setCustomer(null);
-                        }
-                    }
-                }
-
-                if (!issueDateString.isEmpty()) {
-                    estimate.setIssueDate(issueDateString);
-                } else {
-                    estimate.setExpirationDate("");
-                }
-
-                if (!expirationDateString.isEmpty()) {
-                    estimate.setExpirationDate(expirationDateString);
-                } else {
-                    estimate.setExpirationDate("");
-                }
-
-                if (location.getText().toString().isEmpty()) {
-                    estimate.setDoneIn("");
-                } else {
-                    estimate.setDoneIn(location.getText().toString());
-                }
-
-                if (discount.getText().toString().isEmpty()) {
-                    estimate.setDiscount(null);
-                } else {
-                    estimate.setDiscount(Float.parseFloat(discount.getText().toString()));
-                }
-
-                if (vat.getText().toString().isEmpty()) {
-                    estimate.setVat(null);
-                } else {
-                    estimate.setVat(Float.parseFloat(vat.getText().toString()));
-                }
-
-                if (total_all_tax_included.getText().toString().isEmpty()) {
-                    estimate.setAllTaxIncludedTotal(null);
-                } else {
-                    estimate.setAllTaxIncludedTotal(Float.parseFloat(total_all_tax_included.getText().toString()));
-                }
-
-                if (amount_paid.getText().toString().isEmpty()) {
-                    estimate.setAmountPaid(null);
-                } else {
-                    estimate.setAmountPaid(Float.parseFloat(amount_paid.getText().toString()));
-                }
-
-                ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(estimate);
-
-                if(estimatesSearchList.isEmpty()){
-                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                    activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                    searchResultToast.show();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchText = s.toString();
+                activityEstimatesBinding.recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
+                DBAdapter db = new DBAdapter(getApplicationContext());
+                ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
+                if (!customersSearchList.isEmpty()) {
+                    CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Estimates.this, customersSearchList);
+                    findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                    activityEstimatesBinding.recyclerViewEstimates.setAdapter(customers_list_adapter);
                 }
                 else{
-                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                    activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                    estimateListAdapter.updateEstimates(estimatesSearchList);
+                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                    searchResultToast.show();
                 }
             }
         });
@@ -339,28 +251,7 @@ public class Estimates extends AppCompatActivity {
         });
 
         clearEstimateForm.setOnClickListener(view -> {
-
-            issue_date = issueDateExpirationDate.getTextViewEstimateIssueDate();
-            expiration_date = issueDateExpirationDate.getTextViewEstimateExpirationDate();
-            total_excluding_tax = findViewById(R.id.editText_total_excluding_tax_estimates);
-            discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextDiscount();
-            total_excluding_tax_after_discount = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-            vat = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
-            total_all_tax_included = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-            amount_paid = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
-            estimate_id.getText().clear();
-            location.getText().clear();
-            issueDateString = "";
-            expirationDateString = "";
-            issue_date.setText(R.string.issue_date);
-            expiration_date.setText(R.string.expiration_date);
-            customer_id.getText().clear();
-            total_excluding_tax.getText().clear();
-            discount.getText().clear();
-            total_excluding_tax_after_discount.getText().clear();
-            vat.getText().clear();
-            total_all_tax_included.getText().clear();
-            amount_paid.getText().clear();
+            estimatesSearchEditText.getText().clear();
         });
 
         issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
