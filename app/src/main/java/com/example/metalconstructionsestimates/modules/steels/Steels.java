@@ -2,9 +2,15 @@ package com.example.metalconstructionsestimates.modules.steels;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import com.example.metalconstructionsestimates.arraysadapters.CustomersListAdapter;
+import com.example.metalconstructionsestimates.models.Customer;
+import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -59,6 +65,36 @@ public class Steels extends AppCompatActivity {
             recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerViewSteels.get().setAdapter(steelsListAdapter);
         }
+
+        customerSearchEditText = findViewById(R.id.editText_search_customers);
+
+        customerSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                String searchText = s.toString();
+                activitySteelsBinding.recyclerViewSteels.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
+                DBAdapter db = new DBAdapter(getApplicationContext());
+                ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
+                if (!steelsSearchList.isEmpty()) {
+                    SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, customersSearchList);
+                    findViewById(R.id.empty_view).setVisibility(View.GONE);
+                    activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
+                    activitySteelsBinding.recyclerViewSteels.setAdapter(customers_list_adapter);
+                }
+                else{
+                    activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
+                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                    searchResultToast.show();
+                }
+            }
+        });
 
         reloadSteelsList = findViewById(R.id.fab_refresh_steels_list);
         reloadSteelsList.setOnClickListener(view -> {
