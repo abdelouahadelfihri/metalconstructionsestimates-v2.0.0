@@ -39,7 +39,6 @@ public class Steels extends AppCompatActivity {
     FloatingActionButton addSteel, clearSearchSteelForm, reloadSteelsList;
     ActivitySteelsBinding activitySteelsBinding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
