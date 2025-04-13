@@ -1161,7 +1161,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
-
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query,null);
 
             Customer customer;
@@ -1256,7 +1256,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
-
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query,null);
 
             Steel steel;
@@ -1335,6 +1335,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
+            Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
 
