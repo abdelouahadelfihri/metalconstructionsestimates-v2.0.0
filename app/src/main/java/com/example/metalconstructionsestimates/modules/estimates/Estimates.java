@@ -54,18 +54,9 @@ import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBind
 public class Estimates extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
-    public EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
-    public EstimateLocationAmountPaid estimateLocationAmountPaid;
-    public EstimateCustomerIdSelectCustomer estimateCustomerIdSelectCustomer;
-    public EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
-    public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidPartiallyPaidUnpaid;
-    public IssueDateExpirationDate issueDateExpirationDate;
-    String expirationDateString = "",issueDateString = "";
     Spinner paymentStatusSpinner;
     Integer customerId;
     TextInputEditText estimatesSearchEditText;
-    private DatePickerDialog.OnDateSetListener issueDateSetListener,expirationDateSetListener;
-    TextView issueDate,expirationDate,issue_date,expiration_date,allEstimates,paidEstimates, partiallyPaidEstimates,unpaidEstimates;
 
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
