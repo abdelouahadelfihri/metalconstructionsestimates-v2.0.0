@@ -55,11 +55,11 @@ public class Steels extends AppCompatActivity {
 
         if (steelsList.isEmpty()) {
             activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
-            activitySteelsBinding.emptyView.setVisibility(View.VISIBLE);
-            activitySteelsBinding.emptyView.setText(R.string.noSteels);
+            activitySteelsBinding.noSteelsTextView.setVisibility(View.VISIBLE);
+            activitySteelsBinding.noSteelsTextView.setText(R.string.noSteels);
         } else {
             activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
-            activitySteelsBinding.emptyView.setVisibility(View.GONE);
+            activitySteelsBinding.noSteelsTextView.setVisibility(View.GONE);
             steelsListAdapter = new SteelsListAdapter(this, steelsList);
             recyclerViewSteels.get().setHasFixedSize(true);
             recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -82,14 +82,14 @@ public class Steels extends AppCompatActivity {
                 DBAdapter db = new DBAdapter(getApplicationContext());
                 ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
                 if (!steelsSearchList.isEmpty()) {
-                    SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, customersSearchList);
-                    findViewById(R.id.empty_view).setVisibility(View.GONE);
+                    SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
+                    findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
                     activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
-                    activitySteelsBinding.recyclerViewSteels.setAdapter(customers_list_adapter);
+                    activitySteelsBinding.recyclerViewSteels.setAdapter(steels_list_adapter);
                 }
                 else{
                     activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
                     Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
                 }
@@ -105,9 +105,9 @@ public class Steels extends AppCompatActivity {
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
                 recyclerViewSteels.get().setVisibility(View.GONE);
-                findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+                findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
             } else {
-                findViewById(R.id.empty_view).setVisibility(View.GONE);
+                findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
                 recyclerViewSteels.get().setVisibility(View.VISIBLE);
                 recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerViewSteels.get().setAdapter(steelsListAdapter);
