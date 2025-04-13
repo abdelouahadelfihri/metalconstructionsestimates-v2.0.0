@@ -69,6 +69,7 @@ public class Customers extends AppCompatActivity {
         });
 
         customerSearchEditText = findViewById(R.id.editText_search_customers);
+
         customerSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -79,25 +80,20 @@ public class Customers extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchText = s.toString();
-                if (!searchText.isEmpty()) {
-
+                binding.recyclerViewCustomers.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
+                DBAdapter db = new DBAdapter(getApplicationContext());
+                ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
+                if (!customersSearchList.isEmpty()) {
+                    CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersSearchList);
+                    findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                    binding.recyclerViewCustomers.setVisibility(View.VISIBLE);
+                    binding.recyclerViewCustomers.setAdapter(customers_list_adapter);
                 }
                 else{
-                    binding.recyclerViewCustomers.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
-                    DBAdapter db = new DBAdapter(getApplicationContext());
-                    ArrayList<Customer> customersList = db.retrieveCustomers();
-                    CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersList);
-                    if (customersList.isEmpty()) {
-                        binding.recyclerViewCustomers.setVisibility(View.GONE);
-                        findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                        Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                        searchResultToast.show();
-                    }
-                    else {
-                        findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
-                        binding.recyclerViewCustomers.setVisibility(View.VISIBLE);
-                        binding.recyclerViewCustomers.setAdapter(customers_list_adapter);
-                    }
+                    binding.recyclerViewCustomers.setVisibility(View.GONE);
+                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                    searchResultToast.show();
                 }
             }
         });
