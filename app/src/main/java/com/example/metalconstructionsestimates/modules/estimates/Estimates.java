@@ -209,16 +209,16 @@ public class Estimates extends AppCompatActivity {
                 String searchText = s.toString();
                 activityEstimatesBinding.recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
                 DBAdapter db = new DBAdapter(getApplicationContext());
-                ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
-                if (!customersSearchList.isEmpty()) {
-                    CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Estimates.this, customersSearchList);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
+                if (!estimatesSearchList.isEmpty()) {
+                    EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
+                    findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
                     activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                    activityEstimatesBinding.recyclerViewEstimates.setAdapter(customers_list_adapter);
+                    activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
                 }
                 else{
                     activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
                     Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
                 }
