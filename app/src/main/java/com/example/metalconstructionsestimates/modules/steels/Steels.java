@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Steels extends AppCompatActivity {
     Intent intent;
     SteelsListAdapter steelsListAdapter;
-    TextInputEditText customerSearchEditText;
+    TextInputEditText steelsSearchEditText;
     FloatingActionButton addSteel, clearSearchSteelForm, reloadSteelsList;
     ActivitySteelsBinding activitySteelsBinding;
 
@@ -65,9 +65,9 @@ public class Steels extends AppCompatActivity {
             recyclerViewSteels.get().setAdapter(steelsListAdapter);
         }
 
-        customerSearchEditText = findViewById(R.id.editText_search_customers);
+        steelsSearchEditText = findViewById(R.id.editText_search_steels);
 
-        customerSearchEditText.addTextChangedListener(new TextWatcher() {
+        steelsSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
