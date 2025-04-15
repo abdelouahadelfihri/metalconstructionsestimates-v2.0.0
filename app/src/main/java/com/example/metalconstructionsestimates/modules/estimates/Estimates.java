@@ -93,9 +93,11 @@ public class Estimates extends AppCompatActivity {
         paymentStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
+                estimatesSearchEditText = findViewById(R.id.editText_search_estimates);
+                String searchText = estimatesSearchEditText.getText().toString();
                 switch(item.toString()){
                     case "All":
-                        ArrayList<Estimate> allEstimatesList = db.retrieveEstimates();
+                        ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
 
                         if (allEstimatesList.isEmpty()) {
                             activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
@@ -108,7 +110,7 @@ public class Estimates extends AppCompatActivity {
                         }
                         break;
                     case "Paid":
-                        ArrayList<Estimate> paidEstimatesList = db.retrievePaidEstimates();
+                        ArrayList<Estimate> paidEstimatesList = db.searchPaidEstimates(searchText);
 
                         if (paidEstimatesList.isEmpty()) {
                             activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
@@ -121,7 +123,7 @@ public class Estimates extends AppCompatActivity {
                         }
                         break;
                     case "Partially Paid":
-                        ArrayList<Estimate> partiallyPaidEstimatesList = db.retrievePartiallyPaidEstimates();
+                        ArrayList<Estimate> partiallyPaidEstimatesList = db.searchPartiallyPaidEstimates(searchText);
 
                         if (partiallyPaidEstimatesList.isEmpty()) {
                             activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
@@ -134,7 +136,7 @@ public class Estimates extends AppCompatActivity {
                         }
                         break;
                     case "Unpaid":
-                        ArrayList<Estimate> unPaidEstimatesList = db.retrieveUnpaidEstimates();
+                        ArrayList<Estimate> unPaidEstimatesList = db.searchUnPaidEstimates(searchText);
 
                         if (unPaidEstimatesList.isEmpty()) {
                             activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
