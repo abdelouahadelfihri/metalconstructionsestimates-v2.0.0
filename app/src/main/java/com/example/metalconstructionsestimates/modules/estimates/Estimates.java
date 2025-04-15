@@ -8,18 +8,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.google.android.material.textfield.TextInputEditText;
-
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
-
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid;
@@ -27,7 +23,6 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-
 import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBinding;
 
 public class Estimates extends AppCompatActivity {
