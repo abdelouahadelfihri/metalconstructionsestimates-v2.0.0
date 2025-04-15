@@ -1378,6 +1378,284 @@ public class DBAdapter {
         return estimatesList;
     }
 
+    public ArrayList<Estimate> searchPaidEstimates(String searchText) {
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM estimate WHERE ";
+        String whereQuery = "";
+
+        try {
+
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+
+            if (searchText.contains(" ")) {
+                String[] searchTextArray = searchText.split(" ");
+                for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for (int j = 0; j < estimateTableColumns.length; j++) {
+                        if (i == 0) {
+                            if (whereQuery.isEmpty()) {
+                                whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        } else {
+                            if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if (i < searchTextArray.length - 1) {
+                        whereQuery = whereQuery + ") AND (";
+                    } else {
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            } else {
+                for (int i = 0; i < estimateTableColumns.length; i++) {
+                    if (whereQuery.isEmpty()) {
+                        whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    } else {
+                        whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+            query = query + " and amountPaid = allTaxIncludedTotal";
+            Log.i("query", query);
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            Estimate estimate;
+
+            while (cursor.moveToNext()) {
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                Integer customer = cursor.getInt(4);
+                Float excludingTaxTotal = cursor.getFloat(5);
+                Float discount = cursor.getFloat(6);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+                Float vat = cursor.getFloat(8);
+                Float allTaxIncludedTotal = cursor.getFloat(9);
+                Float amountPaid = cursor.getFloat(10);
+                estimatesList.clear();
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setAmountPaid(amountPaid);
+                estimatesList.add(estimate);
+            }
+            cursor.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
+    public ArrayList<Estimate> searchPartiallyPaidEstimates(String searchText) {
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM estimate WHERE ";
+        String whereQuery = "";
+
+        try {
+
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+
+            if (searchText.contains(" ")) {
+                String[] searchTextArray = searchText.split(" ");
+                for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for (int j = 0; j < estimateTableColumns.length; j++) {
+                        if (i == 0) {
+                            if (whereQuery.isEmpty()) {
+                                whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        } else {
+                            if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if (i < searchTextArray.length - 1) {
+                        whereQuery = whereQuery + ") AND (";
+                    } else {
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            } else {
+                for (int i = 0; i < estimateTableColumns.length; i++) {
+                    if (whereQuery.isEmpty()) {
+                        whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    } else {
+                        whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+            query = query + " and amountPaid < allTaxIncludedTotal and amountPaid != 0";
+            Log.i("query", query);
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            Estimate estimate;
+
+            while (cursor.moveToNext()) {
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                Integer customer = cursor.getInt(4);
+                Float excludingTaxTotal = cursor.getFloat(5);
+                Float discount = cursor.getFloat(6);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+                Float vat = cursor.getFloat(8);
+                Float allTaxIncludedTotal = cursor.getFloat(9);
+                Float amountPaid = cursor.getFloat(10);
+                estimatesList.clear();
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setAmountPaid(amountPaid);
+                estimatesList.add(estimate);
+            }
+            cursor.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
+    public ArrayList<Estimate> searchUnPaidEstimates(String searchText) {
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM estimate WHERE ";
+        String whereQuery = "";
+
+        try {
+
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+
+            if (searchText.contains(" ")) {
+                String[] searchTextArray = searchText.split(" ");
+                for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replace(",", ".");
+                    for (int j = 0; j < estimateTableColumns.length; j++) {
+                        if (i == 0) {
+                            if (whereQuery.isEmpty()) {
+                                whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        } else {
+                            if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+
+                            } else {
+                                whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                            }
+                        }
+                    }
+                    if (i < searchTextArray.length - 1) {
+                        whereQuery = whereQuery + ") AND (";
+                    } else {
+                        whereQuery = whereQuery + ")";
+                    }
+                }
+            } else {
+                for (int i = 0; i < estimateTableColumns.length; i++) {
+                    if (whereQuery.isEmpty()) {
+                        whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    } else {
+                        whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                    }
+                }
+            }
+
+            db = helper.getReadableDatabase();
+
+            String query = selectQuery + whereQuery;
+
+            query = query + " AND amountPaid = 0";
+
+            Log.i("query", query);
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            Estimate estimate;
+
+            while (cursor.moveToNext()) {
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                Integer customer = cursor.getInt(4);
+                Float excludingTaxTotal = cursor.getFloat(5);
+                Float discount = cursor.getFloat(6);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+                Float vat = cursor.getFloat(8);
+                Float allTaxIncludedTotal = cursor.getFloat(9);
+                Float amountPaid = cursor.getFloat(10);
+                estimatesList.clear();
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setAmountPaid(amountPaid);
+                estimatesList.add(estimate);
+            }
+            cursor.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
     public ArrayList<Customer> retrieveCustomers(){
         ArrayList<Customer> customersList = new ArrayList<>();
         try{
