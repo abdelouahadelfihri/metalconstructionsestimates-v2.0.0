@@ -1,6 +1,5 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,7 +27,6 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBinding;
 
