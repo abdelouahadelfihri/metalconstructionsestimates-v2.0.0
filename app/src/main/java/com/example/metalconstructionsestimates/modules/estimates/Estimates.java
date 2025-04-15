@@ -163,6 +163,70 @@ public class Estimates extends AppCompatActivity {
                 String searchText = s.toString();
                 activityEstimatesBinding.recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
                 DBAdapter db = new DBAdapter(getApplicationContext());
+                String selectedPaymentStatus = paymentStatusSpinner.getSelectedItem().toString();
+                switch(selectedPaymentStatus){
+                    case "All":
+                        ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
+                        if (!estimatesSearchList.isEmpty()) {
+                            EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                        }
+                        else{
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                            searchResultToast.show();
+                        }
+                        break;
+                    case "Paid":
+                        ArrayList<Estimate> paidEstimatesSearchList = db.searchPaidEstimates(searchText);
+                        if (!paidEstimatesSearchList.isEmpty()) {
+                            EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, paidEstimatesSearchList);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                        }
+                        else{
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                            searchResultToast.show();
+                        }
+                        break;
+                    case "Partially Paid":
+                        ArrayList<Estimate> partiallyPaidEstimatesSearchList = db.searchPartiallyPaidEstimates(searchText);
+                        if (!partiallyPaidEstimatesSearchList.isEmpty()) {
+                            EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, partiallyPaidEstimatesSearchList);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                        }
+                        else{
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                            searchResultToast.show();
+                        }
+                        break;
+                    case "Unpaid":
+                        ArrayList<Estimate> unPaidEstimatesSearchList = db.searchUnPaidEstimates(searchText);
+                        if (!unPaidEstimatesSearchList.isEmpty()) {
+                            EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                        }
+                        else{
+                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
+                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                            searchResultToast.show();
+                        }
+                        break;
+
+                }
                 ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                 if (!estimatesSearchList.isEmpty()) {
                     EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
