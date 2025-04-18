@@ -91,7 +91,7 @@
         app:backgroundTint="#4F5EB1"
         app:layout_constraintBottom_toTopOf="@+id/fab_refresh_steels_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
         app:tint="@color/fabIconTint" />
 
     <!-- Add FAB -->
