@@ -81,7 +81,6 @@
         android:visibility="gone"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_centerInParent="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/estimates_all_paid_partiallypaid_unpaid"
         app:layout_constraintStart_toStartOf="parent"
