@@ -25,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="#4F5EB1"
             android:text="@string/google_drive_sign_in" />
 
@@ -34,6 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="#4F5EB1"
             android:text="@string/localBackup" />
 
@@ -43,6 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="#4F5EB1"
             android:text="@string/localRestore" />
 
@@ -52,6 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="#4F5EB1"
             android:text="@string/googleDriveBackup" />
 
@@ -62,6 +70,8 @@
             android:layout_height="90dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:background="#4F5EB1"
             android:text="@string/googleDriveRestore" />
 
