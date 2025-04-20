@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#4F5EB1"
-            android:title="Back Up Restore"
+            android:title="@string/backuprestore"
             android:titleTextColor="@color/white" />
 
         <!-- Google Sign In Button -->
