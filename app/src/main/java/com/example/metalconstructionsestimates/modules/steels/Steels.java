@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
-import com.example.metalconstructionsestimates.arraysadapters.CustomersListAdapter;
-import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.google.android.material.textfield.TextInputEditText;
-import android.widget.Spinner;
+
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +23,6 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -48,8 +42,8 @@ public class Steels extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DBAdapter db = new DBAdapter(getApplicationContext());
-        ArrayList<Steel> steelsList = db.retrieveSteels();
+        AtomicReference<DBAdapter> db = new AtomicReference<>(new DBAdapter(getApplicationContext()));
+        ArrayList<Steel> steelsList = db.get().retrieveSteels();
         AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.recycler_view_steels));
 
         if (steelsList.isEmpty()) {
@@ -99,8 +93,8 @@ public class Steels extends AppCompatActivity {
         reloadSteelsList.setOnClickListener(view -> {
 
             recyclerViewSteels.set(findViewById(R.id.recycler_view_steels));
-            DBAdapter db1 = new DBAdapter(getApplicationContext());
-            ArrayList<Steel> steels_list = db1.retrieveSteels();
+            db.set(new DBAdapter(getApplicationContext()));
+            ArrayList<Steel> steels_list = db.get().retrieveSteels();
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
                 recyclerViewSteels.get().setVisibility(View.GONE);
