@@ -14,6 +14,11 @@ public class EstimatesAllPaidPartiallyPaidUnpaid extends LinearLayout {
     private TextView textViewPaymentStatus;
     private Spinner spinnerPaymentStatus;
 
+    public EstimatesAllPaidPartiallyPaidUnpaid(Context context){
+        super(context);
+        init();
+    }
+
     public EstimatesAllPaidPartiallyPaidUnpaid(Context context, AttributeSet attrs){
         super(context, attrs);
         init();
