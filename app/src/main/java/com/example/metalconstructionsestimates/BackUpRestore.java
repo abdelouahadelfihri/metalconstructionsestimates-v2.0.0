@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.example.metalconstructionsestimates.db.DBAdapter;
@@ -61,6 +62,8 @@ public class BackUpRestore extends GoogleDriveActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_back_up_restore);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         Button googleDriveSignIn = findViewById(R.id.googleSignIn);
         Button localBackup = findViewById(R.id.localBackup);
         Button localRestore = findViewById(R.id.localRestore);
