@@ -22,6 +22,11 @@ public class EstimateCustomerIdSelectCustomer extends LinearLayout {
         return buttonSelectCustomer;
     }
 
+    public EstimateCustomerIdSelectCustomer(Context context){
+        super(context);
+        init();
+    }
+
     public EstimateCustomerIdSelectCustomer(Context context, AttributeSet attrs){
         super(context, attrs);
         init();
