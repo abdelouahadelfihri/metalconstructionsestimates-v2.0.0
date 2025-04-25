@@ -135,6 +135,7 @@
             android:id="@+id/recycler_view_estimate_lines"
             android:layout_width="match_parent"
             android:layout_height="135dp"
+            android:contentDescription="@string/estimates"
             android:layout_marginStart="10dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="10dp"
