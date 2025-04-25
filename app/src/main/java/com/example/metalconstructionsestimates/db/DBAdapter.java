@@ -1119,6 +1119,7 @@ public class DBAdapter {
             if(searchText.contains(" ")){
                 String[] searchTextArray = searchText.split(",");
                 for(int i = 0; i < searchTextArray.length; i++){
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for(int j = 0; j < customerTableColumns.length; j++){
                         if(i == 0){
@@ -1214,6 +1215,7 @@ public class DBAdapter {
             if(searchText.contains(" ")){
                 String[] searchTextArray = searchText.split(",");
                 for(int i = 0; i < searchTextArray.length; i++){
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for(int j = 0; j < steelsTableColumns.length; j++){
                         if(i == 0){
@@ -1299,6 +1301,7 @@ public class DBAdapter {
             if (searchText.contains(" ")) {
                 String[] searchTextArray = searchText.split(",");
                 for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for (int j = 0; j < estimateTableColumns.length; j++) {
                         if (i == 0) {
@@ -1390,6 +1393,7 @@ public class DBAdapter {
             if (searchText.contains(" ")) {
                 String[] searchTextArray = searchText.split(",");
                 for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for (int j = 0; j < estimateTableColumns.length; j++) {
                         if (i == 0) {
@@ -1482,6 +1486,7 @@ public class DBAdapter {
             if (searchText.contains(" ")) {
                 String[] searchTextArray = searchText.split(",");
                 for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for (int j = 0; j < estimateTableColumns.length; j++) {
                         if (i == 0) {
@@ -1568,12 +1573,14 @@ public class DBAdapter {
         String whereQuery = "";
 
         try {
+            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
 
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
 
             if (searchText.contains(" ")) {
                 String[] searchTextArray = searchText.split(",");
                 for (int i = 0; i < searchTextArray.length; i++) {
+                    searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
                     for (int j = 0; j < estimateTableColumns.length; j++) {
                         if (i == 0) {
