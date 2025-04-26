@@ -37,16 +37,17 @@ import java.util.Objects;
 public class AddEstimate extends AppCompatActivity {
     Integer customerId;
     DBAdapter dbAdapter;
-    TextView expirationDate,issueDate;
+    TextView expirationDate, issueDate;
     String expirationDateValue = "", issueDateValue = "";
     EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     AddClearButtons addClearButtons;
     EstimateLocationAmountPaid estimateLocationAmountPaid;
     IssueDateExpirationDate issueDateExpirationDate;
-    private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
+    private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener;
     Intent intent;
     boolean customerExists = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,9 @@ public class AddEstimate extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_add_estimate);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(view -> finish());
+        /*
 
         issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_add_estimate);
         estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
@@ -282,5 +286,6 @@ public class AddEstimate extends AppCompatActivity {
             }
         }
         return result;
+    }*/
     }
 }
