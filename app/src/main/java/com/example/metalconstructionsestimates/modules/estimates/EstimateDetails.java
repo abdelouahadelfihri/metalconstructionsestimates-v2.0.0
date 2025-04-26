@@ -12,7 +12,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +37,7 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons;
 import com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
-import com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;

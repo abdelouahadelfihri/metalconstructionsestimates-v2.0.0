@@ -1,37 +1,20 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import com.google.android.material.textfield.TextInputEditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
-import com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate;
-import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.db.DBAdapter;
-import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 public class AddEstimate extends AppCompatActivity {
