@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -15,12 +14,11 @@
         android:background="?attr/colorPrimary"
         android:title="Add New Estimate"
         android:titleTextColor="@android:color/white"
-        app:titleCentered="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Location and Amount Paid -->
+    <!-- Location -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/locationLayout"
         android:layout_width="0dp"
@@ -30,132 +28,121 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/amountPaidLayout"
         app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/locationEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Amount Paid -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amountPaidLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Amount Paid"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/locationLayout"
         app:layout_constraintStart_toEndOf="@id/locationLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amountPaidEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Issue Date -->
-    <LinearLayout
-        android:id="@+id/issueDateLayout"
+    <!-- Issue Date Label -->
+    <TextView
+        android:id="@+id/issueDateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:text="Issue Date:"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/locationLayout"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Issue Date: "
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/issueDateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--/--/----"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <!-- Expiration Date -->
-    <LinearLayout
-        android:id="@+id/expirationDateLayout"
+    <!-- Issue Date Value -->
+    <TextView
+        android:id="@+id/issueDateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/issueDateLayout"
+        android:text="--/--/----"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/issueDateLabel"
+        app:layout_constraintStart_toEndOf="@id/issueDateLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Expiration Date Label -->
+    <TextView
+        android:id="@+id/expirationDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expiration Date:"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Expiration Date: "
-            android:textSize="16sp"
-            android:textStyle="bold" />
+    <!-- Expiration Date Value -->
+    <TextView
+        android:id="@+id/expirationDateValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--/--/----"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
+        app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
+        android:layout_marginStart="8dp"/>
 
-        <TextView
-            android:id="@+id/expirationDateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--/--/----"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <!-- Customer and Select Customer -->
+    <!-- Customer Field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/customerLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Customer"
-        app:layout_constraintTop_toBottomOf="@id/expirationDateLayout"
+        app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
-        app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/customerEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPersonName" />
+            android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Select Customer Button -->
     <Button
         android:id="@+id/selectCustomerButton"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:text="Select"
         app:layout_constraintTop_toTopOf="@id/customerLayout"
         app:layout_constraintBottom_toBottomOf="@id/customerLayout"
         app:layout_constraintStart_toEndOf="@id/customerLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontalWeight="1"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Discount -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/discountLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Discount (%)"
+        android:hint="Discount"
         app:layout_constraintTop_toBottomOf="@id/customerLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/discountEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- VAT -->
@@ -163,7 +150,7 @@
         android:id="@+id/vatLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="VAT (%)"
+        android:hint="VAT"
         app:layout_constraintTop_toBottomOf="@id/discountLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,11 +159,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/vatEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Add and Clear Buttons -->
+    <!-- Add Button -->
     <Button
         android:id="@+id/addButton"
         android:layout_width="0dp"
@@ -185,10 +171,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/clearButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontalWeight="1"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="24dp"/>
 
+    <!-- Clear Button -->
     <Button
         android:id="@+id/clearButton"
         android:layout_width="0dp"
@@ -197,8 +183,7 @@
         app:layout_constraintStart_toEndOf="@id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontalWeight="1"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
