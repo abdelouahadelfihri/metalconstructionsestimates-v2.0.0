@@ -23,7 +23,7 @@ public class IssueDateExpirationDate extends LinearLayout {
     }
 
     private void init(){
-        LayoutInflater.from(getContext()).inflate(R.layout.estimate_issue_date_expiration_date, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.estimate_issue_date, this, true);
         estimateIssueDate = findViewById(R.id.textView_select_estimate_creation_date);
         estimateExpirationDate = findViewById(R.id.textView_select_estimate_expiration_date);
     }
