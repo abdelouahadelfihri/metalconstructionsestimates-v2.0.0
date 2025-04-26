@@ -31,9 +31,11 @@
     <string name="steelDetails">Steel Details</string>
     <string name="estimateLineDetails">Estimate Line Details</string>
     <string name="select_steel">Select Steel</string>
-    <string name="issue_date_label">Issue Date : --/--/--</string>
+    <string name="issue_date_label">Issue Date :</string>
+    <string name="issue_date">--/--/----</string>
     <string name="estimate_id">Estimate Id</string>
     <string name="expiration_date_label">Expiration Date : --/--/--</string>
+    <string name="expiration_date">--/--/----</string>
     <string name="weight">Weight</string>
     <string name="width">Width</string>
     <string name="length">Lenght</string>
