@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".YourActivity">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -32,32 +34,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Location EditText -->
-            <EditText
-                android:id="@+id/editTextLocation"
+            <!-- Location -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Location"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/editTextAmountPaid"
+                app:layout_constraintEnd_toStartOf="@id/textInputLayoutAmountPaid"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintHorizontalChainStyle="spread"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp">
 
-            <!-- Amount Paid EditText -->
-            <EditText
-                android:id="@+id/editTextAmountPaid"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Amount Paid -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutAmountPaid"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Amount Paid"
-                app:layout_constraintStart_toEndOf="@id/editTextLocation"
+                app:layout_constraintStart_toEndOf="@id/textInputLayoutLocation"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/editTextLocation"
-                app:layout_constraintBottom_toBottomOf="@id/editTextLocation"
+                app:layout_constraintTop_toTopOf="@id/textInputLayoutLocation"
+                app:layout_constraintBottom_toBottomOf="@id/textInputLayoutLocation"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAmountPaid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Issue Date Label -->
             <TextView
@@ -66,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="Issue Date:"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/editTextLocation"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutLocation"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp" />
@@ -103,9 +116,9 @@
                 app:layout_constraintStart_toEndOf="@id/textViewExpirationDateLabel"
                 android:layout_marginStart="8dp" />
 
-            <!-- Customer EditText -->
-            <EditText
-                android:id="@+id/editTextCustomer"
+            <!-- Customer -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutCustomer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Customer"
@@ -114,7 +127,13 @@
                 app:layout_constraintEnd_toStartOf="@id/buttonSelectCustomer"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCustomer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Select Customer Button -->
             <Button
@@ -122,34 +141,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Customer"
-                app:layout_constraintTop_toTopOf="@id/editTextCustomer"
-                app:layout_constraintBottom_toBottomOf="@id/editTextCustomer"
+                app:layout_constraintTop_toTopOf="@id/textInputLayoutCustomer"
+                app:layout_constraintBottom_toBottomOf="@id/textInputLayoutCustomer"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp" />
 
-            <!-- Discount EditText -->
-            <EditText
-                android:id="@+id/editTextDiscount"
+            <!-- Discount -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDiscount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Discount"
-                app:layout_constraintTop_toBottomOf="@id/editTextCustomer"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutCustomer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp">
 
-            <!-- VAT EditText -->
-            <EditText
-                android:id="@+id/editTextVAT"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- VAT -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutVAT"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="VAT"
-                app:layout_constraintTop_toBottomOf="@id/editTextDiscount"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutDiscount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextVAT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
