@@ -31,8 +31,8 @@
     <string name="steelDetails">Steel Details</string>
     <string name="estimateLineDetails">Estimate Line Details</string>
     <string name="select_steel">Select Steel</string>
-    <string name="issue_date_label">Issue Date :</string>
-    <string name="issue_date">--/--/----</string>
+    <string name="issueDateLabel">Issue Date :</string>
+    <string name="issueDate">--/--/----</string>
     <string name="expirationDateLabel">Expiration Date :</string>
     <string name="expirationDate">--/--/----</string>
     <string name="estimate_id">Estimate Id</string>
