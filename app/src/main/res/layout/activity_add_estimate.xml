@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"> <!-- General padding for screen -->
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:title="Add New Estimate"
         android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Location -->
     <com.google.android.material.textfield.TextInputLayout
@@ -25,15 +25,17 @@
         android:hint="Location"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/amountPaidLayout"
+        app:layout_constraintEnd_toStartOf="@+id/amountPaidLayout"
         app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/locationEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Amount Paid -->
@@ -42,16 +44,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Amount Paid"
-        app:layout_constraintTop_toTopOf="@id/locationLayout"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toEndOf="@id/locationLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontalWeight="1"
-        android:layout_marginStart="8dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amountPaidEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Issue Date Label -->
@@ -60,10 +66,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Issue Date:"
-        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/locationLayout"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"/>
 
     <!-- Issue Date Value -->
     <TextView
@@ -71,7 +77,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--/--/----"
-        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="@id/issueDateLabel"
         app:layout_constraintStart_toEndOf="@id/issueDateLabel"
         android:layout_marginStart="8dp"/>
@@ -82,10 +87,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Expiration Date:"
-        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"/>
 
     <!-- Expiration Date Value -->
     <TextView
@@ -93,12 +98,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--/--/----"
-        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
         app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
         android:layout_marginStart="8dp"/>
 
-    <!-- Customer Field -->
+    <!-- Customer -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/customerLayout"
         android:layout_width="0dp"
@@ -106,14 +110,16 @@
         android:hint="Customer"
         app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
+        app:layout_constraintEnd_toStartOf="@+id/selectCustomerButton"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/customerEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Select Customer Button -->
@@ -121,11 +127,12 @@
         android:id="@+id/selectCustomerButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="Select"
+        android:text="Select Customer"
         app:layout_constraintTop_toTopOf="@id/customerLayout"
         app:layout_constraintBottom_toBottomOf="@id/customerLayout"
         app:layout_constraintStart_toEndOf="@id/customerLayout"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"/>
 
     <!-- Discount -->
     <com.google.android.material.textfield.TextInputLayout
@@ -136,12 +143,16 @@
         app:layout_constraintTop_toBottomOf="@id/customerLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp">
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/discountEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- VAT -->
@@ -153,15 +164,19 @@
         app:layout_constraintTop_toBottomOf="@id/discountLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/vatEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Add Button -->
+    <!-- Buttons at Bottom -->
     <Button
         android:id="@+id/addButton"
         android:layout_width="0dp"
@@ -171,9 +186,9 @@
         app:layout_constraintEnd_toStartOf="@id/clearButton"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"/>
 
-    <!-- Clear Button -->
     <Button
         android:id="@+id/clearButton"
         android:layout_width="0dp"
@@ -183,6 +198,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
