@@ -33,7 +33,7 @@
     <string name="select_steel">Select Steel</string>
     <string name="issue_date_label">Issue Date :</string>
     <string name="issue_date">--/--/----</string>
-    <string name="expiration_date_label">Expiration Date :</string>
+    <string name="expirationDateLabel">Expiration Date :</string>
     <string name="expiration_date">--/--/----</string>
     <string name="estimate_id">Estimate Id</string>
     <string name="weight">Weight</string>
