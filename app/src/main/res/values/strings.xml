@@ -74,7 +74,7 @@
     <string name="google_drive_sign_in">Sign in to Google Drive</string>
     <string name="googleDriveBackup">Google Drive Backup</string>
     <string name="googleDriveRestore">Google Drive Restore</string>
-    <string name="selectcustomer">Select Customer</string>
+    <string name="selectCustomer">Select Customer</string>
     <string name="customer_id">Customer Id</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer_email">Email</string>
@@ -82,7 +82,6 @@
     <string name="customer_mobile">Mobile</string>
     <string name="customer_fax">Fax</string>
     <string name="customer_address">Address</string>
-    <string name="select_customer">Select Customer</string>
     <string name="addEstimate">Add New Estimate</string>
     <string name="addCustomer">Add New Customer</string>
     <string name="addSteel">Add New Steel</string>
