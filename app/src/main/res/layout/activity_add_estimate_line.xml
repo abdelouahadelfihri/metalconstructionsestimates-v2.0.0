@@ -1,246 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/activity_add_estimate"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:backgroundTint="@color/white">
-<!-- Wrap content in ScrollView -->
-    <androidx.core.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"> <!-- Ensures content fills the screen even if short -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/add_clear_buttons_add_estimate_line">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_add_estimate_line"
+            android:background="?attr/colorPrimary"
+            android:title="Add Estimate Line"
+            android:titleTextColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Steel Type Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/steelTypeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Steel Type"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/selectSteelButton"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/steelTypeEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#4F5EB1"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:title="@string/newEstimateLine"
-                app:titleTextColor="@android:color/white" />
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel
-                android:id="@+id/estimate_lines_steel_type_select_steel_add_estimate_line"
+        <!-- Select Steel Button -->
+        <Button
+            android:id="@+id/selectSteelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            app:layout_constraintTop_toTopOf="@id/steelTypeLayout"
+            app:layout_constraintBottom_toBottomOf="@id/steelTypeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Weight -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weightLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Weight"
+            app:layout_constraintTop_toBottomOf="@id/steelTypeLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weightEditText"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:ems="10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_steel_weight_add_estimate_line"
+        <!-- Quantity -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/quantityLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Quantity"
+            app:layout_constraintTop_toBottomOf="@id/weightLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/quantityEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/weight"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_steel_weight_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="numberDecimal" />
+        <!-- Length, Width, Height in the same row -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lengthLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Length"
+            app:layout_constraintTop_toBottomOf="@id/quantityLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/widthLayout"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_quantity_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lengthEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/quantity"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_quantity_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="number" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/widthLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Width"
+            app:layout_constraintTop_toTopOf="@id/lengthLayout"
+            app:layout_constraintStart_toEndOf="@id/lengthLayout"
+            app:layout_constraintEnd_toStartOf="@id/heightLayout"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesLengthWidthHeight
-                android:id="@+id/length_width_height_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/widthEditText"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:ems="10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/heightLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Height"
+            app:layout_constraintTop_toTopOf="@id/lengthLayout"
+            app:layout_constraintStart_toEndOf="@id/widthLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginEnd="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_total_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/heightEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/total"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_total_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="numberDecimal" />
+        <!-- Total -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Total"
+            app:layout_constraintTop_toBottomOf="@id/lengthLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_margin_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/totalEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/margin"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_margin_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:maxLength="2"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="number" />
+        <!-- Margin -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/marginLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Margin"
+            app:layout_constraintTop_toBottomOf="@id/totalLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_net_quantity_plus_margin_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/marginEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/netQuantityPlusMargin"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_net_quantity_plus_margin_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="numberDecimal" />
+        <!-- Net Quantity + Margin -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/netQuantityLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Net Quantity + Margin"
+            app:layout_constraintTop_toBottomOf="@id/marginLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_unit_price_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/netQuantityEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/unitPrice"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_unit_price_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="numberDecimal" />
+        <!-- Unit Price -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/unitPriceLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Unit Price"
+            app:layout_constraintTop_toBottomOf="@id/netQuantityLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_total_price_add_estimate_line"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/unitPriceEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/totalPrice"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditText_total_price_add_estimate_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="numberDecimal" />
+        <!-- Total Price -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalPriceLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Total Price"
+            app:layout_constraintTop_toBottomOf="@id/unitPriceLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/totalPriceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Fixed button at the bottom -->
-    <com.example.metalconstructionsestimates.customviews.AddClearButtons
-        android:id="@+id/add_clear_buttons_add_estimate_line"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:ems="10"
-        android:gravity="center"
-        android:importantForAutofill="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <!-- Add Button -->
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/clearButton"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Clear Button -->
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
+            app:layout_constraintStart_toEndOf="@id/addButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontalWeight="1"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
