@@ -17,49 +17,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- EditText for Steel Type -->
-    <EditText
-        android:id="@+id/editTextSteelType"
+    <!-- TextInputLayout for Steel Type -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSteelType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Steel Type"
-        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextSteelType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Spinner 1 -->
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextSteelType"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutSteelType"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
-    <!-- EditText for Weight -->
-    <EditText
-        android:id="@+id/editTextWeight"
+    <!-- TextInputLayout for Weight -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutWeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Weight"
-        android:inputType="numberDecimal"
         app:layout_constraintTop_toBottomOf="@id/spinner1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Spinner 2 -->
     <Spinner
         android:id="@+id/spinner2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextWeight"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutWeight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <!-- Add Button -->
     <Button
@@ -71,6 +93,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonClear"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="24dp"/>
 
     <!-- Clear Button -->
@@ -83,6 +106,7 @@
         app:layout_constraintStart_toEndOf="@id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
