@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesLengthWidthHeight;
 import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
