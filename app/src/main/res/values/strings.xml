@@ -21,14 +21,12 @@
     <string name="estimates">Estimates</string>
     <string name="steels">Steels</string>
     <string name="customers">Customers</string>
-    <string name="estimateDetails">Estimate Details</string>
     <string name="estimate">Estimate</string>
     <string name="steel">Steel</string>
     <string name="customer">Customer</string>
     <string name="backups">Backups</string>
     <string name="dashboard">Dashboard</string>
     <string name="steelId">Steel Id</string>
-    <string name="steelDetails">Steel Details</string>
     <string name="estimateLineDetails">Estimate Line Details</string>
     <string name="select_steel">Select Steel</string>
     <string name="issueDateLabel">Issue Date :</string>
@@ -89,6 +87,9 @@
     <string name="steelsList">Steels List</string>
     <string name="customersList">Customers List</string>
     <string name="estimatesList">Estimates List</string>
+    <string name="customerDetails">Customer Details</string>
+    <string name="steelDetails">Steel Details</string>
+    <string name="estimateDetails">Estimate Details</string>
     <string name="steelsCount"># Steels :</string>
     <string name="estimatesCount"># EST :</string>
     <string name="customersCount"># Cust :</string>
