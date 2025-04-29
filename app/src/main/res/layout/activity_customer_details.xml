@@ -1,205 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/activity_add_customer"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:backgroundTint="@color/white">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- Wrap content in ScrollView -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <!-- Top Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:title="Edit / Delete"
+        android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/customers_details_update_delete_buttons">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_customer_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:background="#4F5EB1"
-                android:theme="?attr/actionBarTheme"
-                app:title="Détails du client"
-                app:titleTextColor="@android:color/white" />
-
+            <!-- Fields inside -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_id_details"
-                android:layout_width="match_parent"
+                android:id="@+id/idInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_id"
-                app:hintEnabled="true"
-                app:layout_constraintHorizontal_bias="0.0">
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="ID"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_id_details"
+                    android:id="@+id/idEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:layout_height="wrap_content"
                     android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Repeat for all other fields with top_toBottomOf and same margins -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Name"
+                app:layout_constraintTop_toBottomOf="@id/idInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_name_details"
-                android:layout_width="match_parent"
+                android:id="@+id/emailInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_name"
-                app:hintEnabled="true">
-
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Email"
+                app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_name_details"
+                    android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_email_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_email"
-                app:hintEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_email_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_phone_details"
-                android:layout_width="match_parent"
+                android:id="@+id/telephoneInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_phone"
-                app:hintEnabled="true">
-
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Telephone"
+                app:layout_constraintTop_toBottomOf="@id/emailInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_phone_details"
+                    android:id="@+id/telephoneEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:layout_height="wrap_content"
                     android:inputType="phone" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_mobile_details"
-                android:layout_width="match_parent"
+                android:id="@+id/mobileInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_mobile"
-                app:hintEnabled="true">
-
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Mobile"
+                app:layout_constraintTop_toBottomOf="@id/telephoneInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_mobile_details"
+                    android:id="@+id/mobileEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:layout_height="wrap_content"
                     android:inputType="phone" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_fax_details"
-                android:layout_width="match_parent"
+                android:id="@+id/faxInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="4dp"
-                android:hint="@string/customer_fax"
-                app:hintEnabled="true">
-
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Fax"
+                app:layout_constraintTop_toBottomOf="@id/mobileInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_fax_details"
+                    android:id="@+id/faxEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
+                    android:layout_height="wrap_content"
                     android:inputType="phone" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_customer_adress_details"
-                android:layout_width="match_parent"
+                android:id="@+id/addressInputLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="66dp"
-                android:hint="@string/customer_address"
-                app:hintEnabled="true">
-
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:hint="Address"
+                app:layout_constraintTop_toBottomOf="@id/faxInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_customer_address_details"
+                    android:id="@+id/addressEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:minHeight="56dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:inputType="textMultiLine" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-        </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Fixed button at the bottom -->
-    <com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons
-        android:id="@+id/customers_details_update_delete_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!-- Guideline to separate scroll and buttons -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="64dp" />
+
+    <!-- Bottom Buttons -->
+    <Button
+        android:id="@+id/buttonEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/buttonDelete" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonEdit"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
