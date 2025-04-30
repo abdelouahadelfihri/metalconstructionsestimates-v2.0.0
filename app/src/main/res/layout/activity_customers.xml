@@ -1,115 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/activity_customers"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/customer_list_layout"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_customers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#4F5EB1"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:title="Customers"
+        android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/customersList"
-        app:titleTextColor="@android:color/white" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- TextInputLayout with TextInputEditText -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_search_customers"
-        android:layout_width="match_parent"
+        android:id="@+id/searchInputLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:hint="@string/searchCustomers"
-        app:hintEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_customers"
+        android:layout_margin="8dp"
+        android:hint="Search customers"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_search_customers"
+            android:id="@+id/searchEditText"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:minHeight="56dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:inputType="textVisiblePassword" />
-
+            android:layout_height="wrap_content"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_customers"
-        android:layout_width="match_parent"
+        android:id="@+id/customerRecyclerView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:contentDescription="@string/customers"
+        android:clipToPadding="false"
+        android:paddingBottom="96dp"
+        app:layout_constraintTop_toBottomOf="@id/searchInputLayout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_search_customers"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@color/fabBackground"
-        app:tint="@color/fabIconTint"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/noCustomersTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="@string/noCustomers"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_search_customers"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Floating Action Buttons Group (stacked vertically) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_refresh_customers_list"
+        android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/refresh"
+        android:contentDescription="Add Customer"
         app:backgroundTint="#4F5EB1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_popup_sync"
-        app:tint="@color/fabIconTint" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_clear_customer_form"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/clear"
-        app:backgroundTint="#4F5EB1"
-        app:layout_constraintBottom_toTopOf="@+id/fab_refresh_customers_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        app:tint="@color/fabIconTint" />
-
-    <!-- Add FAB -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/add"
-        app:backgroundTint="#4F5EB1"
-        app:layout_constraintBottom_toTopOf="@+id/fab_clear_customer_form"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add"
+        app:layout_constraintBottom_toTopOf="@id/fab_clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:tint="@color/fabIconTint" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Clear Search"
+        app:backgroundTint="#4F5EB1"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintBottom_toTopOf="@id/fab_refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:tint="@color/fabIconTint" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Refresh"
+        app:backgroundTint="#4F5EB1"
+        app:srcCompat="@android:drawable/ic_popup_sync"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
         app:tint="@color/fabIconTint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
