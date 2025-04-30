@@ -10,4 +10,7 @@
     <color name="grey">#6E6E6E</color>
     <color name="fabBackground">#6699FF</color>
     <color name="fabIconTint">#FFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>        <!-- Purple -->
+    <color name="colorPrimaryDark">#3700B3</color>    <!-- Darker Purple -->
+    <color name="colorAccent">#03DAC5</color>
 </resources>
