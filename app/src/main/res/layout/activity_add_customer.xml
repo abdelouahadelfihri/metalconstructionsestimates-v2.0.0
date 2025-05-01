@@ -18,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Customer Name -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameLayout"
         android:layout_width="0dp"
@@ -26,6 +27,9 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
@@ -33,7 +37,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Email -->
@@ -47,13 +54,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Phone -->
@@ -67,13 +80,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Mobile -->
@@ -87,13 +106,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Fax -->
@@ -107,13 +132,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFax"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"/>
+            android:inputType="phone"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Address (bigger) -->
@@ -129,7 +160,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAddress"
@@ -137,7 +171,10 @@
             android:layout_height="match_parent"
             android:minHeight="100dp"
             android:gravity="top"
-            android:inputType="textMultiLine"/>
+            android:inputType="textMultiLine"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Clear Button -->
