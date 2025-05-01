@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:title="Add New Steel"
+        android:title="@string/addSteel"
         android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +22,25 @@
         android:id="@+id/textInputLayoutSteelType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Steel Type"
+        android:hint="@string/steelType"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp">
+        android:layout_marginTop="24dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextSteelType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,19 +61,25 @@
         android:id="@+id/textInputLayoutWeight"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Weight"
+        android:hint="@string/weight"
         app:layout_constraintTop_toBottomOf="@id/spinner1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginEnd="16dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +100,7 @@
         android:id="@+id/buttonAdd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonClear"
@@ -101,7 +113,7 @@
         android:id="@+id/buttonClear"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Clear"
+        android:text="@string/clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
