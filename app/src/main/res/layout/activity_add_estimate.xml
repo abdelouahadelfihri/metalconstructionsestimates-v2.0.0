@@ -29,12 +29,18 @@
         app:layout_constraintHorizontalWeight="1"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/locationEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,13 +56,19 @@
         app:layout_constraintHorizontalWeight="1"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amountPaidEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,7 +81,10 @@
         app:layout_constraintTop_toBottomOf="@id/locationLayout"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginStart="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
 
     <!-- Issue Date Value -->
     <TextView
@@ -113,12 +128,18 @@
         app:layout_constraintEnd_toStartOf="@+id/selectCustomerButton"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp">
+        android:layout_marginStart="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/customerEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,13 +166,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/discountEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,13 +193,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/vatEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
