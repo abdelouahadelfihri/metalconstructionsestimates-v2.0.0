@@ -51,7 +51,10 @@
                     android:id="@+id/idEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Repeat for all other fields with top_toBottomOf and same margins -->
@@ -73,7 +76,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +102,10 @@
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +128,10 @@
                     android:id="@+id/telephoneEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +154,10 @@
                     android:id="@+id/mobileEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +180,10 @@
                     android:id="@+id/faxEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -189,7 +207,10 @@
                     android:id="@+id/addressEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPostalAddress" />
+                    android:inputType="textPostalAddress"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
