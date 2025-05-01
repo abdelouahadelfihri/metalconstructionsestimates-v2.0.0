@@ -30,6 +30,7 @@
         android:layout_margin="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#333333"
