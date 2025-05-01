@@ -18,27 +18,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
-    <!-- TextInputLayout with TextInputEditText -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchInputLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="@string/searchCustomers"
+        android:hint="@string/searchEstimates"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:endIconMode="clear_text">
+        android:boxBackgroundColor="#F0F0F0"
+        android:boxStrokeColor="#4A4A4A"
+        android:layout_margin="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#212121"
-            android:backgroundTint="#212121"
-            android:textColorHint="#757575"
-            android:inputType="text" />
+            android:textColor="#333333"
+            android:textColorHint="#4A4A4A"
+            android:background="@android:color/transparent"
+            android:textSize="16sp"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid
