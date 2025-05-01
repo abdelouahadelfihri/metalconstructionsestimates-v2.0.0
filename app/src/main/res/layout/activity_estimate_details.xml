@@ -1,182 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    android:id="@+id/activity_estimate_details"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_estimate_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="4dp"
-            android:background="#4F5EB1"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:title="Estimate Details"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:title="@string/estimateDetails"
-            app:titleTextColor="@color/white" />
-
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_estimate_id_estimate_details"
-            android:layout_width="match_parent"
+            android:id="@+id/estimateIdLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/estimate_id"
-            app:hintEnabled="true"
+            android:hint="Estimate ID"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_estimate_id_estimate_details"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:minHeight="56dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:inputType="number" />
-
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid
-            android:id="@+id/done_in_is_paid_estimate_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:ems="10"
-            app:layout_constraintBottom_toTopOf="@+id/issue_date_expiration_date_estimate_details"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_add_estimate" />
-
-        <com.example.metalconstructionsestimates.customviews.estimates.IssueDateExpirationDate
-            android:id="@+id/issue_date_expiration_date_estimate_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:ems="10"
-            app:layout_constraintBottom_toTopOf="@+id/estimates_customer_id_select_customer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/done_in_is_paid_estimate_details" />
-
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer
-            android:id="@+id/estimate_details_customer_id_select_customer"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:ems="10"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout_total_excluding_tax_estimate_details"
-            android:layout_width="match_parent"
+            android:id="@+id/locationLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:hint="@string/totalExcludingTax"
-            app:hintEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:hint="Location"
+            app:layout_constraintTop_toBottomOf="@id/estimateIdLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/paidCheckBox"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontalWeight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_total_excluding_tax_estimate_details"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:minHeight="56dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
-                android:inputType="numberDecimal" />
-
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount
-            android:id="@+id/estimatesDetailsDiscountTotalAfterDiscount"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp" />
+        <CheckBox
+            android:id="@+id/paidCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paid"
+            app:layout_constraintTop_toTopOf="@id/locationLayout"
+            app:layout_constraintBottom_toBottomOf="@id/locationLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
 
-        <com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded
-            android:id="@+id/estimatesDetailsVatTotalAllTaxIncluded"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp" />
+        <TextView
+            android:id="@+id/issueDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issue Date:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/locationLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/issueDateValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="01/01/2025"
+            app:layout_constraintTop_toTopOf="@id/issueDateLabel"
+            app:layout_constraintStart_toEndOf="@id/issueDateLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/expirationDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expiration Date:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/expirationDateValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="15/01/2025"
+            app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
+            app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/customerIdLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Customer"
+            app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/selectCustomerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            app:layout_constraintTop_toTopOf="@id/customerIdLayout"
+            app:layout_constraintBottom_toBottomOf="@id/customerIdLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalExclTaxLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Total Excl. Tax"
+            app:layout_constraintTop_toBottomOf="@id/customerIdLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/discountLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Discount"
+            app:layout_constraintTop_toBottomOf="@id/totalExclTaxLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/totalAfterDiscountLayout"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontalWeight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalAfterDiscountLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Total After Discount"
+            app:layout_constraintTop_toTopOf="@id/discountLayout"
+            app:layout_constraintStart_toEndOf="@id/discountLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/vatLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="VAT %"
+            app:layout_constraintTop_toBottomOf="@id/discountLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalInclTaxLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Total Incl. Tax"
+            app:layout_constraintTop_toBottomOf="@id/vatLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_estimate_lines"
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:contentDescription="@string/estimates"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp" />
+            android:id="@+id/estimateLinesRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/totalInclTaxLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" />
 
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/emptyListTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:text="No estimate lines"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/estimateLinesRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/noEstimateLinesTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="135dp"
-                android:text="@string/noEstimateLines"
-                android:visibility="gone"
-                android:layout_centerInParent="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/newEstimateLineButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="New Estimate Line"
+            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/updateButton"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontalWeight="1" />
 
-        </RelativeLayout>
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            app:layout_constraintTop_toTopOf="@id/newEstimateLineButton"
+            app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
 
-        <com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons
-            android:id="@+id/new_estimate_line_update_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:visibility="visible" />
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/refreshButton"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontalWeight="1" />
 
-        <com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons
-            android:id="@+id/delete_estimate_refresh_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="4dp"
-            android:visibility="visible" />
+        <Button
+            android:id="@+id/refreshButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Refresh"
+            app:layout_constraintTop_toTopOf="@id/deleteButton"
+            app:layout_constraintStart_toEndOf="@id/deleteButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" />
 
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
