@@ -18,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <!-- TextInputLayout with TextInputEditText -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchInputLayout"
@@ -34,6 +35,9 @@
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#212121"
+            android:backgroundTint="#212121"
+            android:textColorHint="#757575"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
