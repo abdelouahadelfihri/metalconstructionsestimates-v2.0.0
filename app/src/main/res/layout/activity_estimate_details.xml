@@ -2,24 +2,26 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:title="Estimate Details"
+            android:title="Estimate Form"
+            android:titleTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Estimate ID -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/estimateIdLayout"
             android:layout_width="0dp"
@@ -28,15 +30,17 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estimateIdInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Location -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/locationLayout"
             android:layout_width="0dp"
@@ -44,19 +48,20 @@
             android:hint="Location"
             app:layout_constraintTop_toBottomOf="@id/estimateIdLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/paidCheckBox"
+            app:layout_constraintEnd_toStartOf="@id/isPaidCheckBox"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintHorizontalWeight="1">
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/locationInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Paid Checkbox -->
         <CheckBox
-            android:id="@+id/paidCheckBox"
+            android:id="@+id/isPaidCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Paid"
@@ -65,12 +70,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" />
 
+        <!-- Issue Date -->
         <TextView
             android:id="@+id/issueDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Issue Date:"
-            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/locationLayout"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
@@ -78,47 +83,48 @@
 
         <TextView
             android:id="@+id/issueDateValue"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="01/01/2025"
-            app:layout_constraintTop_toTopOf="@id/issueDateLabel"
+            android:text="01/05/2025"
+            app:layout_constraintBaseline_toBaselineOf="@id/issueDateLabel"
             app:layout_constraintStart_toEndOf="@id/issueDateLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="8dp" />
 
+        <!-- Expiration Date -->
         <TextView
             android:id="@+id/expirationDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Expiration Date:"
-            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp" />
 
         <TextView
             android:id="@+id/expirationDateValue"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15/01/2025"
-            app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
+            android:text="15/05/2025"
+            app:layout_constraintBaseline_toBaselineOf="@id/expirationDateLabel"
             app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="8dp" />
 
+        <!-- Customer ID and Select Customer Button -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customerIdLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Customer"
+            android:hint="Customer ID"
             app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/customerIdInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -133,23 +139,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" />
 
+        <!-- Total Excl. Tax -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/totalExclTaxLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Total Excl. Tax"
+            android:hint="Total excl. Tax"
             app:layout_constraintTop_toBottomOf="@id/customerIdLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/totalExclTaxInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Discount and After Discount -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/discountLayout"
             android:layout_width="0dp"
@@ -157,119 +166,133 @@
             android:hint="Discount"
             app:layout_constraintTop_toBottomOf="@id/totalExclTaxLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/totalAfterDiscountLayout"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@id/afterDiscountLayout"
             android:layout_marginTop="8dp"
-            app:layout_constraintHorizontalWeight="1">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/discountInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/totalAfterDiscountLayout"
+            android:id="@+id/afterDiscountLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Total After Discount"
+            android:hint="Total after Discount"
             app:layout_constraintTop_toTopOf="@id/discountLayout"
             app:layout_constraintStart_toEndOf="@id/discountLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp" >
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/afterDiscountInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- VAT and Total with VAT -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/vatLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="VAT %"
+            android:hint="VAT"
             app:layout_constraintTop_toBottomOf="@id/discountLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/totalWithVatLayout"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginEnd="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vatInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/totalInclTaxLayout"
+            android:id="@+id/totalWithVatLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Total Incl. Tax"
-            app:layout_constraintTop_toBottomOf="@id/vatLayout"
-            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Total with VAT"
+            app:layout_constraintTop_toTopOf="@id/vatLayout"
+            app:layout_constraintStart_toEndOf="@id/vatLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/totalWithVatInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- RecyclerView or Empty List -->
+        <TextView
+            android:id="@+id/emptyListText"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:text="No estimate lines"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/vatLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/estimateLinesRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="200dp"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/totalInclTaxLayout"
+            app:layout_constraintTop_toBottomOf="@id/vatLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginEnd="8dp" />
 
-        <TextView
-            android:id="@+id/emptyListTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:text="No estimate lines"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/estimateLinesRecyclerView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <Button
-            android:id="@+id/newEstimateLineButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="New Estimate Line"
-            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/updateButton"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintHorizontalWeight="1" />
-
+        <!-- Update and New Line Buttons -->
         <Button
             android:id="@+id/updateButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Update"
-            app:layout_constraintTop_toTopOf="@id/newEstimateLineButton"
-            app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
+            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/newLineButton"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/newLineButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="New Line"
+            app:layout_constraintTop_toTopOf="@id/updateButton"
+            app:layout_constraintStart_toEndOf="@id/updateButton"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp" />
 
+        <!-- Delete and Refresh Buttons -->
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Delete"
-            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton"
+            app:layout_constraintTop_toBottomOf="@id/updateButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/refreshButton"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintHorizontalWeight="1" />
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp" />
 
         <Button
             android:id="@+id/refreshButton"
@@ -279,7 +302,9 @@
             app:layout_constraintTop_toTopOf="@id/deleteButton"
             app:layout_constraintStart_toEndOf="@id/deleteButton"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
