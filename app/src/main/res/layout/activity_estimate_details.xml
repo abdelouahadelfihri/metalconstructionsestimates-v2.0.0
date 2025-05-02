@@ -31,13 +31,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/estimateIdEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Estimate ID" />
+                android:hint="Estimate ID"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Location -->
@@ -51,13 +57,19 @@
             app:layout_constraintEnd_toStartOf="@id/paidCheckbox"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintHorizontalWeight="1">
+            app:layout_constraintHorizontalWeight="1"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location" />
+                android:hint="Location"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Paid Checkbox -->
@@ -122,13 +134,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp">
+            android:layout_marginEnd="4dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/customerIdEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Customer ID" />
+                android:hint="Customer ID"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -152,13 +170,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/totalExclTaxEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Total excl. tax" />
+                android:hint="Total excl. tax"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Discount and After Discount -->
@@ -171,13 +195,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/afterDiscountLayout"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp">
+            android:layout_marginEnd="4dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/discountEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Discount" />
+                android:hint="Discount"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -188,13 +218,19 @@
             app:layout_constraintStart_toEndOf="@id/discountLayout"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/afterDiscountEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Total after discount" />
+                android:hint="Total after discount"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- VAT and Total with VAT -->
@@ -207,13 +243,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/totalInclTaxLayout"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp">
+            android:layout_marginEnd="4dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/vatEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="VAT" />
+                android:hint="VAT"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -224,13 +266,19 @@
             app:layout_constraintStart_toEndOf="@id/vatLayout"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:boxBackgroundColor="#F0F0F0"
+            android:boxStrokeColor="#4A4A4A"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/totalInclTaxEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Total incl. tax" />
+                android:hint="Total incl. tax"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- RecyclerView or Empty Text -->
