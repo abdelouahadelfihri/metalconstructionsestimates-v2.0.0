@@ -43,8 +43,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -69,8 +67,6 @@
                 app:layout_constraintTop_toBottomOf="@id/idInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,8 +90,6 @@
                 app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -120,8 +114,6 @@
                 app:layout_constraintTop_toBottomOf="@id/emailInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -146,8 +138,6 @@
                 app:layout_constraintTop_toBottomOf="@id/telephoneInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -172,8 +162,6 @@
                 app:layout_constraintTop_toBottomOf="@id/mobileInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -199,8 +187,6 @@
                 app:layout_constraintTop_toBottomOf="@id/faxInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:boxBackgroundColor="#F0F0F0"
-                android:boxStrokeColor="#4A4A4A"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
