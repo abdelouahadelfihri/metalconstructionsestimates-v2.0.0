@@ -84,6 +84,7 @@
     <string name="addCustomer">Add New Customer</string>
     <string name="addSteel">Add New Steel</string>
     <string name="isEstimatePaid">Paid</string>
+    <string name="estimateLinesRecyclerView">Estimate Lines RecyclerView</string>
     <string name="addEstimateLine">Add New Estimate Line</string>
     <string name="steelsList">Steels List</string>
     <string name="customersList">Customers List</string>
