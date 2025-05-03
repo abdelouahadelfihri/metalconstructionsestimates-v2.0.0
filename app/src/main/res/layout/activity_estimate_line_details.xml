@@ -7,15 +7,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
                 <!-- Toolbar -->
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary"
                     android:title="Estimate Line Details"
+                    android:background="?attr/colorPrimary"
                     android:titleTextColor="@android:color/white"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +29,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Estimate Line ID"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toBottomOf="@id/toolbar"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Estimate ID -->
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_estimate_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Estimate ID"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toBottomOf="@id/til_estimate_line_id"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,18 +57,17 @@
                             android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Steel ID and Select Button -->
+                <!-- Steel ID + Button -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_steel_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Steel ID"
-                    app:layout_constraintTop_toBottomOf="@+id/til_estimate_id"
+                    app:layout_constraintTop_toBottomOf="@id/til_estimate_id"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_select_steel"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintHorizontalWeight="1">
+                    android:layout_marginEnd="4dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_steel_id"
@@ -91,119 +87,179 @@
                     android:layout_marginStart="4dp" />
 
                 <!-- Weight -->
-                <EditText
-                    android:id="@+id/et_weight"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_weight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Weight"
                     app:layout_constraintTop_toBottomOf="@id/til_steel_id"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Quantity -->
-                <EditText
-                    android:id="@+id/et_quantity"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_quantity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Quantity"
-                    app:layout_constraintTop_toBottomOf="@id/et_weight"
+                    app:layout_constraintTop_toBottomOf="@id/til_weight"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Length, Width, Height -->
-                <EditText
-                    android:id="@+id/et_length"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_length"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Length"
-                    app:layout_constraintTop_toBottomOf="@id/et_quantity"
+                    app:layout_constraintTop_toBottomOf="@id/til_quantity"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/et_width"
-                    app:layout_constraintHorizontalWeight="1"
+                    app:layout_constraintEnd_toStartOf="@id/til_width"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="4dp" />
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintHorizontalWeight="1">
 
-                <EditText
-                    android:id="@+id/et_width"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_length"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_width"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Width"
-                    app:layout_constraintTop_toTopOf="@id/et_length"
-                    app:layout_constraintBottom_toBottomOf="@id/et_length"
-                    app:layout_constraintStart_toEndOf="@id/et_length"
-                    app:layout_constraintEnd_toStartOf="@id/et_height"
-                    app:layout_constraintHorizontalWeight="1"
+                    app:layout_constraintTop_toTopOf="@id/til_length"
+                    app:layout_constraintBottom_toBottomOf="@id/til_length"
+                    app:layout_constraintStart_toEndOf="@id/til_length"
+                    app:layout_constraintEnd_toStartOf="@id/til_height"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginStart="4dp" />
+                    app:layout_constraintHorizontalWeight="1">
 
-                <EditText
-                    android:id="@+id/et_height"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_width"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_height"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Height"
-                    app:layout_constraintTop_toTopOf="@id/et_length"
-                    app:layout_constraintBottom_toBottomOf="@id/et_length"
-                    app:layout_constraintStart_toEndOf="@id/et_width"
+                    app:layout_constraintTop_toTopOf="@id/til_length"
+                    app:layout_constraintBottom_toBottomOf="@id/til_length"
+                    app:layout_constraintStart_toEndOf="@id/til_width"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontalWeight="1"
-                    android:layout_marginStart="4dp" />
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintHorizontalWeight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_height"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Total -->
-                <EditText
-                    android:id="@+id/et_total"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Total"
-                    app:layout_constraintTop_toBottomOf="@id/et_length"
+                    app:layout_constraintTop_toBottomOf="@id/til_length"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Margin -->
-                <EditText
-                    android:id="@+id/et_margin"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_margin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Margin"
-                    app:layout_constraintTop_toBottomOf="@id/et_total"
+                    app:layout_constraintTop_toBottomOf="@id/til_total"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Net Quantity -->
-                <EditText
-                    android:id="@+id/et_net_quantity"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_net_quantity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Net Quantity"
-                    app:layout_constraintTop_toBottomOf="@id/et_margin"
+                    app:layout_constraintTop_toBottomOf="@id/til_margin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_net_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Unit Price -->
-                <EditText
-                    android:id="@+id/et_unit_price"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_unit_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Unit Price"
-                    app:layout_constraintTop_toBottomOf="@id/et_net_quantity"
+                    app:layout_constraintTop_toBottomOf="@id/til_net_quantity"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_unit_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Total Price -->
-                <EditText
-                    android:id="@+id/et_total_price"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_total_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Total Price"
-                    app:layout_constraintTop_toBottomOf="@id/et_unit_price"
+                    app:layout_constraintTop_toBottomOf="@id/til_unit_price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_total_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Update and Delete Buttons -->
                 <Button
@@ -211,7 +267,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Update"
-                    app:layout_constraintTop_toBottomOf="@id/et_total_price"
+                    app:layout_constraintTop_toBottomOf="@id/til_total_price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_delete"
                     app:layout_constraintHorizontalWeight="1"
