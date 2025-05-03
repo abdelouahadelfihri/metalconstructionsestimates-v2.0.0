@@ -32,8 +32,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -58,8 +56,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintHorizontalWeight="1"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +95,7 @@
             android:id="@+id/issueDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="01/01/2024"
+            android:text=""
             app:layout_constraintTop_toTopOf="@id/issueDateLabel"
             app:layout_constraintStart_toEndOf="@id/issueDateLabel"
             android:layout_marginStart="8dp" />
@@ -119,7 +115,7 @@
             android:id="@+id/expirationDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="31/01/2024"
+            android:text=""
             app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
             app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
             android:layout_marginStart="8dp" />
@@ -135,8 +131,6 @@
             app:layout_constraintEnd_toStartOf="@id/selectCustomerButton"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -171,8 +165,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -196,8 +188,6 @@
             app:layout_constraintEnd_toStartOf="@id/afterDiscountLayout"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -219,8 +209,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -244,8 +232,6 @@
             app:layout_constraintEnd_toStartOf="@id/totalInclTaxLayout"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -267,8 +253,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
