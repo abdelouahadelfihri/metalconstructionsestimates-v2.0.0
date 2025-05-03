@@ -34,8 +34,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -71,8 +69,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,8 +92,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -121,8 +115,6 @@
             app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -145,8 +137,6 @@
             app:layout_constraintHorizontalWeight="1"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -168,8 +158,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontalWeight="1"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -193,8 +181,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -218,8 +204,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -243,8 +227,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -268,8 +250,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -293,8 +273,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:boxBackgroundColor="#F0F0F0"
-            android:boxStrokeColor="#4A4A4A"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
