@@ -68,7 +68,7 @@ android:layout_height="match_parent">
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_customers"
+        android:id="@+id/fab_add_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/addCustomer"
