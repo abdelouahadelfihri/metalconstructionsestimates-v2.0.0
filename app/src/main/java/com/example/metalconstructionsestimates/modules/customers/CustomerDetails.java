@@ -13,14 +13,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CustomerDetails extends AppCompatActivity {
     Customer customer;
     DBAdapter adapter;
-    UpdateDeleteButtons updateDeleteButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
