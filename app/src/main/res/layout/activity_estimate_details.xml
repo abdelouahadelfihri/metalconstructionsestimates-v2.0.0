@@ -92,10 +92,10 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/issueDateValue"
+            android:id="@+id/issueDateValue_estimate_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@string/issueDate"
             app:layout_constraintTop_toTopOf="@id/issueDateLabel"
             app:layout_constraintStart_toEndOf="@id/issueDateLabel"
             android:layout_marginStart="8dp" />
@@ -112,10 +112,10 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/expirationDateValue"
+            android:id="@+id/expirationDateValue_estimate_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@string/expirationDate"
             app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
             app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
             android:layout_marginStart="8dp" />
