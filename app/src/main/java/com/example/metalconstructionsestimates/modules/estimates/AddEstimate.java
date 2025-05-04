@@ -199,7 +199,6 @@ public class AddEstimate extends AppCompatActivity {
             TextInputEditText vatTextInputEditText;
             TextInputEditText amountPaidTextInputEditText;
 
-
             estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
             customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
             estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
