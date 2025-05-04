@@ -259,6 +259,7 @@ public class AddEstimateLine extends AppCompatActivity {
                 TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+
                 EstimateLine estimateLine = new EstimateLine();
 
                 if (Objects.requireNonNull(steelTypeTextInputEditText.getText()).toString().isEmpty()) {
@@ -272,32 +273,32 @@ public class AddEstimateLine extends AppCompatActivity {
                     else{
                         estimateLine.setSteel(steelId);
                         estimateLine.setEstimate(estimateId);
-                        if (!Objects.requireNonNull(steelWeightTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setWeight(Float.parseFloat(steelWeightTextInputEditText.getText().toString()));
+                        if (!Objects.requireNonNull(weightTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setWeight(Float.parseFloat(weightTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setWeight(null);
                         }
 
-                        if (!Objects.requireNonNull(steelLengthTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setLength(Float.parseFloat(steelLengthTextInputEditText.getText().toString()));
+                        if (!Objects.requireNonNull(lengthTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setLength(Float.parseFloat(lengthTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setLength(null);
                         }
 
-                        if (!Objects.requireNonNull(steelWidthTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setWidth(Float.parseFloat(steelWidthTextInputEditText.getText().toString()));
+                        if (!Objects.requireNonNull(widthTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setWidth(Float.parseFloat(widthTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setWidth(null);
                         }
 
-                        if (!Objects.requireNonNull(steelHeightTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setHeight(Float.parseFloat(steelHeightTextInputEditText.getText().toString()));
+                        if (!Objects.requireNonNull(heightTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setHeight(Float.parseFloat(heightTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setHeight(null);
                         }
 
-                        if (!Objects.requireNonNull(steelQuantityTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setQuantity(Integer.parseInt(steelQuantityTextInputEditText.getText().toString()));
+                        if (!Objects.requireNonNull(quantityTextInputEditText.getText()).toString().isEmpty()) {
+                            estimateLine.setQuantity(Integer.parseInt(quantityTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setQuantity(null);
                         }
@@ -380,16 +381,18 @@ public class AddEstimateLine extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText widthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
-                TextInputEditText heightTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
-                TextInputEditText weightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
+                TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText_add_estimate_line);
+                TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
+                TextInputEditText lengthTextInputEditText = findViewById(R.id.lengthEditText_add_estimate_line);
+                TextInputEditText widthTextInputEditText = findViewById(R.id.widthEditText_add_estimate_line);
+                TextInputEditText heightTextInputEditText = findViewById(R.id.heightEditText_add_estimate_line);
+                TextInputEditText quantityTextInputEditText = findViewById(R.id.quantityEditText_add_estimate_line);
+                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText marginTextInputEditText = findViewById(R.id.marginEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                TextInputEditText quantityTextInputEditText = findViewById(R.id.textInputEditText_quantity_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.textInputEditText_total_add_estimate_line);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.textInputEditText_margin_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
                 String length = s.toString();
                 if(!geometricShape.isEmpty()){
                     switch(geometricShape){
@@ -497,16 +500,17 @@ public class AddEstimateLine extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-
-                TextInputEditText weightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
-                TextInputEditText heightTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
-                TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
-                TextInputEditText quantityTextInputEditText = findViewById(R.id.textInputEditText_quantity_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.textInputEditText_total_add_estimate_line);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.textInputEditText_margin_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
+                TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText_add_estimate_line);
+                TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
+                TextInputEditText lengthTextInputEditText = findViewById(R.id.lengthEditText_add_estimate_line);
+                TextInputEditText widthTextInputEditText = findViewById(R.id.widthEditText_add_estimate_line);
+                TextInputEditText heightTextInputEditText = findViewById(R.id.heightEditText_add_estimate_line);
+                TextInputEditText quantityTextInputEditText = findViewById(R.id.quantityEditText_add_estimate_line);
+                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText marginTextInputEditText = findViewById(R.id.marginEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
                 String width = s.toString();
 
