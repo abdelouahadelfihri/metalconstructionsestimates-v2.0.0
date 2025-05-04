@@ -15,6 +15,8 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class CustomerDetails extends AppCompatActivity {
     Customer customer;
     DBAdapter adapter;
@@ -32,7 +34,7 @@ public class CustomerDetails extends AppCompatActivity {
         adapter = new DBAdapter(getApplicationContext());
         customer = adapter.getCustomerById(customerId);
 
-        TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerIdEditText_customer_details);
+        AtomicReference<TextInputEditText> customerIdTextInputEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText_customer_details));
         TextInputEditText customerNameTextInputEditText = findViewById(R.id.nameEditText_customer_details);
         TextInputEditText customerEmailTextInputEditText = findViewById(R.id.emailEditText_customer_details);
         TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.telephoneEditText_customer_details);
@@ -40,7 +42,7 @@ public class CustomerDetails extends AppCompatActivity {
         TextInputEditText customerFaxTextInputEditText = findViewById(R.id.faxEditText_customer_details);
         TextInputEditText customerAddressTextInputEditText = findViewById(R.id.addressEditText_customer_details);
 
-        customerIdTextInputEditText.setText(customerId.toString());
+        customerIdTextInputEditText.get().setText(customerId.toString());
         customerNameTextInputEditText.setText(customer.getName());
         customerEmailTextInputEditText.setText(customer.getEmail());
         customerPhoneTextInputEditText.setText(customer.getTelephone());
@@ -59,8 +61,8 @@ public class CustomerDetails extends AppCompatActivity {
             alertDelete.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
                 customer = new Customer();
-                TextInputEditText customerIdTextInputEditText12 = (TextInputEditText) findViewById(R.id.editText_customer_id_details);
-                adapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText12.getText().toString()));
+                customerIdTextInputEditText.set(findViewById(R.id.customerIdEditText_customer_details));
+                adapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
                 Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
                 deletesuccess.show();
                 if(adapter.retrieveCustomers().isEmpty()){
@@ -84,8 +86,8 @@ public class CustomerDetails extends AppCompatActivity {
                 // continue with delete
                 customer = new Customer();
 
-                if (!customerIdTextInputEditText.getText().toString().isEmpty()) {
-                    customer.setId(Integer.parseInt(customerIdTextInputEditText.getText().toString()));
+                if (!customerIdTextInputEditText.get().getText().toString().isEmpty()) {
+                    customer.setId(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
                 } else {
                     customer.setId(Integer.valueOf(""));
                 }
