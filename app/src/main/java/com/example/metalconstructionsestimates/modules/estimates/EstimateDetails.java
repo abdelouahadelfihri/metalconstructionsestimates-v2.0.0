@@ -81,7 +81,8 @@ public class EstimateDetails extends AppCompatActivity {
         dbAdapter = new DBAdapter(getApplicationContext());
         estimate = dbAdapter.getEstimateById(estimateId);
 
-        issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_estimate_details);
+        issueDate = findViewById(R.id.issueDateValue);
+        expirationDate = findViewById(R.id.expirationDateValue);
         estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
         estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
         estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
