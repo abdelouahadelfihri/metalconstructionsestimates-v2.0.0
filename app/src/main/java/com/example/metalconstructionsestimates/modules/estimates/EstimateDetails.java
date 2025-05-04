@@ -82,9 +82,10 @@ public class EstimateDetails extends AppCompatActivity {
 
         issueDate = findViewById(R.id.issueDateValue_estimate_details);
         expirationDate = findViewById(R.id.expirationDateValue_estimate_details);
-        TextInputEditText discount = findViewById(R.id.discountEditText);
-        TextInputEditText totalAfterDiscount = findViewById(R.id.afterDiscountEditText);
-        estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+        TextInputEditText discount = findViewById(R.id.discountEditText_estimate_details);
+        TextInputEditText totalAfterDiscount = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+        location = findViewById(R.id.done_in_is_paid_estimate_details);
+        amountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
         estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
         estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
 
