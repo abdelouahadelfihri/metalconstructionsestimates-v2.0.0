@@ -35,7 +35,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/estimateIdEditText"
+                android:id="@+id/estimateIdEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/estimateId"
@@ -59,7 +59,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/locationEditText"
+                android:id="@+id/locationEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
@@ -134,7 +134,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/customerIdEditText"
+                android:id="@+id/customerIdEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/customer"
@@ -168,7 +168,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalExclTaxEditText"
+                android:id="@+id/totalExclTaxEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalExcludingTax"
@@ -191,7 +191,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/discountEditText"
+                android:id="@+id/discountEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/discount"
@@ -212,7 +212,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/afterDiscountEditText"
+                android:id="@+id/totalAfterDiscountEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalExcludingTaxAfterDiscount"
@@ -235,7 +235,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vatEditText"
+                android:id="@+id/vatEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/vat"
@@ -253,11 +253,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalInclTaxEditText"
+                android:id="@+id/totalInclTaxEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalAllTaxIncluded"
@@ -268,7 +267,7 @@
 
         <!-- RecyclerView or Empty Text -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/estimateLinesRecycler"
+            android:id="@+id/estimateLinesRecyclerView"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:visibility="visible"
@@ -281,14 +280,14 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/emptyListText"
+            android:id="@+id/noEstimateLinesTextView"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:text="@string/noEstimates"
             android:gravity="center"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/estimateLinesRecycler"
-            app:layout_constraintBottom_toBottomOf="@id/estimateLinesRecycler"
+            app:layout_constraintTop_toTopOf="@id/estimateLinesRecyclerView"
+            app:layout_constraintBottom_toBottomOf="@id/estimateLinesRecyclerView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -298,7 +297,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/newEstimateLine"
-            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecycler"
+            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/updateButton"
             android:layout_marginTop="8dp"
