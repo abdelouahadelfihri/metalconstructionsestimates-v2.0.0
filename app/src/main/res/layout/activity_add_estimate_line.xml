@@ -11,7 +11,7 @@
 
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/steelType"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate_line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/selectSteelButton"
             app:layout_constraintHorizontalWeight="1"
@@ -37,7 +37,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/steelTypeEditText"
+                android:id="@+id/steelTypeEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -72,7 +72,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/weightEditText"
+                android:id="@+id/weightEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -95,7 +95,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantityEditText"
+                android:id="@+id/quantityEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -118,7 +118,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/lengthEditText"
+                android:id="@+id/lengthEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -140,7 +140,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/widthEditText"
+                android:id="@+id/widthEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -161,7 +161,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/heightEditText"
+                android:id="@+id/heightEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -184,7 +184,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalEditText"
+                android:id="@+id/totalEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -207,7 +207,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/marginEditText"
+                android:id="@+id/marginEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -230,7 +230,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/netQuantityEditText"
+                android:id="@+id/netQuantityEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -253,7 +253,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/unitPriceEditText"
+                android:id="@+id/unitPriceEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -276,7 +276,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalPriceEditText"
+                android:id="@+id/totalPriceEditText_add_estimate_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -286,13 +286,13 @@
 
         <!-- Add Button -->
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/addButton_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/add"
             app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/clearButton"
+            app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate_line"
             app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
@@ -300,12 +300,12 @@
 
         <!-- Clear Button -->
         <Button
-            android:id="@+id/clearButton"
+            android:id="@+id/clearButton_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/clear"
             app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
-            app:layout_constraintStart_toEndOf="@id/addButton"
+            app:layout_constraintStart_toEndOf="@id/addButton_add_estimate_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="16dp"
