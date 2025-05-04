@@ -6,7 +6,7 @@
 
     <!-- Top Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_customer_details"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_customer_details"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -46,7 +46,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/idEditText"
+                    android:id="@+id/customerIdEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -70,7 +70,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameEditText"
+                    android:id="@+id/nameEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
@@ -93,7 +93,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailEditText"
+                    android:id="@+id/emailEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -117,7 +117,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/telephoneEditText"
+                    android:id="@+id/telephoneEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -141,7 +141,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mobileEditText"
+                    android:id="@+id/mobileEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -165,7 +165,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/faxEditText"
+                    android:id="@+id/faxEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -190,7 +190,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addressEditText"
+                    android:id="@+id/addressEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPostalAddress"
@@ -213,7 +213,7 @@
 
     <!-- Bottom Buttons -->
     <Button
-        android:id="@+id/buttonEdit"
+        android:id="@+id/buttonEdit_customer_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/update"
@@ -222,10 +222,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/buttonDelete" />
+        app:layout_constraintEnd_toStartOf="@id/buttonDelete_customer_details" />
 
     <Button
-        android:id="@+id/buttonDelete"
+        android:id="@+id/buttonDelete_customer_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/delete"
@@ -233,7 +233,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonEdit"
+        app:layout_constraintStart_toEndOf="@id/buttonEdit_customer_details"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
