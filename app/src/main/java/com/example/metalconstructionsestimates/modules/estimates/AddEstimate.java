@@ -1,26 +1,30 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimateCustomerIdSelectCustomer;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
 import com.example.metalconstructionsestimates.db.DBAdapter;
-import com.example.metalconstructionsestimates.customviews.AddClearButtons;
+import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 public class AddEstimate extends AppCompatActivity {
@@ -28,11 +32,9 @@ public class AddEstimate extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDate, issueDate;
     String expirationDateValue = "", issueDateValue = "";
-    EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
-    EstimateLocationAmountPaid estimateLocationAmountPaid;
     private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener;
     Intent intent;
     boolean customerExists = true;
@@ -48,13 +50,9 @@ public class AddEstimate extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-
-        issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_add_estimate);
-        estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
-        estimatesCustomerIdSelectCustomer = findViewById(R.id.customer_id_select_customer_add_estimate);
-        Button selectCustomer = estimatesCustomerIdSelectCustomer.getButtonSelectCustomer();
-        Button addEstimate = findViewById(R.id.addButton_add_estimate);
-        Button clearAddEstimateForm = findViewById(R.id.clearButton_add_estimate);
+        Button selectCustomer = findViewById(R.id.selectCustomerButton_add_estimate);
+        addEstimate = findViewById(R.id.addButton_add_estimate);
+        clearAddEstimateForm = findViewById(R.id.clearButton_add_estimate);
 
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +70,7 @@ public class AddEstimate extends AppCompatActivity {
                         String customerIdExtraResult;
                         customerIdExtraResult = Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).getString("customerIdExtraResult");
                         customerId = Integer.parseInt(customerIdExtraResult);
-                        TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+                        TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                         String customerName = dbAdapter.getCustomerById(customerId).getName();
                         customerIdTextInputEditText.setText(customerName);
                     }
@@ -99,7 +97,7 @@ public class AddEstimate extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             dbAdapter = new DBAdapter(getApplicationContext());
                             TextInputEditText estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
-                            TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+                            TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                             TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                             TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
                             TextInputEditText amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
@@ -203,7 +201,7 @@ public class AddEstimate extends AppCompatActivity {
 
 
             estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
-            customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
+            customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
             estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
             vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
             amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
@@ -220,8 +218,8 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
-        issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
-        expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
+        issueDate = findViewById(R.id.issueDateValue_add_estimate);
+        expirationDate = findViewById(R.id.expirationDateValue_add_estimate);
 
         issueDate.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
