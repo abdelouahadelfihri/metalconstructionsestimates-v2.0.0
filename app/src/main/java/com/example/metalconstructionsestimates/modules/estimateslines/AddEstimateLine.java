@@ -848,10 +848,13 @@ public class AddEstimateLine extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.textInputEditText_total_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
+
+
+
+                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
                 Float netQuantityPlusMargin = 0f;
 
