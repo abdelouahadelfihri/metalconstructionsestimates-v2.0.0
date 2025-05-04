@@ -30,8 +30,8 @@ public class AddCustomer extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add_customer);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button add_customer_button = (AddClearButtons) findViewById(R.id.add_clear_button_add_customer);
-        Button clear_button = (AddClearButtons) findViewById(R.id.add_clear_button_add_customer);
+        Button add_customer_button = (Button) findViewById(R.id.btnAdd_add_customer);
+        Button clear_button = (Button) findViewById(R.id.btnClear_add_customer);
 
         clear_button.setOnClickListener(view -> {
             TextInputEditText customerFaxTextInputEditText;
@@ -40,12 +40,12 @@ public class AddCustomer extends AppCompatActivity {
             TextInputEditText customerAddressTextInputEditText;
             TextInputEditText customerPhoneTextInputEditText;
             TextInputEditText customerNameTextInputEditText;
-            customerNameTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_name_add);
-            customerEmailTextInputEditText = findViewById(R.id.editText_customer_email_add);
-            customerPhoneTextInputEditText = findViewById(R.id.editText_customer_phone_add);
-            customerMobileTextInputEditText = findViewById(R.id.editText_customer_mobile_add);
-            customerFaxTextInputEditText = findViewById(R.id.editText_customer_fax_add);
-            customerAddressTextInputEditText = findViewById(R.id.editText_customer_address_add);
+            customerNameTextInputEditText = findViewById(R.id.etName_add_customer);
+            customerEmailTextInputEditText = findViewById(R.id.etEmail_add_customer);
+            customerPhoneTextInputEditText = findViewById(R.id.etPhone_add_customer);
+            customerMobileTextInputEditText = findViewById(R.id.etMobile_add_customer);
+            customerFaxTextInputEditText = findViewById(R.id.etFax_add_customer);
+            customerAddressTextInputEditText = findViewById(R.id.etAddress_add_customer);
             customerNameTextInputEditText.getText().clear();
             customerEmailTextInputEditText.getText().clear();
             customerPhoneTextInputEditText.getText().clear();
@@ -57,12 +57,14 @@ public class AddCustomer extends AppCompatActivity {
         add_customer_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText customerNameTextInputEditText = findViewById(R.id.editText_customer_name_add);
-                TextInputEditText customerEmailTextInputEditText = findViewById(R.id.editText_customer_email_add);
-                TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.editText_customer_phone_add);
-                TextInputEditText customerMobileTextInputEditText = findViewById(R.id.editText_customer_mobile_add);
-                TextInputEditText customerFaxTextInputEditText = findViewById(R.id.editText_customer_fax_add);
-                TextInputEditText customerAddressTextInputEditText = findViewById(R.id.editText_customer_address_add);
+
+                TextInputEditText customerNameTextInputEditText = findViewById(R.id.etName_add_customer);
+                TextInputEditText customerEmailTextInputEditText = findViewById(R.id.etEmail_add_customer);
+                TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.etPhone_add_customer);
+                TextInputEditText customerMobileTextInputEditText = findViewById(R.id.etMobile_add_customer);
+                TextInputEditText customerFaxTextInputEditText = findViewById(R.id.etFax_add_customer);
+                TextInputEditText customerAddressTextInputEditText = findViewById(R.id.etAddress_add_customer);
+
                 if (customerNameTextInputEditText.getText().toString().isEmpty() && customerEmailTextInputEditText.getText().toString().isEmpty() &&
                         customerPhoneTextInputEditText.getText().toString().isEmpty() && customerMobileTextInputEditText.getText().toString().isEmpty() &&
                         customerFaxTextInputEditText.getText().toString().isEmpty() && customerAddressTextInputEditText.getText().toString().isEmpty()) {
@@ -74,12 +76,12 @@ public class AddCustomer extends AppCompatActivity {
                     alertAdd.setMessage("Do you really want to add the new customer ?");
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            TextInputEditText customerNameTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_name_add);
-                            TextInputEditText customerEmailTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_email_add);
-                            TextInputEditText customerPhoneTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_phone_add);
-                            TextInputEditText customerMobileTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_mobile_add);
-                            TextInputEditText customerFaxTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_fax_add);
-                            TextInputEditText customerAddressTextInputEditText = (TextInputEditText) findViewById(R.id.editText_customer_address_add);
+                            TextInputEditText customerNameTextInputEditText = findViewById(R.id.etName_add_customer);
+                            TextInputEditText customerEmailTextInputEditText = findViewById(R.id.etEmail_add_customer);
+                            TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.etPhone_add_customer);
+                            TextInputEditText customerMobileTextInputEditText = findViewById(R.id.etMobile_add_customer);
+                            TextInputEditText customerFaxTextInputEditText = findViewById(R.id.etFax_add_customer);
+                            TextInputEditText customerAddressTextInputEditText = findViewById(R.id.etAddress_add_customer);
                             customer = new Customer();
 
                             if (customerNameTextInputEditText.getText().toString().isEmpty()) {
