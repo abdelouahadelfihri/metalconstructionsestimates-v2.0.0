@@ -54,9 +54,9 @@ public class Customers extends AppCompatActivity {
         }
         else{
             noCustomersTextView.setVisibility(View.GONE);
-            binding.recyclerViewCustomers.setVisibility(View.VISIBLE);
-            binding.recyclerViewCustomers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            binding.recyclerViewCustomers.setAdapter(customersListAdapter);
+            binding.customerRecyclerView.setVisibility(View.VISIBLE);
+            binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            binding.customerRecyclerView.setAdapter(customersListAdapter);
         }
 
         addCustomer = findViewById(R.id.fab_add_customer);
