@@ -49,7 +49,7 @@ public class Customers extends AppCompatActivity {
         CustomersListAdapter customersListAdapter = new CustomersListAdapter(this, listCustomers);
 
         if(listCustomers.isEmpty()){
-            binding.recyclerViewCustomers.setVisibility(View.GONE);
+            binding.customerRecyclerView.setVisibility(View.GONE);
             noCustomersTextView.setVisibility(View.VISIBLE);
         }
         else{
