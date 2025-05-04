@@ -32,13 +32,13 @@ public class CustomerDetails extends AppCompatActivity {
         adapter = new DBAdapter(getApplicationContext());
         customer = adapter.getCustomerById(customerId);
 
-        TextInputEditText customerIdTextInputEditText = findViewById(R.id.editText_customer_id_details);
-        TextInputEditText customerNameTextInputEditText = findViewById(R.id.editText_customer_name_details);
-        TextInputEditText customerEmailTextInputEditText = findViewById(R.id.editText_customer_email_details);
-        TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.editText_customer_phone_details);
-        TextInputEditText customerMobileTextInputEditText = findViewById(R.id.editText_customer_mobile_details);
-        TextInputEditText customerFaxTextInputEditText = findViewById(R.id.editText_customer_fax_details);
-        TextInputEditText customerAddressTextInputEditText = findViewById(R.id.editText_customer_address_details);
+        TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerIdEditText_customer_details);
+        TextInputEditText customerNameTextInputEditText = findViewById(R.id.nameEditText_customer_details);
+        TextInputEditText customerEmailTextInputEditText = findViewById(R.id.emailEditText_customer_details);
+        TextInputEditText customerPhoneTextInputEditText = findViewById(R.id.telephoneEditText_customer_details);
+        TextInputEditText customerMobileTextInputEditText = findViewById(R.id.mobileEditText_customer_details);
+        TextInputEditText customerFaxTextInputEditText = findViewById(R.id.faxEditText_customer_details);
+        TextInputEditText customerAddressTextInputEditText = findViewById(R.id.addressEditText_customer_details);
 
         customerIdTextInputEditText.setText(customerId.toString());
         customerNameTextInputEditText.setText(customer.getName());
@@ -48,9 +48,9 @@ public class CustomerDetails extends AppCompatActivity {
         customerFaxTextInputEditText.setText(customer.getFax());
         customerAddressTextInputEditText.setText(customer.getAddress());
 
-        updateDeleteButtons = findViewById(R.id.customers_details_update_delete_buttons);
-        Button deleteCustomer = updateDeleteButtons.getDeleteButton();
-        Button updateCustomer = updateDeleteButtons.getUpdateButton();
+        Button deleteCustomer = findViewById(R.id.buttonDelete_customer_details);
+        Button updateCustomer = findViewById(R.id.buttonEdit_customer_details);
+
 
         deleteCustomer.setOnClickListener(view -> {
             AlertDialog.Builder alertDelete = new AlertDialog.Builder(CustomerDetails.this);
