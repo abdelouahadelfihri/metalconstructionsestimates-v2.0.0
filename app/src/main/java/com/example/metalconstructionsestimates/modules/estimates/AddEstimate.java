@@ -1,9 +1,13 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +18,8 @@ import com.example.metalconstructionsestimates.customviews.estimates.EstimateCus
 import com.example.metalconstructionsestimates.customviews.estimates.EstimateLocationAmountPaid;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.customviews.AddClearButtons;
+import com.example.metalconstructionsestimates.models.Estimate;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
@@ -24,9 +30,9 @@ public class AddEstimate extends AppCompatActivity {
     String expirationDateValue = "", issueDateValue = "";
     EstimateCustomerIdSelectCustomer estimatesCustomerIdSelectCustomer;
     private ActivityResultLauncher<Intent> activityResultLauncher;
-    AddClearButtons addClearButtons;
+    Button addEstimate;
+    Button clearAddEstimateForm;
     EstimateLocationAmountPaid estimateLocationAmountPaid;
-    IssueDateExpirationDate issueDateExpirationDate;
     private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener;
     Intent intent;
     boolean customerExists = true;
@@ -47,9 +53,9 @@ public class AddEstimate extends AppCompatActivity {
         estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
         estimatesCustomerIdSelectCustomer = findViewById(R.id.customer_id_select_customer_add_estimate);
         Button selectCustomer = estimatesCustomerIdSelectCustomer.getButtonSelectCustomer();
-        addClearButtons = findViewById(R.id.add_clear_buttons_add_estimate);
-        Button addEstimate = addClearButtons.getAddButton();
-        Button clearAddEstimateForm = addClearButtons.getClearButton();
+        Button addEstimate = findViewById(R.id.addButton_add_estimate);
+        Button clearAddEstimateForm = findViewById(R.id.clearButton_add_estimate);
+
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +82,11 @@ public class AddEstimate extends AppCompatActivity {
         addEstimate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
-                TextInputEditText amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
-                TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-                TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
-                TextInputEditText vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
+                TextInputEditText estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
+                TextInputEditText amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
+                TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
+                TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
+                TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
 
                 if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !amountPaidTextInputEditText.getText().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
@@ -92,11 +98,11 @@ public class AddEstimate extends AppCompatActivity {
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dbAdapter = new DBAdapter(getApplicationContext());
-                            TextInputEditText estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
+                            TextInputEditText estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
                             TextInputEditText customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-                            TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
-                            TextInputEditText vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
-                            TextInputEditText amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
+                            TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
+                            TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
+                            TextInputEditText amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
 
                             Estimate estimate = new Estimate();
 
@@ -189,18 +195,22 @@ public class AddEstimate extends AppCompatActivity {
         });
 
         clearAddEstimateForm.setOnClickListener(view -> {
-            TextInputEditText estimateDiscountTextInputEditText;
-            TextInputEditText vatTextInputEditText;
             TextInputEditText estimateLocationTextInputEditText;
             TextInputEditText customerIdTextInputEditText;
+            TextInputEditText estimateDiscountTextInputEditText;
+            TextInputEditText vatTextInputEditText;
             TextInputEditText amountPaidTextInputEditText;
-            estimateLocationTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextLocation();
-            amountPaidTextInputEditText = estimateLocationAmountPaid.getTextInputEditTextAmountPaid();
-            issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
-            expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
+
+
+            estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
             customerIdTextInputEditText = estimatesCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-            estimateDiscountTextInputEditText = findViewById(R.id.textInputEditText_estimate_discount_add);
-            vatTextInputEditText = findViewById(R.id.textInputEditText_estimate_vat_add);
+            estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
+            vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
+            amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
+
+            issueDate = findViewById(R.id.issueDateValue_add_estimate);
+            expirationDate = findViewById(R.id.expirationDateValue_add_estimate);
+
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
             issueDate.setText(R.string.issue_date);
             expirationDate.setText(R.string.expiration_date);
