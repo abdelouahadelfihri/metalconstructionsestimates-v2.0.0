@@ -9,19 +9,15 @@ import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.CustomersListAdapter;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.metalconstructionsestimates.databinding.ActivityCustomersBinding;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
