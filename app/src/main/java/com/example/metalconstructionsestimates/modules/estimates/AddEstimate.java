@@ -41,7 +41,7 @@ public class AddEstimate extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
-        /*
+
 
         issueDateExpirationDate = findViewById(R.id.issue_date_expiration_date_add_estimate);
         estimateLocationAmountPaid = findViewById(R.id.location_amount_paid_add_estimate);
