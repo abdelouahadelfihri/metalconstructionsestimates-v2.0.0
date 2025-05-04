@@ -27,12 +27,12 @@ public class AddCustomer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
         adapter = new DBAdapter(getApplicationContext());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_customer_add);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add_customer);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        AddClearButtons addClearButtons = (AddClearButtons) findViewById(R.id.add_clear_button_add_customer);
-        Button add_customer_button = addClearButtons.getAddButton();
-        Button clear_button = addClearButtons.getClearButton();
+        Button add_customer_button = (AddClearButtons) findViewById(R.id.add_clear_button_add_customer);
+        Button clear_button = (AddClearButtons) findViewById(R.id.add_clear_button_add_customer);
+
         clear_button.setOnClickListener(view -> {
             TextInputEditText customerFaxTextInputEditText;
             TextInputEditText customerEmailTextInputEditText;

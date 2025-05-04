@@ -167,23 +167,23 @@
 
     <!-- Clear Button -->
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAdd_add_customer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnClear"
+        app:layout_constraintEnd_toStartOf="@id/btnClear_add_customer"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"/>
 
     <!-- Add Button -->
     <Button
-        android:id="@+id/btnClear"
+        android:id="@+id/btnClear_add_customer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/clear"
-        app:layout_constraintStart_toEndOf="@id/btnAdd"
+        app:layout_constraintStart_toEndOf="@id/btnAdd_add_customer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp"
