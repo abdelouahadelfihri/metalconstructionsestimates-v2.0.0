@@ -254,13 +254,13 @@ public class AddEstimate extends AppCompatActivity {
         expirationDateSetListner = (picker, year, month, day) -> {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
-            expirationDate.setText("Expiration Date : " + expirationDateValue);
+            expirationDate.setText(expirationDateValue);
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             issueDateValue = year + "-" + month + "-" + day;
-            issueDate.setText("Issue Date : " + issueDateValue);
+            issueDate.setText(issueDateValue);
         };
     }
     public void startActivityForResult() {
