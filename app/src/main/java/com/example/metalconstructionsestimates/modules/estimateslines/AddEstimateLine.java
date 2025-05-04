@@ -64,20 +64,18 @@ public class AddEstimateLine extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         estimateId = Integer.parseInt(getIntent().getStringExtra("estimateIdExtra"));
-        estimateLinesSteelTypeSelectSteel = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        estimateLinesLengthWidthHeight = findViewById(R.id.length_width_height_add_estimate_line);
 
-        TextInputEditText steelTypeTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText weightTextInputEditText = findViewById(R.id.textInputEditText_steel_weight_add_estimate_line);
-        TextInputEditText lengthTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText widthTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText heightTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText quantityTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText totalTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText marginTextInputEditText = findViewById(R.id.estimate_lines_steel_type_select_steel_add_estimate_line);
-        TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.textInputEditText_net_quantity_plus_margin_add_estimate_line);
-        TextInputEditText unitPriceTextInputEditText = findViewById(R.id.textInputEditText_unit_price_add_estimate_line);
-        TextInputEditText totalPriceTextInputEditText = findViewById(R.id.textInputEditText_total_price_add_estimate_line);
+        TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText_add_estimate_line);
+        TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
+        TextInputEditText lengthTextInputEditText = findViewById(R.id.lengthEditText_add_estimate_line);
+        TextInputEditText widthTextInputEditText = findViewById(R.id.widthEditText_add_estimate_line);
+        TextInputEditText heightTextInputEditText = findViewById(R.id.heightEditText_add_estimate_line);
+        TextInputEditText quantityTextInputEditText = findViewById(R.id.quantityEditText_add_estimate_line);
+        TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+        TextInputEditText marginTextInputEditText = findViewById(R.id.marginEditText_add_estimate_line);
+        TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+        TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+        TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
