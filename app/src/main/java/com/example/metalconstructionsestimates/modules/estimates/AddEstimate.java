@@ -22,6 +22,7 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
+import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
@@ -209,8 +210,8 @@ public class AddEstimate extends AppCompatActivity {
             expirationDate = findViewById(R.id.expirationDateValue_add_estimate);
 
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
-            issueDate.setText(R.string.issue_date);
-            expirationDate.setText(R.string.expiration_date);
+            issueDate.setText(R.string.issueDate);
+            expirationDate.setText(R.string.expirationDate);
             Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
             Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
             Objects.requireNonNull(vatTextInputEditText.getText()).clear();
