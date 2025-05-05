@@ -86,7 +86,11 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText discount = findViewById(R.id.discountEditText_estimate_details);
         TextInputEditText totalAfterDiscount = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
         TextInputEditText location = findViewById(R.id.locationEditText_estimate_details);
-        CheckBox isPaid = findViewById(R.id.paidCheckbox);
+        CheckBox isPaid = findViewById(R.id.paidCheckbox_estimate_details);
+        TextInputEditText customerId = findViewById(R.id.customerIdEditText_estimate_details);
+        Button selectCustomer = findViewById(R.id.selectCustomerButton);
+        TextInputEditText vat = findViewById(R.id.vatEditText_estimate_details);
+        TextInputEditText totalAllTaxIncluded = findViewById(R.id.totalAllTaxIncludedEditText_estimate_details);
         estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
         estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
 
