@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,8 +85,8 @@ public class EstimateDetails extends AppCompatActivity {
         expirationDate = findViewById(R.id.expirationDateValue_estimate_details);
         TextInputEditText discount = findViewById(R.id.discountEditText_estimate_details);
         TextInputEditText totalAfterDiscount = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
-        location = findViewById(R.id.done_in_is_paid_estimate_details);
-        amountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
+        TextInputEditText location = findViewById(R.id.locationEditText_estimate_details);
+        CheckBox isPaid = findViewById(R.id.paidCheckbox);
         estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
         estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
 
