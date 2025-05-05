@@ -117,12 +117,12 @@ public class EstimateDetails extends AppCompatActivity {
 
         if (!estimateLinesList.isEmpty()) {
             noEstimateLinesTextView.setVisibility(View.GONE);
-            activityEstimateDetailsBinding.recyclerViewEstimateLines.setLayoutManager(new LinearLayoutManager(this));
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(this, estimateLinesList);
-            activityEstimateDetailsBinding.recyclerViewEstimateLines.setAdapter(estimatesLinesListAdapter);
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(estimatesLinesListAdapter);
         } else {
             noEstimateLinesTextView.setVisibility(View.VISIBLE);
-            activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.GONE);
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
         }
 
         if(!estimate.getExpirationDate().isEmpty()){
