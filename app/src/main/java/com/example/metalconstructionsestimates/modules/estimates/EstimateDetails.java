@@ -93,10 +93,10 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText totalAllTaxIncluded = findViewById(R.id.totalInclTaxEditText_estimate_details);
         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.estimateIdEditText_estimate_details);
 
-        Button newEstimateLineButton = findViewById(R.id.new_estimate_line_button);
-        Button updateEstimateButton = findViewById(R.id.update_estimate_button);
-        Button refreshEstimateLinesListButton = findViewById(R.id.refresh_estimate_lines_list_button);
-        Button deleteEstimateButton = findViewById(R.id.delete_estimate_button);
+        Button newEstimateLineButton = findViewById(R.id.newEstimateLineButton);
+        Button updateEstimateButton = findViewById(R.id.updateButton_estimate_details);
+        Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
+        Button deleteEstimateButton = findViewById(R.id.deleteEstimateButton_estimate_details);
 
         Button newEstimateLine = newEstimateLineUpdateButtons.getButtonNewEstimateLine();
         Button updateEstimate = newEstimateLineUpdateButtons.getButtonUpdateEstimate();
