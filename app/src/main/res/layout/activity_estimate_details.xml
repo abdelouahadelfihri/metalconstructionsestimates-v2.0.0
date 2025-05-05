@@ -317,7 +317,7 @@
 
         <!-- Delete and Refresh Buttons -->
         <Button
-            android:id="@+id/deleteButton_estimate_details"
+            android:id="@+id/deleteEstimateButton_estimate_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/delete"
@@ -333,8 +333,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/refresh"
-            app:layout_constraintTop_toTopOf="@id/deleteButton_estimate_details"
-            app:layout_constraintStart_toEndOf="@id/deleteButton_estimate_details"
+            app:layout_constraintTop_toTopOf="@id/deleteEstimateButton_estimate_details"
+            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton_estimate_details"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp" />
