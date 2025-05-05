@@ -70,7 +70,7 @@
 
         <!-- Paid Checkbox -->
         <CheckBox
-            android:id="@+id/paidCheckbox"
+            android:id="@+id/paidCheckbox_estimate_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/isEstimatePaid"
