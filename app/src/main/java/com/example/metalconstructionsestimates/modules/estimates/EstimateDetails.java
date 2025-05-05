@@ -90,14 +90,13 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText customerId = findViewById(R.id.customerIdEditText_estimate_details);
         Button selectCustomer = findViewById(R.id.selectCustomerButton);
         TextInputEditText vat = findViewById(R.id.vatEditText_estimate_details);
-        TextInputEditText totalAllTaxIncluded = findViewById(R.id.totalAllTaxIncludedEditText_estimate_details);
-        estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
-        estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+        TextInputEditText totalAllTaxIncluded = findViewById(R.id.totalInclTaxEditText_estimate_details);
+        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.estimateIdEditText_estimate_details);
 
-        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_details);
-
-        newEstimateLineUpdateButtons = findViewById(R.id.new_estimate_line_update_buttons);
-        refreshDeleteEstimateButtons = findViewById(R.id.delete_estimate_refresh_buttons);
+        Button newEstimateLineButton = findViewById(R.id.new_estimate_line_button);
+        Button updateEstimateButton = findViewById(R.id.update_estimate_button);
+        Button refreshEstimateLinesListButton = findViewById(R.id.refresh_estimate_lines_list_button);
+        Button deleteEstimateButton = findViewById(R.id.delete_estimate_button);
 
         Button newEstimateLine = newEstimateLineUpdateButtons.getButtonNewEstimateLine();
         Button updateEstimate = newEstimateLineUpdateButtons.getButtonUpdateEstimate();
