@@ -204,11 +204,11 @@ public class EstimateDetails extends AppCompatActivity {
             amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
         }
 
-        newEstimateLineUpdateButtons = findViewById(R.id.new_estimate_line_update_buttons);
+        Button newEstimateLineButton = findViewById(R.id.newEstimateLineButton);
+        Button updateEstimateButton = findViewById(R.id.updateButton_estimate_details);
+        Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
+        Button deleteEstimateButton = findViewById(R.id.deleteEstimateButton_estimate_details);
 
-        refreshDeleteEstimateButtons = findViewById(R.id.delete_estimate_refresh_buttons);
-
-        Button selectCustomer = estimateDetailsCustomerIdSelectCustomer.getButtonSelectCustomer();
         selectCustomer.setOnClickListener(v -> startActivityForResult());
 
         activityResultLauncher = registerForActivityResult(
@@ -226,14 +226,14 @@ public class EstimateDetails extends AppCompatActivity {
                     }
                 }
         );
-        
-        newEstimateLine.setOnClickListener(view -> {
+
+        newEstimateLineButton.setOnClickListener(view -> {
             Intent intent = new Intent(EstimateDetails.this, AddEstimateLine.class);
             intent.putExtra("estimateIdExtra", estimateId.toString());
             startActivity(intent);
         });
 
-        deleteEstimate.setOnClickListener(new View.OnClickListener() {
+        deleteEstimateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDelete = new AlertDialog.Builder(EstimateDetails.this);
@@ -265,7 +265,7 @@ public class EstimateDetails extends AppCompatActivity {
             }
         });
 
-        updateEstimate.setOnClickListener(new View.OnClickListener() {
+        updateEstimateButton.setOnClickListener(new View.OnClickListener() {
             EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
             EstimateLocationAmountPaid estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
             EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
@@ -368,7 +368,7 @@ public class EstimateDetails extends AppCompatActivity {
             }
         });
 
-        refreshEstimateLinesList.setOnClickListener(new View.OnClickListener() {
+        refreshEstimateLinesListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = EstimateDetails.this.findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
