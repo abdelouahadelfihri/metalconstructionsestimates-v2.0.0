@@ -204,11 +204,6 @@ public class EstimateDetails extends AppCompatActivity {
             amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
         }
 
-        Button newEstimateLineButton = findViewById(R.id.newEstimateLineButton);
-        Button updateEstimateButton = findViewById(R.id.updateButton_estimate_details);
-        Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
-        Button deleteEstimateButton = findViewById(R.id.deleteEstimateButton_estimate_details);
-
         selectCustomer.setOnClickListener(v -> startActivityForResult());
 
         activityResultLauncher = registerForActivityResult(
