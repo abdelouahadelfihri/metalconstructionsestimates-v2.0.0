@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EstimateDetails extends AppCompatActivity {
 
@@ -206,18 +207,31 @@ public class EstimateDetails extends AppCompatActivity {
 
         selectCustomer.setOnClickListener(v -> startActivityForResult());
 
+        AtomicInteger selectedCustomerId = new AtomicInteger(-1);
+
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        assert data != null;
-                        String customerIdExtraResult;
-                        customerIdExtraResult = Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).getString("customerIdExtraResult");
-                        customerId = Integer.parseInt(Objects.requireNonNull(customerIdExtraResult));
-                        TextInputEditText customerIdTextInputEditText = estimateDetailsCustomerIdSelectCustomer.getTextInputEditTextCustomerId();
-                        String customerName = dbAdapter.getCustomerById(customerId).getName();
-                        customerIdTextInputEditText.setText(customerName);
+                        if (data != null) {
+                            Bundle extras = data.getExtras();
+                            if (extras != null) {
+                                String customerIdExtraResult = extras.getString("customerIdExtraResult");
+                                if (customerIdExtraResult != null && !customerIdExtraResult.isEmpty()) {
+                                    try {
+                                        selectedCustomerId.set(Integer.parseInt(customerIdExtraResult));
+
+                                        TextInputEditText customerIdEditText = findViewById(R.id.customerIdEditText_estimate_details);
+                                        String customerName = dbAdapter.getCustomerById(selectedCustomerId.get()).getName();
+                                        customerIdEditText.setText(customerName);
+                                    } catch (NumberFormatException e) {
+                                        e.printStackTrace();
+                                        // Optional: show a Toast or log message here
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
         );
