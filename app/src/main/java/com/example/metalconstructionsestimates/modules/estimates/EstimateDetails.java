@@ -12,7 +12,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +34,6 @@ import com.example.metalconstructionsestimates.customviews.estimates.EstimatesVa
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
-import com.example.metalconstructionsestimates.customviews.estimatesdetails.RefreshDeleteEstimateButtons;
-import com.example.metalconstructionsestimates.customviews.estimatesdetails.NewEstimateLineUpdateButtons;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
 
 import java.util.ArrayList;
@@ -44,10 +41,10 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EstimateDetails extends AppCompatActivity {
 
-    Integer customerId;
     Integer estimateId;
 
     Estimate estimate;
@@ -59,14 +56,8 @@ public class EstimateDetails extends AppCompatActivity {
     String expirationDateValue, issueDateValue;
 
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
-    EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount;
-    RefreshDeleteEstimateButtons refreshDeleteEstimateButtons;
-    NewEstimateLineUpdateButtons newEstimateLineUpdateButtons;
-    EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
-    EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer;
 
-    EstimateLocationAmountPaid estimateDetailsLocationAmountPaid;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
     @Override
@@ -87,10 +78,10 @@ public class EstimateDetails extends AppCompatActivity {
         expirationDate = findViewById(R.id.expirationDateValue_estimate_details);
         TextInputEditText totalExclTaxEditText = findViewById(R.id.totalExclTaxEditText_estimate_details);
         TextInputEditText discountEditText = findViewById(R.id.discountEditText_estimate_details);
+        TextInputEditText amountPaidEditText = findViewById(R.id.amountPaidEditText_estimate_details);
         TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
         TextInputEditText locationEditText = findViewById(R.id.locationEditText_estimate_details);
-        CheckBox isPaidCheckBox = findViewById(R.id.paidCheckbox_estimate_details);
-        TextInputEditText customerIdEditText = findViewById(R.id.customerIdEditText_estimate_details);
+        AtomicReference<TextInputEditText> customerIdEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText_estimate_details));
         Button selectCustomerButton = findViewById(R.id.selectCustomerButton);
         TextInputEditText vatEditText = findViewById(R.id.vatEditText_estimate_details);
         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText_estimate_details);
@@ -139,10 +130,10 @@ public class EstimateDetails extends AppCompatActivity {
         expirationDate.setText(expirationDateLabelAndValue);
 
         if(estimate.getCustomer() == null){
-            customerIdEditText.setText("");
+            customerIdEditText.get().setText("");
         }
         else{
-            customerIdEditText.setText(String.format(estimate.getCustomer().toString()));
+            customerIdEditText.get().setText(String.format(estimate.getCustomer().toString()));
         }
 
 
@@ -191,10 +182,10 @@ public class EstimateDetails extends AppCompatActivity {
             amountPaidEditText.setText("");
         }
         else{
-            amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
+            amountPaidEditText.setText(String.format(estimate.getAmountPaid().toString()));
         }
 
-        selectCustomer.setOnClickListener(v -> startActivityForResult());
+        selectCustomerButton.setOnClickListener(v -> startActivityForResult());
 
         AtomicInteger selectedCustomerId = new AtomicInteger(-1);
 
@@ -207,18 +198,11 @@ public class EstimateDetails extends AppCompatActivity {
                             Bundle extras = data.getExtras();
                             if (extras != null) {
                                 String customerIdExtraResult = extras.getString("customerIdExtraResult");
-                                if (customerIdExtraResult != null && !customerIdExtraResult.isEmpty()) {
-                                    try {
-                                        selectedCustomerId.set(Integer.parseInt(customerIdExtraResult));
-
-                                        TextInputEditText customerIdEditText = findViewById(R.id.customerIdEditText_estimate_details);
-                                        String customerName = dbAdapter.getCustomerById(selectedCustomerId.get()).getName();
-                                        customerIdEditText.setText(customerName);
-                                    } catch (NumberFormatException e) {
-                                        e.printStackTrace();
-                                        // Optional: show a Toast or log message here
-                                    }
-                                }
+                                assert customerIdExtraResult != null;
+                                selectedCustomerId.set(Integer.parseInt(customerIdExtraResult));
+                                customerIdEditText.set(findViewById(R.id.customerIdEditText_estimate_details));
+                                String customerName = dbAdapter.getCustomerById(selectedCustomerId.get()).getName();
+                                customerIdEditText.get().setText(customerName);
                             }
                         }
                     }
@@ -264,10 +248,23 @@ public class EstimateDetails extends AppCompatActivity {
         });
 
         updateEstimateButton.setOnClickListener(new View.OnClickListener() {
-            EstimateCustomerIdSelectCustomer estimateDetailsCustomerIdSelectCustomer = findViewById(R.id.estimate_details_customer_id_select_customer);
-            EstimateLocationAmountPaid estimateDetailsLocationAmountPaid = findViewById(R.id.done_in_is_paid_estimate_details);
-            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
-            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
+            TextView issueDate = findViewById(R.id.issueDateValue_estimate_details);
+            TextView expirationDate = findViewById(R.id.expirationDateValue_estimate_details);
+            TextInputEditText totalExclTaxEditText = findViewById(R.id.totalExclTaxEditText_estimate_details);
+            TextInputEditText discountEditText = findViewById(R.id.discountEditText_estimate_details);
+            TextInputEditText amountPaidEditText = findViewById(R.id.amountPaidEditText_estimate_details);
+            TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+            TextInputEditText locationEditText = findViewById(R.id.locationEditText_estimate_details);
+            TextInputEditText customerIdEditText = findViewById(R.id.customerIdEditText_estimate_details);
+            Button selectCustomerButton = findViewById(R.id.selectCustomerButton);
+            TextInputEditText vatEditText = findViewById(R.id.vatEditText_estimate_details);
+            TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText_estimate_details);
+            TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
+
+            Button newEstimateLineButton = findViewById(R.id.newEstimateLineButton);
+            Button updateEstimateButton = findViewById(R.id.updateButton_estimate_details);
+            Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
+            Button deleteEstimateButton = findViewById(R.id.deleteEstimateButton_estimate_details);
 
             @Override
             public void onClick(View view) {
