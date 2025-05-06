@@ -269,14 +269,14 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setDoneIn("");
                         }
 
-                        if (!issueDateValue.isEmpty()) {
-                            estimate.setIssueDate(issueDateValue);
+                        if (!issueDate.getText().toString().isEmpty()) {
+                            estimate.setIssueDate(issueDate.getText().toString());
                         } else {
                             estimate.setIssueDate("");
                         }
 
-                        if (!expirationDateValue.isEmpty()) {
-                            estimate.setExpirationDate(expirationDateValue);
+                        if (!expirationDate.getText().toString().isEmpty()) {
+                            estimate.setExpirationDate(expirationDate.getText().toString());
                         } else {
                             estimate.setExpirationDate("");
                         }
