@@ -40,12 +40,12 @@ public class SteelDetails extends AppCompatActivity {
         steel = dbAdapter.getSteelById(steelId);
         TextInputEditText steelIdTextInputEditText = findViewById(R.id.steelIdEditText);
         TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText);
-        Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
+        Spinner steelGeometricShapeSpinner = findViewById(R.id.shapeSpinner);
         ArrayAdapter<CharSequence> steelGeometricShapeSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
         steelGeometricShapeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelGeometricShapeSpinner.setAdapter(steelGeometricShapeSpinnerAdapter);
-        TextInputEditText steelWeightTextInputEditText = findViewById(R.id.editText_steel_weight_steel_details);
-        Spinner steelUnitSpinner = findViewById(R.id.spinner_steel_unit_steel_details);
+        TextInputEditText steelWeightTextInputEditText = findViewById(R.id.weightEditText);
+        Spinner steelUnitSpinner = findViewById(R.id.unitSpinner);
         ArrayAdapter<CharSequence> steelUnitSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
         steelUnitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelUnitSpinner.setAdapter(steelUnitSpinnerAdapter);
@@ -88,10 +88,9 @@ public class SteelDetails extends AppCompatActivity {
             }
         }
 
-        updateDeleteButtons = findViewById(R.id.steels_details_update_delete_buttons);
-        Button updateSteel = updateDeleteButtons.getUpdateButton();
+        Button updateButton = findViewById(R.id.updateButton);
 
-        updateSteel.setOnClickListener(new View.OnClickListener() {
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertUpdate = new AlertDialog.Builder(SteelDetails.this);
@@ -101,11 +100,11 @@ public class SteelDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         steel = new Steel();
-                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_id_steel_details);
-                        TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_type_steel_details);
-                        Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
-                        TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_steel_details);
-                        Spinner unitSpinner = findViewById(R.id.spinner_steel_unit_steel_details);
+                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.steelIdEditText);
+                        TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.steelTypeEditText);
+                        Spinner steelGeometricShapeSpinner = findViewById(R.id.shapeSpinner);
+                        TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText);
+                        Spinner unitSpinner = findViewById(R.id.unitSpinner);
                         steel.setId(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
 
                         if (!steelTypeTextInputEditText.getText().toString().isEmpty()) {
@@ -160,7 +159,7 @@ public class SteelDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         steel = new Steel();
-                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.editText_steel_id_steel_details);
+                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.steelIdEditText);
                         dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
                         Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "La suppression de l\'acier a été effectuée avec succés", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
