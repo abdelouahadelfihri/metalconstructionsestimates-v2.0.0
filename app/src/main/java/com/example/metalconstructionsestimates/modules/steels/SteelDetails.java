@@ -38,9 +38,8 @@ public class SteelDetails extends AppCompatActivity {
         Integer steelId = Integer.parseInt(steelIdExtra);
         dbAdapter = new DBAdapter(getApplicationContext());
         steel = dbAdapter.getSteelById(steelId);
-        TextInputEditText steelIdTextInputEditText = findViewById(R.id.editText_steel_id_steel_details);
-        TextInputEditText steelIdTextInputEditText = findViewById(R.id.editText_steel_id_steel_details);
-        TextInputEditText steelTypeTextInputEditText = findViewById(R.id.editText_steel_type_steel_details);
+        TextInputEditText steelIdTextInputEditText = findViewById(R.id.steelIdEditText);
+        TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText);
         Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
         ArrayAdapter<CharSequence> steelGeometricShapeSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
         steelGeometricShapeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
