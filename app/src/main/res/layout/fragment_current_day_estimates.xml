@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <com.example.metalconstructionsestimates.customviews.dashboard.CurrentDayEstimatesCount
-        android:id="@+id/currentDayEstimatesCount"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.example.metalconstructionsestimates.customviews.dashboard.CurrentDayEstimatesTotal
-        android:id="@+id/currentDayEstimatesTotal"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!-- Estimates Count Label -->
+    <TextView
+        android:id="@+id/tv_estimate_count_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today's Estimates"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"/>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!-- Estimates Count Value -->
+    <TextView
+        android:id="@+id/tv_estimate_count_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_estimate_count_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_estimate_count_label"
+        android:layout_marginStart="8dp"/>
 
-        <TextView
-            android:id="@+id/noEstimatesInCurrentDayTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="245dp"
-            android:text="@string/noDailyEstimates"
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
+    <!-- Total Estimates Label -->
+    <TextView
+        android:id="@+id/tv_estimate_total_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Amount"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_estimate_count_label"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"/>
 
-    </RelativeLayout>
+    <!-- Total Estimates Value -->
+    <TextView
+        android:id="@+id/tv_estimate_total_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tv_estimate_total_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_estimate_total_label"
+        android:layout_marginStart="8dp"/>
 
+    <!-- RecyclerView for Estimates List -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCurrentDayEstimates"
-        android:layout_width="match_parent"
-        android:layout_height="615dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:id="@+id/rv_estimates"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/tv_estimate_total_label"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
-</LinearLayout>
+    <!-- TextView for "No estimates" message -->
+    <TextView
+        android:id="@+id/tv_no_estimates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No estimates for today."
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tv_estimate_total_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
