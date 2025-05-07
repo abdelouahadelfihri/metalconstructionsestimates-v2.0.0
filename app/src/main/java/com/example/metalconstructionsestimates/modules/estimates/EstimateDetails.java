@@ -391,44 +391,41 @@ public class EstimateDetails extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-                EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
-                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-                TextInputEditText vatTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextVat();
-                TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
-                TextInputEditText totalExcludingTaxTextInputEditText = findViewById(R.id.editText_total_excluding_tax_estimate_details);
+                TextInputEditText totalExclTaxEditText = findViewById(R.id.totalExclTaxEditText_estimate_details);
+                TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+                TextInputEditText vatEditText = findViewById(R.id.vatEditText_estimate_details);
+                TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText_estimate_details);
+
                 String discount = s.toString();
                 Float totalExcludingTax, totalExcludingTaxAfterDiscount, vat, totalAllTaxIncluded;
-                totalExcludingTax = Float.parseFloat(Objects.requireNonNull(totalExcludingTaxTextInputEditText.getText()).toString());
-                vat = Float.parseFloat(Objects.requireNonNull(vatTextInputEditText.getText()).toString());
+                totalExcludingTax = Float.parseFloat(Objects.requireNonNull(totalExclTaxEditText.getText()).toString());
+                vat = Float.parseFloat(Objects.requireNonNull(vatEditText.getText()).toString());
                 if (!discount.isEmpty()) {
                     totalExcludingTaxAfterDiscount = totalExcludingTax - totalExcludingTax * Float.parseFloat(discount) / 100;
-                    totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTaxAfterDiscount));
+                    totalAfterDiscountEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTaxAfterDiscount));
                     if (!vat.toString().isEmpty()) {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount + totalExcludingTaxAfterDiscount * vat / 100;
                     } else {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
                     }
 
-                    totalAllTaxIncludedTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
+                    totalAllTaxIncludedEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
 
 
                 } else {
-                    totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTax));
+                    totalAfterDiscountEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTax));
                     if (!vat.toString().isEmpty()) {
                         totalAllTaxIncluded = totalExcludingTax + totalExcludingTax * vat / 100;
                     } else {
                         totalAllTaxIncluded = totalExcludingTax;
                     }
 
-                    totalAllTaxIncludedTextInputEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
+                    totalAllTaxIncludedEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
                 }
             }
         });
 
-        vatTextInputEditText.addTextChangedListener(new TextWatcher() {
-            EstimatesDiscountTotalAfterDiscount estimatesDiscountTotalAfterDiscount = findViewById(R.id.estimatesDetailsDiscountTotalAfterDiscount);
-            EstimatesVatTotalAllTaxIncluded estimatesVatTotalAllTaxIncluded = findViewById(R.id.estimatesDetailsVatTotalAllTaxIncluded);
+        vatEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -439,8 +436,8 @@ public class EstimateDetails extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-                TextInputEditText totalAllTaxIncludedTextInputEditText = estimatesVatTotalAllTaxIncluded.getTextInputEditTextTotalAllTaxIncluded();
+                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+                TextInputEditText totalAllTaxIncludedTextInputEditText = findViewById(R.id.totalInclTaxEditText_estimate_details);
                 String vat = s.toString();
                 Float totalExcludingTaxAfterDiscount, totalAllTaxIncluded;
                 totalExcludingTaxAfterDiscount = Float.parseFloat(totalExcludingTaxAfterDiscountTextInputEditText.getText().toString());
@@ -452,9 +449,6 @@ public class EstimateDetails extends AppCompatActivity {
                 totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
             }
         });
-
-        issueDate = issueDateExpirationDate.getTextViewEstimateIssueDate();
-        expirationDate = issueDateExpirationDate.getTextViewEstimateExpirationDate();
 
         issueDate.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
@@ -488,13 +482,13 @@ public class EstimateDetails extends AppCompatActivity {
 
         expirationDateSetListner = (picker, year, month, day) -> {
             month = month + 1;
-            expirationDateValue = year + "-" + month + "-" + day;
-            expirationDate.setText("Expiration Date : " + expirationDateValue);
+            String expirationDateValue = year + "-" + month + "-" + day;
+            expirationDate.setText(expirationDateValue);
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
-            issueDateValue = year + "-" + month + "-" + day;
+            String issueDateValue = year + "-" + month + "-" + day;
             issueDate.setText("Issue Date : " + issueDateValue);
         };
 
