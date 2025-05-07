@@ -348,7 +348,6 @@ public class EstimateDetails extends AppCompatActivity {
                 TextInputEditText amountPaidEditText = findViewById(R.id.amountPaidEditText_estimate_details);
                 TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
                 TextInputEditText locationEditText = findViewById(R.id.locationEditText_estimate_details);
-                TextInputEditText customerIdEditText = findViewById(R.id.customerIdEditText_estimate_details);
                 TextInputEditText vatEditText = findViewById(R.id.vatEditText_estimate_details);
                 TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText_estimate_details);
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdEditText.getText().toString()));
@@ -356,32 +355,32 @@ public class EstimateDetails extends AppCompatActivity {
                 issueDate.setText(estimate.getIssueDate());
                 expirationDate.setText(estimate.getExpirationDate());
 
-                totalExcludingTaxTextInputEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
-                discountTextInputEditText.setText(String.format(estimate.getDiscount().toString()));
-                TextInputEditText totalExcludingTaxAfterDiscountTextInputEditText = estimatesDiscountTotalAfterDiscount.getTextInputEditTextTotalAfterDiscount();
-                totalExcludingTaxAfterDiscountTextInputEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
-                vatTextInputEditText.setText(String.format(estimate.getVat().toString()));
-                totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
-                TextInputEditText amountPaidTextInputEditText = estimateDetailsLocationAmountPaid.getTextInputEditTextAmountPaid();
-                amountPaidTextInputEditText.setText(String.format(estimate.getAmountPaid().toString()));
-                totalAllTaxIncludedTextInputEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
-                ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                totalExclTaxEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
+                discountEditText.setText(String.format(estimate.getDiscount().toString()));
+
+                totalAfterDiscountEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
+                vatEditText.setText(String.format(estimate.getVat().toString()));
+                totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
+
+                amountPaidEditText.setText(String.format(estimate.getAmountPaid().toString()));
+                totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
+                ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdEditText.getText().toString()));
 
                 if (estimateLinesList.isEmpty()) {
-                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.GONE);
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
                     activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.VISIBLE);
                 } else {
-                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setVisibility(View.VISIBLE);
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
                     activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.GONE);
                     EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(EstimateDetails.this, estimateLinesList);
-                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    activityEstimateDetailsBinding.recyclerViewEstimateLines.setAdapter(estimatesLinesListAdapter);
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(estimatesLinesListAdapter);
                 }
 
             }
         });
 
-        discountTextInputEditText.addTextChangedListener(new TextWatcher() {
+        discountEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
