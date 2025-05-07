@@ -846,10 +846,6 @@ public class AddEstimateLine extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
-
-
-
-
                 TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
                 TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
