@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/customer_list_layout"
+    android:id="@+id/estimate_list_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,22 +12,25 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="@string/customersList"
+        android:title="@string/estimatesList"
         android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Search -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchInputLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:hint="@string/searchEstimates"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:boxBackgroundColor="#F0F0F0"
         android:boxStrokeColor="#4A4A4A"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_margin="16dp">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchEditText"
@@ -40,19 +43,35 @@
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid
-        android:id="@+id/estimates_all_paid_partiallypaid_unpaid"
+    <!-- Flat replacement for EstimatesAllPaidPartiallyPaidUnpaid -->
+    <TextView
+        android:id="@+id/textView_payment_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:padding="12dp"
+        android:text="@string/paymentStatus"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/searchInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/spinner_payment_status"
+        app:layout_constraintBottom_toBottomOf="@id/spinner_payment_status" />
+
+    <Spinner
+        android:id="@+id/spinner_payment_status"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:backgroundTint="@color/fabBackground"
-        app:layout_constraintTop_toBottomOf="@+id/searchInputLayout"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintTop_toBottomOf="@id/searchInputLayout"
+        app:layout_constraintStart_toEndOf="@id/textView_payment_status"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/fabIconTint" />
+        app:layout_constraintBottom_toBottomOf="@id/textView_payment_status" />
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
@@ -62,12 +81,12 @@
         android:clipToPadding="false"
         android:paddingBottom="96dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/estimates_all_paid_partiallypaid_unpaid"
+        app:layout_constraintTop_toBottomOf="@id/spinner_payment_status"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Floating Action Buttons Group (stacked vertically) -->
+    <!-- Floating Action Buttons (FABs) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
