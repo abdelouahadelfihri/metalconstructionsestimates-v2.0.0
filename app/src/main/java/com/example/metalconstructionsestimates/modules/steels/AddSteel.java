@@ -30,10 +30,10 @@ public class AddSteel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_steel);
         adapter = new DBAdapter(getApplicationContext());
-        Toolbar toolbar = findViewById(R.id.toolbar_add_steel);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
+        Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_geometric_shape);
         ArrayAdapter<CharSequence> steelGeometricShapeAdapter = ArrayAdapter.createFromResource(this, R.array.geometric_shapes, android.R.layout.simple_spinner_item);
         steelGeometricShapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelGeometricShapeSpinner.setAdapter(steelGeometricShapeAdapter);
