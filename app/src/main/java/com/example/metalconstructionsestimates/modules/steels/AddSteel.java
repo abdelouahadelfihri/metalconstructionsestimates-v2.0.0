@@ -18,6 +18,8 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 
+import java.util.Objects;
+
 public class AddSteel extends AppCompatActivity {
     Steel steel;
     DBAdapter adapter;
@@ -54,18 +56,19 @@ public class AddSteel extends AppCompatActivity {
             }
         });
 
-        AddClearButtons addClearButtons = (AddClearButtons) findViewById(R.id.add_clear_buttons_add_steel);
-        Button addSteel = addClearButtons.getAddButton();
-        Button clearAddSteelForm = addClearButtons.getClearButton();
+        Button addSteel = findViewById(R.id.buttonAdd);
+        Button clearAddSteelForm = findViewById(R.id.buttonClear);
 
         addSteel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.textInputEditText_steel_type_add_steel);
-                Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
-                TextInputEditText weightTextInputEditText = (TextInputEditText) findViewById(R.id.textInputEditText_steel_weight_add_steel);
-                Spinner unitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit_add_steel);
-                if (steelGeometricShapeSpinner.getSelectedItem().toString().isEmpty() && weightTextInputEditText.getText().toString().isEmpty() && steelTypeTextInputEditText.getText().toString().isEmpty() && unitSpinner.getSelectedItem().toString().isEmpty()) {
+
+                TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.editTextSteelType);
+                Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_geometric_shape);
+                TextInputEditText weightTextInputEditText = (TextInputEditText) findViewById(R.id.editTextWeight);
+                Spinner steelUnitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit);
+
+                if (steelGeometricShapeSpinner.getSelectedItem().toString().isEmpty() && weightTextInputEditText.getText().toString().isEmpty() && steelTypeTextInputEditText.getText().toString().isEmpty() && steelUnitSpinner.getSelectedItem().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Champs vides.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
@@ -74,13 +77,14 @@ public class AddSteel extends AppCompatActivity {
                     alertAdd.setMessage("Voulez-vous vraiment ajouter l\'acier?");
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.textInputEditText_steel_type_add_steel);
-                            Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
-                            TextInputEditText weightTextInputEditText = (TextInputEditText) findViewById(R.id.textInputEditText_steel_weight_add_steel);
-                            Spinner unitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit_add_steel);
+
+                            TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.editTextSteelType);
+                            Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_geometric_shape);
+                            TextInputEditText weightTextInputEditText = (TextInputEditText) findViewById(R.id.editTextWeight);
+                            Spinner steelUnitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit);
                             steel = new Steel();
 
-                            if (steelTypeTextInputEditText.getText().toString().isEmpty()) {
+                            if (Objects.requireNonNull(steelTypeTextInputEditText.getText()).toString().isEmpty()) {
                                 steel.setType("");
                             } else {
                                 steel.setType(steelTypeTextInputEditText.getText().toString());
@@ -92,20 +96,20 @@ public class AddSteel extends AppCompatActivity {
                                 steel.setGeometricShape(steelGeometricShapeSpinner.getSelectedItem().toString());
                             }
 
-                            if (weightTextInputEditText.getText().toString().isEmpty()) {
+                            if (Objects.requireNonNull(weightTextInputEditText.getText()).toString().isEmpty()) {
                                 steel.setWeight(null);
                             } else {
                                 steel.setWeight(Float.parseFloat(weightTextInputEditText.getText().toString()));
                             }
 
-                            if (unitSpinner.getSelectedItem().toString().isEmpty()) {
+                            if (steelUnitSpinner.getSelectedItem().toString().isEmpty()) {
                                 steel.setUnit("");
                             } else {
-                                steel.setUnit(unitSpinner.getSelectedItem().toString());
+                                steel.setUnit(steelUnitSpinner.getSelectedItem().toString());
                             }
 
                             adapter.saveSteel(steel);
-                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "L\'ajout de l\'acier a été effectué avec succés", Toast.LENGTH_LONG);
+                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
                             intent = new Intent(AddSteel.this, Steels.class);
                             startActivity(intent);
@@ -128,24 +132,24 @@ public class AddSteel extends AppCompatActivity {
                 Spinner unitSpinner;
                 TextInputEditText weightTextInputEditText;
                 Spinner steelGeometricShapeSpinner;
-                steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
-                weightTextInputEditText = (TextInputEditText) findViewById(R.id.textInputEditText_steel_weight_add_steel);
-                unitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit_add_steel);
+                steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_geometric_shape);
+                weightTextInputEditText = (TextInputEditText) findViewById(R.id.editTextWeight);
+                unitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit);
                 steelGeometricShapeSpinner.setSelection(0);
                 weightTextInputEditText.getText().clear();
                 unitSpinner.setSelection(0);
             }
         });
 
-        Spinner steelUnitSpinner = findViewById(R.id.spinner_steel_unit_add_steel);
+        Spinner unitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit);
         ArrayAdapter<CharSequence> steelUnitAdapter = ArrayAdapter.createFromResource(this, R.array.units, android.R.layout.simple_spinner_item);
         steelUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        steelUnitSpinner.setAdapter(steelUnitAdapter);
+        unitSpinner.setAdapter(steelUnitAdapter);
 
-        steelUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
-                Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_steel_geometric_shape_add_steel);
+                Spinner steelGeometricShapeSpinner = (Spinner) findViewById(R.id.spinner_geometric_shape);
                 switch(item.toString()){
                     case "Meter":
                         steelGeometricShapeSpinner.setSelection(1);
