@@ -30,7 +30,7 @@ public class SteelDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steel_details);
-        Toolbar toolbar = findViewById(R.id.toolbar_steel_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,6 +38,7 @@ public class SteelDetails extends AppCompatActivity {
         Integer steelId = Integer.parseInt(steelIdExtra);
         dbAdapter = new DBAdapter(getApplicationContext());
         steel = dbAdapter.getSteelById(steelId);
+        TextInputEditText steelIdTextInputEditText = findViewById(R.id.editText_steel_id_steel_details);
         TextInputEditText steelIdTextInputEditText = findViewById(R.id.editText_steel_id_steel_details);
         TextInputEditText steelTypeTextInputEditText = findViewById(R.id.editText_steel_type_steel_details);
         Spinner steelGeometricShapeSpinner = findViewById(R.id.spinner_steel_geometric_shape_steel_details);
