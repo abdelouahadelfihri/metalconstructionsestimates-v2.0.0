@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/weight"
-        app:layout_constraintTop_toBottomOf="@id/spinner1"
+        app:layout_constraintTop_toBottomOf="@id/spinner_geometric_shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
@@ -79,7 +79,7 @@
 
     <!-- Spinner 2 -->
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinner_steel_unit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutWeight"
