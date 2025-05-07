@@ -41,7 +41,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Spinner 1 -->
+    <!-- Spinner Geometric Shape -->
     <Spinner
         android:id="@+id/spinner_geometric_shape"
         android:layout_width="0dp"
