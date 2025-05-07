@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Steel;
-import com.example.metalconstructionsestimates.customviews.UpdateDeleteButtons;
 
 public class SteelDetails extends AppCompatActivity {
     Steel steel;

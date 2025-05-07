@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 
 public class AddCustomer extends AppCompatActivity {
     Customer customer;

@@ -25,7 +25,6 @@ import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
-import com.example.metalconstructionsestimates.customviews.AddClearButtons;
 
 import java.util.Objects;
 
