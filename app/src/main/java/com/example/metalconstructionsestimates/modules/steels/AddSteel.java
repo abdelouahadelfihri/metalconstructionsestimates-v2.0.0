@@ -37,7 +37,7 @@ public class AddSteel extends AppCompatActivity {
         steelGeometricShapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
-                Spinner steelUnitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit_add_steel);
+                Spinner steelUnitSpinner = (Spinner) findViewById(R.id.spinner_steel_unit);
                 switch(item.toString()){
                     case "Profile":
                         steelUnitSpinner.setSelection(1);
