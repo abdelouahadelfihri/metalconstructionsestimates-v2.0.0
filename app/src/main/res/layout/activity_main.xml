@@ -46,20 +46,20 @@
 
     <!-- Labels for row 1 -->
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewCustomers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Label 1"
+        android:text="@string/customers"
         android:layout_margin="8dp"
         app:layout_constraintTop_toBottomOf="@id/imageViewCustomers"
         app:layout_constraintStart_toStartOf="@id/imageViewCustomers"
         app:layout_constraintEnd_toEndOf="@id/imageViewCustomers" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewEstimates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Label 2"
+        android:text="@string/estimates"
         android:layout_margin="8dp"
         app:layout_constraintTop_toBottomOf="@id/imageViewEstimates"
         app:layout_constraintStart_toStartOf="@id/imageViewEstimates"
@@ -73,7 +73,7 @@
         android:layout_margin="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintTop_toBottomOf="@id/textView1"
+        app:layout_constraintTop_toBottomOf="@id/textViewCustomers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/imageViewDashboard"
         app:layout_constraintDimensionRatio="1:1"
@@ -86,7 +86,7 @@
         android:layout_margin="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintTop_toBottomOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@id/textViewEstimates"
         app:layout_constraintStart_toEndOf="@id/imageViewSteels"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -94,10 +94,10 @@
 
     <!-- Labels for row 2 -->
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewSteels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Label 3"
+        android:text="@string/steels"
         android:layout_margin="8dp"
         app:layout_constraintTop_toBottomOf="@id/imageViewSteels"
         app:layout_constraintStart_toStartOf="@id/imageViewSteels"
@@ -121,18 +121,18 @@
         android:layout_margin="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintTop_toBottomOf="@id/textViewSteels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/textView5"
+        app:layout_constraintBottom_toTopOf="@id/textViewBackups"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintWidth_percent="0.45" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewBackups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Label 5"
+        android:text="@string/backuprestore"
         android:layout_margin="8dp"
         app:layout_constraintTop_toBottomOf="@id/imageViewBackups"
         app:layout_constraintBottom_toBottomOf="parent"
