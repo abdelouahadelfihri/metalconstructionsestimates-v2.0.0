@@ -18,18 +18,19 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Customer Name -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer_name"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_customer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName_add_customer"
@@ -46,13 +47,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer_email"
+        app:layout_constraintTop_toBottomOf="@id/nameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/nameLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail_add_customer"
@@ -70,13 +71,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer_phone"
+        app:layout_constraintTop_toBottomOf="@id/emailLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/emailLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhone_add_customer"
@@ -94,13 +95,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer_mobile"
+        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/phoneLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMobile_add_customer"
@@ -118,13 +119,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer_fax"
+        app:layout_constraintTop_toBottomOf="@id/mobileLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/mobileLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFax_add_customer"
@@ -136,21 +137,21 @@
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Address -->
+    <!-- Address (bigger) -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/addressLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:hint="@string/customer_address"
+        app:layout_constraintTop_toBottomOf="@id/faxLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear_add_customer"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/faxLayout"
-        app:layout_constraintBottom_toTopOf="@id/btnAdd_add_customer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAddress_add_customer"
@@ -164,32 +165,28 @@
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Add Button -->
+    <!-- Clear Button -->
     <Button
         android:id="@+id/btnAdd_add_customer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/add"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnClear_add_customer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.5" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"/>
 
-    <!-- Clear Button -->
+    <!-- Add Button -->
     <Button
         android:id="@+id/btnClear_add_customer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/clear"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintStart_toEndOf="@id/btnAdd_add_customer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.5" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
