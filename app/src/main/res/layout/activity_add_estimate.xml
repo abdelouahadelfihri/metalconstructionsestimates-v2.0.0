@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"> <!-- General padding for screen -->
+    android:layout_height="match_parent">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -17,209 +17,234 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Location -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/locationLayout"
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/location"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/amountPaidLayout"
-        app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/locationEditText_add_estimate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Amount Paid -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/amountPaidLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/amountPaid"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
-        app:layout_constraintStart_toEndOf="@id/locationLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontalWeight="1"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/amountPaidEditText_add_estimate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Issue Date Label -->
-    <TextView
-        android:id="@+id/issueDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/issueDateLabel"
-        app:layout_constraintTop_toBottomOf="@id/locationLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
-
-    <!-- Issue Date Value -->
-    <TextView
-        android:id="@+id/issueDateValue_add_estimate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/issueDate"
-        app:layout_constraintTop_toTopOf="@id/issueDateLabel"
-        app:layout_constraintStart_toEndOf="@id/issueDateLabel"
-        android:layout_marginStart="8dp"/>
-
-    <!-- Expiration Date Label -->
-    <TextView
-        android:id="@+id/expirationDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/expirationDateLabel"
-        app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp"/>
-
-    <!-- Expiration Date Value -->
-    <TextView
-        android:id="@+id/expirationDateValue_add_estimate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/expirationDate"
-        app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
-        app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
-        android:layout_marginStart="8dp"/>
-
-    <!-- Customer -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/customerLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/customer"
-        app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/selectCustomerButton_add_estimate"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/customerEditText_add_estimate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Select Customer Button -->
-    <Button
-        android:id="@+id/selectCustomerButton_add_estimate"
-        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="@string/selectCustomer"
-        app:layout_constraintTop_toTopOf="@id/customerLayout"
-        app:layout_constraintBottom_toBottomOf="@id/customerLayout"
-        app:layout_constraintStart_toEndOf="@id/customerLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"/>
-
-    <!-- Discount -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/discountLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/discount"
-        app:layout_constraintTop_toBottomOf="@id/customerLayout"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtonsLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/discountEditText_add_estimate"
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent"/>
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Location and Amount Paid -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <!-- VAT -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/vatLayout"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/locationLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/location"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/amountPaidLayout"
+                    app:layout_constraintHorizontalWeight="1"
+                    app:layout_constraintHorizontalChainStyle="packed"
+                    android:layout_marginEnd="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/locationEditText_add_estimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333333"
+                        android:textColorHint="#4A4A4A"
+                        android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/amountPaidLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amountPaid"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintStart_toEndOf="@id/locationLayout"
+                    app:layout_constraintTop_toTopOf="@id/locationLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontalWeight="1"
+                    android:layout_marginStart="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/amountPaidEditText_add_estimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textColor="#333333"
+                        android:textColorHint="#4A4A4A"
+                        android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Issue Date -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <TextView
+                    android:id="@+id/issueDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/issueDateLabel"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/issueDateValue_add_estimate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/issueDate"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
+            <!-- Expiration Date -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <TextView
+                    android:id="@+id/expirationDateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expirationDateLabel"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/expirationDateValue_add_estimate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/expirationDate"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
+            <!-- Customer and Select Button -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customerLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/selectCustomerButton_add_estimate"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customerEditText_add_estimate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333333"
+                        android:textColorHint="#4A4A4A"
+                        android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/selectCustomerButton_add_estimate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/selectCustomer"
+                    app:layout_constraintTop_toTopOf="@id/customerLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/customerLayout"
+                    app:layout_constraintStart_toEndOf="@id/customerLayout"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Discount -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/discountLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/discount"
+                android:layout_marginTop="24dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/discountEditText_add_estimate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- VAT -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vatLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/vat"
+                android:layout_marginTop="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vatEditText_add_estimate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textColor="#333333"
+                    android:textColorHint="#4A4A4A"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Buttons (Fixed) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomButtonsLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/vat"
-        app:layout_constraintTop_toBottomOf="@id/discountLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_margin="8dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/vatEditText_add_estimate"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/addButton_add_estimate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent"/>
+            android:text="@string/add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Buttons at Bottom -->
-    <Button
-        android:id="@+id/addButton_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"/>
-
-    <Button
-        android:id="@+id/clearButton_add_estimate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/clear"
-        app:layout_constraintStart_toEndOf="@id/addButton_add_estimate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/clearButton_add_estimate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/clear"
+            app:layout_constraintStart_toEndOf="@id/addButton_add_estimate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
