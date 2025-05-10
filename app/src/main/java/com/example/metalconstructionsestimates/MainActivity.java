@@ -26,14 +26,10 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
     ImageView imageViewCustomers, imageViewEstimates, imageViewSteels,
               imageViewDashboard, imageViewBackups;
 
-    public DBAdapter db;
-
-    private static void onClick(View v) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
