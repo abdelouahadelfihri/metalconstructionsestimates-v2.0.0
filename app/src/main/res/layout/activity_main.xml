@@ -125,7 +125,7 @@
         android:layout_margin="8dp"
         android:contentDescription="@string/backups"
         android:scaleType="centerCrop"
-        android:src="@drawable/backups"
+        android:src="@drawable/database"
         app:layout_constraintTop_toBottomOf="@id/textViewSteels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
