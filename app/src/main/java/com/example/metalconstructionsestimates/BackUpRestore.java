@@ -64,11 +64,11 @@ public class BackUpRestore extends GoogleDriveActivity {
         setContentView(R.layout.activity_back_up_restore);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button googleDriveSignIn = findViewById(R.id.googleSignIn);
-        Button localBackup = findViewById(R.id.localBackup);
-        Button localRestore = findViewById(R.id.localRestore);
-        Button googleDriveBackup = findViewById(R.id.googleDriveBackup);
-        Button googleDriveRestore = findViewById(R.id.googleDriveRestore);
+        Button googleDriveSignIn = findViewById(R.id.btnSignIn);
+        Button localBackup = findViewById(R.id.btnLocalBackup);
+        Button localRestore = findViewById(R.id.btnLocalRestore);
+        Button googleDriveBackup = findViewById(R.id.btnDriveBackup);
+        Button googleDriveRestore = findViewById(R.id.btnDriveRestore);
 
         executor1 = Executors.newSingleThreadExecutor();
         executor2 = Executors.newSingleThreadExecutor();
