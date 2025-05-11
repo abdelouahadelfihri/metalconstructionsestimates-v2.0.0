@@ -510,29 +510,29 @@ public class EstimateLineDetails extends AppCompatActivity {
 
                                 total = Float.parseFloat(length) * Float.parseFloat(widthEditText.getText().toString()) * Float.parseFloat(heightEditText.getText().toString()) * Float.parseFloat(weightEditText.getText().toString()) * Float.parseFloat(quantityEditText.getText().toString());
 
-                                totalTextInputEditText.setText(total.toString());
+                                totalEditText.setText(total.toString());
 
-                                if(!marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
+                                if(!marginEditText.getText().toString().isEmpty()){
+                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginEditText.getText().toString()) /100;
                                 }
                                 else{
                                     netQuantityPlusMargin = total;;
                                 }
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                                netQuantityPlusMarginEditText.setText(netQuantityPlusMargin.toString());
 
                             }
                             else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
+                                totalEditText.setText("");
+                                netQuantityPlusMarginEditText.setText("");
+                                totalPriceEditText.setText("");
                             }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                totalPriceTextInputEditText.setText(totalPrice.toString());
+                            if(!unitPriceEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginEditText.getText().toString().isEmpty())){
+                                totalPrice = Float.parseFloat(unitPriceEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginEditText.getText().toString());
+                                totalPriceEditText.setText(totalPrice.toString());
                             }
                             else{
-                                totalPriceTextInputEditText.setText("");
+                                totalPriceEditText.setText("");
                             }
                             break;
                     }
@@ -550,29 +550,19 @@ public class EstimateLineDetails extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                TextInputEditText weightEditText = findViewById(R.id.editText_steel_weight_estimate_line_details);
-                TextInputEditText heightEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
-                TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
-                TextInputEditText quantityEditText = findViewById(R.id.editText_quantity_estimate_line_details);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.editText_total_estimate_line_details);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.editText_margin_estimate_line_details);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.editText_unit_price_estimate_line_details);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.editText_total_price_estimate_line_details);
-
                 String width = s.toString();
 
                 if(!geometricShape.isEmpty()){
                     switch(geometricShape){
                         case "Surface":
-                                if ((!lengthTextInputEditText.getText().toString().isEmpty()) && (!width.isEmpty())  && (!weightEditText.getText().toString().isEmpty()) && (!quantityEditText.getText().toString().isEmpty())) {
-                                    total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(width) * Float.parseFloat(weightEditText.getText().toString()) *  Float.parseFloat(quantityEditText.getText().toString());
-                                    totalTextInputEditText.setText(total.toString());
+                                if ((!lengthEditText.getText().toString().isEmpty()) && (!width.isEmpty())  && (!weightEditText.getText().toString().isEmpty()) && (!quantityEditText.getText().toString().isEmpty())) {
+                                    total = Float.parseFloat(lengthEditText.getText().toString()) * Float.parseFloat(width) * Float.parseFloat(weightEditText.getText().toString()) *  Float.parseFloat(quantityEditText.getText().toString());
+                                    totalEditText.setText(total.toString());
 
-                                    if (marginTextInputEditText.getText().toString().isEmpty()) {
+                                    if (marginEditText.getText().toString().isEmpty()) {
                                         netQuantityPlusMargin = total;
                                     } else {
-                                        netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) / 100;
+                                        netQuantityPlusMargin = total + total * Float.parseFloat(marginEditText.getText().toString()) / 100;
                                     }
 
                                     netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
