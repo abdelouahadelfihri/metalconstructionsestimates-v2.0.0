@@ -23,8 +23,6 @@ public class SteelDetails extends AppCompatActivity {
     DBAdapter dbAdapter;
     Intent intent;
 
-    UpdateDeleteButtons updateDeleteButtons;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,7 +145,7 @@ public class SteelDetails extends AppCompatActivity {
             }
         });
 
-        Button deleteSteel = updateDeleteButtons.getDeleteButton();
+        Button deleteSteel = findViewById(R.id.deleteButton);
         deleteSteel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
