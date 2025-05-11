@@ -136,8 +136,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/deleteButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontalWeight="1" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <Button
             android:id="@+id/deleteButton"
@@ -148,8 +147,7 @@
             app:layout_constraintStart_toEndOf="@id/updateButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontalWeight="1" />
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
