@@ -33,7 +33,6 @@ public class AddEstimateLine extends AppCompatActivity {
     Intent intent;
     DBAdapter dbAdapter;
     public ActivityResultLauncher<Intent> activityResultLauncher;
-    AddClearButtons addClearButtons;
     Integer estimateId;
     Integer steelId = null;
     String geometricShape = "";
