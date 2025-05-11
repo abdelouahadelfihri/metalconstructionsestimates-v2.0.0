@@ -27,8 +27,6 @@ android:layout_height="match_parent">
         app:layout_constraintTop_toBottomOf="@id/toolbar_customers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:boxBackgroundColor="#F0F0F0"
-        android:boxStrokeColor="#4A4A4A"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:endIconMode="clear_text">
 
