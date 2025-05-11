@@ -10,12 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
@@ -23,9 +21,6 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
 
-import com.example.metalconstructionsestimates.customviews.estimatelines.EstimateLinesSteelTypeSelectSteel;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EstimateLineDetails extends AppCompatActivity {
 
@@ -38,133 +33,129 @@ public class EstimateLineDetails extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
-    EstimateLinesSteelTypeSelectSteel estimateLinesSteelTypeSelectSteel;
-    EstimateLinesLengthWidthHeight estimateLinesLengthWidthHeight;
-    UpdateDeleteButtons updateDeleteButtons;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_line_details);
-        Toolbar toolbar = findViewById(R.id.toolbar_estimate_line_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        estimateLinesLengthWidthHeight = findViewById(R.id.estimate_lines_details_length_width_height);
-        estimateLinesSteelTypeSelectSteel = findViewById(R.id.estimate_lines_details_steel_id_select_steel);
-        TextInputEditText estimateLineIdTextInputEditText = findViewById(R.id.editText_estimate_line_id_estimate_line_details);
-        TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
-        AtomicReference<TextInputEditText> steelTypeTextInputEditText = new AtomicReference<>(estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType());
-        AtomicReference<TextInputEditText> weightTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_steel_weight_estimate_line_details));
-        AtomicReference<TextInputEditText> lengthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextLength());
-        AtomicReference<TextInputEditText> widthTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextWidth());
-        AtomicReference<TextInputEditText> heightTextInputEditText = new AtomicReference<>(estimateLinesLengthWidthHeight.getTextInputEditTextHeight());
-        AtomicReference<TextInputEditText> quantityTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_quantity_estimate_line_details));
-        AtomicReference<TextInputEditText> totalTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_total_estimate_line_details));
-        AtomicReference<TextInputEditText> marginTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_margin_estimate_line_details));
-        AtomicReference<TextInputEditText> netQuantityPlusMarginTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details));
-        AtomicReference<TextInputEditText> unitPriceTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_unit_price_estimate_line_details));
-        AtomicReference<TextInputEditText> totalPriceTextInputEditText = new AtomicReference<>(findViewById(R.id.editText_unit_price_estimate_line_details));
+
+        TextInputEditText estimateLineIdEditText = findViewById(R.id.et_estimate_line_id);
+        TextInputEditText estimateIdEditText = findViewById(R.id.et_estimate_id);
+        TextInputEditText steelTypeEditText = findViewById(R.id.et_steel_id);
+        TextInputEditText weightEditText = findViewById(R.id.et_steel_id);
+        TextInputEditText lengthEditText = findViewById(R.id.et_length);
+        TextInputEditText widthEditText = findViewById(R.id.et_width);
+        TextInputEditText heightEditText = findViewById(R.id.et_height);
+        TextInputEditText quantityEditText = findViewById(R.id.et_quantity);
+        TextInputEditText totalEditText = findViewById(R.id.et_total);
+        TextInputEditText marginEditText = findViewById(R.id.et_margin);
+        TextInputEditText netQuantityPlusMarginEditText = findViewById(R.id.et_net_quantity);
+        TextInputEditText unitPriceEditText = findViewById(R.id.et_unit_price);
+        TextInputEditText totalPriceEditText = findViewById(R.id.et_total_price);
 
         dbAdapter = new DBAdapter(getApplicationContext());
         estimateLineId = Integer.parseInt(getIntent().getStringExtra("estimateLineIdExtra"));
         estimateLine = dbAdapter.getEstimateLineById(estimateLineId);
 
-        estimateLineIdTextInputEditText.setText(estimateLine.getId().toString());
-        estimateIdTextInputEditText.setText(estimateLine.getEstimate().toString());
+        estimateLineIdEditText.setText(estimateLine.getId().toString());
+        estimateIdEditText.setText(estimateLine.getEstimate().toString());
         String steelType = dbAdapter.getSteelById(estimateLine.getSteel()).getType();
-        steelTypeTextInputEditText.get().setText(steelType);
+        steelTypeEditText.setText(steelType);
 
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
         switch (geometricShape) {
             case "Profile":
 
-                estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(false);
-                estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(false);
+                lengthEditText.setEnabled(true);
+                widthEditText.setEnabled(false);
+                heightEditText.setEnabled(false);
 
-                estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setText("");
-                estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setText("");
+                widthEditText.setText("");
+                heightEditText.setText("");
 
                 break;
             case "Surface":
 
-                estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(true);
-                estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(false);
+                lengthEditText.setEnabled(true);
+                widthEditText.setEnabled(true);
+                heightEditText.setEnabled(false);
 
-                estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setText("");
+                heightEditText.setText("");
 
                 break;
             case "Volume":
 
-                estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(true);
-                estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(true);
+                lengthEditText.setEnabled(true);
+                widthEditText.setEnabled(true);
+                heightEditText.setEnabled(true);
 
                 break;
         }
         if(estimateLine.getWeight() == null){
-            weightTextInputEditText.get().setText("");
+            weightEditText.setText("");
         }
         else{
-            weightTextInputEditText.get().setText(estimateLine.getWeight().toString());
+            weightEditText.setText(estimateLine.getWeight().toString());
         }
 
         if(estimateLine.getLength() == null){
-            lengthTextInputEditText.get().setText("");
+            lengthEditText.setText("");
         }
         else{
-            lengthTextInputEditText.get().setText(estimateLine.getLength().toString());
+            lengthEditText.setText(estimateLine.getLength().toString());
         }
 
         if(estimateLine.getWidth() == null){
-            widthTextInputEditText.get().setText("");
+            widthEditText.setText("");
         }
         else{
-            widthTextInputEditText.get().setText(estimateLine.getWidth().toString());
+            widthEditText.setText(estimateLine.getWidth().toString());
         }
 
         if(estimateLine.getHeight() == null){
-            heightTextInputEditText.get().setText("");
+            heightEditText.setText("");
         }
         else{
-            heightTextInputEditText.get().setText(estimateLine.getHeight().toString());
+            heightEditText.setText(estimateLine.getHeight().toString());
         }
 
         if(estimateLine.getQuantity() == null){
-            quantityTextInputEditText.get().setText("");
+            quantityEditText.setText("");
         }
         else{
-            quantityTextInputEditText.get().setText(estimateLine.getQuantity().toString());
+            quantityEditText.setText(estimateLine.getQuantity().toString());
         }
 
         if(estimateLine.getMargin() == null){
-            marginTextInputEditText.get().setText("");
+            marginEditText.setText("");
         }
         else{
-            marginTextInputEditText.get().setText(estimateLine.getMargin().toString());
+            marginEditText.setText(estimateLine.getMargin().toString());
         }
 
         if(estimateLine.getNetQuantityPlusMargin() == null){
-            netQuantityPlusMarginTextInputEditText.get().setText("");
+            netQuantityPlusMarginEditText.setText("");
         }
         else{
-            netQuantityPlusMarginTextInputEditText.get().setText(estimateLine.getNetQuantityPlusMargin().toString());
+            netQuantityPlusMarginEditText.setText(estimateLine.getNetQuantityPlusMargin().toString());
         }
 
         if(estimateLine.getUnitPrice() == null){
-            unitPriceTextInputEditText.get().setText("");
+            unitPriceEditText.setText("");
         }
         else{
-            unitPriceTextInputEditText.get().setText(estimateLine.getUnitPrice().toString());
+            unitPriceEditText.setText(estimateLine.getUnitPrice().toString());
         }
 
         if(estimateLine.getTotalPrice() == null){
-            totalPriceTextInputEditText.get().setText("");
+            totalPriceEditText.setText("");
         }
         else{
-            totalPriceTextInputEditText.get().setText(estimateLine.getTotalPrice().toString());
+            totalPriceEditText.setText(estimateLine.getTotalPrice().toString());
         }
 
         activityResultLauncher = registerForActivityResult(
