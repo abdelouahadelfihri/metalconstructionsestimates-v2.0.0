@@ -139,8 +139,7 @@
                     app:layout_constraintEnd_toStartOf="@id/til_width"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintHorizontalWeight="1">
+                    android:layout_marginStart="8dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_length"
@@ -158,8 +157,7 @@
                     app:layout_constraintStart_toEndOf="@id/til_length"
                     app:layout_constraintEnd_toStartOf="@id/til_height"
                     android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintHorizontalWeight="1">
+                    android:layout_marginEnd="4dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_width"
@@ -177,8 +175,7 @@
                     app:layout_constraintStart_toEndOf="@id/til_width"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="4dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintHorizontalWeight="1">
+                    android:layout_marginEnd="8dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_height"
@@ -290,7 +287,6 @@
                     app:layout_constraintTop_toBottomOf="@id/til_total_price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_delete"
-                    app:layout_constraintHorizontalWeight="1"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="4dp" />
@@ -304,7 +300,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/btn_update"
                     app:layout_constraintStart_toEndOf="@id/btn_update"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontalWeight="1"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="8dp"/>
 
