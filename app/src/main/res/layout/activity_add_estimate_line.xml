@@ -112,7 +112,6 @@
             app:layout_constraintTop_toBottomOf="@id/quantityLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/widthLayout"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -134,7 +133,6 @@
             app:layout_constraintTop_toTopOf="@id/lengthLayout"
             app:layout_constraintStart_toEndOf="@id/lengthLayout"
             app:layout_constraintEnd_toStartOf="@id/heightLayout"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -156,7 +154,6 @@
             app:layout_constraintTop_toTopOf="@id/lengthLayout"
             app:layout_constraintStart_toEndOf="@id/widthLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginEnd="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
