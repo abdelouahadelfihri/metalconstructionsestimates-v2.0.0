@@ -279,17 +279,17 @@ public class EstimateLineDetails extends AppCompatActivity {
                                             netQuantityPlusMarginEditText.setText(total.toString());
                                         }
 
-                                        if ((!unitPriceTextInputEditText.getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
-                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceTextInputEditText.getText().toString());
-                                            totalPriceTextInputEditText.setText(totalPrice.toString());
+                                        if ((!unitPriceEditText.getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
+                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceEditText.getText().toString());
+                                            totalPriceEditText.setText(totalPrice.toString());
                                         } else {
-                                            totalPriceTextInputEditText.setText("");
+                                            totalPriceEditText.setText("");
                                         }
                                     }
                                     else{
-                                        totalTextInputEditText.setText("");
-                                        netQuantityPlusMarginTextInputEditText.setText("");
-                                        totalPriceTextInputEditText.setText("");
+                                        totalEditText.setText("");
+                                        netQuantityPlusMarginEditText.setText("");
+                                        totalPriceEditText.setText("");
                                     }
                                     break;
                             }
@@ -297,12 +297,9 @@ public class EstimateLineDetails extends AppCompatActivity {
                     }
         );
 
-        updateDeleteButtons = (UpdateDeleteButtons) findViewById(R.id.estimate_line_details_update_delete_buttons);
-
-        Button updateEstimateLine = updateDeleteButtons.getUpdateButton();
-        Button deleteEstimateLine = updateDeleteButtons.getDeleteButton();
-        estimateLinesSteelTypeSelectSteel = (EstimateLinesSteelTypeSelectSteel) findViewById(R.id.estimate_lines_details_steel_id_select_steel);
-        Button selectSteel = estimateLinesSteelTypeSelectSteel.getSelectSteelButton();
+        Button updateEstimateLine = findViewById(R.id.btn_update);
+        Button deleteEstimateLine = findViewById(R.id.btn_delete);
+        Button selectSteel = findViewById(R.id.btn_select_steel);
 
         selectSteel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -314,92 +311,81 @@ public class EstimateLineDetails extends AppCompatActivity {
         updateEstimateLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextInputEditText estimateIdTextInputEditText = findViewById(R.id.editText_estimate_id_estimate_line_details);
-                TextInputEditText steelTypeTextInputEditText = estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType();
-                TextInputEditText weightTextInputEditText = findViewById(R.id.editText_steel_weight_estimate_line_details);
-                TextInputEditText lengthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextLength();
-                TextInputEditText widthTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextWidth();
-                TextInputEditText heightTextInputEditText = estimateLinesLengthWidthHeight.getTextInputEditTextHeight();
-                TextInputEditText quantityTextInputEditText = findViewById(R.id.editText_quantity_estimate_line_details);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.editText_total_estimate_line_details);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.editText_margin_estimate_line_details);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.editText_unit_price_estimate_line_details);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.editText_total_price_estimate_line_details);
+
                 EstimateLine estimateLine = new EstimateLine();
 
-                estimateLine.setEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                estimateLine.setEstimate(Integer.parseInt(estimateIdEditText.getText().toString()));
                 estimateLine.setSteel(steelId);
 
-                if(weightTextInputEditText.getText().toString().isEmpty()){
+                if(weightEditText.getText().toString().isEmpty()){
                     estimateLine.setWeight(null);
                 }
                 else{
-                    estimateLine.setWeight(Float.parseFloat(weightTextInputEditText.getText().toString()));
+                    estimateLine.setWeight(Float.parseFloat(weightEditText.getText().toString()));
                 }
 
-                if(lengthTextInputEditText.getText().toString().isEmpty()){
+                if(lengthEditText.getText().toString().isEmpty()){
                     estimateLine.setLength(null);
                 }
                 else{
-                    estimateLine.setLength(Float.parseFloat(lengthTextInputEditText.getText().toString()));
+                    estimateLine.setLength(Float.parseFloat(lengthEditText.getText().toString()));
                 }
 
-                if(widthTextInputEditText.getText().toString().isEmpty()){
+                if(widthEditText.getText().toString().isEmpty()){
                     estimateLine.setWidth(null);
                 }
                 else{
-                    estimateLine.setWidth(Float.parseFloat(widthTextInputEditText.getText().toString()));
+                    estimateLine.setWidth(Float.parseFloat(widthEditText.getText().toString()));
                 }
 
-                if(heightTextInputEditText.getText().toString().isEmpty()){
+                if(heightEditText.getText().toString().isEmpty()){
                     estimateLine.setHeight(null);
                 }
                 else{
-                    estimateLine.setHeight(Float.parseFloat(heightTextInputEditText.getText().toString()));
+                    estimateLine.setHeight(Float.parseFloat(heightEditText.getText().toString()));
                 }
 
-                if(quantityTextInputEditText.getText().toString().isEmpty()){
+                if(quantityEditText.getText().toString().isEmpty()){
                     estimateLine.setQuantity(null);
                 }
                 else{
-                    estimateLine.setQuantity(Integer.parseInt(quantityTextInputEditText.getText().toString()));
+                    estimateLine.setQuantity(Integer.parseInt(quantityEditText.getText().toString()));
                 }
 
-                if(totalTextInputEditText.getText().toString().isEmpty()){
+                if(totalEditText.getText().toString().isEmpty()){
                     estimateLine.setTotal(null);
                 }
                 else{
-                    estimateLine.setTotal(Float.parseFloat(totalTextInputEditText.getText().toString()));
+                    estimateLine.setTotal(Float.parseFloat(totalEditText.getText().toString()));
                 }
 
-                if(marginTextInputEditText.getText().toString().isEmpty()){
+                if(marginEditText.getText().toString().isEmpty()){
                     estimateLine.setMargin(null);
                 }
                 else{
-                    estimateLine.setMargin(Integer.parseInt(marginTextInputEditText.getText().toString()));
+                    estimateLine.setMargin(Integer.parseInt(marginEditText.getText().toString()));
                 }
 
-                if(netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty()){
+                if(netQuantityPlusMarginEditText.getText().toString().isEmpty()){
                     estimateLine.setNetQuantityPlusMargin(null);
                 }
                 else{
-                    estimateLine.setNetQuantityPlusMargin(Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString()));
+                    estimateLine.setNetQuantityPlusMargin(Float.parseFloat(netQuantityPlusMarginEditText.getText().toString()));
                 }
 
-                if(unitPriceTextInputEditText.getText().toString().isEmpty()){
+                if(unitPriceEditText.getText().toString().isEmpty()){
                     estimateLine.setUnitPrice(null);
                 }
                 else{
-                    estimateLine.setUnitPrice(Float.parseFloat(unitPriceTextInputEditText.getText().toString()));
+                    estimateLine.setUnitPrice(Float.parseFloat(unitPriceEditText.getText().toString()));
                 }
 
 
-                if(totalPriceTextInputEditText.getText().toString().isEmpty()){
+                if(totalPriceEditText.getText().toString().isEmpty()){
                     estimateLine.setTotalPrice(null);
                 }
                 else{
-                    estimateLine.setTotalPrice(Float.parseFloat(totalPriceTextInputEditText.getText().toString()));
+                    estimateLine.setTotalPrice(Float.parseFloat(totalPriceEditText.getText().toString()));
                 }
 
                 dbAdapter.updateEstimateLine(estimateLine);
