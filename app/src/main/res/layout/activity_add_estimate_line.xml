@@ -30,7 +30,6 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate_line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/selectSteelButton"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -290,7 +289,6 @@
             app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate_line"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"/>
@@ -304,7 +302,6 @@
             app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
             app:layout_constraintStart_toEndOf="@id/addButton_add_estimate_line"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontalWeight="1"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"/>
