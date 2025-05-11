@@ -137,6 +137,13 @@ public class EstimateLineDetails extends AppCompatActivity {
             marginEditText.setText(estimateLine.getMargin().toString());
         }
 
+        if(estimateLine.getTotal() == null){
+            totalEditText.setText("");
+        }
+        else{
+            totalEditText.setText(estimateLine.getTotal().toString());
+        }
+
         if(estimateLine.getNetQuantityPlusMargin() == null){
             netQuantityPlusMarginEditText.setText("");
         }
@@ -166,130 +173,123 @@ public class EstimateLineDetails extends AppCompatActivity {
                         assert data != null;
                         // get String data from Intent
                         Float total, netQuantityPlusMargin, totalPrice;
-                        quantityTextInputEditText.set(findViewById(R.id.editText_quantity_estimate_line_details));
-                        totalTextInputEditText.set(findViewById(R.id.editText_total_estimate_line_details));
-                        marginTextInputEditText.set(findViewById(R.id.editText_margin_estimate_line_details));
-                        netQuantityPlusMarginTextInputEditText.set(findViewById(R.id.editText_net_quantity_plus_margin_estimate_line_details));
+
                         String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
                         steelId = Integer.parseInt(steelIdExtraResult);
-                        steelTypeTextInputEditText.set(estimateLinesSteelTypeSelectSteel.getTextInputEditTextSteelType());
-                        weightTextInputEditText.set(findViewById(R.id.editText_steel_weight_estimate_line_details));
-
                         Steel steel;
 
                         steel = dbAdapter.getSteelById(steelId);
                         geometricShape = steel.getGeometricShape();
-                        steelTypeTextInputEditText.get().setText(steel.getType());
+                        steelTypeEditText.setText(steel.getType());
 
                         if(steel.getWeight() == null){
-                            weightTextInputEditText.get().setText("");
+                            weightEditText.setText("");
                         }
                         else{
-                            weightTextInputEditText.get().setText(steel.getWeight().toString());
+                            weightEditText.setText(steel.getWeight().toString());
                         }
 
-                        unitPriceTextInputEditText.set(findViewById(R.id.editText_unit_price_estimate_line_details));
-                        totalPriceTextInputEditText.set(findViewById(R.id.editText_total_price_estimate_line_details));
-                        weightTextInputEditText.get().setText(steel.getWeight().toString());
+
+                        weightEditText.setText(steel.getWeight().toString());
                             switch (geometricShape) {
                                 case "Profile":
 
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(false);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(false);
+                                    lengthEditText.setEnabled(true);
+                                    widthEditText.setEnabled(false);
+                                    heightEditText.setEnabled(false);
 
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setText("");
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setText("");
+                                    widthEditText.setText("");
+                                    heightEditText.setText("");
 
-                                    if ((!weightTextInputEditText.get().getText().toString().isEmpty()) && (!lengthTextInputEditText.get().getText().toString().isEmpty()) && (!quantityTextInputEditText.get().getText().toString().isEmpty())) {
+                                    if ((!weightEditText.getText().toString().isEmpty()) && (!lengthEditText.getText().toString().isEmpty()) && (!quantityEditText.getText().toString().isEmpty())) {
 
-                                        total = Float.parseFloat(weightTextInputEditText.get().getText().toString()) * Float.parseFloat(lengthTextInputEditText.get().getText().toString()) * Float.parseFloat(quantityTextInputEditText.get().getText().toString());
-                                        totalTextInputEditText.get().setText(total.toString());
+                                        total = Float.parseFloat(weightEditText.getText().toString()) * Float.parseFloat(lengthEditText.getText().toString()) * Float.parseFloat(quantityEditText.getText().toString());
+                                        totalEditText.setText(total.toString());
 
-                                        if (!marginTextInputEditText.get().getText().toString().isEmpty()) {
-                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.get().getText().toString()) / 100;
-                                            netQuantityPlusMarginTextInputEditText.get().setText(netQuantityPlusMargin.toString());
+                                        if (!marginEditText.getText().toString().isEmpty()) {
+                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginEditText.getText().toString()) / 100;
+                                            netQuantityPlusMarginEditText.setText(netQuantityPlusMargin.toString());
 
                                         } else {
-                                            netQuantityPlusMarginTextInputEditText.get().setText(total.toString());
+                                            netQuantityPlusMarginEditText.setText(total.toString());
                                         }
 
-                                        if (!unitPriceTextInputEditText.get().getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.get().getText().toString().isEmpty())) {
-                                            totalPrice = total * Float.parseFloat(unitPriceTextInputEditText.get().getText().toString());
-                                            totalPriceTextInputEditText.get().setText(totalPrice.toString());
+                                        if (!unitPriceEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginEditText.getText().toString().isEmpty())) {
+                                            totalPrice = total * Float.parseFloat(unitPriceEditText.getText().toString());
+                                            totalPriceEditText.setText(totalPrice.toString());
                                         } else {
-                                            totalPriceTextInputEditText.get().setText("");
+                                            totalPriceEditText.setText("");
                                         }
 
                                     }
                                     else{
-                                        totalTextInputEditText.get().setText("");
-                                        netQuantityPlusMarginTextInputEditText.get().setText("");
-                                        totalPriceTextInputEditText.get().setText("");
+                                        totalEditText.setText("");
+                                        netQuantityPlusMarginEditText.setText("");
+                                        totalPriceEditText.setText("");
                                     }
                                     break;
                                 case "Surface":
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(true);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(false);
+                                    lengthEditText.setEnabled(true);
+                                    widthEditText.setEnabled(true);
+                                    heightEditText.setEnabled(false);
 
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setText("");
+                                    heightEditText.setText("");
 
-                                    if ((!weightTextInputEditText.get().getText().toString().isEmpty()) &&(!lengthTextInputEditText.get().getText().toString().isEmpty()) && (!widthTextInputEditText.get().getText().toString().isEmpty()) && (!quantityTextInputEditText.get().getText().toString().isEmpty())) {
+                                    if ((!weightEditText.getText().toString().isEmpty()) &&(!lengthEditText.getText().toString().isEmpty()) && (!widthEditText.getText().toString().isEmpty()) && (!quantityEditText.getText().toString().isEmpty())) {
 
-                                        total = Float.parseFloat(weightTextInputEditText.get().getText().toString()) * Float.parseFloat(lengthTextInputEditText.get().getText().toString()) * Float.parseFloat(widthTextInputEditText.get().getText().toString()) * Float.parseFloat(quantityTextInputEditText.get().getText().toString());
-                                        totalTextInputEditText.get().setText(total.toString());
+                                        total = Float.parseFloat(weightEditText.getText().toString()) * Float.parseFloat(lengthEditText.getText().toString()) * Float.parseFloat(widthEditText.getText().toString()) * Float.parseFloat(quantityEditText.getText().toString());
+                                        totalEditText.setText(total.toString());
 
-                                        if (!marginTextInputEditText.get().getText().toString().isEmpty()) {
-                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.get().getText().toString()) / 100;
-                                            netQuantityPlusMarginTextInputEditText.get().setText(netQuantityPlusMargin.toString());
+                                        if (!marginEditText.getText().toString().isEmpty()) {
+                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginEditText.getText().toString()) / 100;
+                                            netQuantityPlusMarginEditText.setText(netQuantityPlusMargin.toString());
                                         } else {
                                             netQuantityPlusMargin = total;
-                                            netQuantityPlusMarginTextInputEditText.get().setText(total.toString());
+                                            netQuantityPlusMarginEditText.setText(total.toString());
                                         }
-                                        if ((!unitPriceTextInputEditText.get().getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
-                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceTextInputEditText.get().getText().toString());
-                                            totalPriceTextInputEditText.get().setText(totalPrice.toString());
+                                        if ((!unitPriceEditText.getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
+                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceEditText.getText().toString());
+                                            totalPriceEditText.setText(totalPrice.toString());
                                         } else {
-                                            totalPriceTextInputEditText.get().setText("");
+                                            totalPriceEditText.setText("");
                                         }
                                     }
                                     else{
-                                        totalTextInputEditText.get().setText("");
-                                        netQuantityPlusMarginTextInputEditText.get().setText("");
-                                        totalPriceTextInputEditText.get().setText("");
+                                        totalEditText.setText("");
+                                        netQuantityPlusMarginEditText.setText("");
+                                        totalPriceEditText.setText("");
                                     }
                                     break;
                                 case "Volume":
 
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextLength().setEnabled(true);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextWidth().setEnabled(true);
-                                    estimateLinesLengthWidthHeight.getTextInputEditTextHeight().setEnabled(true);
+                                    lengthEditText.setEnabled(true);
+                                    widthEditText.setEnabled(true);
+                                    heightEditText.setEnabled(true);
 
-                                    if ((!weightTextInputEditText.get().getText().toString().isEmpty()) &&(!lengthTextInputEditText.get().getText().toString().isEmpty()) && (!widthTextInputEditText.get().getText().toString().isEmpty()) && (!heightTextInputEditText.get().getText().toString().isEmpty()) && (!quantityTextInputEditText.get().getText().toString().isEmpty())) {
+                                    if ((!weightEditText.getText().toString().isEmpty()) &&(!lengthEditText.getText().toString().isEmpty()) && (!widthEditText.getText().toString().isEmpty()) && (!heightEditText.getText().toString().isEmpty()) && (!quantityEditText.getText().toString().isEmpty())) {
 
-                                        total = Float.parseFloat(weightTextInputEditText.get().getText().toString()) * Float.parseFloat(widthTextInputEditText.get().getText().toString()) * Float.parseFloat(lengthTextInputEditText.get().getText().toString())  * Float.parseFloat(heightTextInputEditText.get().getText().toString()) * Float.parseFloat(quantityTextInputEditText.get().getText().toString());
-                                        totalTextInputEditText.get().setText(total.toString());
+                                        total = Float.parseFloat(weightEditText.getText().toString()) * Float.parseFloat(widthEditText.getText().toString()) * Float.parseFloat(lengthEditText.getText().toString())  * Float.parseFloat(heightEditText.getText().toString()) * Float.parseFloat(quantityEditText.getText().toString());
+                                        totalEditText.setText(total.toString());
 
-                                        if (!marginTextInputEditText.get().getText().toString().isEmpty()) {
-                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.get().getText().toString()) / 100;
-                                            netQuantityPlusMarginTextInputEditText.get().setText(netQuantityPlusMargin.toString());
+                                        if (!marginEditText.getText().toString().isEmpty()) {
+                                            netQuantityPlusMargin = total + total * Float.parseFloat(marginEditText.getText().toString()) / 100;
+                                            netQuantityPlusMarginEditText.setText(netQuantityPlusMargin.toString());
                                         } else {
                                             netQuantityPlusMargin = total;
-                                            netQuantityPlusMarginTextInputEditText.get().setText(total.toString());
+                                            netQuantityPlusMarginEditText.setText(total.toString());
                                         }
 
-                                        if ((!unitPriceTextInputEditText.get().getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
-                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceTextInputEditText.get().getText().toString());
-                                            totalPriceTextInputEditText.get().setText(totalPrice.toString());
+                                        if ((!unitPriceTextInputEditText.getText().toString().isEmpty()) && (!netQuantityPlusMargin.toString().isEmpty())) {
+                                            totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceTextInputEditText.getText().toString());
+                                            totalPriceTextInputEditText.setText(totalPrice.toString());
                                         } else {
-                                            totalPriceTextInputEditText.get().setText("");
+                                            totalPriceTextInputEditText.setText("");
                                         }
                                     }
                                     else{
-                                        totalTextInputEditText.get().setText("");
-                                        netQuantityPlusMarginTextInputEditText.get().setText("");
-                                        totalPriceTextInputEditText.get().setText("");
+                                        totalTextInputEditText.setText("");
+                                        netQuantityPlusMarginTextInputEditText.setText("");
+                                        totalPriceTextInputEditText.setText("");
                                     }
                                     break;
                             }
@@ -444,7 +444,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        lengthTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        lengthTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -563,7 +563,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        widthTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        widthTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -646,7 +646,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        heightTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        heightTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -701,7 +701,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        weightTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        weightTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -806,7 +806,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        quantityTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        quantityTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -915,7 +915,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             }
         });
 
-        marginTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        marginTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -971,7 +971,7 @@ public class EstimateLineDetails extends AppCompatActivity {
         });
 
 
-        unitPriceTextInputEditText.get().addTextChangedListener(new TextWatcher() {
+        unitPriceTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
