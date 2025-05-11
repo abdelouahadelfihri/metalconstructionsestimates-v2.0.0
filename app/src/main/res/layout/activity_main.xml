@@ -29,7 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintHorizontalChainStyle="spread"
         app:layout_constraintWidth_percent="0.45" />
 
     <ImageView
