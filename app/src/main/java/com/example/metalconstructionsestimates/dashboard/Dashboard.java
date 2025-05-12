@@ -19,8 +19,6 @@ public class Dashboard extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
-    DashboardDatabaseEntitiesTotals dashboardDatabaseEntitiesTotals;
-    DashboardEstimatesTotal dashboardEstimatesTotal;
     String customersCount, steelsCount, estimatesCount;
 
     @Override
