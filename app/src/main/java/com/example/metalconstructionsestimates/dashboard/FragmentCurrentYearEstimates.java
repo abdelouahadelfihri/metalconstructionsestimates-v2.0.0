@@ -21,7 +21,6 @@ public class FragmentCurrentYearEstimates extends Fragment {
 
     FragmentCurrentYearEstimatesBinding fragmentCurrentYearEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
     String currentYearEstimatesTotal;
     String currentYearEstimatesCount;
     public FragmentCurrentYearEstimates() {
@@ -35,7 +34,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
         if(dbAdapter.getCurrentYearEstimatesCount() == 0)
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(R.string.noYearlyEstimates);
+            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(R.string.noYearlyEstimates);
         else{
             if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
                 currentYearEstimatesCount = "Yearly Number of Estimates : 1";
@@ -44,17 +43,17 @@ public class FragmentCurrentYearEstimates extends Fragment {
                 currentYearEstimatesCount = "Yearly Number of Estimates : " + dbAdapter.getCurrentYearEstimatesCount();
             }
 
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesCount.getTextViewCurrentYearEstimatesCount().setText(currentYearEstimatesCount);
+            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(currentYearEstimatesCount);
         }
 
         if(dbAdapter.getCurrentYearEstimatesTotal() == 0.0f){
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText("Yearly Total of Estimates : 0 DH");
+            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText("Yearly Total of Estimates : 0 DH");
         }
         else{
             currentYearEstimatesTotal = "Yearly Total of Estimates :";
             currentYearEstimatesTotal += String.valueOf(dbAdapter.getCurrentYearEstimatesTotal());
             currentYearEstimatesTotal += " DH";
-            fragmentCurrentYearEstimatesBinding.currentYearEstimatesTotal.getTextViewCurrentYearEstimatesTotal().setText(currentYearEstimatesTotal);
+            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText(currentYearEstimatesTotal);
         }
 
         ArrayList<Estimate> currentYearEstimatesList = dbAdapter.getCurrentYearEstimates();
@@ -62,14 +61,14 @@ public class FragmentCurrentYearEstimates extends Fragment {
 
 
         if (currentYearEstimatesList.isEmpty()){
-            fragmentCurrentYearEstimatesBinding.recyclerViewCurrentYearEstimates.setVisibility(View.GONE);
-            fragmentCurrentYearEstimatesBinding.noYearlyEstimatesTextView.setVisibility(View.VISIBLE);
+            fragmentCurrentYearEstimatesBinding.rvEstimates.setVisibility(View.GONE);
+            fragmentCurrentYearEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentYearEstimatesBinding.recyclerViewCurrentYearEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentYearEstimatesBinding.noYearlyEstimatesTextView.setVisibility(View.GONE);
+            fragmentCurrentYearEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
+            fragmentCurrentYearEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
             EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentYearEstimatesList);
-            fragmentCurrentYearEstimatesBinding.recyclerViewCurrentYearEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentYearEstimatesBinding.recyclerViewCurrentYearEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            fragmentCurrentYearEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
+            fragmentCurrentYearEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
         return fragmentCurrentYearEstimatesBinding.getRoot();
