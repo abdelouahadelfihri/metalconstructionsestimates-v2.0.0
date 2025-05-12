@@ -73,7 +73,7 @@
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/customerRecyclerView"
+        android:id="@+id/estimatesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -93,8 +93,8 @@
         android:textColor="@color/black"
         android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/customerRecyclerView"
-        app:layout_constraintBottom_toBottomOf="@id/customerRecyclerView"
+        app:layout_constraintTop_toTopOf="@id/estimatesRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@id/estimatesRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
