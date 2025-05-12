@@ -40,14 +40,13 @@ public class Estimates extends AppCompatActivity {
 
         setContentView(activityEstimatesBinding.getRoot());
 
-        Toolbar toolBar = findViewById(R.id.toolbar_estimates);
+        Toolbar toolBar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolBar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        estimatesAllPaidPartiallyPaidUnpaid = activityEstimatesBinding.estimatesAllPaidPartiallypaidUnpaid;
-        paymentStatusSpinner = estimatesAllPaidPartiallyPaidUnpaid.getSpinnerPaymentStatus();
+        paymentStatusSpinner = findViewById(R.id.spinner_payment_status);
 
         ArrayAdapter<CharSequence> paymentStatusAdapter = ArrayAdapter.createFromResource(this, R.array.payment_status, android.R.layout.simple_spinner_item);
 
