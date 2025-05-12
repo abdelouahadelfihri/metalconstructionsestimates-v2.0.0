@@ -33,7 +33,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
         if(dbAdapter.getCurrentDayEstimatesCount() == 0)
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(R.string.noDailyEstimates);
+            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(R.string.noDailyEstimates);
         else{
             if(dbAdapter.getCurrentDayEstimatesCount() == 1){
                 currentDayEstimatesCount= "Daily Number of Estimates : 1";
@@ -41,17 +41,17 @@ public class FragmentCurrentDayEstimates extends Fragment {
             else{
                 currentDayEstimatesCount = "Daily Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
             }
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesCount.getTextViewCurrentDayEstimatesCount().setText(currentDayEstimatesCount);
+            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(R.string.noDailyEstimates);
         }
 
         if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText("Daily Total of Estimates : 0 DH");
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText("Daily Total of Estimates : 0 DH");
         }
         else{
             currentDayEstimatesTotal = "Daily Total of Estimates :";
             currentDayEstimatesTotal += String.valueOf(dbAdapter.getCurrentDayEstimatesTotal());
             currentDayEstimatesTotal += " DH";
-            fragmentCurrentDayEstimatesBinding.currentDayEstimatesTotal.getTextViewCurrentDayEstimatesTotal().setText(currentDayEstimatesTotal);
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentDayEstimatesTotal);
         }
 
         ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
@@ -59,14 +59,15 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
 
         if (currentDayEstimatesList.isEmpty()){
-            fragmentCurrentDayEstimatesBinding.recyclerViewCurrentDayEstimates.setVisibility(View.GONE);
-            fragmentCurrentDayEstimatesBinding.noEstimatesInCurrentDayTextView.setVisibility(View.VISIBLE);
+            fragmentCurrentDayEstimatesBinding.rvEstimates.setVisibility(View.GONE);
+
+            fragmentCurrentDayEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentDayEstimatesBinding.recyclerViewCurrentDayEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentDayEstimatesBinding.noEstimatesInCurrentDayTextView.setVisibility(View.GONE);
+            fragmentCurrentDayEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
+            fragmentCurrentDayEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
             EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentDayEstimatesList);
-            fragmentCurrentDayEstimatesBinding.recyclerViewCurrentDayEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentDayEstimatesBinding.recyclerViewCurrentDayEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            fragmentCurrentDayEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
+            fragmentCurrentDayEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
         return fragmentCurrentDayEstimatesBinding.getRoot();
