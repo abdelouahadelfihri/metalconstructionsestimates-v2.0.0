@@ -57,8 +57,7 @@ public class Estimates extends AppCompatActivity {
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
 
-        RecyclerView recyclerViewEstimates = findViewById(R.id.recycler_view_estimates);
-
+        RecyclerView recyclerViewEstimates = findViewById(R.id.estimatesRecyclerView);
 
         final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(this, estimatesList);
 
@@ -67,32 +66,33 @@ public class Estimates extends AppCompatActivity {
         recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(this));
 
         if(estimatesList.isEmpty()){
-            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noEstimates);
+            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
         }
         else{
-            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
             estimateListAdapter.updateEstimates(estimatesList);
         }
 
         paymentStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
-                estimatesSearchEditText = findViewById(R.id.editText_search_estimates);
+                estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = estimatesSearchEditText.getText().toString();
                 switch(item.toString()){
                     case "All":
                         ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
 
                         if (allEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noEstimates);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                        } else {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                        }
+                        else{
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
                             estimateListAdapter.updateEstimates(allEstimatesList);
                         }
                         break;
@@ -100,12 +100,13 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> paidEstimatesList = db.searchPaidEstimates(searchText);
 
                         if (paidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                        } else {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                        }
+                        else{
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
                             estimateListAdapter.updateEstimates(paidEstimatesList);
                         }
                         break;
@@ -113,12 +114,13 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> partiallyPaidEstimatesList = db.searchPartiallyPaidEstimates(searchText);
 
                         if (partiallyPaidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noPaidEstimates);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                        } else {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                        }
+                        else{
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
                             estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
                         }
                         break;
@@ -126,12 +128,13 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> unPaidEstimatesList = db.searchUnPaidEstimates(searchText);
 
                         if (unPaidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.noEstimatesTextView.setText(R.string.noUnpaidEstimates);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                        } else {
-                            activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                        }
+                        else{
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
                             estimateListAdapter.updateEstimates(unPaidEstimatesList);
                         }
                         break;
@@ -141,11 +144,11 @@ public class Estimates extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton clearEstimateForm = findViewById(R.id.fab_clear_estimate_form);
-        FloatingActionButton addEstimate = findViewById(R.id.fab_add_estimate);
-        FloatingActionButton reloadEstimatesList = findViewById(R.id.fab_refresh_estimates_list);
+        FloatingActionButton clearEstimateForm = findViewById(R.id.fab_clear);
+        FloatingActionButton addEstimate = findViewById(R.id.fab_add);
+        FloatingActionButton reloadEstimatesList = findViewById(R.id.fab_refresh);
 
-        estimatesSearchEditText = findViewById(R.id.editText_search_estimates);
+        estimatesSearchEditText = findViewById(R.id.searchEditText);
 
         estimatesSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -157,7 +160,7 @@ public class Estimates extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchText = s.toString();
-                activityEstimatesBinding.recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
+                activityEstimatesBinding.estimatesRecyclerView.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
                 DBAdapter db = new DBAdapter(getApplicationContext());
                 String selectedPaymentStatus = paymentStatusSpinner.getSelectedItem().toString();
                 switch(selectedPaymentStatus){
@@ -165,13 +168,13 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                         if (!estimatesSearchList.isEmpty()) {
                             EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                            findViewById(R.id.emptyView).setVisibility(View.GONE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         }
                         else{
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
                             Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                             searchResultToast.show();
                         }
@@ -180,13 +183,14 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> paidEstimatesSearchList = db.searchPaidEstimates(searchText);
                         if (!paidEstimatesSearchList.isEmpty()) {
                             EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, paidEstimatesSearchList);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                            findViewById(R.id.emptyView).setVisibility(View.GONE);
+
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         }
                         else{
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
                             Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                             searchResultToast.show();
                         }
@@ -195,13 +199,14 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> partiallyPaidEstimatesSearchList = db.searchPartiallyPaidEstimates(searchText);
                         if (!partiallyPaidEstimatesSearchList.isEmpty()) {
                             EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, partiallyPaidEstimatesSearchList);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                            findViewById(R.id.emptyView).setVisibility(View.GONE);
+
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         }
                         else{
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
                             Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                             searchResultToast.show();
                         }
@@ -210,13 +215,13 @@ public class Estimates extends AppCompatActivity {
                         ArrayList<Estimate> unPaidEstimatesSearchList = db.searchUnPaidEstimates(searchText);
                         if (!unPaidEstimatesSearchList.isEmpty()) {
                             EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                            findViewById(R.id.emptyView).setVisibility(View.GONE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         }
                         else{
-                            activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                            findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                            findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
                             Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                             searchResultToast.show();
                         }
@@ -226,13 +231,13 @@ public class Estimates extends AppCompatActivity {
                 ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                 if (!estimatesSearchList.isEmpty()) {
                     EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                    findViewById(R.id.noEstimatesTextView).setVisibility(View.GONE);
-                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                    activityEstimatesBinding.recyclerViewEstimates.setAdapter(estimates_list_adapter);
+                    findViewById(R.id.emptyView).setVisibility(View.GONE);
+                    activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                    activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                 }
                 else{
-                    activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                    findViewById(R.id.noEstimatesTextView).setVisibility(View.VISIBLE);
+                    activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                    findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
                     Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
                 }
@@ -246,14 +251,14 @@ public class Estimates extends AppCompatActivity {
             ArrayList<Estimate> estimatesSearchList = dbAdapter.retrieveEstimates();
 
             if(estimatesSearchList.isEmpty()){
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.GONE);
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
                 Toast reloadResultToast = Toast.makeText(getApplicationContext(), "Estimates list is empty", Toast.LENGTH_LONG);
                 reloadResultToast.show();
             }
             else{
-                activityEstimatesBinding.recyclerViewEstimates.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.noEstimatesTextView.setVisibility(View.GONE);
+                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
                 estimateListAdapter.updateEstimates(estimatesSearchList);
             }
 
