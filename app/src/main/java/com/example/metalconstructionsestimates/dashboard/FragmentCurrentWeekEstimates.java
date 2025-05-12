@@ -35,7 +35,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
         if(dbAdapter.getCurrentWeekEstimatesCount() == 0)
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(R.string.noWeeklyEstimates);
+            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(R.string.noWeeklyEstimates);
         else{
             if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
                 currentWeekEstimatesCount = "Weekly Number of Estimates : 1";
@@ -44,17 +44,17 @@ public class FragmentCurrentWeekEstimates extends Fragment {
                 currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount();
             }
 
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesCount.getTextViewCurrentWeekEstimatesCount().setText(currentWeekEstimatesCount);
+            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(currentWeekEstimatesCount);
         }
 
         if(dbAdapter.getCurrentWeekEstimatesTotal() == 0.0f){
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText("Weekly Total of Estimates : 0 DH");
+            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText("Weekly Total of Estimates : 0 DH");
         }
         else{
             currentWeekEstimatesTotal = "Weekly Total of Estimates :";
             currentWeekEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
             currentWeekEstimatesTotal += " DH";
-            fragmentCurrentWeekEstimatesBinding.currentWeekEstimatesTotal.getTextViewCurrentWeekEstimatesTotal().setText(currentWeekEstimatesTotal);
+            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText(currentWeekEstimatesTotal);
         }
 
         ArrayList<Estimate> currentWeekEstimatesList = dbAdapter.getCurrentWeekEstimates();
@@ -62,14 +62,14 @@ public class FragmentCurrentWeekEstimates extends Fragment {
 
 
         if (currentWeekEstimatesList.isEmpty()){
-            fragmentCurrentWeekEstimatesBinding.recyclerViewCurrentWeekEstimates.setVisibility(View.GONE);
-            fragmentCurrentWeekEstimatesBinding.noWeeklyEstimatesTextView.setVisibility(View.VISIBLE);
+            fragmentCurrentWeekEstimatesBinding.rvEstimates.setVisibility(View.GONE);
+            fragmentCurrentWeekEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentWeekEstimatesBinding.recyclerViewCurrentWeekEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentWeekEstimatesBinding.noWeeklyEstimatesTextView.setVisibility(View.GONE);
+            fragmentCurrentWeekEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
+            fragmentCurrentWeekEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
             EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentWeekEstimatesList);
-            fragmentCurrentWeekEstimatesBinding.recyclerViewCurrentWeekEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentWeekEstimatesBinding.recyclerViewCurrentWeekEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            fragmentCurrentWeekEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
+            fragmentCurrentWeekEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
         return fragmentCurrentWeekEstimatesBinding.getRoot();
