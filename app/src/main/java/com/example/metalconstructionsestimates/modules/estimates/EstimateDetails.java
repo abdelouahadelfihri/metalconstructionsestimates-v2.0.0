@@ -27,8 +27,6 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListAdapter;
 import com.example.metalconstructionsestimates.databinding.ActivityEstimateDetailsBinding;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimatesDiscountTotalAfterDiscount;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimatesVatTotalAllTaxIncluded;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
