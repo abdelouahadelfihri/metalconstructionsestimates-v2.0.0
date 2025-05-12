@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.customviews.dashboard.DashboardDatabaseEntitiesTotals;
-import com.example.metalconstructionsestimates.customviews.dashboard.DashboardEstimatesTotal;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -32,12 +30,11 @@ public class Dashboard extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new DashboardPagerAdapter(this));
-        dashboardDatabaseEntitiesTotals = findViewById(R.id.dashboard_database_entities_totals);
-        dashboardEstimatesTotal = findViewById(R.id.dashboard_estimates_totals);
-        TextView allEstimatesTotalTextView = dashboardEstimatesTotal.getTextViewAllEstimatesTotal();
-        TextView customersCountTextView = dashboardDatabaseEntitiesTotals.getTextViewCustomersCount();
-        TextView estimatesCountTextView = dashboardDatabaseEntitiesTotals.getTextViewEstimatesCount();
-        TextView steelsCountTextView = dashboardDatabaseEntitiesTotals.getTextViewSteelsCount();
+        TextView allEstimatesTotalTextView = findViewById(R.id.value_total);
+        TextView customersCountTextView = findViewById(R.id.value_customers);
+        TextView steelsCountTextView = findViewById(R.id.value_steels);
+        TextView estimatesCountTextView = findViewById(R.id.value_estimates);
+
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
         String allEstimatesTotal = "All Estimates Total:";
         allEstimatesTotal += String.valueOf(dbAdapter.getEstimatesTotal());
