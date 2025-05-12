@@ -27,7 +27,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        Toolbar toolbar = findViewById(R.id.toolbar_dashboard);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(Color.parseColor("#4F5EB1"));
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
