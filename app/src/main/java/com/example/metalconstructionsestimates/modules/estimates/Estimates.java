@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
-import com.example.metalconstructionsestimates.customviews.estimates.EstimatesAllPaidPartiallyPaidUnpaid;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,9 +28,7 @@ public class Estimates extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
     Spinner paymentStatusSpinner;
-    Integer customerId;
     TextInputEditText estimatesSearchEditText;
-    public EstimatesAllPaidPartiallyPaidUnpaid estimatesAllPaidPartiallyPaidUnpaid;
 
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
