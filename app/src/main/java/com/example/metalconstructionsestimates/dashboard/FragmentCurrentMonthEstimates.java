@@ -34,7 +34,7 @@ public class FragmentCurrentMonthEstimates extends Fragment {
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
         if(dbAdapter.getCurrentMonthEstimatesCount() == 0)
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(R.string.noMonthlyEstimates);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(R.string.noMonthlyEstimates);
         else{
             if(dbAdapter.getCurrentMonthEstimatesCount() == 1){
                 currentMonthEstimatesCount= "Monthly Number of Estimates : 1";
@@ -42,18 +42,18 @@ public class FragmentCurrentMonthEstimates extends Fragment {
             else{
                 currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
             }
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesCount.getTextViewCurrentMonthEstimatesCount().setText(currentMonthEstimatesCount);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(currentMonthEstimatesCount);
         }
 
 
         if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText("Monthly Total of Estimates : 0 DH");
+            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText("Monthly Total of Estimates : 0 DH");
         }
         else{
             currentMonthEstimatesTotal = "Monthly Total of Estimates :";
             currentMonthEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
             currentMonthEstimatesTotal += " DH";
-            fragmentCurrentMonthEstimatesBinding.currentMonthEstimatesTotal.getTextViewCurrentMonthEstimatesTotal().setText(currentMonthEstimatesTotal);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(currentMonthEstimatesTotal);
         }
 
         ArrayList<Estimate> currentMonthEstimatesList = dbAdapter.getCurrentMonthEstimates();
@@ -61,14 +61,15 @@ public class FragmentCurrentMonthEstimates extends Fragment {
 
 
         if (currentMonthEstimatesList.isEmpty()){
-            fragmentCurrentMonthEstimatesBinding.recyclerViewCurrentMonthEstimates.setVisibility(View.GONE);
-            fragmentCurrentMonthEstimatesBinding.noMonthlyEstimatesTextView.setVisibility(View.VISIBLE);
+            fragmentCurrentMonthEstimatesBinding.rvEstimates.setVisibility(View.GONE);
+
+            fragmentCurrentMonthEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentMonthEstimatesBinding.recyclerViewCurrentMonthEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentMonthEstimatesBinding.noMonthlyEstimatesTextView.setVisibility(View.GONE);
+            fragmentCurrentMonthEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
+            fragmentCurrentMonthEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
             EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentMonthEstimatesList);
-            fragmentCurrentMonthEstimatesBinding.recyclerViewCurrentMonthEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentMonthEstimatesBinding.recyclerViewCurrentMonthEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            fragmentCurrentMonthEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
+            fragmentCurrentMonthEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
         }
 
         return fragmentCurrentMonthEstimatesBinding.getRoot();
