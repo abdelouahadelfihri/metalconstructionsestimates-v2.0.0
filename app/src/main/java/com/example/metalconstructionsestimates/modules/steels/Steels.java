@@ -38,7 +38,7 @@ public class Steels extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activitySteelsBinding = ActivitySteelsBinding.inflate(getLayoutInflater());
         setContentView(activitySteelsBinding.getRoot());
-        Toolbar toolbar = findViewById(R.id.toolbar_steels);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
