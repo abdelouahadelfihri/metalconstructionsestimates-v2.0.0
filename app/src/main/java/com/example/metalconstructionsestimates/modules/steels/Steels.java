@@ -44,14 +44,14 @@ public class Steels extends AppCompatActivity {
 
         AtomicReference<DBAdapter> db = new AtomicReference<>(new DBAdapter(getApplicationContext()));
         ArrayList<Steel> steelsList = db.get().retrieveSteels();
-        AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.recycler_view_steels));
+        AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.steelsRecyclerView));
 
         if (steelsList.isEmpty()) {
-            activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
             activitySteelsBinding.noSteelsTextView.setVisibility(View.VISIBLE);
             activitySteelsBinding.noSteelsTextView.setText(R.string.noSteels);
         } else {
-            activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
             activitySteelsBinding.noSteelsTextView.setVisibility(View.GONE);
             steelsListAdapter = new SteelsListAdapter(this, steelsList);
             recyclerViewSteels.get().setHasFixedSize(true);
@@ -59,7 +59,7 @@ public class Steels extends AppCompatActivity {
             recyclerViewSteels.get().setAdapter(steelsListAdapter);
         }
 
-        steelsSearchEditText = findViewById(R.id.editText_search_steels);
+        steelsSearchEditText = findViewById(R.id.searchEditText);
 
         steelsSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,17 +71,17 @@ public class Steels extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchText = s.toString();
-                activitySteelsBinding.recyclerViewSteels.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
+                activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
                 DBAdapter db = new DBAdapter(getApplicationContext());
                 ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
                 if (!steelsSearchList.isEmpty()) {
                     SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
                     findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
-                    activitySteelsBinding.recyclerViewSteels.setVisibility(View.VISIBLE);
-                    activitySteelsBinding.recyclerViewSteels.setAdapter(steels_list_adapter);
+                    activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
+                    activitySteelsBinding.steelsRecyclerView.setAdapter(steels_list_adapter);
                 }
                 else{
-                    activitySteelsBinding.recyclerViewSteels.setVisibility(View.GONE);
+                    activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
                     findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
                     Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                     searchResultToast.show();
@@ -89,10 +89,10 @@ public class Steels extends AppCompatActivity {
             }
         });
 
-        reloadSteelsList = findViewById(R.id.fab_refresh_steels_list);
+        reloadSteelsList = findViewById(R.id.fab_refresh);
         reloadSteelsList.setOnClickListener(view -> {
 
-            recyclerViewSteels.set(findViewById(R.id.recycler_view_steels));
+            recyclerViewSteels.set(findViewById(R.id.steelsRecyclerView));
             db.set(new DBAdapter(getApplicationContext()));
             ArrayList<Steel> steels_list = db.get().retrieveSteels();
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
@@ -107,16 +107,18 @@ public class Steels extends AppCompatActivity {
             }
         });
 
-        addSteel = findViewById(R.id.fab_add_steel);
+        addSteel = findViewById(R.id.fab_add);
 
         addSteel.setOnClickListener(view -> {
             intent = new Intent(Steels.this, AddSteel.class);
             startActivity(intent);
         });
 
-        clearSearchSteelForm = findViewById(R.id.fab_clear_steel_form);
+        clearSearchSteelForm = findViewById(R.id.fab_clear);
 
         clearSearchSteelForm.setOnClickListener(view -> {
+
+            steelsSearchEditText.getText().clear();
 
         });
     }
