@@ -108,19 +108,19 @@
         app:layout_constraintBaseline_toBaselineOf="@id/label_total"
         android:layout_marginStart="8dp"/>
 
-    <!-- TabLayout takes all remaining space -->
+    <!-- TabLayout -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:tabMode="fixed"
         app:tabGravity="fill"
         app:layout_constraintTop_toBottomOf="@id/label_total"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="8dp"/>
 
+    <!-- ViewPager2 -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
