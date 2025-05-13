@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         imageViewCustomers = findViewById(R.id.imageViewCustomers);
         imageViewEstimates = findViewById(R.id.imageViewEstimates);
         imageViewSteels = findViewById(R.id.imageViewSteels);
