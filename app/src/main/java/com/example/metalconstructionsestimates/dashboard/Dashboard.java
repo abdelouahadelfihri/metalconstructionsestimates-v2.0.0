@@ -17,7 +17,6 @@ public class Dashboard extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
-    String customersCount, steelsCount, estimatesCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +49,21 @@ public class Dashboard extends AppCompatActivity {
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
         if (dbAdapter.getCustomersCount() == 0) {
-            customersCountTextView.setText("Customers Count: 0 Customers");
+            customersCountTextView.setText("0");
         } else {
-            customersCount = "Customers Count:";
-            customersCount += String.valueOf(dbAdapter.getCustomersCount());
-            customersCount += dbAdapter.getCustomersCount() == 1 ? " Customer" : " Customers";
-            customersCountTextView.setText(customersCount);
+            customersCountTextView.setText(String.valueOf(dbAdapter.getCustomersCount()));
         }
 
         if (dbAdapter.getEstimatesCount() == 0) {
-            estimatesCountTextView.setText("Estimates Count: 0 Estimates");
+            estimatesCountTextView.setText("0");
         } else {
-            estimatesCount = "Estimates Count:";
-            estimatesCount += String.valueOf(dbAdapter.getEstimatesCount());
-            estimatesCount += dbAdapter.getEstimatesCount() == 1 ? " Estimate" : " Estimates";
-            estimatesCountTextView.setText(estimatesCount);
+            estimatesCountTextView.setText(String.valueOf(dbAdapter.getEstimatesCount()));
         }
 
         if (dbAdapter.getSteelsCount() == 0) {
-            steelsCountTextView.setText("Steels Count: 0 Steels");
+            steelsCountTextView.setText("0");
         } else {
-            steelsCount = "Steels Count:";
-            steelsCount += String.valueOf(dbAdapter.getSteelsCount());
-            steelsCount += dbAdapter.getSteelsCount() == 1 ? " Steel" : " Steels";
-            steelsCountTextView.setText(steelsCount);
+            steelsCountTextView.setText(String.valueOf(dbAdapter.getSteelsCount()));
         }
     }
 
