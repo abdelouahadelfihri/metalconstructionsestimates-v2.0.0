@@ -44,7 +44,8 @@ public class FragmentCurrentMonthEstimates extends Fragment {
             fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText("0 DH");
         }
         else{
-            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(dbAdapter.getCurrentWeekEstimatesTotal() + " DH");
+            String currentMonthEstimatesTotal = dbAdapter.getCurrentMonthEstimatesTotal().toString() + " DH";
+            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(currentMonthEstimatesTotal);
         }
 
         ArrayList<Estimate> currentMonthEstimatesList = dbAdapter.getCurrentMonthEstimates();
