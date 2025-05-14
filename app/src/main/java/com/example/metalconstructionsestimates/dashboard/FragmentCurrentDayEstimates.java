@@ -40,7 +40,8 @@ public class FragmentCurrentDayEstimates extends Fragment {
             fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText("0 DH");
         }
         else{
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(String.valueOf(dbAdapter.getCurrentDayEstimatesTotal()));
+            String currentDayEstimatesTotal = dbAdapter.getCurrentDayEstimatesTotal().toString() + " DH";
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentDayEstimatesTotal);
         }
 
         ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
