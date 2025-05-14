@@ -34,31 +34,20 @@ public class FragmentCurrentYearEstimates extends Fragment {
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
         if(dbAdapter.getCurrentYearEstimatesCount() == 0)
-            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(R.string.noYearlyEstimates);
+            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
-                currentYearEstimatesCount = "Yearly Number of Estimates : 1";
-            }
-            else{
-                currentYearEstimatesCount = "Yearly Number of Estimates : " + dbAdapter.getCurrentYearEstimatesCount();
-            }
-
-            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(currentYearEstimatesCount);
+            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentYearEstimatesCount());
         }
 
         if(dbAdapter.getCurrentYearEstimatesTotal() == 0.0f){
-            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText("Yearly Total of Estimates : 0 DH");
+            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
         }
         else{
-            currentYearEstimatesTotal = "Yearly Total of Estimates :";
-            currentYearEstimatesTotal += String.valueOf(dbAdapter.getCurrentYearEstimatesTotal());
-            currentYearEstimatesTotal += " DH";
+            String currentYearEstimatesTotal = dbAdapter.getCurrentYearEstimatesTotal().toString() + " DH";
             fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText(currentYearEstimatesTotal);
         }
 
         ArrayList<Estimate> currentYearEstimatesList = dbAdapter.getCurrentYearEstimates();
-
-
 
         if (currentYearEstimatesList.isEmpty()){
             fragmentCurrentYearEstimatesBinding.rvEstimates.setVisibility(View.GONE);
