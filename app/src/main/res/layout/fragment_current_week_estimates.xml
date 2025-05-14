@@ -10,7 +10,7 @@
         android:id="@+id/tv_estimate_count_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Today's Estimates"
+        android:text="@string/week"
         android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
