@@ -35,7 +35,13 @@ public class Dashboard extends AppCompatActivity {
         TextView estimatesCountTextView = findViewById(R.id.value_estimates);
 
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-        allEstimatesTotalTextView.setText(String.valueOf(dbAdapter.getEstimatesTotal()));
+        if(dbAdapter.getEstimatesTotal() == 0f){
+            allEstimatesTotalTextView.setText(R.string.zeroDH);
+        }
+        else{
+            String allEstimatesTotal = dbAdapter.getEstimatesTotal() + " DH";
+            allEstimatesTotalTextView.setText(allEstimatesTotal);
+        }
 
         // Set counts for each category
         setCounts(dbAdapter, customersCountTextView, estimatesCountTextView, steelsCountTextView);
