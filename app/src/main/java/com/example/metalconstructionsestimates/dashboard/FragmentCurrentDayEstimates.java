@@ -22,8 +22,6 @@ public class FragmentCurrentDayEstimates extends Fragment {
     FragmentCurrentDayEstimatesBinding fragmentCurrentDayEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
     NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-    String currentDayEstimatesTotal;
-    String currentDayEstimatesCount;
     public FragmentCurrentDayEstimates() {
     }
 
@@ -33,25 +31,16 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
         if(dbAdapter.getCurrentDayEstimatesCount() == 0)
-            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(R.string.noDailyEstimates);
+            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            if(dbAdapter.getCurrentDayEstimatesCount() == 1){
-                currentDayEstimatesCount= "Daily Number of Estimates : 1";
-            }
-            else{
-                currentDayEstimatesCount = "Daily Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
-            }
-            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(R.string.noDailyEstimates);
+            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentDayEstimatesCount());
         }
 
         if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText("Daily Total of Estimates : 0 DH");
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText("0 DH");
         }
         else{
-            currentDayEstimatesTotal = "Daily Total of Estimates :";
-            currentDayEstimatesTotal += String.valueOf(dbAdapter.getCurrentDayEstimatesTotal());
-            currentDayEstimatesTotal += " DH";
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentDayEstimatesTotal);
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(String.valueOf(dbAdapter.getCurrentDayEstimatesTotal()));
         }
 
         ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
