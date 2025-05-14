@@ -35,25 +35,16 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
         if(dbAdapter.getCurrentWeekEstimatesCount() == 0)
-            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(R.string.noWeeklyEstimates);
+            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            if(dbAdapter.getCurrentWeekEstimatesCount() == 1){
-                currentWeekEstimatesCount = "Weekly Number of Estimates : 1";
-            }
-            else{
-                currentWeekEstimatesCount = "Weekly Number of Estimates : " + dbAdapter.getCurrentWeekEstimatesCount();
-            }
-
-            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(currentWeekEstimatesCount);
+            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentWeekEstimatesCount());
         }
 
         if(dbAdapter.getCurrentWeekEstimatesTotal() == 0.0f){
-            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText("Weekly Total of Estimates : 0 DH");
+            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
         }
         else{
-            currentWeekEstimatesTotal = "Weekly Total of Estimates :";
-            currentWeekEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
-            currentWeekEstimatesTotal += " DH";
+            String currentWeekEstimatesTotal = dbAdapter.getCurrentWeekEstimatesTotal().toString() + " DH";
             fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText(currentWeekEstimatesTotal);
         }
 
