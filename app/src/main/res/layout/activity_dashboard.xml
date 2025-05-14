@@ -67,7 +67,7 @@
         android:id="@+id/label_estimates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/estimates"
+        android:text="@string/estimatesCount"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/label_steels"
         app:layout_constraintStart_toStartOf="parent"
