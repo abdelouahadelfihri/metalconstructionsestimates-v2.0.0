@@ -120,10 +120,10 @@
     <string name="noCustomerInDB">No customers recorded in the database</string>
     <string name="connectToGoogleDrive">Connect to Google Drive</string>
     <string name="backuprestore">Backup and Restore</string>
-    <string name="today">Today</string>
-    <string name="week">Week</string>
-    <string name="month">Month</string>
-    <string name="year">Year</string>
+    <string name="today">Today :</string>
+    <string name="week">Week :</string>
+    <string name="month">Month :</string>
+    <string name="year">Year :</string>
     <string name="noUnpaidEstimates">No unpaid estimates recorded</string>
     <string name="noPaidEstimates">No paid estimates recorded</string>
     <string name="noPartiallyPaidEstimates">No partially paid estimates recorded</string>
