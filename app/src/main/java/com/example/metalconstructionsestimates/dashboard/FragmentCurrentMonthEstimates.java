@@ -34,26 +34,17 @@ public class FragmentCurrentMonthEstimates extends Fragment {
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
         if(dbAdapter.getCurrentMonthEstimatesCount() == 0)
-            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(R.string.noMonthlyEstimates);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            if(dbAdapter.getCurrentMonthEstimatesCount() == 1){
-                currentMonthEstimatesCount= "Monthly Number of Estimates : 1";
-            }
-            else{
-                currentMonthEstimatesCount = "Monthly Number of Estimates : " + dbAdapter.getCurrentDayEstimatesCount();
-            }
-            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(currentMonthEstimatesCount);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentMonthEstimatesCount());
         }
 
 
         if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
-            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText("Monthly Total of Estimates : 0 DH");
+            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText("0 DH");
         }
         else{
-            currentMonthEstimatesTotal = "Monthly Total of Estimates :";
-            currentMonthEstimatesTotal += String.valueOf(dbAdapter.getCurrentWeekEstimatesTotal());
-            currentMonthEstimatesTotal += " DH";
-            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(currentMonthEstimatesTotal);
+            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(dbAdapter.getCurrentWeekEstimatesTotal() + " DH");
         }
 
         ArrayList<Estimate> currentMonthEstimatesList = dbAdapter.getCurrentMonthEstimates();
