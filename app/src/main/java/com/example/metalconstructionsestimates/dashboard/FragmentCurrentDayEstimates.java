@@ -37,7 +37,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
         }
 
         if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText("0 DH");
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
         }
         else{
             String currentDayEstimatesTotal = dbAdapter.getCurrentDayEstimatesTotal().toString() + " DH";
