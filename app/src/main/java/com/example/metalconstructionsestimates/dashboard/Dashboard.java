@@ -71,13 +71,13 @@ public class Dashboard extends AppCompatActivity {
         // You can return tab titles based on position if needed
         switch (position) {
             case 0:
-                return "Daily Estimates";
+                return "Daily Est";
             case 1:
-                return "Weekly Estimates";
+                return "Weekly Est";
             case 2:
-                return "Monthly Estimates";
+                return "Monthly Est";
             case 3:
-                return "Yearly Estimates";
+                return "Yearly Est";
             default:
                 return null;
         }
