@@ -124,10 +124,6 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
-    <string name="noDailyEstimates">No daily estimates recorded</string>
-    <string name="noWeeklyEstimates">No weekly estimates recorded</string>
-    <string name="noMonthlyEstimates">No monthly estimates recorded</string>
-    <string name="noYearlyEstimates">No yearly estimates recorded</string>
     <string name="noUnpaidEstimates">No unpaid estimates recorded</string>
     <string name="noPaidEstimates">No paid estimates recorded</string>
     <string name="noPartiallyPaidEstimates">No partially paid estimates recorded</string>
