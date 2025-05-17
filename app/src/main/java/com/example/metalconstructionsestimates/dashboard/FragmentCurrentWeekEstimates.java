@@ -37,7 +37,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         if(dbAdapter.getCurrentWeekEstimatesCount() == 0)
             fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentWeekEstimatesCount());
+            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentWeekEstimatesCount()));
         }
 
         if(dbAdapter.getCurrentWeekEstimatesTotal() == 0.0f){
