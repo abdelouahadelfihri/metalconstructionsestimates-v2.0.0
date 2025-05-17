@@ -311,7 +311,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintHorizontal_weight="0.5" />
+            app:layout_constraintHorizontal_weight="0.6" />
 
         <Button
             android:id="@+id/updateButton_estimate_details"
@@ -323,7 +323,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_weight="0.5" />
+            app:layout_constraintHorizontal_weight="0.4" />
 
         <!-- Delete and Refresh Buttons -->
         <Button
