@@ -52,7 +52,7 @@
     <string name="totalExcludingTax">Ex. VAT</string>
     <string name="location">Location</string>
     <string name="totalExcludingTaxAfterDiscount">Ex. VAT After Discount</string>
-    <string name="newEstimateLine">New Estimate Line</string>
+    <string name="newEstimateLine">+ Estimate Line</string>
     <string name="EstimateLineDetails">Estimate Line Details</string>
     <string name="newSteel">New Steel</string>
     <string name="selectEstimate">Select Estimate</string>
