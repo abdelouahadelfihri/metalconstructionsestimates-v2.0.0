@@ -20,8 +20,7 @@ import java.util.Locale;
 
 public class FragmentCurrentDayEstimates extends Fragment {
     FragmentCurrentDayEstimatesBinding fragmentCurrentDayEstimatesBinding;
-    Locale moroccoLocale = new Locale("ar", "MA");
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
+
     public FragmentCurrentDayEstimates() {
     }
 
