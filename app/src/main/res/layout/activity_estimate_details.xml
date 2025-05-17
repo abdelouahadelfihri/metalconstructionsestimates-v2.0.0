@@ -100,7 +100,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/issueDateValue_estimate_details"
+            android:id="@+id/issueDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/issueDate"
@@ -120,7 +120,7 @@
             android:layout_marginStart="8dp" />
 
         <TextView
-            android:id="@+id/expirationDateValue_estimate_details"
+            android:id="@+id/expirationDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/expirationDate"
@@ -142,7 +142,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/customerIdEditText_estimate_details"
+                android:id="@+id/customerIdEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/customer"
@@ -176,7 +176,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalExclTaxEditText_estimate_details"
+                android:id="@+id/totalExclTaxEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalExcludingTax"
@@ -199,7 +199,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/discountEditText_estimate_details"
+                android:id="@+id/discountEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/discount"
@@ -243,7 +243,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vatEditText_estimate_details"
+                android:id="@+id/vatEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/vat"
@@ -264,7 +264,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/totalInclTaxEditText_estimate_details"
+                android:id="@+id/totalInclTaxEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalAllTaxIncluded"
@@ -327,7 +327,7 @@
 
         <!-- Delete and Refresh Buttons -->
         <Button
-            android:id="@+id/deleteEstimateButton_estimate_details"
+            android:id="@+id/deleteEstimateButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/delete"
@@ -343,8 +343,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/refresh"
-            app:layout_constraintTop_toTopOf="@id/deleteEstimateButton_estimate_details"
-            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton_estimate_details"
+            app:layout_constraintTop_toTopOf="@id/deleteEstimateButton"
+            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp" />
