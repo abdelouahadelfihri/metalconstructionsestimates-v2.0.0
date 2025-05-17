@@ -20,7 +20,6 @@ import java.util.Locale;
 public class FragmentCurrentWeekEstimates extends Fragment {
 
     FragmentCurrentWeekEstimatesBinding fragmentCurrentWeekEstimatesBinding;
-    Locale moroccoLocale = new Locale("ar", "MA");
 
     public FragmentCurrentWeekEstimates() {
     }
