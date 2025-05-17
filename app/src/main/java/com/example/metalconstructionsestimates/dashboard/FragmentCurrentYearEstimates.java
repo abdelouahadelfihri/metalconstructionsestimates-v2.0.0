@@ -13,9 +13,7 @@ import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapt
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentYearEstimatesBinding;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class FragmentCurrentYearEstimates extends Fragment {
 
