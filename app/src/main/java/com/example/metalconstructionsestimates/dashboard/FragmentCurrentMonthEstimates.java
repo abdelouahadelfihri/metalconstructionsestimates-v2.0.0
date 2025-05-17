@@ -36,7 +36,7 @@ public class FragmentCurrentMonthEstimates extends Fragment {
         if(dbAdapter.getCurrentMonthEstimatesCount() == 0)
             fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentMonthEstimatesCount());
+            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentMonthEstimatesCount()));
         }
 
 
