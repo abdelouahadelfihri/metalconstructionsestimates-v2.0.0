@@ -20,10 +20,7 @@ import java.util.Locale;
 public class FragmentCurrentMonthEstimates extends Fragment {
 
     FragmentCurrentMonthEstimatesBinding fragmentCurrentMonthEstimatesBinding;
-    Locale moroccoLocale = new Locale("ar", "MA");
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-    String currentMonthEstimatesCount;
-    String currentMonthEstimatesTotal;
+
     public FragmentCurrentMonthEstimates() {
     }
 
