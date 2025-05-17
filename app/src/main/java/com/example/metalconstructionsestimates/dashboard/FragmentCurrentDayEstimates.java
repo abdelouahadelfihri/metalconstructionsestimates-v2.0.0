@@ -33,7 +33,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
         if(dbAdapter.getCurrentDayEstimatesCount() == 0)
             fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentDayEstimatesCount());
+            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentDayEstimatesCount()));
         }
 
         if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
