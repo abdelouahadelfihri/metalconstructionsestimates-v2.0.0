@@ -76,7 +76,7 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText amountPaidEditText = findViewById(R.id.amountPaidEditText_estimate_details);
         TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
         TextInputEditText locationEditText = findViewById(R.id.locationEditText_estimate_details);
-        AtomicReference<TextInputEditText> customerIdEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText);
+        AtomicReference<TextInputEditText> customerIdEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText));
         Button selectCustomerButton = findViewById(R.id.selectCustomerButton);
         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
