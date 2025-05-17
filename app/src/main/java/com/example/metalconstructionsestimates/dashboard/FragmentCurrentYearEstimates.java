@@ -20,9 +20,7 @@ import java.util.Locale;
 public class FragmentCurrentYearEstimates extends Fragment {
 
     FragmentCurrentYearEstimatesBinding fragmentCurrentYearEstimatesBinding;
-    Locale moroccoLocale = new Locale("ar", "MA");
-    String currentYearEstimatesTotal;
-    String currentYearEstimatesCount;
+
     public FragmentCurrentYearEstimates() {
     }
 
@@ -36,7 +34,7 @@ public class FragmentCurrentYearEstimates extends Fragment {
         if(dbAdapter.getCurrentYearEstimatesCount() == 0)
             fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText("0");
         else{
-            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(dbAdapter.getCurrentYearEstimatesCount());
+            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentYearEstimatesCount()));
         }
 
         if(dbAdapter.getCurrentYearEstimatesTotal() == 0.0f){
