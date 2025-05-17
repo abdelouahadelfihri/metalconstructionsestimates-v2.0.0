@@ -21,9 +21,7 @@ public class FragmentCurrentWeekEstimates extends Fragment {
 
     FragmentCurrentWeekEstimatesBinding fragmentCurrentWeekEstimatesBinding;
     Locale moroccoLocale = new Locale("ar", "MA");
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(moroccoLocale);
-    String currentWeekEstimatesCount;
-    String currentWeekEstimatesTotal;
+
     public FragmentCurrentWeekEstimates() {
     }
 
