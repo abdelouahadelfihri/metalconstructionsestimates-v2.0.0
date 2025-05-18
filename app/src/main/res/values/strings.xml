@@ -33,7 +33,6 @@
     <string name="issueDate">--/--/----</string>
     <string name="expirationDateLabel">Expiration Date :</string>
     <string name="expirationDate">--/--/----</string>
-    <string name="estimate_id">Estimate Id</string>
     <string name="weight">Weight</string>
     <string name="width">Width</string>
     <string name="length">Lenght</string>
