@@ -14,7 +14,7 @@
             android:id="@+id/toolbar_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="#3399ff"
+            android:background="#0066cc"
             app:title="Add Estimate Line"
             app:titleTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
