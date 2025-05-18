@@ -26,7 +26,7 @@
                     android:id="@+id/til_estimate_line_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Estimate Line ID"
+                    android:hint="@string/estimateLineId"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -45,7 +45,7 @@
                     android:id="@+id/til_estimate_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Estimate ID"
+                    android:hint="@string/estimateId"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toBottomOf="@id/til_estimate_line_id"
@@ -64,7 +64,7 @@
                     android:id="@+id/til_steel_id"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Steel ID"
+                    android:hint="@string/steel"
                     android:layout_marginStart="8dp"
                     app:layout_constraintTop_toBottomOf="@id/til_estimate_id"
                     app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
                     android:id="@+id/btn_select_steel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select"
+                    android:text="@string/select_steel"
                     app:layout_constraintTop_toTopOf="@id/til_steel_id"
                     app:layout_constraintBottom_toBottomOf="@id/til_steel_id"
                     app:layout_constraintStart_toEndOf="@id/til_steel_id"
@@ -95,7 +95,7 @@
                     android:id="@+id/til_weight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Weight"
+                    android:hint="@string/weight"
                     app:layout_constraintTop_toBottomOf="@id/til_steel_id"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +114,7 @@
                     android:id="@+id/til_quantity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Quantity"
+                    android:hint="@string/quantity"
                     app:layout_constraintTop_toBottomOf="@id/til_weight"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_quantity"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Length, Width, Height -->
@@ -133,7 +134,7 @@
                     android:id="@+id/til_length"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Length"
+                    android:hint="@string/length"
                     app:layout_constraintTop_toBottomOf="@id/til_quantity"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/til_width"
@@ -144,14 +145,15 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_length"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_width"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Width"
+                    android:hint="@string/width"
                     app:layout_constraintTop_toTopOf="@id/til_length"
                     app:layout_constraintBottom_toBottomOf="@id/til_length"
                     app:layout_constraintStart_toEndOf="@id/til_length"
@@ -162,14 +164,15 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_width"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_height"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Height"
+                    android:hint="@string/height"
                     app:layout_constraintTop_toTopOf="@id/til_length"
                     app:layout_constraintBottom_toBottomOf="@id/til_length"
                     app:layout_constraintStart_toEndOf="@id/til_width"
@@ -180,7 +183,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_height"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Total -->
@@ -188,7 +192,7 @@
                     android:id="@+id/til_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Total"
+                    android:hint="@string/total"
                     app:layout_constraintTop_toBottomOf="@id/til_length"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -207,7 +211,7 @@
                     android:id="@+id/til_margin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Margin"
+                    android:hint="@string/margin"
                     app:layout_constraintTop_toBottomOf="@id/til_total"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -218,7 +222,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_margin"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Net Quantity -->
@@ -226,7 +231,7 @@
                     android:id="@+id/til_net_quantity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Net Quantity"
+                    android:hint="@string/netQuantityPlusMargin"
                     app:layout_constraintTop_toBottomOf="@id/til_margin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +242,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_net_quantity"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Unit Price -->
@@ -245,7 +251,7 @@
                     android:id="@+id/til_unit_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Unit Price"
+                    android:hint="@string/unitPrice"
                     app:layout_constraintTop_toBottomOf="@id/til_net_quantity"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +262,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_unit_price"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Total Price -->
@@ -264,7 +271,7 @@
                     android:id="@+id/til_total_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Total Price"
+                    android:hint="@string/totalPrice"
                     app:layout_constraintTop_toBottomOf="@id/til_unit_price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -283,7 +290,7 @@
                     android:id="@+id/btn_update"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Update"
+                    android:text="@string/update"
                     app:layout_constraintTop_toBottomOf="@id/til_total_price"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_delete"
@@ -295,7 +302,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Delete"
+                    android:text="@string/delete"
                     app:layout_constraintTop_toTopOf="@id/btn_update"
                     app:layout_constraintBottom_toBottomOf="@id/btn_update"
                     app:layout_constraintStart_toEndOf="@id/btn_update"
