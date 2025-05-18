@@ -99,7 +99,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Length, Width, Height in the same row -->
@@ -121,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -142,7 +144,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -162,7 +165,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Total -->
@@ -208,7 +212,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Net Quantity + Margin -->
@@ -254,7 +259,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Total Price -->
