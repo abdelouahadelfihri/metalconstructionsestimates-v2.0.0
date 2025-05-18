@@ -82,7 +82,7 @@
                 android:id="@+id/amountPaidEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"
+                android:hint="@string/amountPaid"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
                 android:background="@android:color/transparent" />
