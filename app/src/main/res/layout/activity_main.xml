@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- First row: ImageView1 & ImageView2 -->
+    <!-- First row -->
     <ImageView
         android:id="@+id/imageViewCustomers"
         android:layout_width="0dp"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.37" />
 
     <ImageView
         android:id="@+id/imageViewEstimates"
@@ -43,9 +43,8 @@
         app:layout_constraintStart_toEndOf="@id/imageViewCustomers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.37" />
 
-    <!-- Labels for row 1 -->
     <TextView
         android:id="@+id/textViewCustomers"
         android:layout_width="wrap_content"
@@ -66,7 +65,7 @@
         app:layout_constraintStart_toStartOf="@id/imageViewEstimates"
         app:layout_constraintEnd_toEndOf="@id/imageViewEstimates" />
 
-    <!-- Second row: ImageView3 & ImageView4 -->
+    <!-- Second row -->
     <ImageView
         android:id="@+id/imageViewSteels"
         android:layout_width="0dp"
@@ -79,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/imageViewDashboard"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.37" />
 
     <ImageView
         android:id="@+id/imageViewDashboard"
@@ -93,9 +92,8 @@
         app:layout_constraintStart_toEndOf="@id/imageViewSteels"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.37" />
 
-    <!-- Labels for row 2 -->
     <TextView
         android:id="@+id/textViewSteels"
         android:layout_width="wrap_content"
@@ -116,30 +114,29 @@
         app:layout_constraintStart_toStartOf="@id/imageViewDashboard"
         app:layout_constraintEnd_toEndOf="@id/imageViewDashboard" />
 
-    <!-- Third row: ImageView5 & Label5 -->
+    <!-- Third row center -->
     <ImageView
         android:id="@+id/imageViewBackups"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:contentDescription="@string/backups"
         android:scaleType="centerCrop"
         android:src="@drawable/database"
+        android:contentDescription="@string/backups"
         app:layout_constraintTop_toBottomOf="@id/textViewSteels"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/textViewBackups"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.37" />
 
+    <!-- TextView 5 -->
     <TextView
         android:id="@+id/textViewBackups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backuprestore"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/imageViewBackups"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/imageViewBackups"
         app:layout_constraintEnd_toEndOf="@id/imageViewBackups" />
 
