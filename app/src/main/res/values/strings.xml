@@ -114,9 +114,6 @@
     <string name="amountPaid">Amount Paid</string>
     <string name="amount">Amount :</string>
     <string name="zeroDH">0 DH</string>
-    <string name="noSteelInDB">No steels recorded in the database</string>
-    <string name="noEstimateInDB">No estimates recorded in the database</string>
-    <string name="noCustomerInDB">No customers recorded in the database</string>
     <string name="connectToGoogleDrive">Connect to Google Drive</string>
     <string name="backuprestore">Backup and Restore</string>
     <string name="today">Today :</string>
