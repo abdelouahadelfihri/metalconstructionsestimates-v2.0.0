@@ -45,6 +45,7 @@
     <string name="quantity">Quantity</string>
     <string name="margin">Margin</string>
     <string name="totalEstimates">Total Estimates :</string>
+    <string name="total">Total</string>
     <string name="netQuantityPlusMargin">Net Quantity Plus Margin</string>
     <string name="unitPrice">Unit Price</string>
     <string name="totalPrice">Total Price</string>
