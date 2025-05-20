@@ -33,12 +33,12 @@ public class FragmentCurrentDayEstimates extends Fragment {
             fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentDayEstimatesCount()));
         }
 
-        if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
+        if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
             fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
         }
         else{
-            String currentDayEstimatesTotal = dbAdapter.getCurrentDayEstimatesTotal().toString() + " DH";
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentDayEstimatesTotal);
+            String currentMonthEstimatesTotal = dbAdapter.getCurrentMonthEstimatesTotal().toString() + " DH";
+            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentMonthEstimatesTotal);
         }
 
         ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
