@@ -78,6 +78,8 @@
         android:id="@+id/estimatesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
         android:layout_marginTop="8dp"
