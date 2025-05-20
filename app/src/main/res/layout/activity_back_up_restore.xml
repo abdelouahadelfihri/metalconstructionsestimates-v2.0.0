@@ -29,7 +29,6 @@
             android:minHeight="72dp"
             android:text="@string/google_drive_sign_in"
             android:backgroundTint="#0066cc"
-            android:drawableStart="@drawable/ic_google"
             android:drawablePadding="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
