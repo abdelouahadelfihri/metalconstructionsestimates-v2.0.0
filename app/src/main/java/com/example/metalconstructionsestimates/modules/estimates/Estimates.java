@@ -22,6 +22,8 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBinding;
 
 public class Estimates extends AppCompatActivity {
@@ -44,7 +46,7 @@ public class Estimates extends AppCompatActivity {
 
         setSupportActionBar(toolBar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         paymentStatusSpinner = findViewById(R.id.spinner_payment_status);
 
