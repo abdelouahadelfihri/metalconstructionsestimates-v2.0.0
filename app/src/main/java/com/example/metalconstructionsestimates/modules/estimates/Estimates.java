@@ -82,64 +82,72 @@ public class Estimates extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
-                String searchText = estimatesSearchEditText.getText().toString();
-                switch(item.toString()){
-                    case "All":
-                        ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
+                String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
+                if(searchText.isEmpty()){
+                    activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                    activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                    String emptyViewText = "No results found";
+                    activityEstimatesBinding.emptyView.setText(emptyViewText);
+                }
+                else{
+                    switch(item.toString()){
+                        case "All":
+                            ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
 
-                        if (allEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
-                        }
-                        else{
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
-                            estimateListAdapter.updateEstimates(allEstimatesList);
-                        }
-                        break;
-                    case "Paid":
-                        ArrayList<Estimate> paidEstimatesList = db.searchPaidEstimates(searchText);
+                            if (allEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(allEstimatesList);
+                            }
+                            break;
+                        case "Paid":
+                            ArrayList<Estimate> paidEstimatesList = db.searchPaidEstimates(searchText);
 
-                        if (paidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
-                        }
-                        else{
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
-                            estimateListAdapter.updateEstimates(paidEstimatesList);
-                        }
-                        break;
-                    case "Partially Paid":
-                        ArrayList<Estimate> partiallyPaidEstimatesList = db.searchPartiallyPaidEstimates(searchText);
+                            if (paidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(paidEstimatesList);
+                            }
+                            break;
+                        case "Partially Paid":
+                            ArrayList<Estimate> partiallyPaidEstimatesList = db.searchPartiallyPaidEstimates(searchText);
 
-                        if (partiallyPaidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
-                        }
-                        else{
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
-                            estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
-                        }
-                        break;
-                    case "Unpaid":
-                        ArrayList<Estimate> unPaidEstimatesList = db.searchUnPaidEstimates(searchText);
+                            if (partiallyPaidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
+                            }
+                            break;
+                        case "Unpaid":
+                            ArrayList<Estimate> unPaidEstimatesList = db.searchUnPaidEstimates(searchText);
 
-                        if (unPaidEstimatesList.isEmpty()) {
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
-                        }
-                        else{
-                            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
-                            estimateListAdapter.updateEstimates(unPaidEstimatesList);
-                        }
-                        break;
+                            if (unPaidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(unPaidEstimatesList);
+                            }
+                            break;
+                    }
                 }
             }
             public void onNothingSelected(AdapterView<?> parent) {
