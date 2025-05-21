@@ -228,19 +228,6 @@ public class Estimates extends AppCompatActivity {
                         break;
 
                 }
-                ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
-                if (!estimatesSearchList.isEmpty()) {
-                    EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                    findViewById(R.id.emptyView).setVisibility(View.GONE);
-                    activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                    activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
-                }
-                else{
-                    activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                    findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                    searchResultToast.show();
-                }
             }
         });
 
