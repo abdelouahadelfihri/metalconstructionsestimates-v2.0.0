@@ -70,21 +70,27 @@ public class Steels extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                String searchText = s.toString();
-                activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
-                DBAdapter db = new DBAdapter(getApplicationContext());
-                ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
-                if (!steelsSearchList.isEmpty()) {
-                    SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
-                    findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
-                    activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-                    activitySteelsBinding.steelsRecyclerView.setAdapter(steels_list_adapter);
+                if(s.toString().isEmpty()){
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
+                    searchResultToast.show();
                 }
                 else{
-                    activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-                    findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                    searchResultToast.show();
+                    String searchText = s.toString();
+                    activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
+                    DBAdapter db = new DBAdapter(getApplicationContext());
+                    ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
+                    if (!steelsSearchList.isEmpty()) {
+                        SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
+                        findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
+                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
+                        activitySteelsBinding.steelsRecyclerView.setAdapter(steels_list_adapter);
+                    }
+                    else{
+                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
+                        findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
+                        Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                        searchResultToast.show();
+                    }
                 }
             }
         });
