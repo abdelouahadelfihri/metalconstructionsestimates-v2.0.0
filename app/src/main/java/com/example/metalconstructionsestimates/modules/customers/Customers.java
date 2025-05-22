@@ -76,20 +76,26 @@ public class Customers extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchText = s.toString();
-                binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
-                DBAdapter db = new DBAdapter(getApplicationContext());
-                ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
-                if (!customersSearchList.isEmpty()) {
-                    CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersSearchList);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
-                    binding.customerRecyclerView.setVisibility(View.VISIBLE);
-                    binding.customerRecyclerView.setAdapter(customers_list_adapter);
+                if(searchText.isEmpty()){
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
+                    searchResultToast.show();
                 }
                 else{
-                    binding.customerRecyclerView.setVisibility(View.GONE);
-                    findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                    searchResultToast.show();
+                    binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
+                    DBAdapter db = new DBAdapter(getApplicationContext());
+                    ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
+                    if (!customersSearchList.isEmpty()) {
+                        CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersSearchList);
+                        findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                        binding.customerRecyclerView.setVisibility(View.VISIBLE);
+                        binding.customerRecyclerView.setAdapter(customers_list_adapter);
+                    }
+                    else{
+                        binding.customerRecyclerView.setVisibility(View.GONE);
+                        findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                        Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                        searchResultToast.show();
+                    }
                 }
             }
         });
