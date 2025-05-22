@@ -31,7 +31,7 @@ public class Estimates extends AppCompatActivity {
     public ActivityResultLauncher<Intent> activityResultLauncher;
     Spinner paymentStatusSpinner;
     TextInputEditText estimatesSearchEditText;
-
+    DBAdapter db;
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class Estimates extends AppCompatActivity {
 
         paymentStatusSpinner.setAdapter(paymentStatusAdapter);
 
-        final DBAdapter[] db = {new DBAdapter(getApplicationContext())};
-        ArrayList<Estimate> estimatesList = db[0].retrieveEstimates();
+        DBAdapter db = new DBAdapter(getApplicationContext());
+        ArrayList<Estimate> estimatesList = db.retrieveEstimates();
 
         RecyclerView recyclerViewEstimates = findViewById(R.id.estimatesRecyclerView);
 
@@ -81,7 +81,7 @@ public class Estimates extends AppCompatActivity {
         paymentStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
-                db[0] = new DBAdapter(getApplicationContext());
+                DBAdapter db = new DBAdapter(getApplicationContext());
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
                 if(searchText.isEmpty()){
@@ -94,7 +94,7 @@ public class Estimates extends AppCompatActivity {
                     switch(item.toString()){
                         case "All":
 
-                            ArrayList<Estimate> allEstimatesList = db[0].searchEstimates(searchText);
+                            ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
                             if (allEstimatesList.isEmpty()) {
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                                 activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
@@ -107,8 +107,8 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Paid":
-                            db[0] = new DBAdapter(getApplicationContext());
-                            ArrayList<Estimate> paidEstimatesList = db[0].searchPaidEstimates(searchText);
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> paidEstimatesList = db.searchPaidEstimates(searchText);
                             if (paidEstimatesList.isEmpty()) {
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                                 activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
@@ -121,8 +121,8 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Partially Paid":
-                            db[0] = new DBAdapter(getApplicationContext());
-                            ArrayList<Estimate> partiallyPaidEstimatesList = db[0].searchPartiallyPaidEstimates(searchText);
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> partiallyPaidEstimatesList = db.searchPartiallyPaidEstimates(searchText);
                             if (partiallyPaidEstimatesList.isEmpty()) {
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                                 activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
@@ -135,8 +135,8 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Unpaid":
-                            db[0] = new DBAdapter(getApplicationContext());
-                            ArrayList<Estimate> unPaidEstimatesList = db[0].searchUnPaidEstimates(searchText);
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> unPaidEstimatesList = db.searchUnPaidEstimates(searchText);
                             if (unPaidEstimatesList.isEmpty()) {
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                                 activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
