@@ -82,29 +82,12 @@ public class Estimates extends AppCompatActivity {
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
                 if(searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesList = db.retrieveEstimates();
-
-                    final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(getApplicationContext(), estimatesList);
-
-                    activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimateListAdapter);
-
-                    activityEstimatesBinding.estimatesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                    if(estimatesList.isEmpty()){
-                        activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
-                    }
-                    else{
-                        activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                        activityEstimatesBinding.emptyView.setVisibility(View.GONE);
-                        estimateListAdapter.updateEstimates(estimatesList);
-                    }
+                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
+                    searchResultToast.show();
                 }
                 else{
                     switch(item.toString()){
                         case "All":
-
                             ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
                             if (allEstimatesList.isEmpty()) {
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
