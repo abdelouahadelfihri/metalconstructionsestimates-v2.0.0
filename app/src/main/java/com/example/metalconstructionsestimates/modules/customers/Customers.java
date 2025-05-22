@@ -76,11 +76,7 @@ public class Customers extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchText = s.toString();
-                if(searchText.isEmpty()){
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
-                    searchResultToast.show();
-                }
-                else{
+                if(!searchText.isEmpty()){
                     binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
                     DBAdapter db = new DBAdapter(getApplicationContext());
                     ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
