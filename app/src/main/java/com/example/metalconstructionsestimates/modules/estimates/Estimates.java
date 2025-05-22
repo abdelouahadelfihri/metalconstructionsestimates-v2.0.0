@@ -59,13 +59,12 @@ public class Estimates extends AppCompatActivity {
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
 
-        RecyclerView recyclerViewEstimates = findViewById(R.id.estimatesRecyclerView);
 
         final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(this, estimatesList);
 
-        recyclerViewEstimates.setAdapter(estimateListAdapter);
+        activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimateListAdapter);
 
-        recyclerViewEstimates.setLayoutManager(new LinearLayoutManager(this));
+        activityEstimatesBinding.estimatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         if(estimatesList.isEmpty()){
             activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
