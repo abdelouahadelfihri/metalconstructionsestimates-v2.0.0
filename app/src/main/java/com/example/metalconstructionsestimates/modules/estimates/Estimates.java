@@ -59,7 +59,6 @@ public class Estimates extends AppCompatActivity {
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
 
-
         final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(this, estimatesList);
 
         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimateListAdapter);
