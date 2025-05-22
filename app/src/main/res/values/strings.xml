@@ -72,6 +72,7 @@
     <string name="googleDriveBackup">Google Drive Backup</string>
     <string name="googleDriveRestore">Google Drive Restore</string>
     <string name="selectCustomer">Select</string>
+    <string name="selectSteel">Select</string>
     <string name="customer_id">Customer Id</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer_email">Email</string>
