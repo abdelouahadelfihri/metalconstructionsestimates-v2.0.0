@@ -1524,7 +1524,6 @@ public class DBAdapter {
 
             String query = selectQuery + whereQuery;
             query = query + " and amountPaid < allTaxIncludedTotal and amountPaid != 0";
-            Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
 
