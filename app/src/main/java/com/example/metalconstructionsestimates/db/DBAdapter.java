@@ -1338,7 +1338,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
-            Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -1356,7 +1355,6 @@ public class DBAdapter {
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
                 Float amountPaid = cursor.getFloat(10);
-                estimatesList.clear();
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1449,7 +1447,6 @@ public class DBAdapter {
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
                 Float amountPaid = cursor.getFloat(10);
-                estimatesList.clear();
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1541,7 +1538,6 @@ public class DBAdapter {
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
                 Float amountPaid = cursor.getFloat(10);
-                estimatesList.clear();
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
