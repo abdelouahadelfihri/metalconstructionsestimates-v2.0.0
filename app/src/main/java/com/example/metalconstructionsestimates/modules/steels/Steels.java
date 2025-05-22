@@ -23,6 +23,7 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -40,7 +41,7 @@ public class Steels extends AppCompatActivity {
         setContentView(activitySteelsBinding.getRoot());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         AtomicReference<DBAdapter> db = new AtomicReference<>(new DBAdapter(getApplicationContext()));
         ArrayList<Steel> steelsList = db.get().retrieveSteels();
