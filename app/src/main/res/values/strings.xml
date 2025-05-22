@@ -28,7 +28,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="steelId">Steel Id</string>
     <string name="estimateLineDetails">Estimate Line Details</string>
-    <string name="select_steel">Select Steel</string>
     <string name="issueDateLabel">Issue Date :</string>
     <string name="issueDate">--/--/----</string>
     <string name="expirationDateLabel">Expiration Date :</string>
@@ -72,7 +71,7 @@
     <string name="google_drive_sign_in">Sign in to Google Drive</string>
     <string name="googleDriveBackup">Google Drive Backup</string>
     <string name="googleDriveRestore">Google Drive Restore</string>
-    <string name="selectCustomer">Select Customer</string>
+    <string name="selectCustomer">Select</string>
     <string name="customer_id">Customer Id</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer_email">Email</string>
