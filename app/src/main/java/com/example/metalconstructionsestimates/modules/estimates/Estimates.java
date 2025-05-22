@@ -81,11 +81,7 @@ public class Estimates extends AppCompatActivity {
                 DBAdapter db = new DBAdapter(getApplicationContext());
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
-                if(searchText.isEmpty()){
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
-                    searchResultToast.show();
-                }
-                else{
+                if(!searchText.isEmpty()){
                     switch(item.toString()){
                         case "All":
                             ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
