@@ -70,11 +70,7 @@ public class Steels extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().isEmpty()){
-                    Toast searchResultToast = Toast.makeText(getApplicationContext(), "Type for search,separate by comma", Toast.LENGTH_LONG);
-                    searchResultToast.show();
-                }
-                else{
+                if(!s.toString().isEmpty()){
                     String searchText = s.toString();
                     activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
                     DBAdapter db = new DBAdapter(getApplicationContext());
