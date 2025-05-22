@@ -31,7 +31,6 @@ public class Estimates extends AppCompatActivity {
     public ActivityResultLauncher<Intent> activityResultLauncher;
     Spinner paymentStatusSpinner;
     TextInputEditText estimatesSearchEditText;
-    DBAdapter db;
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
