@@ -77,7 +77,7 @@
 
     <!-- Issue Date Value -->
     <TextView
-        android:id="@+id/issueDateValue_add_estimate"
+        android:id="@+id/issueDateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/issueDate"
@@ -97,7 +97,7 @@
 
     <!-- Expiration Date Value -->
     <TextView
-        android:id="@+id/expirationDateValue_add_estimate"
+        android:id="@+id/expirationDateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/expirationDate"
