@@ -140,6 +140,65 @@ public class Estimates extends AppCompatActivity {
                             break;
                     }
                 }
+                else{
+                    switch(item.toString()){
+                        case "All":
+                            ArrayList<Estimate> allEstimatesList = db.retrieveEstimates();
+                            if (allEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(allEstimatesList);
+                            }
+                            break;
+                        case "Paid":
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> paidEstimatesList = db.retrievePaidEstimates();
+                            if (paidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(paidEstimatesList);
+                            }
+                            break;
+                        case "Partially Paid":
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> partiallyPaidEstimatesList = db.retrievePartiallyPaidEstimates();
+                            if (partiallyPaidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(partiallyPaidEstimatesList);
+                            }
+                            break;
+                        case "Unpaid":
+                            db = new DBAdapter(getApplicationContext());
+                            ArrayList<Estimate> unPaidEstimatesList = db.retrieveUnpaidEstimates();
+                            if (unPaidEstimatesList.isEmpty()) {
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                                estimateListAdapter.updateEstimates(unPaidEstimatesList);
+                            }
+                            break;
+                    }
+                }
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
