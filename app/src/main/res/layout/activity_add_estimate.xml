@@ -18,26 +18,31 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Location -->
+    <!-- Location -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/locationLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/location"
         android:background="@drawable/shape"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/amountPaidLayout"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/locationEditText_add_estimate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent" />
+            android:textColor="#000000"
+            android:textColorHint="#666666"
+            android:background="@android:color/transparent"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <!-- Amount Paid -->
     <com.google.android.material.textfield.TextInputLayout
