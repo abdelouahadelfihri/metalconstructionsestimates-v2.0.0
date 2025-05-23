@@ -66,16 +66,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Issue Date Label -->
     <TextView
         android:id="@+id/issueDateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/issueDateLabel"
         app:layout_constraintTop_toBottomOf="@id/locationLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintStart_toStartOf="@id/locationLayout"
+        android:layout_marginTop="24dp" />
 
     <!-- Issue Date Value -->
     <TextView
@@ -94,9 +92,8 @@
         android:layout_height="wrap_content"
         android:text="@string/expirationDateLabel"
         app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="8dp"/>
+        app:layout_constraintStart_toStartOf="@id/locationLayout"
+        android:layout_marginTop="24dp" />
 
     <!-- Expiration Date Value -->
     <TextView
