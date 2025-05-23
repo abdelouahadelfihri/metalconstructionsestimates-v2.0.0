@@ -206,8 +206,8 @@ public class AddEstimate extends AppCompatActivity {
             vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
             amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
 
-            issueDate = findViewById(R.id.issueDateValue_add_estimate);
-            expirationDate = findViewById(R.id.expirationDateValue_add_estimate);
+            issueDate = findViewById(R.id.issueDateValue);
+            expirationDate = findViewById(R.id.expirationDateValue);
 
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
             issueDate.setText(R.string.issueDate);
@@ -218,8 +218,8 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
-        issueDate = findViewById(R.id.issueDateValue_add_estimate);
-        expirationDate = findViewById(R.id.expirationDateValue_add_estimate);
+        issueDate = findViewById(R.id.issueDateValue);
+        expirationDate = findViewById(R.id.expirationDateValue);
 
         issueDate.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
