@@ -94,7 +94,7 @@
                     android:id="@+id/btn_select_steel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_steel"
+                    android:text="@string/selectSteel"
                     android:backgroundTint="#0066cc"
                     app:layout_constraintTop_toTopOf="@id/til_steel_id"
                     app:layout_constraintBottom_toBottomOf="@id/til_steel_id"
