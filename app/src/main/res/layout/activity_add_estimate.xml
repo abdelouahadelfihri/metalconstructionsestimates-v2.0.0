@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"> <!-- General padding for screen -->
+    android:layout_height="match_parent">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -25,7 +25,7 @@
         android:hint="@string/location"
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/amountPaidLayout"
+        app:layout_constraintEnd_toStartOf="@id/amountPaidLayout"
         android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -38,7 +38,6 @@
             android:textColor="#333333"
             android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Amount Paid -->
@@ -47,10 +46,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/amountPaid"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate"
+        app:layout_constraintTop_toTopOf="@id/locationLayout"
         app:layout_constraintStart_toEndOf="@id/locationLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -63,48 +61,67 @@
             android:textColor="#333333"
             android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Issue Date -->
-    <TextView
-        android:id="@+id/issueDateLabel"
-        android:layout_width="wrap_content"
+    <!-- Issue Date Row -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/issueDateRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/issueDateLabel"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintTop_toBottomOf="@id/locationLayout"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/issueDateValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/issueDate"
-        app:layout_constraintTop_toTopOf="@id/issueDateLabel"
-        app:layout_constraintStart_toEndOf="@id/issueDateLabel"
-        android:layout_marginStart="8dp" />
+        <TextView
+            android:id="@+id/issueDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/issueDateLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Expiration Date -->
-    <TextView
-        android:id="@+id/expirationDateLabel"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/issueDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/issueDate"
+            app:layout_constraintStart_toEndOf="@id/issueDateLabel"
+            app:layout_constraintTop_toTopOf="@id/issueDateLabel"
+            android:layout_marginStart="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Expiration Date Row -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/expirationDateRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/expirationDateLabel"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/issueDateRow"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/expirationDateValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/expirationDate"
-        app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
-        app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
-        android:layout_marginStart="8dp" />
+        <TextView
+            android:id="@+id/expirationDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expirationDateLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/expirationDateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expirationDate"
+            app:layout_constraintStart_toEndOf="@id/expirationDateLabel"
+            app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
+            android:layout_marginStart="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Customer -->
     <com.google.android.material.textfield.TextInputLayout
@@ -112,12 +129,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/customer"
-        app:layout_constraintTop_toBottomOf="@id/expirationDateLabel"
+        app:layout_constraintTop_toBottomOf="@id/expirationDateRow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/selectCustomerButton_add_estimate"
+        app:layout_constraintEnd_toStartOf="@id/selectCustomerButton_add_estimate"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -127,7 +144,6 @@
             android:textColor="#333333"
             android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Select Customer Button -->
@@ -141,7 +157,7 @@
         app:layout_constraintBottom_toBottomOf="@id/customerLayout"
         app:layout_constraintStart_toEndOf="@id/customerLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp" />
 
     <!-- Discount -->
     <com.google.android.material.textfield.TextInputLayout
@@ -165,7 +181,6 @@
             android:textColor="#333333"
             android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent"/>
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- VAT -->
@@ -190,7 +205,6 @@
             android:textColor="#333333"
             android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent"/>
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Buttons at Bottom -->
