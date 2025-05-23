@@ -36,8 +36,6 @@
             android:id="@+id/locationEditText_add_estimate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
