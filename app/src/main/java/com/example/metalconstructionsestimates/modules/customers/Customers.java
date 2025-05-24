@@ -89,6 +89,7 @@ public class Customers extends AppCompatActivity {
                     else{
                         binding.customerRecyclerView.setVisibility(View.GONE);
                         findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                        binding.noCustomersTextView.setText(R.string.noResult);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
