@@ -487,7 +487,7 @@ public class EstimateDetails extends AppCompatActivity {
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             String issueDateValue = year + "-" + month + "-" + day;
-            issueDate.setText("Issue Date : " + issueDateValue);
+            issueDate.setText(issueDateValue);
         };
 
     }
