@@ -85,6 +85,7 @@ public class Steels extends AppCompatActivity {
                     else{
                         activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
                         findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
+                        activitySteelsBinding.noSteelsTextView.setText(R.string.noResult);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
