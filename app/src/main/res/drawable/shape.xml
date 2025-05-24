@@ -3,7 +3,7 @@
     <solid android:color="#FFFFFF" />
     <!-- Slightly darker border for better contrast -->
     <stroke
-        android:width="2dp"
+        android:width="1.2dp"
         android:color="#0066cc" /> <!-- Contrast ratio: 4.61:1 ✅ -->
 
     <corners android:radius="8dp" />
