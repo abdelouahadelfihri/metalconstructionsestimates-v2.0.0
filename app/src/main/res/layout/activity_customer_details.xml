@@ -200,6 +200,7 @@
                     android:id="@+id/addressEditText_customer_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:inputType="textPostalAddress"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
