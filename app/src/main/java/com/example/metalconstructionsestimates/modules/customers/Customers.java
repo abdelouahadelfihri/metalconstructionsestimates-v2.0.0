@@ -106,6 +106,7 @@ public class Customers extends AppCompatActivity {
             if (customersList.isEmpty()) {
                 binding.customerRecyclerView.setVisibility(View.GONE);
                 findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
+                binding.noCustomersTextView.setText(R.string.noCustomers);
                 Toast reloatResultToast = Toast.makeText(getApplicationContext(), "Customers List is empty", Toast.LENGTH_LONG);
                 reloatResultToast.show();
             } else {
