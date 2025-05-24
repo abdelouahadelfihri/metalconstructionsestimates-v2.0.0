@@ -48,8 +48,6 @@ public class EstimateDetails extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDate,issueDate;
 
-    String expirationDateString, issueDateString;
-
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
