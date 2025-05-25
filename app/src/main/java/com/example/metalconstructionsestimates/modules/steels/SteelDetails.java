@@ -46,7 +46,7 @@ public class SteelDetails extends AppCompatActivity {
         steelGeometricShapeSpinner.setAdapter(steelGeometricShapeSpinnerAdapter);
         TextInputEditText steelWeightTextInputEditText = findViewById(R.id.weightEditText);
         Spinner steelUnitSpinner = findViewById(R.id.unitSpinner);
-        ArrayAdapter<CharSequence> steelUnitSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.geometric_shapes,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> steelUnitSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.units,android.R.layout.simple_spinner_item);
         steelUnitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelUnitSpinner.setAdapter(steelUnitSpinnerAdapter);
         steelIdTextInputEditText.setText(steelId.toString());
