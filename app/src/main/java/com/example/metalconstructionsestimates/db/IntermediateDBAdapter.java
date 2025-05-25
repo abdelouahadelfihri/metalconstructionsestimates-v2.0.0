@@ -17,11 +17,11 @@ import java.util.ArrayList;
 public class IntermediateDBAdapter {
     Context c;
     SQLiteDatabase db;
-    DBHelper helper;
+    IntermediateDBHelper helper;
     private static final String TAG = "IntermediateDBAdapter";
     public IntermediateDBAdapter(Context c){
         this.c = c;
-        helper = new DBHelper(c);
+        helper = new IntermediateDBHelper(c);
     }
 
     public ArrayList<Customer> retrieveCustomers(){
