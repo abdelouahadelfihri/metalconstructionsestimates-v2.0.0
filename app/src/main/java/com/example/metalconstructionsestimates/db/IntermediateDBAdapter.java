@@ -13,12 +13,12 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class IntermediateDBAdapter {
     Context c;
     SQLiteDatabase db;
     DBHelper helper;
+    private static final String TAG = "IntermediateDBAdapter";
     public IntermediateDBAdapter(Context c){
         this.c = c;
         helper = new DBHelper(c);
