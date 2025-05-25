@@ -1573,7 +1573,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from customer",null);
             Customer customer;
-            customersList.clear();
             db = helper.getReadableDatabase();
             customersList.clear();
             while(cursor.moveToNext()){
