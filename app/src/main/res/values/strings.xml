@@ -58,7 +58,7 @@
     <string name="totalAllTaxIncluded">Incl. VAT</string>
     <string name="estimateId">Estimate Id</string>
     <string name="estimateLineId">Estimate Line Id</string>
-    <string name="search">Type for search,separate by semicolon</string>
+    <string name="search">Type for search,separate by ";"</string>
     <string name="refresh">Refresh</string>
     <string name="discount">Discount</string>
     <string name="vat">Vat</string>
