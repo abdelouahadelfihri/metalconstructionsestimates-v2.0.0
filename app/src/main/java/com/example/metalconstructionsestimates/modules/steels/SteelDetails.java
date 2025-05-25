@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import java.util.Locale;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -49,7 +49,7 @@ public class SteelDetails extends AppCompatActivity {
         ArrayAdapter<CharSequence> steelUnitSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.units,android.R.layout.simple_spinner_item);
         steelUnitSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         steelUnitSpinner.setAdapter(steelUnitSpinnerAdapter);
-        steelIdTextInputEditText.setText(steelId.toString());
+        steelIdTextInputEditText.setText(String.format(Locale.getDefault(), "%d", steelId));
         steelTypeTextInputEditText.setText(steel.getType());
 
         switch(steel.getGeometricShape()){
