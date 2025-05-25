@@ -10,6 +10,8 @@ import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.text.NumberFormat;
 import java.util.Locale;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -70,7 +72,8 @@ public class SteelDetails extends AppCompatActivity {
             steelWeightTextInputEditText.setText("");
         }
         else{
-            steelWeightTextInputEditText.setText(weight.toString());
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+            steelWeightTextInputEditText.setText(numberFormat.format(weight));
         }
 
         if(steel.getUnit().isEmpty()){
