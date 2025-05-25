@@ -1182,9 +1182,7 @@ public class DBAdapter {
 
             String query = selectQuery + whereQuery;
             Cursor cursor = db.rawQuery(query, null);
-
             Steel steel;
-
             while (cursor.moveToNext()) {
                 Integer steelId = cursor.getInt(0);
                 String type = cursor.getString(1);
@@ -1213,7 +1211,6 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String selectQuery = "SELECT * FROM estimate WHERE ";
         String whereQuery = "";
-
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1296,7 +1293,6 @@ public class DBAdapter {
         } finally {
             helper.close();
         }
-
         return estimatesList;
     }
 
