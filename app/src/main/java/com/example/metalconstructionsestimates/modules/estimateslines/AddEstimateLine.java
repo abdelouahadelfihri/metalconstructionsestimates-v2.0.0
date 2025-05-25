@@ -56,9 +56,9 @@ public class AddEstimateLine extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_add_estimate_line);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        estimateId = Integer.parseInt(getIntent().getStringExtra("estimateIdExtra"));
+        estimateId = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("estimateIdExtra")));
 
         steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText_add_estimate_line);
         weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
@@ -82,7 +82,8 @@ public class AddEstimateLine extends AppCompatActivity {
                             assert data != null;
                             // get String data from Intent
                             Float total, netQuantityPlusMargin, totalPrice;
-                            String steelIdExtraResult = data.getExtras().getString("steelIdExtraResult");
+                            String steelIdExtraResult = Objects.requireNonNull(data.getExtras()).getString("steelIdExtraResult");
+                            assert steelIdExtraResult != null;
                             steelId = Integer.parseInt(steelIdExtraResult);
 
                             Steel steel;
