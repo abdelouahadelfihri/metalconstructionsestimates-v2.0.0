@@ -83,10 +83,13 @@ public class SteelDetails extends AppCompatActivity {
             switch(steel.getUnit()){
                 case "Meter":
                     steelUnitSpinner.setSelection(1);
+                    break;
                 case "Square Meter":
                     steelUnitSpinner.setSelection(2);
+                    break;
                 case "Cubic Meter":
                     steelUnitSpinner.setSelection(3);
+                    break;
 
             }
         }
