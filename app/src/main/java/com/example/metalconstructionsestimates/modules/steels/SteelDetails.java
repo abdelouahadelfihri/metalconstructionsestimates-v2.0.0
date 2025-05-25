@@ -18,6 +18,8 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Steel;
 
+import java.util.Objects;
+
 public class SteelDetails extends AppCompatActivity {
     Steel steel;
     DBAdapter dbAdapter;
@@ -30,8 +32,9 @@ public class SteelDetails extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         String steelIdExtra = getIntent().getStringExtra("steelIdExtra");
+        assert steelIdExtra != null;
         Integer steelId = Integer.parseInt(steelIdExtra);
         dbAdapter = new DBAdapter(getApplicationContext());
         steel = dbAdapter.getSteelById(steelId);
