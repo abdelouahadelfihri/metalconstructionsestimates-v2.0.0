@@ -4,12 +4,13 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class IntermediateDBHelper extends SQLiteOpenHelper {
 
     public IntermediateDBHelper(Context context) { super(context, "intermediateestimatesdb", null, 1); }
 
-
+    private static final String TAG = "IntermediateDBHelper";
 
     public void onCreate(SQLiteDatabase db){
         try{
