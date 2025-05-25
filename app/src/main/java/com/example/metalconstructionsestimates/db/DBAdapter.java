@@ -1093,8 +1093,6 @@ public class DBAdapter {
 
             Customer customer;
 
-            customersList.clear();
-
             while (cursor.moveToNext()) {
                 Integer idCustomer = cursor.getInt(0);
                 String name = cursor.getString(1);
