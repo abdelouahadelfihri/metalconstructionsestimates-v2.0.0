@@ -1117,7 +1117,7 @@ public class DBAdapter {
         try{
             String [] customerTableColumns = {"id","name","email","tel","mobile","fax","address"};
             if(searchText.contains(" ")){
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for(int i = 0; i < searchTextArray.length; i++){
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1213,7 +1213,7 @@ public class DBAdapter {
         try{
             String[] steelsTableColumns = {"id","type","geometricShape","unit","weight"};
             if(searchText.contains(" ")){
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for(int i = 0; i < searchTextArray.length; i++){
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1299,7 +1299,7 @@ public class DBAdapter {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
 
             if (searchText.contains(" ")) {
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for (int i = 0; i < searchTextArray.length; i++) {
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1389,7 +1389,7 @@ public class DBAdapter {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
 
             if (searchText.contains(" ")) {
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for (int i = 0; i < searchTextArray.length; i++) {
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1481,7 +1481,7 @@ public class DBAdapter {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
 
             if (searchText.contains(" ")) {
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for (int i = 0; i < searchTextArray.length; i++) {
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1573,7 +1573,7 @@ public class DBAdapter {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
 
             if (searchText.contains(" ")) {
-                String[] searchTextArray = searchText.split(",");
+                String[] searchTextArray = searchText.split(";");
                 for (int i = 0; i < searchTextArray.length; i++) {
                     searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                     searchTextArray[i] = searchTextArray[i].replace(",", ".");
