@@ -52,7 +52,7 @@ public class IntermediateDBAdapter {
             c.close();
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -101,7 +101,7 @@ public class IntermediateDBAdapter {
             c.close();
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -123,7 +123,7 @@ public class IntermediateDBAdapter {
             db.insert("customer",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -141,7 +141,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -168,7 +168,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -262,7 +262,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -295,7 +295,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -332,7 +332,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -359,7 +359,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -385,7 +385,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -404,7 +404,7 @@ public class IntermediateDBAdapter {
             db.insert("steel",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -428,7 +428,7 @@ public class IntermediateDBAdapter {
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -446,7 +446,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             if(cursor != null){
@@ -475,7 +475,7 @@ public class IntermediateDBAdapter {
             db.insert("estimateline",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -488,7 +488,7 @@ public class IntermediateDBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'customer'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -501,7 +501,7 @@ public class IntermediateDBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'steel'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -514,7 +514,7 @@ public class IntermediateDBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'estimate'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -534,7 +534,7 @@ public class IntermediateDBAdapter {
             db.update("customer",cv,"id="+ customer.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -558,7 +558,7 @@ public class IntermediateDBAdapter {
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -576,7 +576,7 @@ public class IntermediateDBAdapter {
             db.update("steel",cv,"id="+ steel.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -600,7 +600,7 @@ public class IntermediateDBAdapter {
             db.update("estimateline", cv, "estimate = ? and steel = ?", new String[] { Integer.toString(estimateLine.getEstimate()), Integer.toString(estimateLine.getSteel()) } );
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -642,7 +642,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -686,7 +686,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -730,7 +730,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -762,7 +762,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -900,7 +900,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -973,7 +973,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1019,7 +1019,7 @@ public class IntermediateDBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();

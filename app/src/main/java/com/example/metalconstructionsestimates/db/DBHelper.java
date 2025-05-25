@@ -682,7 +682,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "FOREIGN KEY (estimate) REFERENCES estimate(id) ON DELETE CASCADE)");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
     }
 

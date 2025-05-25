@@ -6,26 +6,18 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class DBAdapter {
     Context context;
     SQLiteDatabase db;
     DBHelper helper;
-
+    private static final String TAG = "DBAdapter";
     public DBAdapter(Context context) {
         this.context = context;
         helper = new DBHelper(context);
@@ -109,7 +101,7 @@ public class DBAdapter {
                 currentDayEstimatesTotal = cursor.getFloat(0);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -135,7 +127,7 @@ public class DBAdapter {
             cursor = db.rawQuery(query, null);
             currentDayEstimatesCount = cursor.getCount();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -187,7 +179,7 @@ public class DBAdapter {
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -218,7 +210,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal = cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -238,7 +230,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -258,7 +250,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -278,7 +270,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -298,7 +290,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -318,7 +310,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -338,7 +330,7 @@ public class DBAdapter {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -394,7 +386,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -438,7 +430,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -482,7 +474,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -526,7 +518,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -571,7 +563,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -615,7 +607,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -659,7 +651,7 @@ public class DBAdapter {
                         estimatesList.add(estimate);
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -690,7 +682,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -708,7 +700,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -726,7 +718,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -744,7 +736,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -763,7 +755,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -781,7 +773,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -799,7 +791,7 @@ public class DBAdapter {
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Database error occurred", e);
                 } finally {
                     if (cursor != null) {
                         cursor.close();
@@ -836,7 +828,7 @@ public class DBAdapter {
                 currentMonthEstimatesTotal += cursor.getFloat(0);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -897,7 +889,7 @@ public class DBAdapter {
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -928,7 +920,7 @@ public class DBAdapter {
             cursor = db.rawQuery(query, null);
             currentMonthEstimatesCount = cursor.getCount();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -963,7 +955,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -1021,7 +1013,7 @@ public class DBAdapter {
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -1053,7 +1045,7 @@ public class DBAdapter {
             cursor = db.rawQuery(query, null);
             currentYearEstimatesCount = cursor.getCount();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -1139,7 +1131,7 @@ public class DBAdapter {
             cursor.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1215,7 +1207,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1305,7 +1297,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1392,7 +1384,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1482,7 +1474,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1575,7 +1567,7 @@ public class DBAdapter {
             }
             cursor.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         } finally {
             helper.close();
         }
@@ -1610,7 +1602,7 @@ public class DBAdapter {
             cursor.close();
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1633,7 +1625,7 @@ public class DBAdapter {
             db.insert("customer",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1651,7 +1643,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1678,7 +1670,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1711,7 +1703,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1749,7 +1741,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1776,7 +1768,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1802,7 +1794,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1821,7 +1813,7 @@ public class DBAdapter {
             db.insert("steel",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1845,7 +1837,7 @@ public class DBAdapter {
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1863,7 +1855,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             if(cursor != null){
@@ -1892,7 +1884,7 @@ public class DBAdapter {
             db.insert("estimateline",null,cv);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1905,7 +1897,7 @@ public class DBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'customer'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1918,7 +1910,7 @@ public class DBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'steel'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1931,7 +1923,7 @@ public class DBAdapter {
             db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'estimate'");
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1951,7 +1943,7 @@ public class DBAdapter {
             db.update("customer",cv,"id="+ customer.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1975,7 +1967,7 @@ public class DBAdapter {
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -1993,7 +1985,7 @@ public class DBAdapter {
             db.update("steel",cv,"id="+ steel.getId(),null);
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2019,7 +2011,7 @@ public class DBAdapter {
             db.update("estimateline", cv, "id = ?", new String[] { Integer.toString(estimateLine.getId()) } );
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2060,7 +2052,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2103,7 +2095,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2146,7 +2138,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2191,7 +2183,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2222,7 +2214,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2274,7 +2266,7 @@ public class DBAdapter {
             }
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2291,7 +2283,7 @@ public class DBAdapter {
             db.delete("estimateline", "id=? ", new String[] { estimateLineId.toString()});
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2304,7 +2296,7 @@ public class DBAdapter {
             db.delete("customer", "id=?",new String[] {customerId.toString()});
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2319,7 +2311,7 @@ public class DBAdapter {
             db.delete("steel", "id=?",new String[] {steelId.toString()});
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
@@ -2332,7 +2324,7 @@ public class DBAdapter {
             db.delete("estimate", "id=?",new String[] {estimateId.toString()});
         }
         catch(SQLException e){
-            e.printStackTrace();
+            Log.e(TAG, "Database error occurred", e);
         }
         finally{
             helper.close();
