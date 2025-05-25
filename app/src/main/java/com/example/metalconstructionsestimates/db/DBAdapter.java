@@ -1487,11 +1487,8 @@ public class DBAdapter {
         String whereQuery = "";
 
         try {
-
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
-
             if (searchText != "") {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
