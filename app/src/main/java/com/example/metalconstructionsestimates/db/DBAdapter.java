@@ -149,6 +149,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String date;
         Calendar calendar = Calendar.getInstance();
+        Cursor cursor = null;
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         month++;
@@ -157,9 +158,8 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             String query = "select * from estimate where issuedate ='" + date + "'";
-            Cursor cursor = db.rawQuery(query, null);
+            cursor = db.rawQuery(query, null);
             Estimate estimate;
-            estimatesList.clear();
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -189,6 +189,9 @@ public class DBAdapter {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
             helper.close();
         }
 
@@ -364,7 +367,6 @@ public class DBAdapter {
                     String query = "select * from estimate where issueDate ='" + date + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -394,6 +396,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -404,10 +409,8 @@ public class DBAdapter {
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -437,6 +440,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -447,10 +453,8 @@ public class DBAdapter {
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -480,6 +484,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -490,10 +497,8 @@ public class DBAdapter {
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -523,6 +528,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
 
@@ -534,10 +542,8 @@ public class DBAdapter {
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -567,6 +573,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -577,10 +586,8 @@ public class DBAdapter {
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -610,6 +617,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -620,10 +630,8 @@ public class DBAdapter {
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
                     String query = "select * from estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    Log.i("query", query);
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
-                    estimatesList.clear();
                     while (cursor.moveToNext()) {
                         Integer estimateId = cursor.getInt(0);
                         String doneIn = cursor.getString(1);
@@ -684,6 +692,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -699,6 +710,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -714,6 +728,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -729,6 +746,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
 
@@ -745,6 +765,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -760,6 +783,9 @@ public class DBAdapter {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
+                    if (cursor != null) {
+                        cursor.close();
+                    }
                     helper.close();
                 }
                 break;
@@ -844,7 +870,6 @@ public class DBAdapter {
             cursor = db.rawQuery(query, null);
             Log.i("query", query);
             Estimate estimate;
-            estimatesList.clear();
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -969,7 +994,6 @@ public class DBAdapter {
             }
             cursor = db.rawQuery(query, null);
             Estimate estimate;
-            estimatesList.clear();
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -1535,7 +1559,6 @@ public class DBAdapter {
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
                 Float amountPaid = cursor.getFloat(10);
-                estimatesList.clear();
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -2052,7 +2075,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from estimate where amountPaid = allTaxIncludedTotal",null);
             Estimate estimate;
-            estimatesList.clear();
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2096,7 +2118,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from estimate where amountPaid = 0",null);
             Estimate estimate;
-            estimatesList.clear();
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2142,7 +2163,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from estimate where amountPaid < allTaxIncludedTotal and amountPaid != 0",null);
             Estimate estimate;
-            estimatesList.clear();
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2214,7 +2234,7 @@ public class DBAdapter {
 
     public ArrayList<EstimateLine> searchEstimateLines(Integer estimateId){
         ArrayList<EstimateLine> estimateLinesList = new ArrayList<>();
-        Cursor cursor;
+        Cursor cursor = null;
         try{
             db = helper.getReadableDatabase();
             String query = "select * from estimateline where estimate=" + estimateId.toString();
