@@ -38,6 +38,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EstimateDetails extends AppCompatActivity {
 
     Integer estimateId;
+    Integer customerId;
 
     Estimate estimate;
 
@@ -111,6 +112,7 @@ public class EstimateDetails extends AppCompatActivity {
 
         estimateIdEditText.setText(String.format(estimate.getId().toString()));
         locationEditText.setText(estimate.getDoneIn());
+        customerId = estimate.getCustomer();
 
         if(estimate.getCustomer() == null){
             customerIdEditText.get().setText("");
@@ -251,6 +253,11 @@ public class EstimateDetails extends AppCompatActivity {
                         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
                         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
 
+                        if(dbAdapter.getCustomerById(Integer.parseInt(Objects.requireNonNull(customerIdEditText.getText()).toString())) == null){
+                            Toast.makeText(getApplicationContext(), "Customer does not exist", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+
                         estimate.setId(Integer.parseInt(estimateIdEditText.getText().toString()));
 
                         if (!locationEditText.getText().toString().isEmpty()) {
@@ -271,7 +278,7 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setExpirationDate("");
                         }
 
-                        if (!customerIdEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(customerIdEditText.getText()).toString().isEmpty()) {
                             estimate.setCustomer(Integer.parseInt(customerIdEditText.getText().toString()));
                         } else {
                             estimate.setCustomer(null);
