@@ -1117,13 +1117,9 @@ public class DBAdapter {
             cursor.close();
 
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         } finally {
-
             helper.close();
-
         }
 
         return customersList;
@@ -2220,10 +2216,11 @@ public class DBAdapter {
 
     public ArrayList<EstimateLine> searchEstimateLines(Integer estimateId){
         ArrayList<EstimateLine> estimateLinesList = new ArrayList<>();
+        Cursor cursor;
         try{
             db = helper.getReadableDatabase();
             String query = "select * from estimateline where estimate=" + estimateId.toString();
-            Cursor cursor = db.rawQuery(query,null);
+            cursor = db.rawQuery(query,null);
             EstimateLine estimateLine;
             while(cursor.moveToNext()){
                 Integer estimateLineId = cursor.getInt(0);
@@ -2263,6 +2260,9 @@ public class DBAdapter {
         }
         finally{
             helper.close();
+            if(cursor != null){
+                cursor.close();
+            }
         }
         return estimateLinesList;
     }
