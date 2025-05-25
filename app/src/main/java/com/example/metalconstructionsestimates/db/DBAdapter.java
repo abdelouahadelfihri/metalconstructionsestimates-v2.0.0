@@ -1047,7 +1047,7 @@ public class DBAdapter {
         try {
             String[] customerTableColumns = {"id", "name", "email", "tel", "mobile", "fax", "address"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < customerTableColumns.length; i++) {
@@ -1136,7 +1136,7 @@ public class DBAdapter {
         try {
             String[] steelsTableColumns = {"id", "type", "geometricShape", "unit", "weight"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < steelsTableColumns.length; i++) {
@@ -1212,7 +1212,7 @@ public class DBAdapter {
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
@@ -1301,7 +1301,7 @@ public class DBAdapter {
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
@@ -1345,9 +1345,7 @@ public class DBAdapter {
             String query = selectQuery + whereQuery;
             query = query + " and amountPaid = allTaxIncludedTotal and amountPaid != 0";
             Cursor cursor = db.rawQuery(query, null);
-
             Estimate estimate;
-
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -1391,7 +1389,7 @@ public class DBAdapter {
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
@@ -1482,7 +1480,7 @@ public class DBAdapter {
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
-            if (searchText != "") {
+            if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
@@ -2227,7 +2225,6 @@ public class DBAdapter {
             String query = "select * from estimateline where estimate=" + estimateId.toString();
             Cursor cursor = db.rawQuery(query,null);
             EstimateLine estimateLine;
-            estimateLinesList.clear();
             while(cursor.moveToNext()){
                 Integer estimateLineId = cursor.getInt(0);
                 Integer estimate = cursor.getInt(1);
