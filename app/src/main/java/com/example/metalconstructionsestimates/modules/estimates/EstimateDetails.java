@@ -14,15 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputEditText;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListAdapter;
 import com.example.metalconstructionsestimates.databinding.ActivityEstimateDetailsBinding;
@@ -31,7 +28,6 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
