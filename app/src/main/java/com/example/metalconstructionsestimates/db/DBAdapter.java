@@ -31,7 +31,6 @@ public class DBAdapter {
         helper = new DBHelper(context);
     }
 
-
     public int getEstimatesCount() {
         String countQuery = "SELECT * FROM estimate";
         db = helper.getReadableDatabase();
