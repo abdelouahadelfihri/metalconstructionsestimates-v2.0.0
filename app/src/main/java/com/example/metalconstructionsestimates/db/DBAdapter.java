@@ -1133,7 +1133,6 @@ public class DBAdapter {
         ArrayList<Steel> steelsList = new ArrayList<>();
         String selectQuery = "SELECT * FROM steel WHERE ";
         String whereQuery = "";
-
         try {
             String[] steelsTableColumns = {"id", "type", "geometricShape", "unit", "weight"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1147,7 +1146,8 @@ public class DBAdapter {
                             whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
                         }
                     }
-                } else {
+                }
+                else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
@@ -1298,7 +1298,6 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String selectQuery = "SELECT * FROM estimate WHERE ";
         String whereQuery = "";
-
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1527,8 +1526,6 @@ public class DBAdapter {
             String query = selectQuery + whereQuery;
 
             query = query + " AND amountPaid = 0";
-
-            Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
 
