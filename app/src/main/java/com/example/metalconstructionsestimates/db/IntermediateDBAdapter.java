@@ -67,7 +67,6 @@ public class IntermediateDBAdapter {
             db = helper.getReadableDatabase();
             Cursor c = db.rawQuery("select * from estimateline",null);
             EstimateLine estimateLine;
-            estimatesLinesList.clear();
             while(c.moveToNext()){
                 Integer estimateLineId = c.getInt(0);
                 Integer estimate = c.getInt(1);
