@@ -1044,7 +1044,6 @@ public class DBAdapter {
         ArrayList<Customer> customersList = new ArrayList<>();
         String selectQuery = "SELECT * FROM customer WHERE ";
         String whereQuery = "";
-
         try {
             String[] customerTableColumns = {"id", "name", "email", "tel", "mobile", "fax", "address"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
