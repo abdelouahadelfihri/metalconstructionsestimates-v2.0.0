@@ -1574,7 +1574,6 @@ public class DBAdapter {
             Cursor cursor = db.rawQuery("select * from customer",null);
             Customer customer;
             db = helper.getReadableDatabase();
-            customersList.clear();
             while(cursor.moveToNext()){
                 Integer idCustomer = cursor.getInt(0);
                 String name = cursor.getString(1);
@@ -2018,7 +2017,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from estimate",null);
             Estimate estimate;
-            estimatesList.clear();
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2196,7 +2194,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("select * from steel",null);
             Steel steel;
-            steelsList.clear();
             while(cursor.moveToNext()){
                 Integer steelId = cursor.getInt(0);
                 String type = cursor.getString(1);
