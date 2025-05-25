@@ -106,9 +106,6 @@
     <string name="currentYearEstimatesCount">Yearly Number of Estimates :</string>
     <string name="imageViewDescription">menuElement</string>
     <string name="allEstimates">All</string>
-    <string name="searchEstimates">Search Estimates</string>
-    <string name="searchCustomers">Search Customers</string>
-    <string name="searchSteels">Search Steels</string>
     <string name="unpaidEstimates">Unpaid</string>
     <string name="partiallyPaidEstimates">Partially Paid</string>
     <string name="paidEstimates">Paid</string>
