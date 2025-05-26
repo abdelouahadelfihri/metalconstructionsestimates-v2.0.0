@@ -51,7 +51,7 @@ public class DBAdapter {
     }
 
     public Float getEstimatesTotal() {
-        Float estimatesTotal = 0.0f;
+        float estimatesTotal = 0.0f;
         Cursor cursor = null;
         try {
             db = helper.getReadableDatabase();
@@ -72,7 +72,7 @@ public class DBAdapter {
     }
 
     public Float getCurrentDayEstimatesTotal() {
-        Float currentDayEstimatesTotal = 0.0f;
+        float currentDayEstimatesTotal = 0.0f;
         Cursor cursor = null;
         String date;
         Calendar calendar = Calendar.getInstance();
