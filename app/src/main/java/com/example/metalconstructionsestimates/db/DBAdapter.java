@@ -1107,6 +1107,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
 
             Customer customer;
@@ -1193,6 +1194,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
             Steel steel;
             while (cursor.moveToNext()) {
@@ -1270,6 +1272,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
+            Log.i("query", query);
             query = query + " and amountPaid = allTaxIncludedTotal";
             Cursor cursor = db.rawQuery(query, null);
 
@@ -1363,6 +1366,7 @@ public class DBAdapter {
 
             String query = selectQuery + whereQuery;
             query = query + " and amountPaid = allTaxIncludedTotal and amountPaid != 0";
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
             Estimate estimate;
             while (cursor.moveToNext()) {
@@ -1453,6 +1457,7 @@ public class DBAdapter {
 
             String query = selectQuery + whereQuery;
             query = query + " and amountPaid < allTaxIncludedTotal and amountPaid != 0";
+            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
@@ -1547,6 +1552,7 @@ public class DBAdapter {
             String query = selectQuery + whereQuery;
 
             query = query + " AND amountPaid = 0";
+            Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
 
