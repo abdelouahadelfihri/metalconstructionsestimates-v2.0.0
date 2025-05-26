@@ -1067,7 +1067,7 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < customerTableColumns.length; i++) {
-                        if (whereQuery == "") {
+                        if (whereQuery.isEmpty()) {
                             whereQuery = whereQuery + " " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
                         } else {
                             whereQuery = whereQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
@@ -1152,7 +1152,7 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < steelsTableColumns.length; i++) {
-                        if (whereQuery == "") {
+                        if (whereQuery.isEmpty()) {
                             whereQuery = whereQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
                         } else {
                             whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
@@ -1163,10 +1163,10 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].equals("")){
+                        if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < steelsTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.equals("")) {
+                                    if (whereQuery.isEmpty()) {
                                         whereQuery = whereQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
                                         whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
