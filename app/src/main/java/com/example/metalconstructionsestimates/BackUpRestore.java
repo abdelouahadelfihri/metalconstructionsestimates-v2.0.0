@@ -148,7 +148,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                 }
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                Log.e(TAG, "Database error occurred", e);
+                Log.e(LOG_TAG, "Database error occurred", e);
             }
     }
 
@@ -200,7 +200,7 @@ public class BackUpRestore extends GoogleDriveActivity {
         updateActualDbFromIntermediateDb();
         runOnUiThread(() -> Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show());
         } catch (IOException e) {
-        Log.e(TAG, "Database error occurred", e);
+        Log.e(LOG_TAG, "Database error occurred", e);
         runOnUiThread(() -> Toast.makeText(this, "Error restoring database", Toast.LENGTH_SHORT).show());
         }
     }
@@ -237,7 +237,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         os.close();
                         Toast.makeText(this, "Database backup completed successfully", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
-                        Log.e(TAG, "Database error occurred", e);
+                        Log.e(LOG_TAG, "Database error occurred", e);
                     } finally {
                         db.close();
                     }
