@@ -1077,19 +1077,21 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < customerTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if(!searchTextArray[i].equals("")){
+                            for (int j = 0; j < customerTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.equals("")) {
+                                        whereQuery = whereQuery + "(" + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
@@ -1161,19 +1163,21 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < steelsTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if(!searchTextArray[i].equals("")){
+                            for (int j = 0; j < steelsTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.equals("")) {
+                                        whereQuery = whereQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
@@ -1236,19 +1240,21 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < estimateTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if(!searchTextArray[i].equals("")){
+                            for (int j = 0; j < estimateTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.equals("")) {
+                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
@@ -1325,22 +1331,25 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < estimateTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if (!searchTextArray[i].isEmpty()) {
+                            for (int j = 0; j < estimateTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.isEmpty()) {
+                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
+
                         if (i < searchTextArray.length - 1) {
                             whereQuery = whereQuery + ") AND (";
                         } else {
@@ -1413,19 +1422,21 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < estimateTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if(!searchTextArray[i].isEmpty()){
+                            for (int j = 0; j < estimateTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.equals("")) {
+                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
@@ -1504,19 +1515,21 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        for (int j = 0; j < estimateTableColumns.length; j++) {
-                            if (i == 0) {
-                                if (whereQuery.equals("")) {
-                                    whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                        if(!searchTextArray[i].isEmpty()){
+                            for (int j = 0; j < estimateTableColumns.length; j++) {
+                                if (i == 0) {
+                                    if (whereQuery.isEmpty()) {
+                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                }
-                            } else {
-                                if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                    whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
+                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
-                                } else {
-                                    whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    } else {
+                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    }
                                 }
                             }
                         }
