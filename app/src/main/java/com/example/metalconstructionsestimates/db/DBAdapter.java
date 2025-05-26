@@ -1230,7 +1230,7 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (whereQuery == "") {
+                        if (whereQuery.isEmpty()) {
                             whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
                         } else {
                             whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
@@ -1240,10 +1240,10 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].equals("")){
+                        if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.equals("")) {
+                                    if (whereQuery.isEmpty()) {
                                         whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
                                         whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
@@ -1425,7 +1425,7 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.equals("")) {
+                                    if (whereQuery.isEmpty()) {
                                         whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
                                         whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
