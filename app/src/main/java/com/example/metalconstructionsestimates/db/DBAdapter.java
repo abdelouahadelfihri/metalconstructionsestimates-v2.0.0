@@ -1077,10 +1077,10 @@ public class DBAdapter {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].equals("")){
+                        if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < customerTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.equals("")) {
+                                    if (whereQuery.isEmpty()) {
                                         whereQuery = whereQuery + "(" + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
                                         whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
