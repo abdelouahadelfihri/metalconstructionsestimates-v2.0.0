@@ -1068,9 +1068,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < customerTableColumns.length; i++) {
                         if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1233,9 +1233,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1325,9 +1325,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1417,9 +1417,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1511,9 +1511,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
