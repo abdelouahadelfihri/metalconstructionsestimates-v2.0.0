@@ -319,7 +319,7 @@ public class EstimateDetails extends AppCompatActivity {
                         }
 
                         dbAdapter.updateEstimate(estimate);
-                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate have been successfully updated", Toast.LENGTH_LONG);
+                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
                         Intent intent = new Intent(EstimateDetails.this, Estimates.class);
                         startActivity(intent);

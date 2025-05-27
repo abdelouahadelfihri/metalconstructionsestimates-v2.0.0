@@ -120,7 +120,7 @@ public class AddCustomer extends AppCompatActivity {
                             }
 
                             adapter.saveCustomer(customer);
-                            Toast addsuccess = Toast.makeText(getApplicationContext(), "Customer have been successfully added", Toast.LENGTH_LONG);
+                            Toast addsuccess = Toast.makeText(getApplicationContext(), "Customer has been successfully added", Toast.LENGTH_LONG);
                             addsuccess.show();
                             intent = new Intent(AddCustomer.this, Customers.class);
                             startActivity(intent);

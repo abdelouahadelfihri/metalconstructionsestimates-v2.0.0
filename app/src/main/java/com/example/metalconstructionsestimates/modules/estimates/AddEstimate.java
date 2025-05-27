@@ -176,7 +176,7 @@ public class AddEstimate extends AppCompatActivity {
                             }
 
                             dbAdapter.saveEstimate(estimate);
-                            Toast saveSuccessToast = Toast.makeText(getApplicationContext(), "Estimate have been successfully added", Toast.LENGTH_LONG);
+                            Toast saveSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully added", Toast.LENGTH_LONG);
                             saveSuccessToast.show();
                             intent = new Intent(AddEstimate.this, Estimates.class);
                             startActivity(intent);
