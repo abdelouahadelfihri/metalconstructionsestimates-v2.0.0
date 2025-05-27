@@ -1154,9 +1154,9 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < steelsTableColumns.length; i++) {
                         if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchText + "%'";
+                            whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 }
