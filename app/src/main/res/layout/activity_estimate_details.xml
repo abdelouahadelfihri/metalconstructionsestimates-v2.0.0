@@ -305,7 +305,7 @@
             android:id="@+id/noEstimateLinesTextView"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/noEstimates"
             android:gravity="center"
