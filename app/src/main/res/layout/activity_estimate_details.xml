@@ -309,8 +309,10 @@
             android:gravity="center"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/vatLayout"
+            app:layout_constraintBottom_toTopOf="@+id/newEstimateLineButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
 
         <!-- New Line and Update Buttons -->
         <Button
