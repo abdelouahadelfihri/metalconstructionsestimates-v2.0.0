@@ -1923,6 +1923,19 @@ public class DBAdapter {
         }
     }
 
+    public void setSeqEstimateLines(){
+        try{
+            db = helper.getWritableDatabase();
+            db.execSQL("UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'estimateline'");
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+        finally{
+            helper.close();
+        }
+    }
+
     public void setSeqSteels(){
         try{
             db = helper.getWritableDatabase();
