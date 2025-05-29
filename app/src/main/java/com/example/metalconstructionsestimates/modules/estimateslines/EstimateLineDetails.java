@@ -8,6 +8,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
@@ -65,7 +67,6 @@ public class EstimateLineDetails extends AppCompatActivity {
         estimateIdEditText.setText(estimateLine.getEstimate().toString());
         String steelType = dbAdapter.getSteelById(estimateLine.getSteel()).getType();
         steelTypeEditText.setText(steelType);
-
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
         switch (geometricShape) {
             case "Profile":
@@ -430,6 +431,10 @@ public class EstimateLineDetails extends AppCompatActivity {
                 if(adapter.retrieveEstimatesLinesCount() == 0){
                     adapter.setSeqEstimateLines();
                 }
+                String estimateId = estimateLine.getEstimate().toString();
+                Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
+                intent.putExtra("estimateIdExtra", estimateId);
+                startActivity(intent);
             }
         });
 
