@@ -285,11 +285,6 @@ public class EstimateDetails extends AppCompatActivity {
                         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
                         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
 
-                        if(dbAdapter.getCustomerById(Integer.parseInt(Objects.requireNonNull(customerIdEditText.getText()).toString())) == null){
-                            Toast.makeText(getApplicationContext(), "Customer does not exist", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-
                         estimate.setId(Integer.parseInt(estimateIdEditText.getText().toString()));
 
                         if (!locationEditText.getText().toString().isEmpty()) {
@@ -308,12 +303,6 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setExpirationDate(expirationDate.getText().toString());
                         } else {
                             estimate.setExpirationDate("");
-                        }
-
-                        if (!Objects.requireNonNull(customerIdEditText.getText()).toString().isEmpty()) {
-                            estimate.setCustomer(Integer.parseInt(customerIdEditText.getText().toString()));
-                        } else {
-                            estimate.setCustomer(null);
                         }
 
                         Float totalExcludingTax = 0.0f;
@@ -350,6 +339,17 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setAmountPaid(null);
                         }
 
+                        if(dbAdapter.getCustomerById(Integer.parseInt(Objects.requireNonNull(customerIdEditText.getText()).toString())) == null){
+                            Toast.makeText(getApplicationContext(), "Customer does not exist", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        else{
+                            if (!Objects.requireNonNull(customerIdEditText.getText()).toString().isEmpty()) {
+                                estimate.setCustomer(Integer.parseInt(customerIdEditText.getText().toString()));
+                            } else {
+                                estimate.setCustomer(null);
+                            }
+                        }
                         dbAdapter.updateEstimate(estimate);
                         Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
