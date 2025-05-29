@@ -250,7 +250,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/totalInclTaxLayout"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="4dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -274,7 +273,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -299,8 +297,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/noEstimateLinesTextView"
@@ -311,8 +308,7 @@
             android:text="@string/noEstimates"
             android:gravity="center"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/estimateLinesRecyclerView"
-            app:layout_constraintBottom_toBottomOf="@id/estimateLinesRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/vatLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
