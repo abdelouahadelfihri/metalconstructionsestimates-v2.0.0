@@ -427,6 +427,9 @@ public class EstimateLineDetails extends AppCompatActivity {
                 adapter.deleteEstimateLine(Integer.parseInt(estimateLineIdEditText.getText().toString()));
                 Toast deleteResult = Toast.makeText(getApplicationContext(), "The estimate line has been successfully deleted.", Toast.LENGTH_LONG);
                 deleteResult.show();
+                if(adapter.retrieveEstimatesLinesCount() == 0){
+                    adapter.setSeqEstimateLines();
+                }
             }
         });
 
