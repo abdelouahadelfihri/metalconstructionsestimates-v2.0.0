@@ -2115,7 +2115,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where amountPaid = allTaxIncludedTotal",null);
+            Cursor cursor = db.rawQuery("select * from estimate where ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND allTaxIncludedTotal > 0",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
@@ -2158,7 +2158,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where amountPaid = 0",null);
+            Cursor cursor = db.rawQuery("select * from estimate where ABS(amountPaid) < 0.0001",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
