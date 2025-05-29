@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListAdapter;
@@ -86,15 +87,46 @@ public class EstimateDetails extends AppCompatActivity {
         ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(estimateId);
         TextView noEstimateLinesTextView = findViewById(R.id.noEstimateLinesTextView);
 
+        ConstraintLayout.LayoutParams recyclerParams = (ConstraintLayout.LayoutParams)
+                activityEstimateDetailsBinding.estimateLinesRecyclerView.getLayoutParams();
+
+        ConstraintLayout.LayoutParams noLinesParams = (ConstraintLayout.LayoutParams)
+                noEstimateLinesTextView.getLayoutParams();
+
+        ConstraintLayout.LayoutParams buttonParams = (ConstraintLayout.LayoutParams)
+                activityEstimateDetailsBinding.newEstimateLineButton.getLayoutParams();
+
         if (!estimateLinesList.isEmpty()) {
+            // Show RecyclerView, hide "no lines" TextView
             noEstimateLinesTextView.setVisibility(View.GONE);
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
+
             activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(this, estimateLinesList);
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(estimatesLinesListAdapter);
+            EstimateLinesListAdapter adapter = new EstimateLinesListAdapter(this, estimateLinesList);
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(adapter);
+
+            // recyclerView constraints: Top to vatLayout
+            recyclerParams.topToBottom = R.id.vatLayout;
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutParams(recyclerParams);
+
+            // button constraints: Top to recyclerView
+            buttonParams.topToBottom = R.id.estimateLinesRecyclerView;
+            activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
+
         } else {
+            // Show "no lines" TextView, hide RecyclerView
             noEstimateLinesTextView.setVisibility(View.VISIBLE);
             activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
+
+            // noLinesTextView constraints: Top to vatLayout
+            noLinesParams.topToBottom = R.id.vatLayout;
+            noEstimateLinesTextView.setLayoutParams(noLinesParams);
+
+            // button constraints: Top to noEstimateLinesTextView
+            buttonParams.topToBottom = R.id.noEstimateLinesTextView;
+            activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
         }
+
 
         if(!estimate.getExpirationDate().isEmpty()){
             expirationDate.setText(estimate.getExpirationDate());
