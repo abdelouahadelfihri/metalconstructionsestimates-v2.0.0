@@ -1365,7 +1365,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
-            query = query + " and amountPaid = allTaxIncludedTotal and amountPaid != 0";
+            query = query + " AND ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND amountPaid != 0";
             Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
             Estimate estimate;
