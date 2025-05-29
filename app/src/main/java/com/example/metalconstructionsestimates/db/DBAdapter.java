@@ -2093,6 +2093,26 @@ public class DBAdapter {
         return estimatesList;
     }
 
+
+    public int retrieveEstimatesLinesCount(){
+        ArrayList<EstimateLine> estimatesLinesList = new ArrayList<>();
+        Cursor cursor =  null;
+        try{
+            db = helper.getReadableDatabase();
+            cursor = db.rawQuery("select * from estimateline",null);
+
+            Estimate estimate;
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+        finally{
+            helper.close();
+        }
+
+        return cursor.getCount();
+    }
+
     public ArrayList<Estimate> retrievePaidEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
