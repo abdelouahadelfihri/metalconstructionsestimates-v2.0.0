@@ -397,15 +397,44 @@ public class EstimateDetails extends AppCompatActivity {
                 totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdEditText.getText().toString()));
 
-                if (estimateLinesList.isEmpty()) {
-                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
-                    activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.VISIBLE);
-                } else {
+                ConstraintLayout.LayoutParams recyclerParams = (ConstraintLayout.LayoutParams)
+                        activityEstimateDetailsBinding.estimateLinesRecyclerView.getLayoutParams();
+
+                ConstraintLayout.LayoutParams noLinesParams = (ConstraintLayout.LayoutParams)
+                        noEstimateLinesTextView.getLayoutParams();
+
+                ConstraintLayout.LayoutParams buttonParams = (ConstraintLayout.LayoutParams)
+                        activityEstimateDetailsBinding.newEstimateLineButton.getLayoutParams();
+
+                if (!estimateLinesList.isEmpty()) {
+                    // Show RecyclerView, hide "no lines" TextView
+                    noEstimateLinesTextView.setVisibility(View.GONE);
                     activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
-                    activityEstimateDetailsBinding.noEstimateLinesTextView.setVisibility(View.GONE);
-                    EstimateLinesListAdapter estimatesLinesListAdapter = new EstimateLinesListAdapter(EstimateDetails.this, estimateLinesList);
+
                     activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(estimatesLinesListAdapter);
+                    EstimateLinesListAdapter adapter = new EstimateLinesListAdapter(EstimateDetails.this, estimateLinesList);
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(adapter);
+
+                    // recyclerView constraints: Top to vatLayout
+                    recyclerParams.topToBottom = R.id.vatLayout;
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutParams(recyclerParams);
+
+                    // button constraints: Top to recyclerView
+                    buttonParams.topToBottom = R.id.estimateLinesRecyclerView;
+                    activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
+
+                } else {
+                    // Show "no lines" TextView, hide RecyclerView
+                    noEstimateLinesTextView.setVisibility(View.VISIBLE);
+                    activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
+
+                    // noLinesTextView constraints: Top to vatLayout
+                    noLinesParams.topToBottom = R.id.vatLayout;
+                    noEstimateLinesTextView.setLayoutParams(noLinesParams);
+
+                    // button constraints: Top to noEstimateLinesTextView
+                    buttonParams.topToBottom = R.id.noEstimateLinesTextView;
+                    activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
                 }
 
             }
