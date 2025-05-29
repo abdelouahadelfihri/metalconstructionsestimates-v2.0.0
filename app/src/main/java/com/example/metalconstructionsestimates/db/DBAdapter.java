@@ -1551,7 +1551,7 @@ public class DBAdapter {
 
             String query = selectQuery + whereQuery;
 
-            query = query + " AND amountPaid = 0";
+            query = query + " AND ABS(amountPaid) < 0.0001";
             Log.i("query", query);
 
             Cursor cursor = db.rawQuery(query, null);
