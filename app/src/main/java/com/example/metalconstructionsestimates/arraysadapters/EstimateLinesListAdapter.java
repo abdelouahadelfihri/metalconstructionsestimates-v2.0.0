@@ -64,14 +64,12 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int layoutPosition = holder.getLayoutPosition();
                 EstimateLine clickedEstimateLine = estimateLinesList.get(layoutPosition);  // Get the Steel item at this position
                 Intent intent;
                 intent = new Intent(v.getContext(), EstimateLineDetails.class);
                 intent.putExtra("estimateLineIdExtra", clickedEstimateLine.getId().toString());
                 v.getContext().startActivity(intent);
-
             }
         });
     }
