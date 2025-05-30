@@ -2157,10 +2157,11 @@ public class DBAdapter {
     public ArrayList<Estimate> retrieveUnpaidEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Estimate estimate;
+        Cursor cursor = null;
         try{
 
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid = 0.0",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid = 0.0",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2193,6 +2194,9 @@ public class DBAdapter {
         }
         finally{
             helper.close();
+            if(cursor == null){
+                cursor.close();
+            }
         }
 
         return estimatesList;
