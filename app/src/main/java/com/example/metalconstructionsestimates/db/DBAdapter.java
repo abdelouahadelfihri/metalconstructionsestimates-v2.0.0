@@ -1455,7 +1455,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = selectQuery + whereQuery;
-            query = query + " and amountPaid < allTaxIncludedTotal and amountPaid != 0";
+            query = query + " AND amountPaid > 0 AND amountPaid < allTaxIncludedTotal";
             Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2158,7 +2158,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where ABS(amountPaid) < 0.0001",null);
+            Cursor cursor = db.rawQuery("SELECT * from estimate WHERE ABS(amountPaid) < 0.0001",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
@@ -2203,7 +2203,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select * from estimate where amountPaid < allTaxIncludedTotal and amountPaid != 0",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid > 0 AND amountPaid < allTaxIncludedTotal",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
