@@ -1550,7 +1550,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " amountPaid = 0.0";
+            query = query + " AND amountPaid BETWEEN -0.001 AND 0.001";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2161,7 +2161,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid = 0.0",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid BETWEEN -0.001 AND 0.001",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
