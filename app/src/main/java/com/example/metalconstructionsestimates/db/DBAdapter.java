@@ -1550,7 +1550,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND ROUND(amountPaid, 2) = 0";
+            query = query + " amountPaid = 0.0";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2160,7 +2160,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ROUND(amountPaid, 2) = 0",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid = 0.0",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
