@@ -95,7 +95,7 @@ public class DBAdapter {
         }
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate where issuedate='" + date + "'";
+            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issuedate='" + date + "'";
             cursor = db.rawQuery(query, null);
             while (cursor.moveToNext()) {
                 currentDayEstimatesTotal = cursor.getFloat(0);
@@ -123,7 +123,7 @@ public class DBAdapter {
         date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimate where issuedate='" + date + "'";
+            String query = "SELECT * FROM estimate WHERE issuedate='" + date + "'";
             cursor = db.rawQuery(query, null);
             currentDayEstimatesCount = cursor.getCount();
         } catch (SQLException e) {
@@ -149,7 +149,7 @@ public class DBAdapter {
         date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimate where issuedate ='" + date + "'";
+            String query = "SELECT * FROM estimate WHERE issuedate ='" + date + "'";
             cursor = db.rawQuery(query, null);
             Estimate estimate;
             while (cursor.moveToNext()) {
@@ -204,7 +204,7 @@ public class DBAdapter {
                 try {
                     db = helper.getReadableDatabase();
                     String date = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issueDate ='" + date + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate ='" + date + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal = cursor.getFloat(0);
@@ -224,7 +224,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -244,7 +244,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -264,7 +264,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -284,7 +284,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -304,7 +304,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -324,7 +324,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -356,7 +356,7 @@ public class DBAdapter {
                 try {
                     db = helper.getReadableDatabase();
                     String date = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issueDate ='" + date + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -400,7 +400,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -444,7 +444,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -488,7 +488,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -533,7 +533,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -577,7 +577,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -621,7 +621,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     Estimate estimate;
                     while (cursor.moveToNext()) {
@@ -678,7 +678,7 @@ public class DBAdapter {
                 try {
                     db = helper.getReadableDatabase();
                     String date = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issueDate ='" + date + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -696,7 +696,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -714,7 +714,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -732,7 +732,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -751,7 +751,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -769,7 +769,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -787,7 +787,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate where issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -817,10 +817,10 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             if (day == 1) {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate where issueDate ='" + startDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
                 String highDate = year + "-" + month + "-" + day;
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate where issuedate between '" + startDate + "' and '" + highDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issuedate between '" + startDate + "' and '" + highDate + "'";
             }
 
             cursor = db.rawQuery(query, null);
@@ -854,9 +854,9 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             if (day == 1) {
-                query = "SELECT * FROM estimate where issuedate='" + startOfMonth + "'";
+                query = "SELECT * FROM estimate WHERE issuedate='" + startOfMonth + "'";
             } else {
-                query = "SELECT * FROM estimate where issuedate between '" + startOfMonth + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issuedate between '" + startOfMonth + "' and '" + currentDate + "'";
             }
 
             cursor = db.rawQuery(query, null);
@@ -912,10 +912,10 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             if (day == 1) {
-                query = "SELECT * FROM estimate where issueDate ='" + startDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
                 String highDate = year + "-" + month + "-" + day;
-                query = "SELECT * FROM estimate where issuedate between '" + startDate + "' and '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + highDate + "'";
             }
             cursor = db.rawQuery(query, null);
             currentMonthEstimatesCount = cursor.getCount();
@@ -945,9 +945,9 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             if (month == 1 && day == 1) {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate where issueDate ='" + currentDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issueDate ='" + currentDate + "'";
             } else {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate where issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
             }
             cursor = db.rawQuery(query, null);
             while (cursor.moveToNext()) {
@@ -980,9 +980,9 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
             if (month == 1 && day == 1) {
                 String date = year + "-" + month + "-" + day;
-                query = "SELECT * FROM estimate where date ='" + date + "'";
+                query = "SELECT * FROM estimate WHERE date ='" + date + "'";
             } else {
-                query = "SELECT * FROM estimate where issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
             }
             cursor = db.rawQuery(query, null);
             Estimate estimate;
@@ -1037,9 +1037,9 @@ public class DBAdapter {
         String currentDate = year + "-" + month + "-" + day;
         try {
             if (month == 1 && day == 1) {
-                query = "SELECT * FROM estimate where issueDate ='" + startDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
-                query = "SELECT * FROM estimate where issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
             }
             db = helper.getReadableDatabase();
             cursor = db.rawQuery(query, null);
@@ -1059,7 +1059,7 @@ public class DBAdapter {
     public ArrayList<Customer> searchCustomers(String searchText) {
         ArrayList<Customer> customersList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM customer WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
         try {
             String[] customerTableColumns = {"id", "name", "email", "tel", "mobile", "fax", "address"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1067,10 +1067,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < customerTableColumns.length; i++) {
-                        if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.isEmpty()) {
+                            WHEREQuery = WHEREQuery + " " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + customerTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1080,25 +1080,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < customerTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + customerTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1106,7 +1106,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
             Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
 
@@ -1145,7 +1145,7 @@ public class DBAdapter {
     public ArrayList<Steel> searchSteels(String searchText) {
         ArrayList<Steel> steelsList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM steel WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
         try {
             String[] steelsTableColumns = {"id", "type", "geometricShape", "unit", "weight"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1153,10 +1153,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < steelsTableColumns.length; i++) {
-                        if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.isEmpty()) {
+                            WHEREQuery = WHEREQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 }
@@ -1167,25 +1167,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < steelsTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1193,7 +1193,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
             Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
             Steel steel;
@@ -1224,7 +1224,7 @@ public class DBAdapter {
     public ArrayList<Estimate> searchEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1232,10 +1232,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (whereQuery.isEmpty()) {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.isEmpty()) {
+                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1245,25 +1245,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1271,7 +1271,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
             Log.i("query", query);
             query = query + " and amountPaid = allTaxIncludedTotal";
             Cursor cursor = db.rawQuery(query, null);
@@ -1316,7 +1316,7 @@ public class DBAdapter {
     public ArrayList<Estimate> searchPaidEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1324,10 +1324,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery == "") {
+                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1337,26 +1337,26 @@ public class DBAdapter {
                         if (!searchTextArray[i].isEmpty()) {
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
 
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1364,7 +1364,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
             query = query + " AND ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND allTaxIncludedTotal > 0";
             Cursor cursor = db.rawQuery(query, null);
             Estimate estimate;
@@ -1407,7 +1407,7 @@ public class DBAdapter {
     public ArrayList<Estimate> searchPartiallyPaidEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
         try {
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1415,10 +1415,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery == "") {
+                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1428,25 +1428,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1454,7 +1454,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
             query = query + " AND amountPaid > 0 AND amountPaid < allTaxIncludedTotal";
             Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
@@ -1500,7 +1500,7 @@ public class DBAdapter {
     public ArrayList<Estimate> searchUnPaidEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String whereQuery = "";
+        String WHEREQuery = "";
 
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1509,10 +1509,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (whereQuery == "") {
-                            whereQuery = whereQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery == "") {
+                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
-                            whereQuery = whereQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
                 } else {
@@ -1522,25 +1522,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (whereQuery.isEmpty()) {
-                                        whereQuery = whereQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.isEmpty()) {
+                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 } else {
-                                    if (whereQuery.charAt(whereQuery.length() - 1) == '(') {
-                                        whereQuery = whereQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
+                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
 
                                     } else {
-                                        whereQuery = whereQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            whereQuery = whereQuery + ") AND (";
+                            WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            whereQuery = whereQuery + ")";
+                            WHEREQuery = WHEREQuery + ")";
                         }
                     }
                 }
@@ -1548,7 +1548,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + whereQuery;
+            String query = SELECTQuery + WHEREQuery;
 
             query = query + " AND ABS(amountPaid) < 0.0001";
 
@@ -1653,7 +1653,7 @@ public class DBAdapter {
         Integer customerId = null;
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT id FROM customer where name=?" ,new String[]{customerName});
+            Cursor cursor = db.rawQuery("SELECT id FROM customer WHERE name=?" ,new String[]{customerName});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 customerId = cursor.getInt(0);
@@ -1671,7 +1671,7 @@ public class DBAdapter {
         Customer customer = new Customer();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM customer where id=?",new String []{customerId.toString()});
+            Cursor cursor = db.rawQuery("SELECT * FROM customer WHERE id=?",new String []{customerId.toString()});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 customer.setId(cursor.getInt(0));
@@ -1700,7 +1700,7 @@ public class DBAdapter {
         Cursor cursor = null;
         try{
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate where id=?",new String []{estimateId.toString()});
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE id=?",new String []{estimateId.toString()});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 estimate.setId(cursor.getInt(0));
@@ -1735,7 +1735,7 @@ public class DBAdapter {
         EstimateLine estimateLine = new EstimateLine();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimateline where id=?",
+            Cursor cursor = db.rawQuery("SELECT * FROM estimateline WHERE id=?",
                     new String []{estimateLineId.toString()});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
@@ -1771,7 +1771,7 @@ public class DBAdapter {
         Cursor cursor;
         try{
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM steel where lower(type)=?",new String []{steelType.toLowerCase()});
+            cursor = db.rawQuery("SELECT * FROM steel WHERE lower(type)=?",new String []{steelType.toLowerCase()});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 steel.setId(cursor.getInt(0));
@@ -1797,7 +1797,7 @@ public class DBAdapter {
         Steel steel = new Steel();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM steel where id=?",new String []{steelId.toString()});
+            Cursor cursor = db.rawQuery("SELECT * FROM steel WHERE id=?",new String []{steelId.toString()});
             if(cursor.getCount() == 1){
                 cursor.moveToFirst();
                 steel.setId(cursor.getInt(0));
@@ -1866,7 +1866,7 @@ public class DBAdapter {
         Cursor cursor = null;
         try{
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT sum(totalPrice) FROM estimateline inner join estimate on estimateline.estimate = estimate.id where estimate.id=? group by estimate.id", new String []{estimateId.toString()});
+            cursor = db.rawQuery("SELECT sum(totalPrice) FROM estimateline inner join estimate on estimateline.estimate = estimate.id WHERE estimate.id=? group by estimate.id", new String []{estimateId.toString()});
             while(cursor.moveToNext()){
                 estimateExcludingTaxTotal = cursor.getFloat(0);
             }
@@ -2115,7 +2115,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate where ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND allTaxIncludedTotal > 0",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND allTaxIncludedTotal > 0",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
@@ -2279,7 +2279,7 @@ public class DBAdapter {
         Cursor cursor = null;
         try{
             db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimateline where estimate=" + estimateId.toString();
+            String query = "SELECT * FROM estimateline WHERE estimate=" + estimateId.toString();
             cursor = db.rawQuery(query,null);
             EstimateLine estimateLine;
             while(cursor.moveToNext()){
