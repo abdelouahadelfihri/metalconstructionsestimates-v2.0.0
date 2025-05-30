@@ -1550,7 +1550,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND ABS(amountPaid) < 0.001";
+            query = query + " AND ROUND(amountPaid, 2) = 0";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2160,13 +2160,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid) < 0.001",null);
-            cursor = db.rawQuery("SELECT id, amountPaid FROM estimate", null);
-            while (cursor.moveToNext()) {
-                int id = cursor.getInt(0);
-                float paid = cursor.getFloat(1);
-                Log.d("DEBUG", "Estimate ID: " + id + " | amountPaid: " + paid);
-            }
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ROUND(amountPaid, 2) = 0",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
