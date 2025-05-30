@@ -2158,8 +2158,15 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Estimate estimate;
         try{
+
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid) < 0.001",null);
+            cursor = db.rawQuery("SELECT id, amountPaid FROM estimate", null);
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                float paid = cursor.getFloat(1);
+                Log.d("DEBUG", "Estimate ID: " + id + " | amountPaid: " + paid);
+            }
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
