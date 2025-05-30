@@ -1550,7 +1550,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND ABS(amountPaid) < 0.0001";
+            query = query + " AND ABS(amountPaid) < 0.001";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2156,10 +2156,10 @@ public class DBAdapter {
 
     public ArrayList<Estimate> retrieveUnpaidEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
+        Estimate estimate;
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid) < 0.0001",null);
-            Estimate estimate;
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid) < 0.001",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
