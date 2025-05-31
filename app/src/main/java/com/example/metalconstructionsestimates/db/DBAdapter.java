@@ -1272,8 +1272,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            Log.i("query", query);
-            query = query + " and amountPaid = allTaxIncludedTotal";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
