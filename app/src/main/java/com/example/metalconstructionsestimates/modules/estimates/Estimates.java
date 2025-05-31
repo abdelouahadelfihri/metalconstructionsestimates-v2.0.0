@@ -21,8 +21,6 @@ import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBinding;
 
