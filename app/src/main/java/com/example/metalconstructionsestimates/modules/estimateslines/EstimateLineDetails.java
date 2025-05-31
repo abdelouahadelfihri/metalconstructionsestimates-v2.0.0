@@ -48,7 +48,7 @@ public class EstimateLineDetails extends AppCompatActivity {
         TextInputEditText estimateLineIdEditText = findViewById(R.id.et_estimate_line_id);
         TextInputEditText estimateIdEditText = findViewById(R.id.et_estimate_id);
         TextInputEditText steelTypeEditText = findViewById(R.id.et_steel_id);
-        TextInputEditText weightEditText = findViewById(R.id.et_steel_id);
+        TextInputEditText weightEditText = findViewById(R.id.et_weight);
         TextInputEditText lengthEditText = findViewById(R.id.et_length);
         TextInputEditText widthEditText = findViewById(R.id.et_width);
         TextInputEditText heightEditText = findViewById(R.id.et_height);
@@ -67,6 +67,14 @@ public class EstimateLineDetails extends AppCompatActivity {
         estimateIdEditText.setText(estimateLine.getEstimate().toString());
         String steelType = dbAdapter.getSteelById(estimateLine.getSteel()).getType();
         steelTypeEditText.setText(steelType);
+
+        if(estimateLine.getWeight() == null){
+            weightEditText.setText("");
+        }
+        else{
+            weightEditText.setText(estimateLine.getWeight().toString());
+        }
+
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
         switch (geometricShape) {
             case "Profile":
@@ -95,12 +103,6 @@ public class EstimateLineDetails extends AppCompatActivity {
                 heightEditText.setEnabled(true);
 
                 break;
-        }
-        if(estimateLine.getWeight() == null){
-            weightEditText.setText("");
-        }
-        else{
-            weightEditText.setText(estimateLine.getWeight().toString());
         }
 
         if(estimateLine.getLength() == null){
