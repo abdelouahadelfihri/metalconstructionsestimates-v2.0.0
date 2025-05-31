@@ -24,6 +24,8 @@ import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.google.android.material.textfield.TextInputEditText;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -32,6 +34,8 @@ public class AddEstimate extends AppCompatActivity {
     Integer customerId;
     DBAdapter dbAdapter;
     TextView expirationDate, issueDate;
+    LocalDate issueDateLocal;
+    LocalDate expirationDateLocal;
     String expirationDateValue = "", issueDateValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
@@ -255,12 +259,14 @@ public class AddEstimate extends AppCompatActivity {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
             expirationDate.setText(expirationDateValue);
+            LocalDate expirationDateLocal = LocalDate.parse("2025-05-31");
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             issueDateValue = year + "-" + month + "-" + day;
             issueDate.setText(issueDateValue);
+            LocalDate issueDateLocal = LocalDate.parse("2025-05-31");
         };
     }
     public void startActivityForResult() {
