@@ -1550,7 +1550,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND  amountPaid IS NULL AND allTaxIncludedTotal IS NOT NULL";
+            query = query + " AND amountPaid IS NULL AND ABS(allTaxIncludedTotal - 0.0) > 0.0001";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2161,7 +2161,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid IS NULL AND allTaxIncludedTotal IS NOT NULL",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid IS NULL AND ABS(allTaxIncludedTotal - 0.0) > 0.0001",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
