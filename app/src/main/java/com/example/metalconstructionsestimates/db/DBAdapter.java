@@ -1550,7 +1550,8 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND CAST(amountPaid AS TEXT) = '0.0'  AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'";
+            query = query + " WHERE (amountPaid IS NULL OR CAST(amountPaid AS TEXT) = '0.0')\n" +
+                    "  AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0');";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2161,7 +2162,8 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE CAST(amountPaid AS TEXT) = '0.0'  AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE (amountPaid IS NULL OR CAST(amountPaid AS TEXT) = '0.0')\n" +
+                    "  AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0')",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
