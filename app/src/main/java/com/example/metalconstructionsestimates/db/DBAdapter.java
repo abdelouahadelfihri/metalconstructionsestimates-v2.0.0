@@ -2207,7 +2207,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid > 0 AND amountPaid < allTaxIncludedTotal",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE amountPaid > 0 AND amountPaid < allTaxIncludedTotal AND allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
