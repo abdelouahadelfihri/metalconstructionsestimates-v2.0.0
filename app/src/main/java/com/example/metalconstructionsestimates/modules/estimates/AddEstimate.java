@@ -281,6 +281,8 @@ public class AddEstimate extends AppCompatActivity {
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween < 1){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                    TextView expirationDateTextView = (TextView) findViewById(R.id.expirationDateValue);
+                    expirationDateTextView.setText(R.string.expirationDate);
                 }
             }
         };
@@ -311,6 +313,8 @@ public class AddEstimate extends AppCompatActivity {
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween < 1){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                    TextView issueDateTextView = (TextView) findViewById(R.id.issueDateValue);
+                    issueDateTextView.setText(R.string.issueDate);
                 }
             }
 
