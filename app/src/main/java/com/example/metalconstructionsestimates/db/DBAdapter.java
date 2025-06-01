@@ -1550,7 +1550,7 @@ public class DBAdapter {
             String query = SELECTQuery + WHEREQuery;
 
             query = query + " AND (amountPaid IS NULL OR CAST(amountPaid AS TEXT) = '0.0')\n" +
-                    "  AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0')";
+                    " AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0')";
 
             Cursor cursor = db.rawQuery(query, null);
 
