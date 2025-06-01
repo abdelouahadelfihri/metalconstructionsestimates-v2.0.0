@@ -37,7 +37,7 @@ public class AddEstimate extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDate, issueDate;
 
-    String expirationDateValue = "", issueDateValue = "";
+    String expirationDateValue, issueDateValue;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
@@ -223,9 +223,6 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
-        issueDate = findViewById(R.id.issueDateValue);
-        expirationDate = findViewById(R.id.expirationDateValue);
-
         issueDate.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
@@ -271,6 +268,7 @@ public class AddEstimate extends AppCompatActivity {
             }
 
             Date issueDate = null;
+
             if(!issueDateValue.isEmpty()){
                 try {
                     issueDate = sdf.parse(issueDateValue);
@@ -279,10 +277,11 @@ public class AddEstimate extends AppCompatActivity {
                 }
                 long diffInMillis = expirationDate.getTime() - issueDate.getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween < 1){
+                if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
                     TextView expirationDateTextView = (TextView) findViewById(R.id.expirationDateValue);
                     expirationDateTextView.setText(R.string.expirationDate);
+                    expirationDateValue = "";
                 }
             }
         };
@@ -311,10 +310,11 @@ public class AddEstimate extends AppCompatActivity {
                 }
                 long diffInMillis = expirationDate.getTime() - issueDate.getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween < 1){
+                if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
                     TextView issueDateTextView = (TextView) findViewById(R.id.issueDateValue);
                     issueDateTextView.setText(R.string.issueDate);
+                    issueDateValue = "";
                 }
             }
 
