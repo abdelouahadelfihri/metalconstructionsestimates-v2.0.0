@@ -1,6 +1,7 @@
 package com.example.metalconstructionsestimates.dbbackuprestore.app;
 
 import android.app.Application;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class App extends Application {
 
@@ -14,5 +15,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        AndroidThreeTen.init(this);
     }
 }
