@@ -260,7 +260,7 @@ public class AddEstimate extends AppCompatActivity {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
             expirationDate.setText(expirationDateValue);
-            // Handles both with and without leading zeros (safe and simple)
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 
             Date expirationDate = null;
@@ -310,9 +310,7 @@ public class AddEstimate extends AppCompatActivity {
                 long diffInMillis = expirationDate.getTime() - issueDate.getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween < 1){
-
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-
                 }
             }
 
