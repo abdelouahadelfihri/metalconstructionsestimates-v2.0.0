@@ -35,7 +35,7 @@ import java.util.Objects;
 public class AddEstimate extends AppCompatActivity {
     Integer customerId;
     DBAdapter dbAdapter;
-    TextView expirationDate, issueDate;
+    TextView expirationDateTextView, issueDateTextView;
 
     String expirationDateValue, issueDateValue;
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -60,6 +60,8 @@ public class AddEstimate extends AppCompatActivity {
         addEstimate = findViewById(R.id.addButton_add_estimate);
         clearAddEstimateForm = findViewById(R.id.clearButton_add_estimate);
 
+        issueDateTextView = findViewById(R.id.issueDateValue);
+        expirationDateTextView = findViewById(R.id.expirationDateValue);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,19 +213,16 @@ public class AddEstimate extends AppCompatActivity {
             vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
             amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
 
-            issueDate = findViewById(R.id.issueDateValue);
-            expirationDate = findViewById(R.id.expirationDateValue);
-
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
-            issueDate.setText(R.string.issueDate);
-            expirationDate.setText(R.string.expirationDate);
+            issueDateTextView.setText(R.string.issueDate);
+            expirationDateTextView.setText(R.string.expirationDate);
             Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
             Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
             Objects.requireNonNull(vatTextInputEditText.getText()).clear();
             Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
-        issueDate.setOnClickListener(view -> {
+        issueDateTextView.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -238,7 +237,7 @@ public class AddEstimate extends AppCompatActivity {
             dialog.show();
         });
 
-        expirationDate.setOnClickListener(view -> {
+        expirationDateTextView.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -256,7 +255,7 @@ public class AddEstimate extends AppCompatActivity {
         expirationDateSetListner = (picker, year, month, day) -> {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
-            expirationDate.setText(expirationDateValue);
+            expirationDateTextView.setText(expirationDateValue);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 
@@ -279,7 +278,6 @@ public class AddEstimate extends AppCompatActivity {
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    TextView expirationDateTextView = (TextView) findViewById(R.id.expirationDateValue);
                     expirationDateTextView.setText(R.string.expirationDate);
                     expirationDateValue = "";
                 }
@@ -289,7 +287,7 @@ public class AddEstimate extends AppCompatActivity {
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             issueDateValue = year + "-" + month + "-" + day;
-            issueDate.setText(issueDateValue);
+            issueDateTextView.setText(issueDateValue);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 
             Date issueDate = null;
@@ -312,7 +310,6 @@ public class AddEstimate extends AppCompatActivity {
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    TextView issueDateTextView = (TextView) findViewById(R.id.issueDateValue);
                     issueDateTextView.setText(R.string.issueDate);
                     issueDateValue = "";
                 }
