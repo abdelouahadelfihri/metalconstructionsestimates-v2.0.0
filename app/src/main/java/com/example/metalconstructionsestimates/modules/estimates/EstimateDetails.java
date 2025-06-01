@@ -29,8 +29,12 @@ import com.example.metalconstructionsestimates.db.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,6 +49,7 @@ public class EstimateDetails extends AppCompatActivity {
 
     DBAdapter dbAdapter;
     TextView expirationDate,issueDate;
+    String expirationDateValue = "", issueDateValue = "";
 
     private DatePickerDialog.OnDateSetListener expirationDateSetListner,issueDateSetListener;
 
@@ -542,14 +547,60 @@ public class EstimateDetails extends AppCompatActivity {
 
         expirationDateSetListner = (picker, year, month, day) -> {
             month = month + 1;
-            String expirationDateValue = year + "-" + month + "-" + day;
+            expirationDateValue = year + "-" + month + "-" + day;
             expirationDate.setText(expirationDateValue);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+
+            Date expirationDate = null;
+            try {
+                expirationDate = sdf.parse(expirationDateValue);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            Date issueDate = null;
+            if(!issueDateValue.isEmpty()){
+                try {
+                    issueDate = sdf.parse(issueDateValue);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                long diffInMillis = expirationDate.getTime() - issueDate.getTime();
+                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
+                if(daysBetween < 1){
+                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                }
+            }
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
-            String issueDateValue = year + "-" + month + "-" + day;
+            issueDateValue = year + "-" + month + "-" + day;
             issueDate.setText(issueDateValue);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+
+            Date issueDate = null;
+
+            try {
+                issueDate = sdf.parse(issueDateValue);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            Date expirationDate = null;
+
+            if(!expirationDateValue.isEmpty()){
+                try {
+                    expirationDate = sdf.parse(expirationDateValue);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                long diffInMillis = expirationDate.getTime() - issueDate.getTime();
+                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
+                if(daysBetween < 1){
+                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                }
+            }
         };
 
     }
