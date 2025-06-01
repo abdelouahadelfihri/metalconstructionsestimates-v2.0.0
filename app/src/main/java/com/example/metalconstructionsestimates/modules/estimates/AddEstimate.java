@@ -37,7 +37,7 @@ public class AddEstimate extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDateTextView, issueDateTextView;
 
-    String expirationDateValue, issueDateValue;
+    String expirationDateValue = "", issueDateValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
