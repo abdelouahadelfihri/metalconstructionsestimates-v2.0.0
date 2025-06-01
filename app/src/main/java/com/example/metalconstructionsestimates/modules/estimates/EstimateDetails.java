@@ -552,6 +552,7 @@ public class EstimateDetails extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 
             Date expirationDate = null;
+
             try {
                 expirationDate = sdf.parse(expirationDateValue);
             } catch (ParseException e) {
@@ -559,6 +560,7 @@ public class EstimateDetails extends AppCompatActivity {
             }
 
             Date issueDate = null;
+
             if(!issueDateValue.isEmpty()){
                 try {
                     issueDate = sdf.parse(issueDateValue);
