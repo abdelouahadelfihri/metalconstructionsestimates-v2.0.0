@@ -1498,8 +1498,8 @@ public class DBAdapter {
 
     public ArrayList<Estimate> searchUnPaidEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String WHEREQuery = "";
+        String SELECTQuery = "SELECT * FROM estimate WHERE (";
+        StringBuilder WHEREQuery = new StringBuilder();
 
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
@@ -1508,10 +1508,10 @@ public class DBAdapter {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery == "") {
-                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.toString().isEmpty()) {
+                            WHEREQuery.append(" ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         } else {
-                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
                 } else {
@@ -1521,25 +1521,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (WHEREQuery.isEmpty()) {
-                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.length() == 0) {
+                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 } else {
                                     if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
 
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            WHEREQuery = WHEREQuery + ") AND (";
+                            WHEREQuery.append(") AND (");
                         } else {
-                            WHEREQuery = WHEREQuery + ")";
+                            WHEREQuery.append(")");
                         }
                     }
                 }
@@ -1547,7 +1547,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + WHEREQuery;
+            String query = SELECTQuery + WHEREQuery + ")";
 
             query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
                     " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
