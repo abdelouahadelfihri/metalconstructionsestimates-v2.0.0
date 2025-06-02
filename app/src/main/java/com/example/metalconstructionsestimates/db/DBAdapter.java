@@ -1549,8 +1549,8 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND (amountPaid IS NULL OR amountPaid <= 0.0001)" +
-                    " AND (allTaxIncludedTotal IS NOT NULL AND allTaxIncludedTotal > 0.0001)";
+            query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
+                    " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -2161,8 +2161,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE (amountPaid IS NULL OR CAST(amountPaid AS TEXT) = '0.0')\n" +
-                    "  AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0')",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00') AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
