@@ -1551,7 +1551,7 @@ public class DBAdapter {
 
             query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
                     " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
-
+            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
