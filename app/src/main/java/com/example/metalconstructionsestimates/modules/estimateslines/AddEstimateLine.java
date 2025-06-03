@@ -154,7 +154,7 @@ public class AddEstimateLine extends AppCompatActivity {
                                             netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
                                         } else {
                                             netQuantityPlusMargin = total;
-                                            netQuantityPlusMarginTextInputEditText.setText(total.toString());
+                                            netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
                                         }
                                     } else {
                                         totalTextInputEditText.setText("");
@@ -172,7 +172,7 @@ public class AddEstimateLine extends AppCompatActivity {
 
                                     lengthTextInputEditText.setEnabled(true);
                                     widthTextInputEditText.setEnabled(true);
-                                    heightTextInputEditText.setEnabled(false);
+                                    heightTextInputEditText.setEnabled(true);
 
                                     if ((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())) {
 
