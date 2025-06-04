@@ -49,8 +49,8 @@ public class AddEstimateLine extends AppCompatActivity {
     TextInputEditText totalPriceTextInputEditText;
 
     String formattedTotal;
-    String formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-    String formattedTotalPrice = new BigDecimal(netQuantityPlusMargin).toPlainString();
+    String formattedNetQuantityPlusMargin;
+    String formattedTotalPrice;
     Float total,netQuantityPlusMargin,totalPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
