@@ -550,7 +550,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Volume":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!width.isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty())  && (!quantityTextInputEditText.getText().toString().isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(width) * Float.parseFloat(heightTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
@@ -604,7 +605,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Volume":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!height.isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty())  && (!quantityTextInputEditText.getText().toString().isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(height) * Float.parseFloat(weightTextInputEditText.getText().toString())  * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
@@ -658,7 +660,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Profile":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(weight) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
@@ -684,7 +687,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Surface":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(weight) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
@@ -709,7 +713,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Volume":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(heightTextInputEditText.getText().toString()) * Float.parseFloat(weight)  * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
@@ -762,7 +767,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Profile":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantity);
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
 
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
@@ -789,7 +795,8 @@ public class AddEstimateLine extends AppCompatActivity {
                         case "Surface":
                             if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
                                 total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantity);
-                                totalTextInputEditText.setText(total.toString());
+                                formattedTotal = new BigDecimal(total).toPlainString();
+                                totalTextInputEditText.setText(formattedTotal);
                                 if(marginTextInputEditText.getText().toString().isEmpty()){
                                     netQuantityPlusMargin = total;
                                 }
