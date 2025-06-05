@@ -745,7 +745,9 @@ public class AddEstimateLine extends AppCompatActivity {
                                 else{
                                     netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
                                 }
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+
+                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                             }
                             else{
                                 totalTextInputEditText.setText("");
@@ -754,7 +756,8 @@ public class AddEstimateLine extends AppCompatActivity {
                             }
                             if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                                 totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                totalPriceTextInputEditText.setText(totalPrice.toString());
+                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                                totalPriceTextInputEditText.setText(formattedTotalPrice);
                             }
                             else{
                                 totalPriceTextInputEditText.setText("");
@@ -801,7 +804,8 @@ public class AddEstimateLine extends AppCompatActivity {
                                     netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
                                 }
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                             }
                             else{
                                 totalTextInputEditText.setText("");
@@ -810,7 +814,8 @@ public class AddEstimateLine extends AppCompatActivity {
                             }
                             if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                                 totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                totalPriceTextInputEditText.setText(totalPrice.toString());
+                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                                totalPriceTextInputEditText.setText(formattedTotalPrice);
                             }
                             else{
                                 totalPriceTextInputEditText.setText("");
@@ -828,7 +833,9 @@ public class AddEstimateLine extends AppCompatActivity {
                                     netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
                                 }
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+
+                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                             }
                             else{
                                 totalTextInputEditText.setText("");
@@ -837,7 +844,8 @@ public class AddEstimateLine extends AppCompatActivity {
                             }
                             if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                                 totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                totalPriceTextInputEditText.setText(totalPrice.toString());
+                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                                totalPriceTextInputEditText.setText(formattedTotalPrice);
                             }
                             else{
                                 totalPriceTextInputEditText.setText("");
@@ -855,7 +863,9 @@ public class AddEstimateLine extends AppCompatActivity {
                                     netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
                                 }
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+
+                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                             }
                             else{
                                 totalTextInputEditText.setText("");
@@ -865,7 +875,8 @@ public class AddEstimateLine extends AppCompatActivity {
 
                             if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                                 totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                totalPriceTextInputEditText.setText(totalPrice.toString());
+                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                                totalPriceTextInputEditText.setText(formattedTotalPrice);
                             }
                             else{
                                 totalPriceTextInputEditText.setText("");
@@ -899,7 +910,8 @@ public class AddEstimateLine extends AppCompatActivity {
                     if(!totalTextInputEditText.getText().toString().isEmpty()){
                         float total = Float.parseFloat(totalTextInputEditText.getText().toString());
                         netQuantityPlusMargin = total + total * (Float.parseFloat(margin)/100);
-                        netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                        formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+                        netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                     }
                     else{
                         netQuantityPlusMarginTextInputEditText.setText("");
@@ -908,7 +920,8 @@ public class AddEstimateLine extends AppCompatActivity {
                 else{
                     if(!totalTextInputEditText.getText().toString().isEmpty()){
                         netQuantityPlusMargin = Float.parseFloat(totalTextInputEditText.getText().toString());
-                        netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
+                        formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+                        netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                     }
                     else{
                         netQuantityPlusMarginTextInputEditText.setText("");
@@ -917,7 +930,8 @@ public class AddEstimateLine extends AppCompatActivity {
 
                 if((!unitPriceTextInputEditText.getText().toString().isEmpty()) && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                     totalPrice = netQuantityPlusMargin * Float.parseFloat(unitPriceTextInputEditText.getText().toString());
-                    totalPriceTextInputEditText.setText(totalPrice.toString());
+                    formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                    totalPriceTextInputEditText.setText(formattedTotalPrice);
                 }
                 else{
                     totalPriceTextInputEditText.setText("");
@@ -942,8 +956,8 @@ public class AddEstimateLine extends AppCompatActivity {
 
                 if((!unitPrice.isEmpty()) && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
                     Float totalPrice = Float.parseFloat(unitPrice) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-
-                    totalPriceTextInputEditText.setText(totalPrice.toString());
+                    formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                    totalPriceTextInputEditText.setText(formattedTotalPrice);
                 }
                 else{
                     totalPriceTextInputEditText.setText("");
