@@ -965,17 +965,22 @@ public class AddEstimateLine extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                String unitPrice = s.toString();
+                String unitPriceStr = s.toString();
 
                 TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                if((!unitPrice.isEmpty()) && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                    Float totalPrice = Float.parseFloat(unitPrice) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                    formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
+                String netQuantityPlusMarginStr = netQuantityPlusMarginTextInputEditText.getText().toString();
+
+                if (!unitPriceStr.isEmpty() && !netQuantityPlusMarginStr.isEmpty()) {
+                    BigDecimal unitPrice = new BigDecimal(unitPriceStr);
+                    BigDecimal netQuantityPlusMargin = new BigDecimal(netQuantityPlusMarginStr);
+
+                    BigDecimal totalPrice = unitPrice.multiply(netQuantityPlusMargin);
+                    String formattedTotalPrice = totalPrice.stripTrailingZeros().toPlainString();
+
                     totalPriceTextInputEditText.setText(formattedTotalPrice);
-                }
-                else{
+                } else {
                     totalPriceTextInputEditText.setText("");
                 }
             }
