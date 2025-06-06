@@ -30,6 +30,7 @@ import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +45,11 @@ public class EstimateDetails extends AppCompatActivity {
 
     Integer estimateId;
     Integer customerId;
+
+    String formattedTotalExcludingTax;
+    String formattedTotalAfterDiscount;
+    String formattedTotalAllTaxIncluded;
+    String formattedAmountPaid;
 
     Estimate estimate;
 
@@ -163,7 +169,8 @@ public class EstimateDetails extends AppCompatActivity {
             totalExclTaxEditText.setText("");
         }
         else{
-            totalExclTaxEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
+            formattedTotalExcludingTax = new BigDecimal(estimate.getExcludingTaxTotal()).toPlainString();
+            totalExclTaxEditText.setText(formattedTotalExcludingTax);
         }
 
         totalExclTaxEditText.setEnabled(false);
@@ -179,7 +186,8 @@ public class EstimateDetails extends AppCompatActivity {
             totalAfterDiscountEditText.setText("");
         }
         else{
-            totalAfterDiscountEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
+            formattedTotalAfterDiscount = new BigDecimal(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
+            totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
         }
 
         totalAfterDiscountEditText.setEnabled(false);
@@ -195,7 +203,8 @@ public class EstimateDetails extends AppCompatActivity {
             totalAllTaxIncludedEditText.setText("");
         }
         else{
-            totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
+            formattedTotalAllTaxIncluded = new BigDecimal(estimate.getAllTaxIncludedTotal()).toPlainString();
+            totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
         }
 
         totalAllTaxIncludedEditText.setEnabled(false);
@@ -390,16 +399,15 @@ public class EstimateDetails extends AppCompatActivity {
                 locationEditText.setText(estimate.getDoneIn());
                 issueDate.setText(estimate.getIssueDate());
                 expirationDate.setText(estimate.getExpirationDate());
-
-                totalExclTaxEditText.setText(String.format(estimate.getExcludingTaxTotal().toString()));
+                formattedTotalExcludingTax = new BigDecimal(estimate.getExcludingTaxTotal()).toPlainString();
+                totalExclTaxEditText.setText(formattedTotalExcludingTax);
                 discountEditText.setText(String.format(estimate.getDiscount().toString()));
-
-                totalAfterDiscountEditText.setText(String.format(estimate.getExcludingTaxTotalAfterDiscount().toString()));
+                formattedTotalAfterDiscount = new BigDecimal(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
+                totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
                 vatEditText.setText(String.format(estimate.getVat().toString()));
-                totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
-
+                formattedTotalAllTaxIncluded = new BigDecimal(estimate.getAllTaxIncludedTotal()).toPlainString();
+                totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
                 amountPaidEditText.setText(String.format(estimate.getAmountPaid().toString()));
-                totalAllTaxIncludedEditText.setText(String.format(estimate.getAllTaxIncludedTotal().toString()));
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdEditText.getText().toString()));
 
                 ConstraintLayout.LayoutParams recyclerParams = (ConstraintLayout.LayoutParams)
@@ -467,14 +475,16 @@ public class EstimateDetails extends AppCompatActivity {
                 vat = Float.parseFloat(Objects.requireNonNull(vatEditText.getText()).toString());
                 if (!discount.isEmpty()) {
                     totalExcludingTaxAfterDiscount = totalExcludingTax - totalExcludingTax * Float.parseFloat(discount) / 100;
-                    totalAfterDiscountEditText.setText(String.format(Locale.getDefault(), "%s", totalExcludingTaxAfterDiscount));
+                    formattedTotalAfterDiscount = new BigDecimal(totalExcludingTaxAfterDiscount).toPlainString();
+                    totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
                     if (!vat.toString().isEmpty()) {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount + totalExcludingTaxAfterDiscount * vat / 100;
                     } else {
                         totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
                     }
 
-                    totalAllTaxIncludedEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
+                    formattedTotalAllTaxIncluded = new BigDecimal(totalAllTaxIncluded).toPlainString();
+                    totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
 
 
                 } else {
@@ -484,8 +494,8 @@ public class EstimateDetails extends AppCompatActivity {
                     } else {
                         totalAllTaxIncluded = totalExcludingTax;
                     }
-
-                    totalAllTaxIncludedEditText.setText(String.format(Locale.getDefault(), "%s", totalAllTaxIncluded));
+                    formattedTotalAllTaxIncluded = new BigDecimal(totalAllTaxIncluded).toPlainString();
+                    totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
                 }
             }
         });
@@ -511,7 +521,9 @@ public class EstimateDetails extends AppCompatActivity {
                 } else {
                     totalAllTaxIncluded = totalExcludingTaxAfterDiscount;
                 }
-                totalAllTaxIncludedTextInputEditText.setText(totalAllTaxIncluded.toString());
+
+                formattedTotalAllTaxIncluded = new BigDecimal(totalAllTaxIncluded).toPlainString();
+                totalAllTaxIncludedTextInputEditText.setText(formattedTotalAllTaxIncluded);
             }
         });
 
