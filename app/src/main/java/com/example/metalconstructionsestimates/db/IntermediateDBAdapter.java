@@ -75,7 +75,7 @@ public class IntermediateDBAdapter {
                 Float length = c.getFloat(4);
                 Float width = c.getFloat(5);
                 Float height = c.getFloat(6);
-                Integer quantity = c.getInt(7);
+                Long quantity = c.getLong(7);
                 Float total = c.getFloat(8);
                 Integer margin = c.getInt(9);
                 Float netQuantityPlusMargin = c.getFloat(10);
@@ -319,7 +319,7 @@ public class IntermediateDBAdapter {
                 estimateLine.setLength(c.getFloat(7));
                 estimateLine.setWidth(c.getFloat(8));
                 estimateLine.setHeight(c.getFloat(9));
-                estimateLine.setQuantity(c.getInt(10));
+                estimateLine.setQuantity(c.getLong(10));
                 estimateLine.setTotal(c.getFloat(11));
                 estimateLine.setMargin(c.getInt(12));
                 estimateLine.setNetQuantityPlusMargin(c.getFloat(13));
@@ -995,7 +995,7 @@ public class IntermediateDBAdapter {
                 Float length = c.getFloat(3);
                 Float width = c.getFloat(4);
                 Float height = c.getFloat(5);
-                Integer quantity = c.getInt(6);
+                Long quantity = c.getLong(6);
                 Float total = c.getFloat(7);
                 Integer margin = c.getInt(8);
                 Float quantityPlusMargin = c.getFloat(9);
