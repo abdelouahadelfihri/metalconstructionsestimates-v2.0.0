@@ -25,7 +25,6 @@ import com.example.metalconstructionsestimates.modules.steels.Steels;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
 public class EstimateLineDetails extends AppCompatActivity {
 
     EstimateLine estimateLine;
@@ -463,15 +462,36 @@ public class EstimateLineDetails extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String lengthStr = s.toString();
+                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+
+                String lengthStr = s.toString().trim();
+
+                if (lengthStr.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
+                BigDecimal length;
+                try {
+                    length = new BigDecimal(lengthStr);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
 
                 if (!geometricShape.isEmpty()) {
                     try {
                         BigDecimal total = BigDecimal.ZERO;
                         BigDecimal netQuantityPlusMargin = BigDecimal.ZERO;
                         BigDecimal totalPrice = BigDecimal.ZERO;
-
-                        BigDecimal length = new BigDecimal(lengthStr);
 
                         BigDecimal width = !widthEditText.getText().toString().isEmpty() ?
                                 new BigDecimal(widthEditText.getText().toString()) : BigDecimal.ZERO;
@@ -550,12 +570,34 @@ public class EstimateLineDetails extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String widthStr = s.toString();
+                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+
+                String widthStr = s.toString().trim();
+
+                if (widthStr.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
+                BigDecimal width;
+                try {
+                    width = new BigDecimal(widthStr);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
 
                 if (geometricShape.isEmpty()) return;
 
                 BigDecimal length = parse(lengthEditText.getText().toString());
-                BigDecimal width = parse(widthStr);
                 BigDecimal height = parse(heightEditText.getText().toString());
                 BigDecimal weight = parse(weightEditText.getText().toString());
                 BigDecimal quantity = parse(quantityEditText.getText().toString());
@@ -626,7 +668,26 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String heightStr = s.toString();
+                String heightStr = s.toString().trim();
+
+                if (heightStr.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
+                BigDecimal height;
+                try {
+                    height = new BigDecimal(heightStr);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
 
                 if (!geometricShape.isEmpty() && geometricShape.equals("Volume")) {
                     String lengthStr = lengthTextInputEditText.getText().toString();
@@ -636,13 +697,12 @@ public class EstimateLineDetails extends AppCompatActivity {
                     String marginStr = marginTextInputEditText.getText().toString();
                     String unitPriceStr = unitPriceTextInputEditText.getText().toString();
 
-                    boolean allFilled = !lengthStr.isEmpty() && !widthStr.isEmpty() && !heightStr.isEmpty()
-                            && !weightStr.isEmpty() && !quantityStr.isEmpty();
+                    boolean allFilled = !lengthStr.isEmpty() && !widthStr.isEmpty() && !weightStr.isEmpty()
+                            && !quantityStr.isEmpty();
 
                     if (allFilled) {
                         BigDecimal length = new BigDecimal(lengthStr);
                         BigDecimal width = new BigDecimal(widthStr);
-                        BigDecimal height = new BigDecimal(heightStr);
                         BigDecimal weight = new BigDecimal(weightStr);
                         BigDecimal quantity = new BigDecimal(quantityStr);
 
@@ -926,35 +986,51 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String marginStr = s.toString();
+                String marginStr = s.toString().trim();
+
+                if (marginStr.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
+                BigDecimal margin;
+                try {
+                    margin = new BigDecimal(marginStr);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
+
                 String totalStr = totalTextInputEditText.getText().toString();
                 String unitPriceStr = unitPriceTextInputEditText.getText().toString();
 
                 BigDecimal netQuantityPlusMargin = BigDecimal.ZERO;
 
                 // Calculate net quantity + margin
-                if (!marginStr.isEmpty()) {
-                    if (!totalStr.isEmpty()) {
-                        BigDecimal total = new BigDecimal(totalStr);
-                        BigDecimal margin = new BigDecimal(marginStr);
 
-                        // netQuantityPlusMargin = total + total * (margin / 100)
+                if (!totalStr.isEmpty()) {
+                    BigDecimal total = new BigDecimal(totalStr);
+
+                    if (margin.compareTo(BigDecimal.ZERO) > 0) {
+                        // marginRate = margin / 100
                         BigDecimal marginRate = margin.divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP);
                         netQuantityPlusMargin = total.add(total.multiply(marginRate));
+                    } else {
+                        // No margin or zero margin
+                        netQuantityPlusMargin = total;
+                    }
 
-                        String formattedNetQuantityPlusMargin = netQuantityPlusMargin.stripTrailingZeros().toPlainString();
-                        netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                    } else {
-                        netQuantityPlusMarginTextInputEditText.setText("");
-                    }
+                    String formattedNetQuantityPlusMargin = netQuantityPlusMargin.stripTrailingZeros().toPlainString();
+                    netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
                 } else {
-                    if (!totalStr.isEmpty()) {
-                        netQuantityPlusMargin = new BigDecimal(totalStr);
-                        String formattedNetQuantityPlusMargin = netQuantityPlusMargin.stripTrailingZeros().toPlainString();
-                        netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                    } else {
-                        netQuantityPlusMarginTextInputEditText.setText("");
-                    }
+                    netQuantityPlusMarginTextInputEditText.setText("");
                 }
 
                 // Calculate total price
