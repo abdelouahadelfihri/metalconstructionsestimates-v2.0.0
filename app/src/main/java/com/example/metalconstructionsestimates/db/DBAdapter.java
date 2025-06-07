@@ -1746,7 +1746,7 @@ public class DBAdapter {
                 estimateLine.setLength(cursor.getFloat(4));
                 estimateLine.setWidth(cursor.getFloat(5));
                 estimateLine.setHeight(cursor.getFloat(6));
-                estimateLine.setQuantity(cursor.getInt(7));
+                estimateLine.setQuantity(cursor.getLong(7));
                 estimateLine.setTotal(cursor.getFloat(8));
                 estimateLine.setMargin(cursor.getInt(9));
                 estimateLine.setNetQuantityPlusMargin(cursor.getFloat(10));
@@ -2295,7 +2295,7 @@ public class DBAdapter {
                 Float length = cursor.getFloat(4);
                 Float width = cursor.getFloat(5);
                 Float height = cursor.getFloat(6);
-                Integer quantity = cursor.getInt(7);
+                Long quantity = cursor.getLong(7);
                 Float total = cursor.getFloat(8);
                 Integer margin = cursor.getInt(9);
                 Float quantityPlusMargin = cursor.getFloat(10);
