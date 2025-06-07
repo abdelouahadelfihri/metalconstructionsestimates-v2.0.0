@@ -8,7 +8,7 @@ public class EstimateLine {
     private Float length;
     private Float width;
     private Float height;
-    private Integer quantity;
+    private Long quantity;
     private Float total;
     private Integer margin;
     private Float quantityPlusMargin;
@@ -64,8 +64,8 @@ public class EstimateLine {
     public Float getHeight(){ return height; }
     public void setHeight(Float height){ this.height = height;}
 
-    public Integer getQuantity(){ return quantity;}
-    public void setQuantity(Integer quantity){ this.quantity = quantity;}
+    public Long getQuantity(){ return quantity;}
+    public void setQuantity(Long quantity){ this.quantity = quantity;}
 
     public Float getTotal(){
         return total;
