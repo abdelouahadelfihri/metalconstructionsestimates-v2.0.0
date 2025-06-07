@@ -76,7 +76,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             weightEditText.setText("");
         }
         else{
-            weightEditText.setText(estimateLine.getWeight().toString());
+            weightEditText.setText(BigDecimal.valueOf(estimateLine.getWeight()).toPlainString());
         }
 
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
@@ -113,21 +113,21 @@ public class EstimateLineDetails extends AppCompatActivity {
             lengthEditText.setText("");
         }
         else{
-            lengthEditText.setText(estimateLine.getLength().toString());
+            lengthEditText.setText(BigDecimal.valueOf(estimateLine.getLength()).toPlainString());
         }
 
         if(estimateLine.getWidth() == null){
             widthEditText.setText("");
         }
         else{
-            widthEditText.setText(estimateLine.getWidth().toString());
+            widthEditText.setText(BigDecimal.valueOf(estimateLine.getWidth()).toPlainString());
         }
 
         if(estimateLine.getHeight() == null){
             heightEditText.setText("");
         }
         else{
-            heightEditText.setText(estimateLine.getHeight().toString());
+            heightEditText.setText(BigDecimal.valueOf(estimateLine.getHeight()).toPlainString());
         }
 
         if(estimateLine.getQuantity() == null){
@@ -148,28 +148,28 @@ public class EstimateLineDetails extends AppCompatActivity {
             totalEditText.setText("");
         }
         else{
-            totalEditText.setText(estimateLine.getTotal().toString());
+            totalEditText.setText(BigDecimal.valueOf(estimateLine.getTotal()).toPlainString());
         }
 
         if(estimateLine.getNetQuantityPlusMargin() == null){
             netQuantityPlusMarginEditText.setText("");
         }
         else{
-            netQuantityPlusMarginEditText.setText(estimateLine.getNetQuantityPlusMargin().toString());
+            netQuantityPlusMarginEditText.setText(BigDecimal.valueOf(estimateLine.getNetQuantityPlusMargin()).toPlainString());
         }
 
         if(estimateLine.getUnitPrice() == null){
             unitPriceEditText.setText("");
         }
         else{
-            unitPriceEditText.setText(estimateLine.getUnitPrice().toString());
+            unitPriceEditText.setText(BigDecimal.valueOf(estimateLine.getUnitPrice()).toPlainString());
         }
 
         if(estimateLine.getTotalPrice() == null){
             totalPriceEditText.setText("");
         }
         else{
-            totalPriceEditText.setText(estimateLine.getTotalPrice().toString());
+            totalPriceEditText.setText(BigDecimal.valueOf(estimateLine.getTotalPrice()).toPlainString());
         }
 
         activityResultLauncher = registerForActivityResult(
