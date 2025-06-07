@@ -787,10 +787,27 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
+                String quantity = s.toString().trim();
 
-                String quantity = s.toString();
+                if (quantity.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
 
-                BigDecimal quantityBD = new BigDecimal(quantity);
+                BigDecimal quantityBD;
+                try {
+                    quantityBD = new BigDecimal(quantity);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalTextInputEditText.setText("");
+                    netQuantityPlusMarginTextInputEditText.setText("");
+                    totalPriceTextInputEditText.setText("");
+                    return;
+                }
+
                 BigDecimal length = !lengthTextInputEditText.getText().toString().isEmpty()
                         ? new BigDecimal(lengthTextInputEditText.getText().toString()) : BigDecimal.ZERO;
                 BigDecimal weight = !weightTextInputEditText.getText().toString().isEmpty()
