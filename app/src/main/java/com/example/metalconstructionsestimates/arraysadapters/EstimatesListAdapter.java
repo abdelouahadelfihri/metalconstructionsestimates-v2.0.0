@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
+import java.math.BigDecimal;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdapter.EstimateViewHolder>{
@@ -46,10 +48,13 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
 
         Estimate estimate = estimates.get(position);
 
+
+        Float total = estimate.getAllTaxIncludedTotal();
+        String formattedTotal = formatLargeNumber(total);
+        String estimateTotalAllTaxIncluded = "Incl. VAT : " + formattedTotal;
         String estimateId = "Estimate Id : " + estimate.getId().toString();
         String estimateCreationDate = "Issue Date : " + estimate.getIssueDate();
         String estimateDoneIn = "Location : " + estimate.getDoneIn();
-        String estimateTotalAllTaxIncluded = "Incl. VAT : " + estimate.getAllTaxIncludedTotal().toString();
 
         holder.estimateIdTextView.setText(estimateId);
         holder.estimateCreationDateTextView.setText(estimateCreationDate);
@@ -90,6 +95,25 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
             estimateListAdapter.notifyDataSetChanged();
         }
     }
+
+    private String formatLargeNumber(Float value) {
+        if (value == null) return "";
+
+        BigDecimal number = new BigDecimal(value.toString());
+        if (number.compareTo(new BigDecimal("1000000")) >= 0) {
+            return number.divide(new BigDecimal("1000000"))
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .toPlainString() + "M";
+        } else if (number.compareTo(new BigDecimal("1000")) >= 0) {
+            return number.divide(new BigDecimal("1000"))
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .toPlainString() + "K";
+        } else {
+            return number.setScale(2, RoundingMode.HALF_UP).toPlainString();
+        }
+    }
+
+
 
     @Override
     public int getItemCount(){
