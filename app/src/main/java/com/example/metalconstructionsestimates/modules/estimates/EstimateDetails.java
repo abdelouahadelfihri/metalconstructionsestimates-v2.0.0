@@ -186,7 +186,7 @@ public class EstimateDetails extends AppCompatActivity {
             totalAfterDiscountEditText.setText("");
         }
         else{
-            formattedTotalAfterDiscount = new BigDecimal(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
+            formattedTotalAfterDiscount = BigDecimal.valueOf(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
             totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
         }
 
@@ -203,7 +203,7 @@ public class EstimateDetails extends AppCompatActivity {
             totalAllTaxIncludedEditText.setText("");
         }
         else{
-            formattedTotalAllTaxIncluded = new BigDecimal(estimate.getAllTaxIncludedTotal()).toPlainString();
+            formattedTotalAllTaxIncluded = BigDecimal.valueOf(estimate.getAllTaxIncludedTotal()).toPlainString();
             totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
         }
 
