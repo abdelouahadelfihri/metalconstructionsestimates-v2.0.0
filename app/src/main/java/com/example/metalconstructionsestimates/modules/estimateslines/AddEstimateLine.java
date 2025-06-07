@@ -388,11 +388,11 @@ public class AddEstimateLine extends AppCompatActivity {
 
         lengthTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
             @Override
             public void afterTextChanged(Editable s) {
                 TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
@@ -406,191 +406,167 @@ public class AddEstimateLine extends AppCompatActivity {
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
                 String length = s.toString();
-                if(!geometricShape.isEmpty()){
-                    switch(geometricShape){
-                        case "Profile":
-                            if((!length.isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(length) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
+                if (!geometricShape.isEmpty()) {
+                    try {
+                        BigDecimal bdLength = new BigDecimal(length.isEmpty() ? "0" : length);
+                        BigDecimal bdWeight = new BigDecimal(weightTextInputEditText.getText().toString().isEmpty() ? "0" : weightTextInputEditText.getText().toString());
+                        BigDecimal bdQuantity = new BigDecimal(quantityTextInputEditText.getText().toString().isEmpty() ? "0" : quantityTextInputEditText.getText().toString());
+                        BigDecimal total = BigDecimal.ZERO;
+                        BigDecimal netQuantityPlusMargin = BigDecimal.ZERO;
 
-                                if(!marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
+                        switch (geometricShape) {
+                            case "Profile":
+                                if (bdLength.signum() > 0 && bdWeight.signum() > 0 && bdQuantity.signum() > 0) {
+                                    total = bdLength.multiply(bdWeight).multiply(bdQuantity);
+                                    totalTextInputEditText.setText(total.toPlainString());
+
+                                    BigDecimal bdMargin = new BigDecimal(marginTextInputEditText.getText().toString().isEmpty() ? "0" : marginTextInputEditText.getText().toString());
+                                    netQuantityPlusMargin = total.add(total.multiply(bdMargin).divide(new BigDecimal("100")));
+                                    netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toPlainString());
+                                } else {
+                                    totalTextInputEditText.setText("");
+                                    netQuantityPlusMarginTextInputEditText.setText("");
+                                    totalPriceTextInputEditText.setText("");
                                 }
-                                else{
-                                    netQuantityPlusMargin = total;;
+                                break;
+
+                            case "Surface":
+                                BigDecimal bdWidth = new BigDecimal(widthTextInputEditText.getText().toString().isEmpty() ? "0" : widthTextInputEditText.getText().toString());
+                                if (bdLength.signum() > 0 && bdWidth.signum() > 0 && bdWeight.signum() > 0 && bdQuantity.signum() > 0) {
+                                    total = bdLength.multiply(bdWidth).multiply(bdWeight).multiply(bdQuantity);
+                                    totalTextInputEditText.setText(total.toPlainString());
+
+                                    BigDecimal bdMargin = new BigDecimal(marginTextInputEditText.getText().toString().isEmpty() ? "0" : marginTextInputEditText.getText().toString());
+                                    netQuantityPlusMargin = total.add(total.multiply(bdMargin).divide(new BigDecimal("100")));
+                                    netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toPlainString());
+                                } else {
+                                    totalTextInputEditText.setText("");
+                                    netQuantityPlusMarginTextInputEditText.setText("");
+                                    totalPriceTextInputEditText.setText("");
                                 }
+                                break;
 
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
+                            case "Volume":
+                                bdWidth = new BigDecimal(widthTextInputEditText.getText().toString().isEmpty() ? "0" : widthTextInputEditText.getText().toString());
+                                BigDecimal bdHeight = new BigDecimal(heightTextInputEditText.getText().toString().isEmpty() ? "0" : heightTextInputEditText.getText().toString());
 
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
+                                if (bdLength.signum() > 0 && bdWidth.signum() > 0 && bdHeight.signum() > 0 && bdWeight.signum() > 0 && bdQuantity.signum() > 0) {
+                                    total = bdLength.multiply(bdWidth).multiply(bdHeight).multiply(bdWeight).multiply(bdQuantity);
+                                    totalTextInputEditText.setText(total.toPlainString());
 
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
-                        case "Surface":
-                            if((!length.isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-
-                                total = Float.parseFloat(length) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-
-                                if(!marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
+                                    BigDecimal bdMargin = new BigDecimal(marginTextInputEditText.getText().toString().isEmpty() ? "0" : marginTextInputEditText.getText().toString());
+                                    netQuantityPlusMargin = total.add(total.multiply(bdMargin).divide(new BigDecimal("100")));
+                                    netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toPlainString());
+                                } else {
+                                    totalTextInputEditText.setText("");
+                                    netQuantityPlusMarginTextInputEditText.setText("");
+                                    totalPriceTextInputEditText.setText("");
                                 }
-                                else{
-                                    netQuantityPlusMargin = total;;
-                                }
+                                break;
+                        }
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
-
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
-                        case "Volume":
-
-                            if((!length.isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-
-                                total = Float.parseFloat(length) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(heightTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-
-                                if(!marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
-                                }
-                                else{
-                                    netQuantityPlusMargin = total;;
-                                }
-
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
+                        // Calculate total price if possible
+                        String unitPriceStr = unitPriceTextInputEditText.getText().toString();
+                        if (!unitPriceStr.isEmpty() && netQuantityPlusMargin.signum() > 0) {
+                            BigDecimal bdUnitPrice = new BigDecimal(unitPriceStr);
+                            BigDecimal totalPrice = bdUnitPrice.multiply(netQuantityPlusMargin);
+                            totalPriceTextInputEditText.setText(totalPrice.toPlainString());
+                        } else {
+                            totalPriceTextInputEditText.setText("");
+                        }
+                    } catch (NumberFormatException e) {
+                        // In case any conversion fails, clear the calculated fields
+                        totalTextInputEditText.setText("");
+                        netQuantityPlusMarginTextInputEditText.setText("");
+                        totalPriceTextInputEditText.setText("");
                     }
                 }
             }
         });
 
+
         widthTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
-                TextInputEditText lengthTextInputEditText = findViewById(R.id.lengthEditText_add_estimate_line);
-                TextInputEditText heightTextInputEditText = findViewById(R.id.heightEditText_add_estimate_line);
-                TextInputEditText quantityTextInputEditText = findViewById(R.id.quantityEditText_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.marginEditText_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+                TextInputEditText weightEditText = findViewById(R.id.weightEditText_add_estimate_line);
+                TextInputEditText lengthEditText = findViewById(R.id.lengthEditText_add_estimate_line);
+                TextInputEditText heightEditText = findViewById(R.id.heightEditText_add_estimate_line);
+                TextInputEditText quantityEditText = findViewById(R.id.quantityEditText_add_estimate_line);
+                TextInputEditText totalEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText marginEditText = findViewById(R.id.marginEditText_add_estimate_line);
+                TextInputEditText netQuantityEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String width = s.toString();
+                String widthStr = s.toString();
 
-                if(!geometricShape.isEmpty()){
-                    switch(geometricShape){
-                        case "Surface":
-                            if ((!lengthTextInputEditText.getText().toString().isEmpty()) && (!width.isEmpty())  && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())) {
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(width) * Float.parseFloat(weightTextInputEditText.getText().toString()) *  Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
+                if (!geometricShape.isEmpty()) {
+                    try {
+                        BigDecimal length = new BigDecimal(lengthEditText.getText().toString());
+                        BigDecimal width = new BigDecimal(widthStr);
+                        BigDecimal weight = new BigDecimal(weightEditText.getText().toString());
+                        BigDecimal quantity = new BigDecimal(quantityEditText.getText().toString());
+                        BigDecimal total = BigDecimal.ZERO;
+                        BigDecimal netQuantityPlusMargin;
+                        BigDecimal totalPrice;
 
-                                if (marginTextInputEditText.getText().toString().isEmpty()) {
+                        switch (geometricShape) {
+                            case "Surface":
+                                total = length.multiply(width).multiply(weight).multiply(quantity);
+                                totalEditText.setText(total.toPlainString());
+
+                                if (marginEditText.getText().toString().isEmpty()) {
                                     netQuantityPlusMargin = total;
                                 } else {
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) / 100;
+                                    BigDecimal margin = new BigDecimal(marginEditText.getText().toString());
+                                    BigDecimal marginAmount = total.multiply(margin).divide(BigDecimal.valueOf(100));
+                                    netQuantityPlusMargin = total.add(marginAmount);
                                 }
+                                netQuantityEditText.setText(netQuantityPlusMargin.toPlainString());
 
-                                netQuantityPlusMarginTextInputEditText.setText(netQuantityPlusMargin.toString());
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
+                                if (!unitPriceEditText.getText().toString().isEmpty()) {
+                                    BigDecimal unitPrice = new BigDecimal(unitPriceEditText.getText().toString());
+                                    totalPrice = unitPrice.multiply(netQuantityPlusMargin);
+                                    totalPriceEditText.setText(totalPrice.toPlainString());
+                                } else {
+                                    totalPriceEditText.setText("");
+                                }
+                                break;
 
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
+                            case "Volume":
+                                BigDecimal height = new BigDecimal(heightEditText.getText().toString());
+                                total = length.multiply(width).multiply(height).multiply(weight).multiply(quantity);
+                                totalEditText.setText(total.toPlainString());
 
-                            break;
-                        case "Volume":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!width.isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty())  && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(width) * Float.parseFloat(heightTextInputEditText.getText().toString()) * Float.parseFloat(weightTextInputEditText.getText().toString()) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-                                if(marginTextInputEditText.getText().toString().isEmpty()){
+                                if (marginEditText.getText().toString().isEmpty()) {
                                     netQuantityPlusMargin = total;
+                                } else {
+                                    BigDecimal margin = new BigDecimal(marginEditText.getText().toString());
+                                    BigDecimal marginAmount = total.multiply(margin).divide(BigDecimal.valueOf(100));
+                                    netQuantityPlusMargin = total.add(marginAmount);
                                 }
-                                else{
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
-                                }
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
+                                netQuantityEditText.setText(netQuantityPlusMargin.toPlainString());
 
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
+                                if (!unitPriceEditText.getText().toString().isEmpty()) {
+                                    BigDecimal unitPrice = new BigDecimal(unitPriceEditText.getText().toString());
+                                    totalPrice = unitPrice.multiply(netQuantityPlusMargin);
+                                    totalPriceEditText.setText(totalPrice.toPlainString());
+                                } else {
+                                    totalPriceEditText.setText("");
+                                }
+                                break;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Reset fields if any input is invalid
+                        totalEditText.setText("");
+                        netQuantityEditText.setText("");
+                        totalPriceEditText.setText("");
                     }
                 }
             }
@@ -598,11 +574,11 @@ public class AddEstimateLine extends AppCompatActivity {
 
         heightTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
             @Override
             public void afterTextChanged(Editable s) {
                 TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText_add_estimate_line);
@@ -615,39 +591,51 @@ public class AddEstimateLine extends AppCompatActivity {
                 TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String height = s.toString();
+                String heightStr = s.toString();
 
-                if(!geometricShape.isEmpty()){
-                    switch(geometricShape){
-                        case "Volume":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!height.isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty())  && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(height) * Float.parseFloat(weightTextInputEditText.getText().toString())  * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-                                if(marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total;
-                                }
-                                else{
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
-                                }
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
+                if (!geometricShape.isEmpty() && geometricShape.equals("Volume")) {
+                    String lengthStr = lengthTextInputEditText.getText().toString();
+                    String widthStr = widthTextInputEditText.getText().toString();
+                    String weightStr = weightTextInputEditText.getText().toString();
+                    String quantityStr = quantityTextInputEditText.getText().toString();
+                    String marginStr = marginTextInputEditText.getText().toString();
+                    String unitPriceStr = unitPriceTextInputEditText.getText().toString();
 
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
+                    boolean allFilled = !lengthStr.isEmpty() && !widthStr.isEmpty() && !heightStr.isEmpty()
+                            && !weightStr.isEmpty() && !quantityStr.isEmpty();
+
+                    if (allFilled) {
+                        BigDecimal length = new BigDecimal(lengthStr);
+                        BigDecimal width = new BigDecimal(widthStr);
+                        BigDecimal height = new BigDecimal(heightStr);
+                        BigDecimal weight = new BigDecimal(weightStr);
+                        BigDecimal quantity = new BigDecimal(quantityStr);
+
+                        BigDecimal total = length.multiply(width).multiply(height).multiply(weight).multiply(quantity);
+                        totalTextInputEditText.setText(total.toPlainString());
+
+                        BigDecimal netQuantity = total;
+                        if (!marginStr.isEmpty()) {
+                            BigDecimal margin = new BigDecimal(marginStr);
+                            BigDecimal marginValue = total.multiply(margin).divide(BigDecimal.valueOf(100));
+                            netQuantity = total.add(marginValue);
+                        }
+
+                        netQuantityPlusMarginTextInputEditText.setText(netQuantity.toPlainString());
+                    } else {
+                        totalTextInputEditText.setText("");
+                        netQuantityPlusMarginTextInputEditText.setText("");
+                        totalPriceTextInputEditText.setText("");
+                        return;
+                    }
+
+                    if (!unitPriceStr.isEmpty() && !netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty()) {
+                        BigDecimal unitPrice = new BigDecimal(unitPriceStr);
+                        BigDecimal netQuantity = new BigDecimal(netQuantityPlusMarginTextInputEditText.getText().toString());
+                        BigDecimal totalPrice = unitPrice.multiply(netQuantity);
+                        totalPriceTextInputEditText.setText(totalPrice.toPlainString());
+                    } else {
+                        totalPriceTextInputEditText.setText("");
                     }
                 }
             }
@@ -655,117 +643,93 @@ public class AddEstimateLine extends AppCompatActivity {
 
         weightTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText lengthTextInputEditText = findViewById(R.id.lengthEditText_add_estimate_line);
-                TextInputEditText widthTextInputEditText = findViewById(R.id.widthEditText_add_estimate_line);
-                TextInputEditText heightTextInputEditText = findViewById(R.id.heightEditText_add_estimate_line);
-                TextInputEditText quantityTextInputEditText = findViewById(R.id.quantityEditText_add_estimate_line);
-                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
-                TextInputEditText marginTextInputEditText = findViewById(R.id.marginEditText_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+                TextInputEditText lengthInput = findViewById(R.id.lengthEditText_add_estimate_line);
+                TextInputEditText widthInput = findViewById(R.id.widthEditText_add_estimate_line);
+                TextInputEditText heightInput = findViewById(R.id.heightEditText_add_estimate_line);
+                TextInputEditText quantityInput = findViewById(R.id.quantityEditText_add_estimate_line);
+                TextInputEditText totalInput = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText marginInput = findViewById(R.id.marginEditText_add_estimate_line);
+                TextInputEditText netQuantityInput = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceInput = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceInput = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String weight = s.toString();
+                String weightStr = s.toString();
 
-                if(!geometricShape.isEmpty()){
-                    switch(geometricShape){
-                        case "Profile":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(weight) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-                                if(marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total;
-                                }
-                                else{
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
-                                }
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
+                if (!geometricShape.isEmpty()) {
+                    try {
+                        BigDecimal weight = new BigDecimal(weightStr);
+                        BigDecimal length = tryParse(lengthInput);
+                        BigDecimal width = tryParse(widthInput);
+                        BigDecimal height = tryParse(heightInput);
+                        BigDecimal quantity = tryParse(quantityInput);
+                        BigDecimal margin = tryParse(marginInput);
+                        BigDecimal unitPrice = tryParse(unitPriceInput);
 
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
-                        case "Surface":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(weight) * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
+                        BigDecimal total = BigDecimal.ZERO;
 
-                                if(marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total;
+                        switch (geometricShape) {
+                            case "Profile":
+                                if (length != null && quantity != null && weight != null) {
+                                    total = length.multiply(weight).multiply(quantity);
                                 }
-                                else{
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
+                                break;
+                            case "Surface":
+                                if (length != null && width != null && quantity != null && weight != null) {
+                                    total = length.multiply(width).multiply(weight).multiply(quantity);
                                 }
+                                break;
+                            case "Volume":
+                                if (length != null && width != null && height != null && quantity != null && weight != null) {
+                                    total = length.multiply(width).multiply(height).multiply(weight).multiply(quantity);
+                                }
+                                break;
+                        }
 
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
-                            }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
-                        case "Volume":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weight.isEmpty()) && (!quantityTextInputEditText.getText().toString().isEmpty())){
-                                total = Float.parseFloat(lengthTextInputEditText.getText().toString()) * Float.parseFloat(widthTextInputEditText.getText().toString()) * Float.parseFloat(heightTextInputEditText.getText().toString()) * Float.parseFloat(weight)  * Float.parseFloat(quantityTextInputEditText.getText().toString());
-                                formattedTotal = new BigDecimal(total).toPlainString();
-                                totalTextInputEditText.setText(formattedTotal);
-                                if(marginTextInputEditText.getText().toString().isEmpty()){
-                                    netQuantityPlusMargin = total;
-                                }
-                                else{
-                                    netQuantityPlusMargin = total + total * Float.parseFloat(marginTextInputEditText.getText().toString()) /100;
-                                }
+                        if (total.compareTo(BigDecimal.ZERO) > 0) {
+                            totalInput.setText(total.stripTrailingZeros().toPlainString());
 
-                                formattedNetQuantityPlusMargin = new BigDecimal(netQuantityPlusMargin).toPlainString();
-                                netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
+                            BigDecimal netQty = (margin != null)
+                                    ? total.add(total.multiply(margin).divide(BigDecimal.valueOf(100)))
+                                    : total;
+                            netQuantityInput.setText(netQty.stripTrailingZeros().toPlainString());
+
+                            if (unitPrice != null) {
+                                BigDecimal totalPrice = unitPrice.multiply(netQty);
+                                totalPriceInput.setText(totalPrice.stripTrailingZeros().toPlainString());
+                            } else {
+                                totalPriceInput.setText("");
                             }
-                            else{
-                                totalTextInputEditText.setText("");
-                                netQuantityPlusMarginTextInputEditText.setText("");
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            if(!unitPriceTextInputEditText.getText().toString().isEmpty() && (!netQuantityPlusMarginTextInputEditText.getText().toString().isEmpty())){
-                                totalPrice = Float.parseFloat(unitPriceTextInputEditText.getText().toString()) * Float.parseFloat(netQuantityPlusMarginTextInputEditText.getText().toString());
-                                formattedTotalPrice = new BigDecimal(totalPrice).toPlainString();
-                                totalPriceTextInputEditText.setText(formattedTotalPrice);
-                            }
-                            else{
-                                totalPriceTextInputEditText.setText("");
-                            }
-                            break;
+                        } else {
+                            totalInput.setText("");
+                            netQuantityInput.setText("");
+                            totalPriceInput.setText("");
+                        }
+                    } catch (NumberFormatException e) {
+                        // Invalid input, clear results
+                        totalInput.setText("");
+                        netQuantityInput.setText("");
+                        totalPriceInput.setText("");
                     }
                 }
+            }
+
+            private BigDecimal tryParse(TextInputEditText editText) {
+                String text = editText.getText().toString().trim();
+                if (!text.isEmpty()) {
+                    try {
+                        return new BigDecimal(text);
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                }
+                return null;
             }
         });
 
