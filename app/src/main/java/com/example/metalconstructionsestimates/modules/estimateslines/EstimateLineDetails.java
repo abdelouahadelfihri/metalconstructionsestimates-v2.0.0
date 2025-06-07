@@ -366,7 +366,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                     estimateLine.setQuantity(null);
                 }
                 else{
-                    estimateLine.setQuantity(Integer.parseInt(quantityEditText.getText().toString()));
+                    estimateLine.setQuantity(Long.parseLong(quantityEditText.getText().toString()));
                 }
 
                 if(totalEditText.getText().toString().isEmpty()){
