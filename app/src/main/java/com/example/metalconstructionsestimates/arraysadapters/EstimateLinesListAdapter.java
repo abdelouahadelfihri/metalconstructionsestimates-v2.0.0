@@ -12,6 +12,8 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.modules.estimateslines.EstimateLineDetails;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 
@@ -54,11 +56,14 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
         String estimateLineId = "Estimate Line Id : " + estimateLine.getId().toString();
         String estimateId = "Estimate Id : " + estimateLine.getEstimate();
         String steelId = "Steel Id : " + estimateLine.getSteel();
-        String totalPrice = "Estimate Line Total : " + estimateLine.getTotalPrice();
+
+        Float totalPrice = estimateLine.getTotalPrice();
+        String formattedTotal = formatLargeNumber(totalPrice);
+        String estimateLineTotalPrice = "Estimate Line Total : " + formattedTotal;
         holder.textViewEstimateLineId.setText(estimateLineId);
         holder.textViewEstimateId.setText(estimateId);
         holder.textViewSteelId.setText(steelId);
-        holder.textViewTotalPrice.setText(totalPrice);
+        holder.textViewTotalPrice.setText(estimateLineTotalPrice);
 
         // Set an onClick listener for the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +77,23 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
                 v.getContext().startActivity(intent);
             }
         });
+    }
+
+    private String formatLargeNumber(Float value) {
+        if (value == null) return "";
+
+        BigDecimal number = new BigDecimal(value.toString());
+        if (number.compareTo(new BigDecimal("1000000")) >= 0) {
+            return number.divide(new BigDecimal("1000000"))
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .toPlainString() + "M";
+        } else if (number.compareTo(new BigDecimal("1000")) >= 0) {
+            return number.divide(new BigDecimal("1000"))
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .toPlainString() + "K";
+        } else {
+            return number.setScale(2, RoundingMode.HALF_UP).toPlainString();
+        }
     }
 
     @Override
