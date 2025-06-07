@@ -32,7 +32,6 @@ public class EstimateLineDetails extends AppCompatActivity {
     Integer estimateLineId;
     String geometricShape = "";
     Integer steelId;
-    Float total,netQuantityPlusMargin,totalPrice;
     String formattedTotal;
     String formattedNetQuantityPlusMargin;
     String formattedTotalPrice;
