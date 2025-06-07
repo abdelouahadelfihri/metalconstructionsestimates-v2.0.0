@@ -312,7 +312,7 @@ public class AddEstimateLine extends AppCompatActivity {
                         }
 
                         if (!Objects.requireNonNull(quantityTextInputEditText.getText()).toString().isEmpty()) {
-                            estimateLine.setQuantity(Integer.parseInt(quantityTextInputEditText.getText().toString()));
+                            estimateLine.setQuantity(Long.parseLong(quantityTextInputEditText.getText().toString()));
                         } else {
                             estimateLine.setQuantity(null);
                         }
