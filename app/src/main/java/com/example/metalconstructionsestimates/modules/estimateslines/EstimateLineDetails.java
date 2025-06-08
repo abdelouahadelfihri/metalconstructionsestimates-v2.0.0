@@ -902,7 +902,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                 if(!geometricShape.isEmpty()){
                     switch(geometricShape){
                         case "Profile":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
+                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty())){
                                 total = length.multiply(weight).multiply(quantityBD);
                                 totalTextInputEditText.setText(total.stripTrailingZeros().toPlainString());
 
@@ -929,8 +929,8 @@ public class EstimateLineDetails extends AppCompatActivity {
                             }
                             break;
                         case "Surface":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
-                                total = length.multiply(weight).multiply(quantityBD);
+                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
+                                total = length.multiply(width).multiply(weight).multiply(quantityBD);
                                 totalTextInputEditText.setText(total.stripTrailingZeros().toPlainString());
 
                                 BigDecimal marginFactor = BigDecimal.ONE.add(margin.divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP));
@@ -956,8 +956,8 @@ public class EstimateLineDetails extends AppCompatActivity {
                             }
                             break;
                         case "Volume":
-                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
-                                total = length.multiply(weight).multiply(quantityBD);
+                            if((!lengthTextInputEditText.getText().toString().isEmpty()) && (!widthTextInputEditText.getText().toString().isEmpty()) && (!heightTextInputEditText.getText().toString().isEmpty()) && (!weightTextInputEditText.getText().toString().isEmpty()) && (!quantity.isEmpty())){
+                                total = length.multiply(width).multiply(height).multiply(weight).multiply(quantityBD);
                                 totalTextInputEditText.setText(total.stripTrailingZeros().toPlainString());
 
                                 BigDecimal marginFactor = BigDecimal.ONE.add(margin.divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP));
