@@ -395,7 +395,6 @@ public class EstimateLineDetails extends AppCompatActivity {
                     estimateLine.setUnitPrice(Float.parseFloat(unitPriceEditText.getText().toString()));
                 }
 
-
                 if(totalPriceEditText.getText().toString().isEmpty()){
                     estimateLine.setTotalPrice(null);
                 }
@@ -787,17 +786,17 @@ public class EstimateLineDetails extends AppCompatActivity {
 
                         switch (geometricShape) {
                             case "Profile":
-                                if (length != null && quantity != null && weight != null) {
+                                if (length != null && quantity != null) {
                                     total = length.multiply(weight).multiply(quantity);
                                 }
                                 break;
                             case "Surface":
-                                if (length != null && width != null && quantity != null && weight != null) {
+                                if (length != null && width != null && quantity != null) {
                                     total = length.multiply(width).multiply(weight).multiply(quantity);
                                 }
                                 break;
                             case "Volume":
-                                if (length != null && width != null && height != null && quantity != null && weight != null) {
+                                if (length != null && width != null && height != null && quantity != null) {
                                     total = length.multiply(width).multiply(height).multiply(weight).multiply(quantity);
                                 }
                                 break;
@@ -807,7 +806,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                             totalInput.setText(total.stripTrailingZeros().toPlainString());
 
                             BigDecimal netQty = (margin != null)
-                                    ? total.add(total.multiply(margin).divide(BigDecimal.valueOf(100)))
+                                    ? total.add(total.multiply(margin).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP))
                                     : total;
                             netQuantityInput.setText(netQty.stripTrailingZeros().toPlainString());
 
