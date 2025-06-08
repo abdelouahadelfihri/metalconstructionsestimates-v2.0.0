@@ -996,18 +996,17 @@ public class EstimateLineDetails extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+                TextInputEditText totalEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
                 String marginStr = s.toString().trim();
 
                 if (marginStr.isEmpty()) {
                     // Clear results and stay in the activity
-                    totalTextInputEditText.setText("");
-                    netQuantityPlusMarginTextInputEditText.setText("");
-                    totalPriceTextInputEditText.setText("");
+                    netQuantityPlusMarginEditText.setText("");
+                    totalPriceEditText.setText("");
                     return;
                 }
 
@@ -1016,15 +1015,14 @@ public class EstimateLineDetails extends AppCompatActivity {
                     margin = new BigDecimal(marginStr);
                 } catch (NumberFormatException e) {
                     // Handle invalid input gracefully
-                    totalTextInputEditText.setText("");
-                    netQuantityPlusMarginTextInputEditText.setText("");
-                    totalPriceTextInputEditText.setText("");
+                    netQuantityPlusMarginEditText.setText("");
+                    totalPriceEditText.setText("");
                     return;
                 }
 
 
-                String totalStr = totalTextInputEditText.getText().toString();
-                String unitPriceStr = unitPriceTextInputEditText.getText().toString();
+                String totalStr = totalEditText.getText().toString();
+                String unitPriceStr = unitPriceEditText.getText().toString();
 
                 BigDecimal netQuantityPlusMargin = BigDecimal.ZERO;
 
@@ -1043,21 +1041,21 @@ public class EstimateLineDetails extends AppCompatActivity {
                     }
 
                     String formattedNetQuantityPlusMargin = netQuantityPlusMargin.stripTrailingZeros().toPlainString();
-                    netQuantityPlusMarginTextInputEditText.setText(formattedNetQuantityPlusMargin);
+                    netQuantityPlusMarginEditText.setText(formattedNetQuantityPlusMargin);
                 } else {
-                    netQuantityPlusMarginTextInputEditText.setText("");
+                    netQuantityPlusMarginEditText.setText("");
                 }
 
                 // Calculate total price
-                String netQuantityPlusMarginStr = netQuantityPlusMarginTextInputEditText.getText().toString();
+                String netQuantityPlusMarginStr = netQuantityPlusMarginEditText.getText().toString();
                 if (!unitPriceStr.isEmpty() && !netQuantityPlusMarginStr.isEmpty()) {
                     BigDecimal unitPrice = new BigDecimal(unitPriceStr);
                     BigDecimal totalPrice = netQuantityPlusMargin.multiply(unitPrice);
 
                     String formattedTotalPrice = totalPrice.stripTrailingZeros().toPlainString();
-                    totalPriceTextInputEditText.setText(formattedTotalPrice);
+                    totalPriceEditText.setText(formattedTotalPrice);
                 } else {
-                    totalPriceTextInputEditText.setText("");
+                    totalPriceEditText.setText("");
                 }
             }
         });
