@@ -931,16 +931,15 @@ public class AddEstimateLine extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable s) {
-                TextInputEditText totalTextInputEditText = findViewById(R.id.totalEditText_add_estimate_line);
-                TextInputEditText netQuantityPlusMarginTextInputEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
-                TextInputEditText unitPriceTextInputEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
-                TextInputEditText totalPriceTextInputEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
+                TextInputEditText totalEditText = findViewById(R.id.totalEditText_add_estimate_line);
+                TextInputEditText netQuantityPlusMarginEditText = findViewById(R.id.netQuantityEditText_add_estimate_line);
+                TextInputEditText unitPriceEditText = findViewById(R.id.unitPriceEditText_add_estimate_line);
+                TextInputEditText totalPriceEditText = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
                 String marginStr = s.toString().trim();
 
                 if (marginStr.isEmpty()) {
                     // Clear results and stay in the activity
-                    totalEditText.setText("");
                     netQuantityPlusMarginEditText.setText("");
                     totalPriceEditText.setText("");
                     return;
@@ -951,7 +950,6 @@ public class AddEstimateLine extends AppCompatActivity {
                     margin = new BigDecimal(marginStr);
                 } catch (NumberFormatException e) {
                     // Handle invalid input gracefully
-                    totalEditText.setText("");
                     netQuantityPlusMarginEditText.setText("");
                     totalPriceEditText.setText("");
                     return;
