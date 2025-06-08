@@ -505,7 +505,6 @@ public class EstimateLineDetails extends AppCompatActivity {
                         BigDecimal unitPrice = !unitPriceEditText.getText().toString().isEmpty() ?
                                 new BigDecimal(unitPriceEditText.getText().toString()) : null;
 
-                        boolean canCalculatePrice = false;
 
                         switch (geometricShape) {
                             case "Profile":
@@ -754,11 +753,29 @@ public class EstimateLineDetails extends AppCompatActivity {
                 TextInputEditText unitPriceInput = findViewById(R.id.unitPriceEditText_add_estimate_line);
                 TextInputEditText totalPriceInput = findViewById(R.id.totalPriceEditText_add_estimate_line);
 
-                String weightStr = s.toString();
+                String weightStr = s.toString().trim();
+
+                if (weightStr.isEmpty()) {
+                    // Clear results and stay in the activity
+                    totalInput.setText("");
+                    netQuantityInput.setText("");
+                    totalPriceInput.setText("");
+                    return;
+                }
+
+                BigDecimal weight;
+                try {
+                    weight = new BigDecimal(weightStr);
+                } catch (NumberFormatException e) {
+                    // Handle invalid input gracefully
+                    totalInput.setText("");
+                    netQuantityInput.setText("");
+                    totalPriceInput.setText("");
+                    return;
+                }
 
                 if (!geometricShape.isEmpty()) {
                     try {
-                        BigDecimal weight = new BigDecimal(weightStr);
                         BigDecimal length = tryParse(lengthInput);
                         BigDecimal width = tryParse(widthInput);
                         BigDecimal height = tryParse(heightInput);
