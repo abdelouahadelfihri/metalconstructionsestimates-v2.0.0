@@ -88,7 +88,24 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
         TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
-
+        amountPaidEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // Logic to run when EditText loses focus
+                    String amountPaid = amountPaidEditText.getText().toString();
+                    Float allTaxIncludedTotal = dbAdapter.getEstimateById(estimateId).getAllTaxIncludedTotal();
+                    if (!amountPaid.isEmpty()) {
+                        Float amountPaidFloat = Float.parseFloat(amountPaid);
+                        if (amountPaidFloat > allTaxIncludedTotal) {
+                            Toast.makeText(getApplicationContext(), "Amount paid cannot be greater than total", Toast.LENGTH_LONG).show();
+                            amountPaidEditText.setText("0.0");
+                        }
+                    }
+                    // Do something with the input, like validation or saving
+                }
+            }
+        });
         Button newEstimateLineButton = findViewById(R.id.newEstimateLineButton);
         Button updateEstimateButton = findViewById(R.id.updateButton_estimate_details);
         Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
