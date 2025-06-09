@@ -88,21 +88,36 @@ public class EstimateDetails extends AppCompatActivity {
         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
         TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
-        amountPaidEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        String amountPaid = Objects.requireNonNull(amountPaidEditText.getText()).toString();
+        Float allTaxIncludedTotal = dbAdapter.getEstimateById(estimateId).getAllTaxIncludedTotal();
+        if (!amountPaid.isEmpty()) {
+            Float amountPaidFloat = Float.parseFloat(amountPaid);
+            if (amountPaidFloat > allTaxIncludedTotal) {
+                Toast.makeText(getApplicationContext(), "Amount paid cannot be greater than total", Toast.LENGTH_LONG).show();
+                amountPaidEditText.setText("0.0");
+            }
+        }
+
+        amountPaidEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    // Logic to run when EditText loses focus
-                    String amountPaid = Objects.requireNonNull(amountPaidEditText.getText()).toString();
-                    Float allTaxIncludedTotal = dbAdapter.getEstimateById(estimateId).getAllTaxIncludedTotal();
-                    if (!amountPaid.isEmpty()) {
-                        Float amountPaidFloat = Float.parseFloat(amountPaid);
-                        if (amountPaidFloat > allTaxIncludedTotal) {
-                            Toast.makeText(getApplicationContext(), "Amount paid cannot be greater than total", Toast.LENGTH_LONG).show();
-                            amountPaidEditText.setText("0.0");
-                        }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String amountPaid = Objects.requireNonNull(amountPaidEditText.getText()).toString();
+                Float allTaxIncludedTotal = dbAdapter.getEstimateById(estimateId).getAllTaxIncludedTotal();
+                if (!amountPaid.isEmpty()) {
+                    Float amountPaidFloat = Float.parseFloat(amountPaid);
+                    if (amountPaidFloat > allTaxIncludedTotal) {
+                        Toast.makeText(getApplicationContext(), "Amount paid cannot be greater than total", Toast.LENGTH_LONG).show();
+                        amountPaidEditText.setText("0.0");
                     }
-                    // Do something with the input, like validation or saving
                 }
             }
         });
