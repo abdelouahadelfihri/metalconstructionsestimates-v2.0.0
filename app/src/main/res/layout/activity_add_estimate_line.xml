@@ -50,7 +50,7 @@
         <Button
             android:id="@+id/selectSteelButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/selectSteel"
             android:backgroundTint="#0066cc"
             app:layout_constraintTop_toTopOf="@id/steelTypeLayout"
