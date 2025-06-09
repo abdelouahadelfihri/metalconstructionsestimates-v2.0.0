@@ -93,7 +93,7 @@ public class EstimateDetails extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     // Logic to run when EditText loses focus
-                    String amountPaid = amountPaidEditText.getText().toString();
+                    String amountPaid = Objects.requireNonNull(amountPaidEditText.getText()).toString();
                     Float allTaxIncludedTotal = dbAdapter.getEstimateById(estimateId).getAllTaxIncludedTotal();
                     if (!amountPaid.isEmpty()) {
                         Float amountPaidFloat = Float.parseFloat(amountPaid);
