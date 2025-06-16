@@ -20,9 +20,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
-import com.example.metalconstructionsestimates.db.DBAdapter;
-import com.example.metalconstructionsestimates.db.DBHelper;
-import com.example.metalconstructionsestimates.db.IntermediateDBAdapter;
+import com.example.metalconstructionsestimates.database.DBAdapter;
+import com.example.metalconstructionsestimates.database.DBHelper;
+import com.example.metalconstructionsestimates.database.IntermediateDBAdapter;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveActivity;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveApiDataRepository;
 import com.example.metalconstructionsestimates.models.Customer;

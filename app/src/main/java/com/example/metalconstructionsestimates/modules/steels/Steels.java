@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.SteelsListAdapter;
 import com.example.metalconstructionsestimates.databinding.ActivitySteelsBinding;
-import com.example.metalconstructionsestimates.db.DBAdapter;
+import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

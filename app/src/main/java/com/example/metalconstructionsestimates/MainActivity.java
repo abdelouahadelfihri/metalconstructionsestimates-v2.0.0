@@ -1,29 +1,17 @@
 package com.example.metalconstructionsestimates;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.dashboard.Dashboard;
-import com.example.metalconstructionsestimates.db.DBAdapter;
-import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.modules.customers.AddCustomer;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.modules.estimates.Estimates;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
-import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.db;
+package com.example.metalconstructionsestimates.database;
 
 import android.content.Context;
 import android.database.SQLException;

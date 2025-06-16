@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.db.DBAdapter;
+import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import android.widget.TextView;
