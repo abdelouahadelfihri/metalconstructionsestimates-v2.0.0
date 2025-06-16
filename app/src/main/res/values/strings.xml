@@ -32,6 +32,7 @@
     <string name="issueDate">--/--/----</string>
     <string name="expirationDateLabel">Expiration Date :</string>
     <string name="expirationDate">--/--/----</string>
+    <string name="error_amount_paid_greater">Amount paid cannot be greater than total</string>
     <string name="weight">Weight</string>
     <string name="width">Width</string>
     <string name="length">Length</string>
