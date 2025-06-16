@@ -860,7 +860,7 @@ public class DBAdapter {
             }
 
             cursor = db.rawQuery(query, null);
-            Log.i("query", query);
+            
             Estimate estimate;
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
@@ -1107,7 +1107,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
 
             Customer customer;
@@ -1194,7 +1193,6 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            Log.i("query", query);
             Cursor cursor = db.rawQuery(query, null);
             Steel steel;
             while (cursor.moveToNext()) {
@@ -1551,7 +1549,6 @@ public class DBAdapter {
 
             query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
                     " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
-            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
