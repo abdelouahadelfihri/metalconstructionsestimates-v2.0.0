@@ -49,7 +49,7 @@ public class EstimateDetails extends AppCompatActivity {
     String formattedTotalExcludingTax;
     String formattedTotalAfterDiscount;
     String formattedTotalAllTaxIncluded;
-    String formattedAmountPaid;
+    private static final String DEFAULT_AMOUNT_PAID = "0.0";
 
     Estimate estimate;
 
@@ -95,7 +95,7 @@ public class EstimateDetails extends AppCompatActivity {
             Float amountPaidFloat = Float.parseFloat(amountPaid);
             if (amountPaidFloat > allTaxIncludedTotal) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_amount_paid_greater), Toast.LENGTH_LONG).show();
-                amountPaidEditText.setText("0.0");
+                amountPaidEditText.setText(DEFAULT_AMOUNT_PAID);
             }
         }
 
