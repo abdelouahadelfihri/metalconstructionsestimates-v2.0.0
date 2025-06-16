@@ -94,7 +94,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (!amountPaid.isEmpty()) {
             Float amountPaidFloat = Float.parseFloat(amountPaid);
             if (amountPaidFloat > allTaxIncludedTotal) {
-                Toast.makeText(getApplicationContext(), "Amount paid cannot be greater than total", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.error_amount_paid_greater), Toast.LENGTH_LONG).show();
                 amountPaidEditText.setText("0.0");
             }
         }
