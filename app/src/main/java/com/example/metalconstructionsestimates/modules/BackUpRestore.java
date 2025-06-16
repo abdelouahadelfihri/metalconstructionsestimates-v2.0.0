@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates;
+package com.example.metalconstructionsestimates.modules;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.documentfile.provider.DocumentFile;
 
+import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.database.DBHelper;
 import com.example.metalconstructionsestimates.database.IntermediateDBAdapter;
