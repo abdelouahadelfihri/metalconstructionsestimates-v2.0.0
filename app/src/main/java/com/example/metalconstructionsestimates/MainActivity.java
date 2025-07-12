@@ -13,6 +13,7 @@ import com.example.metalconstructionsestimates.modules.steels.Steels;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         View contentLayout = findViewById(R.id.scrollContent); // Make sure your ConstraintLayout has this ID
         ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
-            WindowInsetsCompat systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
         });
