@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.metalconstructionsestimates"
-    compileSdk = 34
+    compileSdk = 35
 
     packaging {
         resources {
@@ -67,6 +67,7 @@ dependencies {
     implementation("com.google.http-client:google-http-client-android:1.41.5")
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

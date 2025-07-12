@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.metalconstructionsestimates">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="false"
+        android:normalScreens="true"
+        android:resizeable="false"
+        android:smallScreens="true"
+        android:xlargeScreens="false" />
 
     <application
         android:name=".dbbackuprestore.app.App"
@@ -17,6 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".modules.AboutActivity"
+            android:exported="false" />
         <activity
             android:name=".dbbackuprestore.BackUpRestore"
             android:exported="true"
@@ -146,13 +156,5 @@
                 android:value=".modules.steels.Steels" />
         </activity>
     </application>
-
-    <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="false"
-        android:xlargeScreens="false"
-        android:resizeable="false"
-        android:anyDensity="true" />
 
 </manifest>
