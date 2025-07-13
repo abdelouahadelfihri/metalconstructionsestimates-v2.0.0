@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.metalconstructionsestimates.dashboard.Dashboard;
@@ -37,10 +38,12 @@ public class MainActivity extends AppCompatActivity {
         insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        View contentLayout = findViewById(R.id.scrollContent); // Make sure your ConstraintLayout has this ID
-        ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
             return insets;
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
