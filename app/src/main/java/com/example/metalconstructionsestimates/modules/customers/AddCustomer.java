@@ -4,14 +4,21 @@ package com.example.metalconstructionsestimates.modules.customers;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -23,8 +30,21 @@ public class AddCustomer extends AppCompatActivity {
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
+            return insets;
+        });
         adapter = new DBAdapter(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add_customer);
         setSupportActionBar(toolbar);
