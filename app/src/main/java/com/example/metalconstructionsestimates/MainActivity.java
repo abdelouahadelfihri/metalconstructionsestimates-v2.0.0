@@ -1,6 +1,7 @@
 package com.example.metalconstructionsestimates;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         View contentLayout = findViewById(R.id.scrollContent); // Make sure your ConstraintLayout has this ID
