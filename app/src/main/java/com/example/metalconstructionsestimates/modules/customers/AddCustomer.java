@@ -46,7 +46,7 @@ public class AddCustomer extends AppCompatActivity {
             return insets;
         });
         adapter = new DBAdapter(getApplicationContext());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_add_customer);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button add_customer_button = (Button) findViewById(R.id.btnAdd_add_customer);
