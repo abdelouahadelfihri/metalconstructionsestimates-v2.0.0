@@ -43,6 +43,7 @@ public class AddCustomer extends AppCompatActivity {
             ViewGroup.LayoutParams params = v.getLayoutParams();
             params.height = systemBars.top;
             v.setLayoutParams(params);
+            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
         });
         adapter = new DBAdapter(getApplicationContext());
