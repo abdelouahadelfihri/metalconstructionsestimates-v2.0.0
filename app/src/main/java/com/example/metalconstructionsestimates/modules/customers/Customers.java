@@ -17,6 +17,11 @@ import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.metalconstructionsestimates.databinding.ActivityCustomersBinding;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -31,9 +36,16 @@ public class Customers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         super.onCreate(savedInstanceState);
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        View contentLayout = findViewById(R.id.customer_list_layout);
+        ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
+            return insets;
+        });
         Toolbar toolBar = findViewById(R.id.toolbar_customers);
         setSupportActionBar(toolBar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
