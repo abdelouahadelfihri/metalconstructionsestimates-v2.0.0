@@ -49,7 +49,7 @@
             android:src="@drawable/customers"
             android:contentDescription="@string/customers"
             app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
             app:layout_constraintDimensionRatio="1:1"
