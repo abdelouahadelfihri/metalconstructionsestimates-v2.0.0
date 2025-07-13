@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -47,10 +53,34 @@ public class AddEstimate extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_estimate);
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        View scrollContent = findViewById(R.id.scrollContent);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
+            return insets;
+        });
+        ViewCompat.setOnApplyWindowInsetsListener(scrollContent, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    systemBars.bottom // ⬅️ This prevents buttons from being hidden by navigation bar
+            );
+            return insets;
+        });
         dbAdapter = new DBAdapter(getApplicationContext());
-        Toolbar toolbar = findViewById(R.id.toolbar_add_estimate);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
