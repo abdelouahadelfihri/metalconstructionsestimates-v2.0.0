@@ -31,15 +31,14 @@ public class AddCustomer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
-        View scrollContent = findViewById(R.id.scrollContent);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         WindowInsetsControllerCompat insetsController =
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
         insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
-
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        View scrollContent = findViewById(R.id.scrollContent);
         ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.LayoutParams params = v.getLayoutParams();
