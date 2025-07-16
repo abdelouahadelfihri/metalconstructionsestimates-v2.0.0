@@ -34,6 +34,7 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -132,7 +133,7 @@ public class AddEstimateLine extends AppCompatActivity {
                             if (steel.getWeight() == null) {
                                 weightEditText.setText("");
                             } else {
-                                weightEditText.setText(steel.getWeight().toString());
+                                weightEditText.setText(String.format(Locale.getDefault(), "%.2f", steel.getWeight()));
                             }
 
                             switch (geometricShape) {
