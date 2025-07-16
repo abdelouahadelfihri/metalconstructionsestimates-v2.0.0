@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="#0066cc"
-                app:title="@string/addCustomer"
+                app:title="@string/addEstimateLine"
                 app:titleTextColor="@android:color/white" />
         </LinearLayout>
 
