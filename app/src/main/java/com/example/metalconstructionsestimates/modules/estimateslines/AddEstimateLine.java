@@ -59,7 +59,6 @@ public class AddEstimateLine extends AppCompatActivity {
     String formattedTotal;
     String formattedNetQuantityPlusMargin;
     String formattedTotalPrice;
-    Float total,netQuantityPlusMargin,totalPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
