@@ -1,141 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
     <!-- Toolbar -->
-    <LinearLayout
-        android:id="@+id/toolbarContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#0066cc"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Fake status bar area -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/statusBarSpacer"
-            android:background="#0066cc" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+        <LinearLayout
+            android:id="@+id/toolbarContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="#0066cc"
-            app:title="@string/addSteel"
-            app:titleTextColor="@android:color/white" />
-    </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- TextInputLayout for Steel Type -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutSteelType"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/steelType"
-        android:background="@drawable/shape"
-        app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp">
+            <!-- Fake status bar area -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/statusBarSpacer"
+                android:background="#0066cc" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextSteelType"
-            android:layout_width="match_parent"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#0066cc"
+                app:title="@string/addSteel"
+                app:titleTextColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- TextInputLayout for Steel Type -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSteelType"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent" />
+            android:hint="@string/steelType"
+            android:background="@drawable/shape"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSteelType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
 
-    <!-- Spinner Geometric Shape -->
-    <Spinner
-        android:id="@+id/spinner_geometric_shape"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="@drawable/shape"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutSteelType"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- TextInputLayout for Weight -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutWeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/weight"
-        android:background="@drawable/shape"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/spinner_geometric_shape"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        <!-- Spinner Geometric Shape -->
+        <Spinner
+            android:id="@+id/spinner_geometric_shape"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/shape"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSteelType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextWeight"
-            android:layout_width="match_parent"
+        <!-- TextInputLayout for Weight -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutWeight"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:textColor="#333333"
-            android:textColorHint="#4A4A4A"
-            android:background="@android:color/transparent" />
+            android:hint="@string/weight"
+            android:background="@drawable/shape"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@id/spinner_geometric_shape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="#333333"
+                android:textColorHint="#4A4A4A"
+                android:background="@android:color/transparent" />
 
-    <!-- Spinner 2 -->
-    <Spinner
-        android:id="@+id/spinner_steel_unit"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="@drawable/shape"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutWeight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Add Button -->
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:backgroundTint="#0066cc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonClear"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="24dp"/>
+        <!-- Spinner 2 -->
+        <Spinner
+            android:id="@+id/spinner_steel_unit"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/shape"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
-    <!-- Clear Button -->
-    <Button
-        android:id="@+id/buttonClear"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/clear"
-        android:backgroundTint="#0066cc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"/>
+        <!-- Add Button -->
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:backgroundTint="#0066cc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonClear"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="24dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Clear Button -->
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/clear"
+            android:backgroundTint="#0066cc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonAdd"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
