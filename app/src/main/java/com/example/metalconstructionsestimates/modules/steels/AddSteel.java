@@ -39,7 +39,7 @@ public class AddSteel extends AppCompatActivity {
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
         insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_customer);
+        setContentView(R.layout.activity_add_steel);
         View statusBarSpacer = findViewById(R.id.statusBarSpacer);
         View scrollContent = findViewById(R.id.scrollContent);
         ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
