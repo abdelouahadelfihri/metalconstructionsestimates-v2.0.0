@@ -55,7 +55,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
         insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_estimate_line);
+        setContentView(R.layout.activity_estimate_line_details);
         View statusBarSpacer = findViewById(R.id.statusBarSpacer);
         View scrollContent = findViewById(R.id.scrollContent);
         ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
