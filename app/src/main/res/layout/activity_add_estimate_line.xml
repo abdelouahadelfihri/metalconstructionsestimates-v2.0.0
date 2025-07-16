@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"> <!-- Ensures content fills the screen even if short -->
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
         <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_add_estimate_line"
+        <LinearLayout
+            android:id="@+id/toolbarContainer"
             android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="#0066cc"
-            app:title="Add Estimate Line"
-            app:titleTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Fake status bar area -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/statusBarSpacer"
+                android:background="#0066cc" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#0066cc"
+                app:title="@string/addCustomer"
+                app:titleTextColor="@android:color/white" />
+        </LinearLayout>
 
         <!-- Steel Type Input -->
         <com.google.android.material.textfield.TextInputLayout
@@ -27,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/steelType"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_add_estimate_line"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/selectSteelButton"
             android:layout_marginTop="16dp"
