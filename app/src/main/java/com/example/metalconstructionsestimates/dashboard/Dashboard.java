@@ -4,11 +4,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.Objects;
 
@@ -20,8 +28,21 @@ public class Dashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
+            return insets;
+        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(Color.parseColor("#4F5EB1"));
         setSupportActionBar(toolbar);
