@@ -23,9 +23,6 @@ import java.util.Objects;
 
 public class Dashboard extends AppCompatActivity {
 
-    private ViewPager2 viewPager;
-    private TabLayout tabLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
@@ -48,7 +45,7 @@ public class Dashboard extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        viewPager = findViewById(R.id.viewPager);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new DashboardPagerAdapter(this));
         TextView allEstimatesTotalTextView = findViewById(R.id.value_total);
         TextView customersCountTextView = findViewById(R.id.value_customers);
@@ -67,7 +64,7 @@ public class Dashboard extends AppCompatActivity {
         // Set counts for each category
         setCounts(dbAdapter, customersCountTextView, estimatesCountTextView, steelsCountTextView);
 
-        tabLayout = findViewById(R.id.tabLayout);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
     }
