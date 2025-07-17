@@ -14,6 +14,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -32,12 +36,19 @@ public class Estimates extends AppCompatActivity {
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         super.onCreate(savedInstanceState);
 
         activityEstimatesBinding = ActivityEstimatesBinding.inflate(getLayoutInflater());
 
         setContentView(activityEstimatesBinding.getRoot());
+        View contentLayout = findViewById(R.id.customer_list_layout);
+        ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
+            return insets;
+        });
 
         Toolbar toolBar = findViewById(R.id.toolbar);
 
