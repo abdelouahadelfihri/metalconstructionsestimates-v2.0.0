@@ -11,51 +11,45 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import com.example.metalconstructionsestimates.database.DBAdapter;
-import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentYearEstimatesBinding;
+import com.example.metalconstructionsestimates.models.Estimate;
+
 import java.util.ArrayList;
 
 public class FragmentCurrentYearEstimates extends Fragment {
 
-    FragmentCurrentYearEstimatesBinding fragmentCurrentYearEstimatesBinding;
+    private FragmentCurrentYearEstimatesBinding binding;
 
-    public FragmentCurrentYearEstimates() {
-    }
+    public FragmentCurrentYearEstimates() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentCurrentYearEstimatesBinding.inflate(inflater, container, false);
 
-        fragmentCurrentYearEstimatesBinding = FragmentCurrentYearEstimatesBinding.inflate(inflater, container, false);
+        if (getContext() == null) return binding.getRoot();
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
-        if(dbAdapter.getCurrentYearEstimatesCount() == 0)
-            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText("0");
-        else{
-            fragmentCurrentYearEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentYearEstimatesCount()));
-        }
+        int count = dbAdapter.getCurrentYearEstimatesCount();
+        binding.tvEstimateCountValue.setText(String.valueOf(count));
 
-        if(dbAdapter.getCurrentYearEstimatesTotal() == 0.0f){
-            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
-        }
-        else{
-            String currentYearEstimatesTotal = dbAdapter.getCurrentYearEstimatesTotal().toString() + " DH";
-            fragmentCurrentYearEstimatesBinding.tvEstimateTotalValue.setText(currentYearEstimatesTotal);
-        }
+        float total = dbAdapter.getCurrentYearEstimatesTotal();
+        binding.tvEstimateTotalValue.setText(
+                total == 0.0f ? getString(R.string.zeroDH) : String.format("%.2f DH", total)
+        );
 
-        ArrayList<Estimate> currentYearEstimatesList = dbAdapter.getCurrentYearEstimates();
+        ArrayList<Estimate> list = dbAdapter.getCurrentYearEstimates();
 
-        if (currentYearEstimatesList.isEmpty()){
-            fragmentCurrentYearEstimatesBinding.rvEstimates.setVisibility(View.GONE);
-            fragmentCurrentYearEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
+        if (list.isEmpty()) {
+            binding.rvEstimates.setVisibility(View.GONE);
+            binding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentYearEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentYearEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
-            EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentYearEstimatesList);
-            fragmentCurrentYearEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentYearEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setAdapter(new EstimatesListAdapter(getContext(), list));
+            binding.rvEstimates.setVisibility(View.VISIBLE);
+            binding.tvNoEstimates.setVisibility(View.GONE);
         }
 
-        return fragmentCurrentYearEstimatesBinding.getRoot();
+        return binding.getRoot();
     }
 }
