@@ -18,44 +18,47 @@ import com.example.metalconstructionsestimates.databinding.FragmentCurrentDayEst
 import java.util.ArrayList;
 
 public class FragmentCurrentDayEstimates extends Fragment {
-    FragmentCurrentDayEstimatesBinding fragmentCurrentDayEstimatesBinding;
+    private FragmentCurrentDayEstimatesBinding binding;
 
-    public FragmentCurrentDayEstimates() {
-    }
+    public FragmentCurrentDayEstimates() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentCurrentDayEstimatesBinding = FragmentCurrentDayEstimatesBinding.inflate(inflater,container,false);
+        binding = FragmentCurrentDayEstimatesBinding.inflate(inflater, container, false);
 
-        DBAdapter dbAdapter = new DBAdapter(getContext());
-        if(dbAdapter.getCurrentDayEstimatesCount() == 0)
-            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText("0");
-        else{
-            fragmentCurrentDayEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentDayEstimatesCount()));
-        }
+        DBAdapter dbAdapter = new DBAdapter(requireContext());
 
-        if(dbAdapter.getCurrentDayEstimatesTotal() == 0.0f){
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
-        }
-        else{
-            String currentDayEstimatesTotal = dbAdapter.getCurrentDayEstimatesTotal().toString() + " DH";
-            fragmentCurrentDayEstimatesBinding.tvEstimateTotalValue.setText(currentDayEstimatesTotal);
-        }
+        // Set Count
+        int count = dbAdapter.getCurrentDayEstimatesCount();
+        binding.tvEstimateCountValue.setText(String.valueOf(count));
 
-        ArrayList<Estimate> currentDayEstimatesList = dbAdapter.getCurrentDayEstimates();
-
-        if (currentDayEstimatesList.isEmpty()){
-            fragmentCurrentDayEstimatesBinding.rvEstimates.setVisibility(View.GONE);
-
-            fragmentCurrentDayEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
+        // Set Total
+        float total = dbAdapter.getCurrentDayEstimatesTotal();
+        if (total == 0.0f) {
+            binding.tvEstimateTotalValue.setText(R.string.zeroDH);
         } else {
-            fragmentCurrentDayEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentDayEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
-            EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentDayEstimatesList);
-            fragmentCurrentDayEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentDayEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.tvEstimateTotalValue.setText(String.format("%.2f DH", total));
         }
 
-        return fragmentCurrentDayEstimatesBinding.getRoot();
+        // Set List
+        ArrayList<Estimate> estimates = dbAdapter.getCurrentDayEstimates();
+        if (estimates.isEmpty()) {
+            binding.rvEstimates.setVisibility(View.GONE);
+            binding.tvNoEstimates.setVisibility(View.VISIBLE);
+        } else {
+            binding.rvEstimates.setVisibility(View.VISIBLE);
+            binding.tvNoEstimates.setVisibility(View.GONE);
+            EstimatesListAdapter adapter = new EstimatesListAdapter(getContext(), estimates);
+            binding.rvEstimates.setAdapter(adapter);
+            binding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
