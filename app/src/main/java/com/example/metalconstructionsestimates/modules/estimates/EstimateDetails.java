@@ -99,7 +99,7 @@ public class EstimateDetails extends AppCompatActivity {
             );
             return insets;
         });
-        Toolbar toolbar = findViewById(R.id.toolbar_estimate_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         String estimateIdExtra = getIntent().getStringExtra("estimateIdExtra");
