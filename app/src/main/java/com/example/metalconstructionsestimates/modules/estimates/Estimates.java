@@ -1,6 +1,7 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,11 +38,10 @@ public class Estimates extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
+        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
+        getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
         super.onCreate(savedInstanceState);
-
         activityEstimatesBinding = ActivityEstimatesBinding.inflate(getLayoutInflater());
-
         setContentView(activityEstimatesBinding.getRoot());
         View contentLayout = findViewById(R.id.customer_list_layout);
         ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
