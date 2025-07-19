@@ -2,10 +2,16 @@ package com.example.metalconstructionsestimates.dashboard;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class DashboardPagerAdapter extends FragmentStateAdapter {
+
+    public static final int TAB_DAY = 0;
+    public static final int TAB_WEEK = 1;
+    public static final int TAB_MONTH = 2;
+    public static final int TAB_YEAR = 3;
+
     public DashboardPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -14,22 +20,21 @@ public class DashboardPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0:
+            case TAB_DAY:
                 return new FragmentCurrentDayEstimates();
-            case 1:
+            case TAB_WEEK:
                 return new FragmentCurrentWeekEstimates();
-            case 2:
+            case TAB_MONTH:
                 return new FragmentCurrentMonthEstimates();
-            case 3:
+            case TAB_YEAR:
                 return new FragmentCurrentYearEstimates();
             default:
-                // Return a default fragment in case of invalid position
-                return new Fragment();
+                throw new IllegalArgumentException("Invalid tab position: " + position);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 4; // Number of tabs
+        return 4; // Total number of tabs
     }
 }
