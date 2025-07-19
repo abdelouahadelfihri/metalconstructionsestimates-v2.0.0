@@ -1,155 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollContent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Toolbar -->
-    <!-- Toolbar container with top inset space -->
-    <LinearLayout
-        android:id="@+id/toolbarContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#0066cc"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Fake status bar area -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:id="@+id/statusBarSpacer"
-            android:background="#0066cc" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+        <!-- Toolbar -->
+        <!-- Toolbar container with top inset space -->
+        <LinearLayout
+            android:id="@+id/toolbarContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:background="#0066cc"
-            app:title="@string/dashboard"
-            app:titleTextColor="@android:color/white" />
-    </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-<!-- Customers Row -->
-    <TextView
-        android:id="@+id/label_customers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/customersCount"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"/>
+            <!-- Fake status bar area -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:id="@+id/statusBarSpacer"
+                android:background="#0066cc" />
 
-    <TextView
-        android:id="@+id/value_customers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/label_customers"
-        app:layout_constraintBaseline_toBaselineOf="@id/label_customers"
-        android:layout_marginStart="8dp"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#0066cc"
+                app:title="@string/dashboard"
+                app:titleTextColor="@android:color/white" />
+        </LinearLayout>
 
-    <!-- Steels Row -->
-    <TextView
-        android:id="@+id/label_steels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/steelsCount"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/label_customers"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"/>
+    <!-- Customers Row -->
+        <TextView
+            android:id="@+id/label_customers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customersCount"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"/>
 
-    <TextView
-        android:id="@+id/value_steels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="45"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/label_steels"
-        app:layout_constraintBaseline_toBaselineOf="@id/label_steels"
-        android:layout_marginStart="8dp"/>
+        <TextView
+            android:id="@+id/value_customers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/label_customers"
+            app:layout_constraintBaseline_toBaselineOf="@id/label_customers"
+            android:layout_marginStart="8dp"/>
 
-    <!-- Estimates Row -->
-    <TextView
-        android:id="@+id/label_estimates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/estimatesCount"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/label_steels"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"/>
+        <!-- Steels Row -->
+        <TextView
+            android:id="@+id/label_steels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/steelsCount"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/label_customers"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"/>
 
-    <TextView
-        android:id="@+id/value_estimates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="7"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/label_estimates"
-        app:layout_constraintBaseline_toBaselineOf="@id/label_estimates"
-        android:layout_marginStart="8dp"/>
+        <TextView
+            android:id="@+id/value_steels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/label_steels"
+            app:layout_constraintBaseline_toBaselineOf="@id/label_steels"
+            android:layout_marginStart="8dp"/>
 
-    <!-- Estimates Total Row -->
-    <TextView
-        android:id="@+id/label_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/totalEstimates"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/label_estimates"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"/>
+        <!-- Estimates Row -->
+        <TextView
+            android:id="@+id/label_estimates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estimatesCount"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/label_steels"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"/>
 
-    <TextView
-        android:id="@+id/value_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="14sp"
-        tools:text="$100,000.00 DH"
-        android:text="$4,200"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/label_total"
-        app:layout_constraintBaseline_toBaselineOf="@id/label_total"
-        android:layout_marginStart="8dp"/>
+        <TextView
+            android:id="@+id/value_estimates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/label_estimates"
+            app:layout_constraintBaseline_toBaselineOf="@id/label_estimates"
+            android:layout_marginStart="8dp"/>
 
-    <!-- TabLayout -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:tabGravity="fill"
-        android:contentDescription="@string/estimates"
-        app:layout_constraintTop_toBottomOf="@id/label_total"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        <!-- Estimates Total Row -->
+        <TextView
+            android:id="@+id/label_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/totalEstimates"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/label_estimates"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"/>
 
-    <!-- ViewPager2 -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/value_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            tools:text="$100,000.00 DH"
+            android:text="$4,200"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/label_total"
+            app:layout_constraintBaseline_toBaselineOf="@id/label_total"
+            android:layout_marginStart="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:contentDescription="@string/estimates"
+            app:layout_constraintTop_toBottomOf="@id/label_total"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- ViewPager2 -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
