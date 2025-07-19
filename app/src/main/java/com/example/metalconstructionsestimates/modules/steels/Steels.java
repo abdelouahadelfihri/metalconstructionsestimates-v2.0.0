@@ -1,6 +1,7 @@
 package com.example.metalconstructionsestimates.modules.steels;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,6 +42,8 @@ public class Steels extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
+        getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
         super.onCreate(savedInstanceState);
         activitySteelsBinding = ActivitySteelsBinding.inflate(getLayoutInflater());
         setContentView(activitySteelsBinding.getRoot());
