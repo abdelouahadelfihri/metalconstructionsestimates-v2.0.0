@@ -29,7 +29,7 @@ android:layout_height="match_parent">
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#0066cc"
-            app:title="@string/app_name"
+            app:title="@string/customersList"
             app:titleTextColor="@android:color/white" />
     </LinearLayout>
 
