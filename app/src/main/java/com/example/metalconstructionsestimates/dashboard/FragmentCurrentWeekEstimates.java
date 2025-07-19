@@ -11,54 +11,45 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import com.example.metalconstructionsestimates.database.DBAdapter;
-import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentWeekEstimatesBinding;
+import com.example.metalconstructionsestimates.models.Estimate;
+
 import java.util.ArrayList;
 
 public class FragmentCurrentWeekEstimates extends Fragment {
 
-    FragmentCurrentWeekEstimatesBinding fragmentCurrentWeekEstimatesBinding;
+    private FragmentCurrentWeekEstimatesBinding binding;
 
-    public FragmentCurrentWeekEstimates() {
-    }
+    public FragmentCurrentWeekEstimates() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentCurrentWeekEstimatesBinding.inflate(inflater, container, false);
 
-        fragmentCurrentWeekEstimatesBinding = FragmentCurrentWeekEstimatesBinding.inflate(inflater, container, false);
+        if (getContext() == null) return binding.getRoot();
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
 
-        if(dbAdapter.getCurrentWeekEstimatesCount() == 0)
-            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText("0");
-        else{
-            fragmentCurrentWeekEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentWeekEstimatesCount()));
-        }
+        int count = dbAdapter.getCurrentWeekEstimatesCount();
+        binding.tvEstimateCountValue.setText(String.valueOf(count));
 
-        if(dbAdapter.getCurrentWeekEstimatesTotal() == 0.0f){
-            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
-        }
-        else{
-            String currentWeekEstimatesTotal = dbAdapter.getCurrentWeekEstimatesTotal().toString() + " DH";
-            fragmentCurrentWeekEstimatesBinding.tvEstimateTotalValue.setText(currentWeekEstimatesTotal);
-        }
+        float total = dbAdapter.getCurrentWeekEstimatesTotal();
+        binding.tvEstimateTotalValue.setText(
+                total == 0.0f ? getString(R.string.zeroDH) : String.format("%.2f DH", total)
+        );
 
-        ArrayList<Estimate> currentWeekEstimatesList = dbAdapter.getCurrentWeekEstimates();
+        ArrayList<Estimate> list = dbAdapter.getCurrentWeekEstimates();
 
-
-
-        if (currentWeekEstimatesList.isEmpty()){
-            fragmentCurrentWeekEstimatesBinding.rvEstimates.setVisibility(View.GONE);
-            fragmentCurrentWeekEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
+        if (list.isEmpty()) {
+            binding.rvEstimates.setVisibility(View.GONE);
+            binding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentWeekEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentWeekEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
-            EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentWeekEstimatesList);
-            fragmentCurrentWeekEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentWeekEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setAdapter(new EstimatesListAdapter(getContext(), list));
+            binding.rvEstimates.setVisibility(View.VISIBLE);
+            binding.tvNoEstimates.setVisibility(View.GONE);
         }
 
-        return fragmentCurrentWeekEstimatesBinding.getRoot();
-
+        return binding.getRoot();
     }
 }
