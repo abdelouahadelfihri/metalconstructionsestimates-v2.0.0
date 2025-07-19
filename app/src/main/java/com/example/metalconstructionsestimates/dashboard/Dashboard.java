@@ -67,6 +67,7 @@ public class Dashboard extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(getTabTitle(position))).attach();
+        viewPager.post(() -> viewPager.setCurrentItem(0, false));
     }
 
     private void setCounts(DBAdapter dbAdapter, TextView customersCountTextView, TextView estimatesCountTextView, TextView steelsCountTextView) {
