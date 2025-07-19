@@ -43,7 +43,7 @@ public class Estimates extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityEstimatesBinding = ActivityEstimatesBinding.inflate(getLayoutInflater());
         setContentView(activityEstimatesBinding.getRoot());
-        View contentLayout = findViewById(R.id.customer_list_layout);
+        View contentLayout = findViewById(R.id.estimate_list_layout);
         ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(0, systemBars.top, 0, systemBars.bottom);
