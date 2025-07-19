@@ -52,7 +52,7 @@ public class Customers extends AppCompatActivity {
             v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
         });
-        Toolbar toolBar = findViewById(R.id.toolbar_customers);
+        Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Context c = getApplicationContext();
