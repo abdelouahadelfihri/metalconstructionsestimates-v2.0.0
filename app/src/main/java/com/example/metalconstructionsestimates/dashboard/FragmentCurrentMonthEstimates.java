@@ -11,54 +11,45 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import com.example.metalconstructionsestimates.database.DBAdapter;
-import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentMonthEstimatesBinding;
+import com.example.metalconstructionsestimates.models.Estimate;
+
 import java.util.ArrayList;
 
 public class FragmentCurrentMonthEstimates extends Fragment {
 
-    FragmentCurrentMonthEstimatesBinding fragmentCurrentMonthEstimatesBinding;
+    private FragmentCurrentMonthEstimatesBinding binding;
 
-    public FragmentCurrentMonthEstimates() {
-    }
+    public FragmentCurrentMonthEstimates() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentCurrentMonthEstimatesBinding.inflate(inflater, container, false);
 
-        fragmentCurrentMonthEstimatesBinding = FragmentCurrentMonthEstimatesBinding.inflate(inflater, container, false);
+        if (getContext() == null) return binding.getRoot();
 
         DBAdapter dbAdapter = new DBAdapter(getContext());
-        if(dbAdapter.getCurrentMonthEstimatesCount() == 0)
-            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText("0");
-        else{
-            fragmentCurrentMonthEstimatesBinding.tvEstimateCountValue.setText(String.valueOf(dbAdapter.getCurrentMonthEstimatesCount()));
-        }
 
+        int count = dbAdapter.getCurrentMonthEstimatesCount();
+        binding.tvEstimateCountValue.setText(String.valueOf(count));
 
-        if(dbAdapter.getCurrentMonthEstimatesTotal() == 0.0f){
-            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(R.string.zeroDH);
-        }
-        else{
-            String currentMonthEstimatesTotal = dbAdapter.getCurrentMonthEstimatesTotal().toString() + " DH";
-            fragmentCurrentMonthEstimatesBinding.tvEstimateTotalValue.setText(currentMonthEstimatesTotal);
-        }
+        float total = dbAdapter.getCurrentMonthEstimatesTotal();
+        binding.tvEstimateTotalValue.setText(
+                total == 0.0f ? getString(R.string.zeroDH) : String.format("%.2f DH", total)
+        );
 
-        ArrayList<Estimate> currentMonthEstimatesList = dbAdapter.getCurrentMonthEstimates();
+        ArrayList<Estimate> list = dbAdapter.getCurrentMonthEstimates();
 
-
-
-        if (currentMonthEstimatesList.isEmpty()){
-            fragmentCurrentMonthEstimatesBinding.rvEstimates.setVisibility(View.GONE);
-
-            fragmentCurrentMonthEstimatesBinding.tvNoEstimates.setVisibility(View.VISIBLE);
+        if (list.isEmpty()) {
+            binding.rvEstimates.setVisibility(View.GONE);
+            binding.tvNoEstimates.setVisibility(View.VISIBLE);
         } else {
-            fragmentCurrentMonthEstimatesBinding.rvEstimates.setVisibility(View.VISIBLE);
-            fragmentCurrentMonthEstimatesBinding.tvNoEstimates.setVisibility(View.GONE);
-            EstimatesListAdapter estimateAdapter = new EstimatesListAdapter(getContext(), currentMonthEstimatesList);
-            fragmentCurrentMonthEstimatesBinding.rvEstimates.setAdapter(estimateAdapter);
-            fragmentCurrentMonthEstimatesBinding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rvEstimates.setAdapter(new EstimatesListAdapter(getContext(), list));
+            binding.rvEstimates.setVisibility(View.VISIBLE);
+            binding.tvNoEstimates.setVisibility(View.GONE);
         }
 
-        return fragmentCurrentMonthEstimatesBinding.getRoot();
+        return binding.getRoot();
     }
 }
