@@ -25,7 +25,7 @@ public class Dashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         WindowInsetsControllerCompat insetsController =
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());

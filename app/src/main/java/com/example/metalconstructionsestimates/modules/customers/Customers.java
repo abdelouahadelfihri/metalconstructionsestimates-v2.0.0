@@ -38,7 +38,7 @@ public class Customers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
         getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
         WindowInsetsControllerCompat insetsController =
