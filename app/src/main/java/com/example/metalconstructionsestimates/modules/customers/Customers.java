@@ -59,6 +59,7 @@ public class Customers extends AppCompatActivity {
         });
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
+        toolBar.setBackgroundColor(Color.parseColor("#0066cc"));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Context c = getApplicationContext();
 
