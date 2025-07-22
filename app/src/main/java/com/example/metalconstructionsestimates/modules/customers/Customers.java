@@ -50,6 +50,8 @@ public class Customers extends AppCompatActivity {
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         View contentLayout = findViewById(R.id.customer_list_layout);
+        contentLayout.setFitsSystemWindows(false);
+        contentLayout.setPadding(0, 0, 0, 0);
         ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(0, systemBars.top, 0, systemBars.bottom);
