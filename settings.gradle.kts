@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Steel Quote"
+rootProject.name = "Steel Quotes"
 include(":app")
  
