@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -37,9 +38,14 @@ public class Estimates extends AppCompatActivity {
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
         getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
+
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        insetsController.setAppearanceLightStatusBars(false);
+        insetsController.setAppearanceLightNavigationBars(false);
         super.onCreate(savedInstanceState);
         activityEstimatesBinding = ActivityEstimatesBinding.inflate(getLayoutInflater());
         setContentView(activityEstimatesBinding.getRoot());
