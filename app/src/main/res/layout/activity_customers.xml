@@ -21,7 +21,7 @@ android:fitsSystemWindows="false">
         <!-- Fake status bar area -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="24dp"
             android:id="@+id/statusBarSpacer"
             android:background="#0066cc" />
 
