@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowInsetsControllerCompat insetsController =
-                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        insetsController.setAppearanceLightStatusBars(false);
         setContentView(R.layout.activity_main);
         View statusBarSpacer = findViewById(R.id.statusBarSpacer);
         ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
