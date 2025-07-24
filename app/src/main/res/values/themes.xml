@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
-    <style name="Theme.MetalConstructionsEstimates" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Theme.MetalConstructionsEstimates" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
