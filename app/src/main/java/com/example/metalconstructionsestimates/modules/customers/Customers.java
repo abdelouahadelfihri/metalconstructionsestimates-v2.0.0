@@ -40,7 +40,8 @@ public class Customers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        // Enable full edge-to-edge mode
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Set status and navigation bar colors
         getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
@@ -55,24 +56,13 @@ public class Customers extends AppCompatActivity {
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Handle edge insets for status and nav bars
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+        // Apply proper insets to spacer view to simulate status bar background
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-            // Apply top inset (status bar) to spacer
-            View statusBarSpacer = findViewById(R.id.statusBarSpacer);
-            if (statusBarSpacer != null) {
-                ViewGroup.LayoutParams params = statusBarSpacer.getLayoutParams();
-                params.height = systemBars.top;
-                statusBarSpacer.setLayoutParams(params);
-            }
-
-            // Apply bottom inset to FAB
-            FloatingActionButton fabAddCustomer = findViewById(R.id.fab_add_customer);
-            ViewGroup.MarginLayoutParams fabParams = (ViewGroup.MarginLayoutParams) fabAddCustomer.getLayoutParams();
-            fabParams.bottomMargin = systemBars.bottom + 16; // Add 16px margin for spacing
-            fabAddCustomer.setLayoutParams(fabParams);
-
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
             return insets;
         });
 
@@ -82,7 +72,6 @@ public class Customers extends AppCompatActivity {
         toolBar.setBackgroundColor(Color.parseColor("#0066cc"));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        // Your other code (DB, adapter, list, events...)
         Context c = getApplicationContext();
 
         DBAdapter dbAdapter = new DBAdapter(c);
