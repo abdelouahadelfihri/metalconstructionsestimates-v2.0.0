@@ -41,7 +41,7 @@ public class Customers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Enable full edge-to-edge mode
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Set status and navigation bar colors
         getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
