@@ -8,6 +8,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
+
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,27 +40,38 @@ public class Customers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Enable full edge-to-edge mode
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        // Set status and navigation bar colors
+        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
         getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
+
+        // Use light content (white icons) in the status bar
         WindowInsetsControllerCompat insetsController =
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false);
+        insetsController.setAppearanceLightStatusBars(false); // false = white text/icons
+
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        View contentLayout = findViewById(R.id.customer_list_layout);
-        contentLayout.setFitsSystemWindows(false);
-        contentLayout.setPadding(0, 0, 0, 0);
-        ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
+
+        // Apply proper insets to spacer view to simulate status bar background
+        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
+            ViewGroup.LayoutParams params = v.getLayoutParams();
+            params.height = systemBars.top;
+            v.setLayoutParams(params);
             return insets;
         });
+
+        // Toolbar setup
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
         toolBar.setBackgroundColor(Color.parseColor("#0066cc"));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         Context c = getApplicationContext();
 
         DBAdapter dbAdapter = new DBAdapter(c);
