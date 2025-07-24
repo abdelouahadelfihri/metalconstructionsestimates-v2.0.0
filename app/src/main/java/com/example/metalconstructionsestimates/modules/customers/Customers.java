@@ -55,6 +55,11 @@ public class Customers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        ViewCompat.setOnApplyWindowInsetsListener(binding.fabAddCustomer, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setTranslationY(-systemBars.bottom); // Lift FAB up from nav bar
+            return insets;
+        });
 
         // Apply proper insets to spacer view to simulate status bar background
         View statusBarSpacer = findViewById(R.id.statusBarSpacer);
