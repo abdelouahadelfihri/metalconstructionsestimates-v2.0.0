@@ -40,45 +40,13 @@ public class Customers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Enable full edge-to-edge mode
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        // Set status and navigation bar colors
-        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
-        getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
-
-        // Use light content (white icons) in the status bar
-        WindowInsetsControllerCompat insetsController =
-                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false); // false = white text/icons
-
         super.onCreate(savedInstanceState);
         binding = ActivityCustomersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.fabAddCustomer, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setTranslationY(-systemBars.bottom); // Lift FAB up from nav bar
-            return insets;
-        });
-
-        // Apply proper insets to spacer view to simulate status bar background
-        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
-        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.LayoutParams params = v.getLayoutParams();
-            params.height = systemBars.top;
-            v.setLayoutParams(params);
-            return insets;
-        });
-
-        // Toolbar setup
         Toolbar toolBar = findViewById(R.id.toolbar);
         setSupportActionBar(toolBar);
-        toolBar.setBackgroundColor(Color.parseColor("#0066cc"));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         Context c = getApplicationContext();
-
         DBAdapter dbAdapter = new DBAdapter(c);
         ArrayList<Customer> listCustomers = dbAdapter.retrieveCustomers();
         TextView noCustomersTextView = findViewById(R.id.noCustomersTextView);
