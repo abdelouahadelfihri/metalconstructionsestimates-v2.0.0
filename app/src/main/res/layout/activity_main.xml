@@ -10,34 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <LinearLayout
-            android:id="@+id/toolbarContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:background="#0066cc"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- Fake status bar area -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/statusBarSpacer"
-                android:background="#0066cc" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#0066cc"
-                app:title="@string/app_name"
-                app:titleTextColor="@android:color/white" />
-        </LinearLayout>
-
-        <!-- First row -->
         <ImageView
             android:id="@+id/imageViewCustomers"
             android:layout_width="0dp"
@@ -48,7 +31,7 @@
             android:src="@drawable/customers"
             android:contentDescription="@string/customers"
             app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
             app:layout_constraintDimensionRatio="1:1"
@@ -64,7 +47,7 @@
             android:contentDescription="@string/estimates"
             app:tint="#0066cc"
             android:src="@drawable/estimates"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toEndOf="@id/imageViewCustomers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintDimensionRatio="1:1"

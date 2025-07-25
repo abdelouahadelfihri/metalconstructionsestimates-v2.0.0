@@ -32,20 +32,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+        /*WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         WindowInsetsControllerCompat insetsController =
                 new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false);
+        insetsController.setAppearanceLightStatusBars(false);*/
         setContentView(R.layout.activity_main);
-        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
+        /*View statusBarSpacer = findViewById(R.id.statusBarSpacer);
         ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             ViewGroup.LayoutParams params = v.getLayoutParams();
             params.height = systemBars.top;
             v.setLayoutParams(params);
             return insets;
-        });
+        });*/
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.app_name);
