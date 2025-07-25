@@ -30,33 +30,8 @@ public class AddCustomer extends AppCompatActivity {
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
-        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
-        getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
-        WindowInsetsControllerCompat insetsController =
-                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
-        View statusBarSpacer = findViewById(R.id.statusBarSpacer);
-        View scrollContent = findViewById(R.id.scrollContent);
-        ViewCompat.setOnApplyWindowInsetsListener(statusBarSpacer, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            ViewGroup.LayoutParams params = v.getLayoutParams();
-            params.height = systemBars.top;
-            v.setLayoutParams(params);
-            return insets;
-        });
-        ViewCompat.setOnApplyWindowInsetsListener(scrollContent, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(
-                    v.getPaddingLeft(),
-                    v.getPaddingTop(),
-                    v.getPaddingRight(),
-                    systemBars.bottom // ⬅️ This prevents buttons from being hidden by navigation bar
-            );
-            return insets;
-        });
         adapter = new DBAdapter(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
