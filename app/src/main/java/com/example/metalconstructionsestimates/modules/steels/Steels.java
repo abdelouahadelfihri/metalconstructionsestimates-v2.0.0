@@ -42,23 +42,9 @@ public class Steels extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        getWindow().setStatusBarColor(Color.parseColor("#0066cc"));
-        getWindow().setNavigationBarColor(Color.parseColor("#0066cc"));
-
-        WindowInsetsControllerCompat insetsController =
-                new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-        insetsController.setAppearanceLightStatusBars(false);
-        insetsController.setAppearanceLightNavigationBars(false);
         super.onCreate(savedInstanceState);
         activitySteelsBinding = ActivitySteelsBinding.inflate(getLayoutInflater());
         setContentView(activitySteelsBinding.getRoot());
-        View contentLayout = findViewById(R.id.steels_list_layout);
-        ViewCompat.setOnApplyWindowInsetsListener(contentLayout, (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
-            return insets;
-        });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
