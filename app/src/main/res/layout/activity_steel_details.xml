@@ -12,31 +12,16 @@
         android:paddingBottom="16dp">
 
         <!-- Top Toolbar -->
-        <LinearLayout
-            android:id="@+id/toolbarContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:background="#0066cc"
+            app:title="@string/steelDetails"
+            app:titleTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Fake status bar area -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/statusBarSpacer"
-                android:background="#0066cc" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#0066cc"
-                app:title="@string/addCustomer"
-                app:titleTextColor="@android:color/white" />
-        </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Scrollable form content inside ConstraintLayout -->
         <androidx.core.widget.NestedScrollView
