@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.metalconstructionsestimates"
-    compileSdk = 35
+    compileSdk = 34
 
     packaging {
         resources {
@@ -23,7 +23,7 @@ android {
         )
         applicationId = "com.example.metalconstructionsestimates"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
