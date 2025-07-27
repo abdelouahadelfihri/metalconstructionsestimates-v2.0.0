@@ -17,7 +17,7 @@
         <item>Partially Paid</item>
         <item>Unpaid</item>
     </string-array>
-    <string name="app_name">Metal Constructions Estimates</string>
+    <string name="app_name">Steel Quotes</string>
     <string name="estimates">Estimates</string>
     <string name="steels">Steels</string>
     <string name="customers">Customers</string>
