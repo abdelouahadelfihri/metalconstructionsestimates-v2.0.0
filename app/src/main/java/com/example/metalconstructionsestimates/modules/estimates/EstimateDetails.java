@@ -37,6 +37,7 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -241,7 +242,8 @@ public class EstimateDetails extends AppCompatActivity {
             totalAllTaxIncludedEditText.setText("");
         }
         else{
-            formattedTotalAllTaxIncluded = BigDecimal.valueOf(estimate.getAllTaxIncludedTotal()).toPlainString();
+            BigDecimal total = BigDecimal.valueOf(estimate.getAllTaxIncludedTotal()).setScale(0, RoundingMode.DOWN);
+            formattedTotalAllTaxIncluded = total.toPlainString();
             totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
         }
 
