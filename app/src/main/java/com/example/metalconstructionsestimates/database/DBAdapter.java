@@ -1321,7 +1321,7 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (WHEREQuery == "") {
-                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + "(" + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
@@ -1415,7 +1415,7 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (WHEREQuery == "") {
-                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery = WHEREQuery + " (" + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         } else {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
@@ -1509,7 +1509,7 @@ public class DBAdapter {
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
                         if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append(" ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
+                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         } else {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
