@@ -1498,7 +1498,7 @@ public class DBAdapter {
 
     public ArrayList<Estimate> searchUnPaidEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE (";
+        String SELECTQuery = "SELECT * FROM estimate WHERE ";
         StringBuilder WHEREQuery = new StringBuilder();
 
         try {
