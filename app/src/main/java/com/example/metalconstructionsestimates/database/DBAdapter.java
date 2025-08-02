@@ -1547,7 +1547,7 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + WHEREQuery + ")";
+            String query = SELECTQuery + WHEREQuery;
 
             query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
                     " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
