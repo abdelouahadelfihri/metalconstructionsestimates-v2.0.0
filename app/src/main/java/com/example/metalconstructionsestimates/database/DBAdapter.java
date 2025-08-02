@@ -1364,6 +1364,7 @@ public class DBAdapter {
             query = query + " AND ABS(amountPaid - allTaxIncludedTotal) < 0.001 " +
                     "AND (amountPaid IS NOT NULL OR CAST(amountPaid AS TEXT) != '0.0') " +
                     "AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'";
+            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
             Estimate estimate;
             while (cursor.moveToNext()) {
@@ -1454,6 +1455,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
             query = query + " AND amountPaid > 0 AND amountPaid < allTaxIncludedTotal AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'";
+            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
@@ -1549,6 +1551,7 @@ public class DBAdapter {
 
             query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
                     " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
+            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
