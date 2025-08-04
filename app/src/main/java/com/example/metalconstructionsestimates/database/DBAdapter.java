@@ -1326,6 +1326,7 @@ public class DBAdapter {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
+                    WHEREQuery = WHEREQuery + ")";
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1420,6 +1421,7 @@ public class DBAdapter {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
+                    WHEREQuery = WHEREQuery + ")";
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
