@@ -1514,6 +1514,7 @@ public class DBAdapter {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
