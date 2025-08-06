@@ -1552,8 +1552,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " AND (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00')" +
-                    " AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')";
+            query = query + " AND (allTaxIncludedTotal IS NOT NULL AND allTaxIncludedTotal != 0.0) AND (amountPaid IS NULL OR amountPaid < allTaxIncludedTotal)";
             Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
