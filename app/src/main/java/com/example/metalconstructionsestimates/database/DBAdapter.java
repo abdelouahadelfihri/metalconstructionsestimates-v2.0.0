@@ -2163,7 +2163,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE (amountPaid IS NULL OR printf('%.2f', amountPaid) = '0.00') AND (allTaxIncludedTotal IS NOT NULL AND printf('%.2f', allTaxIncludedTotal) != '0.00')",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE (allTaxIncludedTotal IS NOT NULL AND allTaxIncludedTotal != 0.0) AND (amountPaid IS NULL OR amountPaid < allTaxIncludedTotal)",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
