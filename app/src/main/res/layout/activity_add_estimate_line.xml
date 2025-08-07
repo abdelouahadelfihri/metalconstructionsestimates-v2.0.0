@@ -55,13 +55,13 @@
             android:id="@+id/selectSteelButton"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@string/selectSteel"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toTopOf="@id/steelTypeLayout"
+            android:text="@string/selectSteel"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/steelTypeLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            app:layout_constraintTop_toTopOf="@id/steelTypeLayout" />
 
         <!-- Weight -->
         <com.google.android.material.textfield.TextInputLayout
@@ -312,28 +312,30 @@
             android:id="@+id/addButton_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate_line"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/add"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout" />
 
         <!-- Clear Button -->
         <Button
             android:id="@+id/clearButton_add_estimate_line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/clear"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout"
-            app:layout_constraintStart_toEndOf="@id/addButton_add_estimate_line"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"/>
+            android:backgroundTint="#0066cc"
+            android:text="@string/clear"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addButton_add_estimate_line"
+            app:layout_constraintTop_toBottomOf="@id/totalPriceLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
