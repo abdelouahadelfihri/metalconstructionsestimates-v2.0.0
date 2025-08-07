@@ -161,13 +161,14 @@
             android:id="@+id/selectCustomerButton"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@string/selectCustomer"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toTopOf="@id/customerIdLayout"
+            android:text="@string/selectCustomer"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/customerIdLayout"
-            app:layout_constraintStart_toEndOf="@id/customerIdLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" />
+            app:layout_constraintStart_toEndOf="@id/customerIdLayout"
+            app:layout_constraintTop_toTopOf="@id/customerIdLayout" />
 
         <!-- Total Excluding Tax -->
         <com.google.android.material.textfield.TextInputLayout
@@ -317,54 +318,58 @@
             android:id="@+id/newEstimateLineButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/newEstimateLine"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/updateButton_estimate_details"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintHorizontal_weight="0.6" />
+            android:backgroundTint="#0066cc"
+            android:text="@string/newEstimateLine"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@id/updateButton_estimate_details"
+            app:layout_constraintHorizontal_weight="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estimateLinesRecyclerView" />
 
         <Button
             android:id="@+id/updateButton_estimate_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/update"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toTopOf="@id/newEstimateLineButton"
-            app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_weight="0.4" />
+            android:backgroundTint="#0066cc"
+            android:text="@string/update"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.4"
+            app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
+            app:layout_constraintTop_toTopOf="@id/newEstimateLineButton" />
 
         <!-- Delete and Refresh Buttons -->
         <Button
             android:id="@+id/deleteEstimateButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/refreshEstimateLinesListButton"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="4dp" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@id/refreshEstimateLinesListButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton" />
 
         <Button
             android:id="@+id/refreshEstimateLinesListButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/refresh"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintTop_toTopOf="@id/deleteEstimateButton"
-            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/refresh"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton"
+            app:layout_constraintTop_toTopOf="@id/deleteEstimateButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
