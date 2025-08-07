@@ -106,28 +106,30 @@
             android:id="@+id/buttonAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonClear"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/add"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonClear"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Clear Button -->
         <Button
             android:id="@+id/buttonClear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/clear"
-            android:backgroundTint="#0066cc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonAdd"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/clear"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonAdd" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
