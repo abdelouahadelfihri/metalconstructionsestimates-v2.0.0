@@ -232,27 +232,29 @@
             android:id="@+id/buttonEdit_customer_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/update"
-            android:backgroundTint="#0066cc"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/update"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/buttonDelete_customer_details" />
+            app:layout_constraintEnd_toStartOf="@id/buttonDelete_customer_details"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonDelete_customer_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/delete"
-            android:backgroundTint="#0066cc"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:backgroundTint="#0066cc"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/buttonEdit_customer_details"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonEdit_customer_details" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
