@@ -50,12 +50,24 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Spinner Geometric Shape -->
+
+        <TextView
+            android:id="@+id/spinner_geometric_shape_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSteelType"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:text="@string/shapeLabel"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
         <Spinner
             android:id="@+id/spinner_geometric_shape"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:background="@drawable/shape"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutSteelType"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_geometric_shape_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -89,12 +101,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Spinner 2 -->
+
+        <TextView
+            android:id="@+id/unitSpinnerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/unitLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutWeight"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
         <Spinner
             android:id="@+id/spinner_steel_unit"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:background="@drawable/shape"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutWeight"
+            app:layout_constraintTop_toBottomOf="@+id/unitSpinnerLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
