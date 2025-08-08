@@ -64,6 +64,8 @@
     <string name="discount">Discount</string>
     <string name="vat">Vat</string>
     <string name="unit">Unit</string>
+    <string name="unitLabel">Unit :</string>
+    <string name="shapeLabel">Geometric shape :</string>
     <string name="steelType">Steel Type</string>
     <string name="localBackup">Local Backup</string>
     <string name="localRestore">Local Restore</string>
