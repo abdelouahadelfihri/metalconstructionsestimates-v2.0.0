@@ -96,7 +96,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/steelType"
+                    android:text="@string/shapeLabel"
                     app:layout_constraintTop_toBottomOf="@+id/steelTypeInputLayout"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -146,7 +146,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/unit"
+                    android:text="@string/unitLabel"
                     app:layout_constraintTop_toBottomOf="@id/weightInputLayout"
                     app:layout_constraintStart_toStartOf="parent" />
 
