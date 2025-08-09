@@ -16,6 +16,7 @@ import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentDayEstimatesBinding;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FragmentCurrentDayEstimates extends Fragment {
     private FragmentCurrentDayEstimatesBinding binding;
@@ -37,7 +38,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
         if (total == 0.0f) {
             binding.tvEstimateTotalValue.setText(R.string.zeroDH);
         } else {
-            binding.tvEstimateTotalValue.setText(String.format("%.2f DH", total));
+            binding.tvEstimateTotalValue.setText(String.format(Locale.getDefault(), "%.2f DH", total));
         }
 
         // Set List
