@@ -80,19 +80,7 @@ public class DBAdapter {
         int month = calendar.get(Calendar.MONTH);
         month++;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        if (day < 10) {
-            if (month < 10) {
-                date = year + "-0" + month + "-0" + day;
-            } else {
-                date = year + "-" + month + "-0" + day;
-            }
-        } else {
-            if (month < 10) {
-                date = year + "-0" + month + "-" + day;
-            } else {
-                date = year + "-" + month + "-" + day;
-            }
-        }
+        date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
             String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issuedate = '" + date + "'";
