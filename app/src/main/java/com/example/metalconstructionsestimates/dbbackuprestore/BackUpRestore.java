@@ -360,8 +360,8 @@ public class BackUpRestore extends GoogleDriveActivity {
 
             for (i = 0; i < estimateLinesListFromIntermediateDB.size(); i++) {
                 estimateLine.setId(estimateLinesListFromIntermediateDB.get(i).getId());
-                estimateLine.setEstimate(estimateLinesListFromIntermediateDB.get(i).getEstimate());
                 estimateLine.setSteel(estimateLinesListFromIntermediateDB.get(i).getSteel());
+                estimateLine.setEstimate(estimateLinesListFromIntermediateDB.get(i).getEstimate());
                 estimateLine.setWeight(estimateLinesListFromIntermediateDB.get(i).getWeight());
                 estimateLine.setLength(estimateLinesListFromIntermediateDB.get(i).getLength());
                 estimateLine.setWidth(estimateLinesListFromIntermediateDB.get(i).getWidth());
