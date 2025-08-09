@@ -5,9 +5,6 @@ public class Steel {
     private String type;
     private String geometricShape;
     private Float weight;
-    private Float length;
-    private Float width;
-    private Float height;
     private String unit;
 
     public Steel(){
