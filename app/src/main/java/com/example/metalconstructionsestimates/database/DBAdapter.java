@@ -95,7 +95,7 @@ public class DBAdapter {
         }
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issuedate='" + date + "'";
+            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issuedate = '" + date + "'";
             cursor = db.rawQuery(query, null);
             while (cursor.moveToNext()) {
                 currentDayEstimatesTotal = cursor.getFloat(0);
