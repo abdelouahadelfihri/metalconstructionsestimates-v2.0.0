@@ -349,7 +349,6 @@ public class DBAdapter {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        String result = sdf.format(cal.getTime());
         switch (dayOfWeek) {
             case Calendar.MONDAY:
                 db = helper.getReadableDatabase();
