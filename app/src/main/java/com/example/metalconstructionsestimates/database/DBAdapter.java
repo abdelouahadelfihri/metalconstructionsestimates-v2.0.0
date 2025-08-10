@@ -10,6 +10,9 @@ import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.models.Steel;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -339,8 +342,14 @@ public class DBAdapter {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         month++;
+
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String result = sdf.format(cal.getTime());
         switch (dayOfWeek) {
             case Calendar.MONDAY:
                 db = helper.getReadableDatabase();
@@ -349,48 +358,49 @@ public class DBAdapter {
                 break;
             case Calendar.TUESDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 1;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -1);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.WEDNESDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 2;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -2);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.THURSDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 3;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -3);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
 
                 break;
             case Calendar.FRIDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 4;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -4);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SATURDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 5;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -5);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SUNDAY:
                 db = helper.getReadableDatabase();
-                highDate = year + "-" + month + "-" + day;
-                day = day - 6;
-                lowDate = year + "-" + month + "-" + day;
+                highDate = sdf.format(cal.getTime());
+                cal.add(Calendar.DAY_OF_MONTH, -6);
+                lowDate = sdf.format(cal.getTime());
                 query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
         }
+
         try{
             cursor = db.rawQuery(query, null);
             Estimate estimate;
