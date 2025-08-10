@@ -333,6 +333,8 @@ public class DBAdapter {
     public ArrayList<Estimate> getCurrentWeekEstimates() {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Cursor cursor = null;
+        String query = null;
+        String highDate, lowDate;
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -341,312 +343,82 @@ public class DBAdapter {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         switch (dayOfWeek) {
             case Calendar.MONDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String date = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                String date = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
                 break;
             case Calendar.TUESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 1;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 1;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.WEDNESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 2;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 2;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.THURSDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 3;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 3;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
 
                 break;
             case Calendar.FRIDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 4;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 4;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SATURDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 5;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 5;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SUNDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 6;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    Estimate estimate;
-                    while (cursor.moveToNext()) {
-                        Integer estimateId = cursor.getInt(0);
-                        String doneIn = cursor.getString(1);
-                        String issueDate = cursor.getString(2);
-                        String expirationDate = cursor.getString(3);
-                        Integer customer = cursor.getInt(4);
-                        Float excludingTaxTotal = cursor.getFloat(5);
-                        Float discount = cursor.getFloat(6);
-                        Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
-                        Float vat = cursor.getFloat(8);
-                        Float allTaxIncludedTotal = cursor.getFloat(9);
-                        Float amountPaid = cursor.getFloat(10);
-                        estimate = new Estimate();
-                        estimate.setId(estimateId);
-                        estimate.setDoneIn(doneIn);
-                        estimate.setIssueDate(issueDate);
-                        estimate.setExpirationDate(expirationDate);
-                        estimate.setCustomer(customer);
-                        estimate.setExcludingTaxTotal(excludingTaxTotal);
-                        estimate.setDiscount(discount);
-                        estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                        estimate.setVat(vat);
-                        estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                        estimate.setAmountPaid(amountPaid);
-                        estimatesList.add(estimate);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                    helper.close();
-                }
+                db = helper.getReadableDatabase();
+                highDate = year + "-" + month + "-" + day;
+                day = day - 6;
+                lowDate = year + "-" + month + "-" + day;
+                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
+        }
+
+        cursor = db.rawQuery(query, null);
+        Estimate estimate;
+        while (cursor.moveToNext()) {
+            Integer estimateId = cursor.getInt(0);
+            String doneIn = cursor.getString(1);
+            String issueDate = cursor.getString(2);
+            String expirationDate = cursor.getString(3);
+            Integer customer = cursor.getInt(4);
+            Float excludingTaxTotal = cursor.getFloat(5);
+            Float discount = cursor.getFloat(6);
+            Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
+            Float vat = cursor.getFloat(8);
+            Float allTaxIncludedTotal = cursor.getFloat(9);
+            Float amountPaid = cursor.getFloat(10);
+            estimate = new Estimate();
+            estimate.setId(estimateId);
+            estimate.setDoneIn(doneIn);
+            estimate.setIssueDate(issueDate);
+            estimate.setExpirationDate(expirationDate);
+            estimate.setCustomer(customer);
+            estimate.setExcludingTaxTotal(excludingTaxTotal);
+            estimate.setDiscount(discount);
+            estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+            estimate.setVat(vat);
+            estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+            estimate.setAmountPaid(amountPaid);
+            estimatesList.add(estimate);
         }
         return estimatesList;
     }
