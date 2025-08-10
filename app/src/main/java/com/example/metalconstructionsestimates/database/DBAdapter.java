@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DBAdapter {
     Context context;
@@ -347,7 +348,7 @@ public class DBAdapter {
 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         switch (dayOfWeek) {
             case Calendar.MONDAY:
