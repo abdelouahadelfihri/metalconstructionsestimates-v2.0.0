@@ -87,7 +87,7 @@ public class DBAdapter {
         date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issuedate = '" + date + "'";
+            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issueDate = '" + date + "'";
             cursor = db.rawQuery(query, null);
             while (cursor.moveToNext()) {
                 currentDayEstimatesTotal = cursor.getFloat(0);
@@ -115,7 +115,7 @@ public class DBAdapter {
         date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimate WHERE issuedate='" + date + "'";
+            String query = "SELECT * FROM estimate WHERE issueDate='" + date + "'";
             cursor = db.rawQuery(query, null);
             currentDayEstimatesCount = cursor.getCount();
         } catch (SQLException e) {
@@ -141,7 +141,7 @@ public class DBAdapter {
         date = year + "-" + month + "-" + day;
         try {
             db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimate WHERE issuedate ='" + date + "'";
+            String query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
             cursor = db.rawQuery(query, null);
             Estimate estimate;
             while (cursor.moveToNext()) {
@@ -216,7 +216,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -236,7 +236,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -256,7 +256,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -276,7 +276,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -296,7 +296,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -316,7 +316,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     while (cursor.moveToNext()) {
                         getCurrentWeekEstimatesTotal += cursor.getFloat(0);
@@ -361,21 +361,21 @@ public class DBAdapter {
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -1);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.WEDNESDAY:
                 db = helper.getReadableDatabase();
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -2);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.THURSDAY:
                 db = helper.getReadableDatabase();
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -3);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
 
                 break;
             case Calendar.FRIDAY:
@@ -383,21 +383,21 @@ public class DBAdapter {
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -4);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SATURDAY:
                 db = helper.getReadableDatabase();
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -5);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
             case Calendar.SUNDAY:
                 db = helper.getReadableDatabase();
                 highDate = sdf.format(cal.getTime());
                 cal.add(Calendar.DAY_OF_MONTH, -6);
                 lowDate = sdf.format(cal.getTime());
-                query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                 break;
         }
 
@@ -477,7 +477,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 1;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -495,7 +495,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 2;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -513,7 +513,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 3;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -532,7 +532,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 4;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -550,7 +550,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 5;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -568,7 +568,7 @@ public class DBAdapter {
                     String highDate = year + "-" + month + "-" + day;
                     day = day - 6;
                     String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issuedate between '" + lowDate + "' and + '" + highDate + "'";
+                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
                     cursor = db.rawQuery(query, null);
                     currentWeekEstimatesCount = cursor.getCount();
                 } catch (SQLException e) {
@@ -601,7 +601,7 @@ public class DBAdapter {
                 query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
                 String highDate = year + "-" + month + "-" + day;
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issuedate between '" + startDate + "' and '" + highDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issueDate between '" + startDate + "' and '" + highDate + "'";
             }
 
             cursor = db.rawQuery(query, null);
@@ -635,9 +635,9 @@ public class DBAdapter {
         try {
             db = helper.getReadableDatabase();
             if (day == 1) {
-                query = "SELECT * FROM estimate WHERE issuedate='" + startOfMonth + "'";
+                query = "SELECT * FROM estimate WHERE issueDate='" + startOfMonth + "'";
             } else {
-                query = "SELECT * FROM estimate WHERE issuedate between '" + startOfMonth + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + startOfMonth + "' and '" + currentDate + "'";
             }
 
             cursor = db.rawQuery(query, null);
@@ -696,7 +696,7 @@ public class DBAdapter {
                 query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
                 String highDate = year + "-" + month + "-" + day;
-                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + highDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + startDate + "' and '" + highDate + "'";
             }
             cursor = db.rawQuery(query, null);
             currentMonthEstimatesCount = cursor.getCount();
@@ -728,7 +728,7 @@ public class DBAdapter {
             if (month == 1 && day == 1) {
                 query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issueDate ='" + currentDate + "'";
             } else {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issueDate between '" + startDate + "' and '" + currentDate + "'";
             }
             cursor = db.rawQuery(query, null);
             while (cursor.moveToNext()) {
@@ -763,7 +763,7 @@ public class DBAdapter {
                 String date = year + "-" + month + "-" + day;
                 query = "SELECT * FROM estimate WHERE date ='" + date + "'";
             } else {
-                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + startDate + "' and '" + currentDate + "'";
             }
             cursor = db.rawQuery(query, null);
             Estimate estimate;
@@ -820,7 +820,7 @@ public class DBAdapter {
             if (month == 1 && day == 1) {
                 query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
             } else {
-                query = "SELECT * FROM estimate WHERE issuedate between '" + startDate + "' and '" + currentDate + "'";
+                query = "SELECT * FROM estimate WHERE issueDate between '" + startDate + "' and '" + currentDate + "'";
             }
             db = helper.getReadableDatabase();
             cursor = db.rawQuery(query, null);
