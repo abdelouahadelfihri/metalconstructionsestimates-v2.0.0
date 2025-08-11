@@ -52,8 +52,7 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/value_customers"
-                    app:layout_constraintHorizontal_weight="1"/>
+                    app:layout_constraintEnd_toStartOf="@id/value_customers" />
 
                 <TextView
                     android:id="@+id/value_customers"
@@ -62,8 +61,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/label_customers"
-                    app:layout_constraintBaseline_toBaselineOf="@id/label_customers"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintBaseline_toBaselineOf="@id/label_customers" />
 
                 <!-- Steels Row -->
                 <TextView
@@ -75,8 +73,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_customers"
                     app:layout_constraintEnd_toStartOf="@id/value_steels"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_weight="1"/>
+                    android:layout_marginTop="12dp" />
 
                 <TextView
                     android:id="@+id/value_steels"
@@ -87,7 +84,6 @@
                     tools:text="45"
                     app:layout_constraintStart_toEndOf="@id/label_steels"
                     app:layout_constraintBaseline_toBaselineOf="@id/label_steels"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="12dp"/>
 
                 <!-- Estimates Row -->
@@ -100,8 +96,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_steels"
                     app:layout_constraintEnd_toStartOf="@id/value_estimates"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_weight="1"/>
+                    android:layout_marginTop="12dp" />
 
                 <TextView
                     android:id="@+id/value_estimates"
@@ -112,7 +107,6 @@
                     tools:text="7"
                     app:layout_constraintStart_toEndOf="@id/label_estimates"
                     app:layout_constraintBaseline_toBaselineOf="@id/label_estimates"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="12dp"/>
 
                 <!-- Estimates Total Row -->
@@ -125,8 +119,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_estimates"
                     app:layout_constraintEnd_toStartOf="@id/value_total"
-                    android:layout_marginTop="12dp"
-                    app:layout_constraintHorizontal_weight="1"/>
+                    android:layout_marginTop="12dp" />
 
                 <TextView
                     android:id="@+id/value_total"
@@ -139,7 +132,6 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/label_total"
                     app:layout_constraintBaseline_toBaselineOf="@id/label_total"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="12dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
