@@ -148,7 +148,8 @@
             app:layout_constraintTop_toBottomOf="@id/card_labels"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"/>
 
         <!-- ViewPager2 -->
         <androidx.viewpager2.widget.ViewPager2
