@@ -1599,9 +1599,7 @@ public class DBAdapter {
         finally{
             helper.close();
         }
-
         return steel;
-
     }
 
     public void saveSteel(Steel steel){
