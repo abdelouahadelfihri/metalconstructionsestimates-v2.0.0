@@ -1145,7 +1145,7 @@ public class DBAdapter {
             String query = SELECTQuery + WHEREQuery;
             query = query + " AND (ABS(amountPaid - allTaxIncludedTotal) < 0.001) " +
                     "AND (amountPaid IS NOT NULL OR CAST(amountPaid AS TEXT) != '0.0') " +
-                    "AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0'";
+                    "AND (allTaxIncludedTotal IS NOT NULL AND CAST(allTaxIncludedTotal AS TEXT) != '0.0')";
             Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
             Estimate estimate;
