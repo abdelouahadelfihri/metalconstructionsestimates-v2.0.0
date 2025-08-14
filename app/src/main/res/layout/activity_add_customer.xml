@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Toolbar at top -->
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -15,9 +15,9 @@
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Scrollable form content -->
+    <!-- Scrollable form -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -34,7 +34,7 @@
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
 
-            <!-- Customer Name -->
+            <!-- All TextInputLayouts with 0dp width for responsiveness -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameLayout"
                 android:layout_width="0dp"
@@ -54,10 +54,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
                 android:layout_width="0dp"
@@ -78,10 +77,10 @@
                     android:inputType="textEmailAddress"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Phone -->
+            <!-- Repeat same structure for phone, mobile, fax, address -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneLayout"
                 android:layout_width="0dp"
@@ -102,10 +101,9 @@
                     android:inputType="phone"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Mobile -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/mobileLayout"
                 android:layout_width="0dp"
@@ -126,10 +124,9 @@
                     android:inputType="phone"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Fax -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/faxLayout"
                 android:layout_width="0dp"
@@ -150,10 +147,9 @@
                     android:inputType="phone"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Address (multi-line, scrollable) -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addressLayout"
                 android:layout_width="0dp"
@@ -177,13 +173,13 @@
                     android:inputType="textMultiLine"
                     android:textColor="#333333"
                     android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
+                    android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Buttons pinned at bottom -->
+    <!-- Buttons at bottom -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonContainer"
         android:layout_width="0dp"
