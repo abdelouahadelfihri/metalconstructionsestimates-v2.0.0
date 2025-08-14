@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.dashboard;
+package com.example.metalconstructionsestimates.modules.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

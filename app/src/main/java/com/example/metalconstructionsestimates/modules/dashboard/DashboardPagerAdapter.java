@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.dashboard;
+package com.example.metalconstructionsestimates.modules.dashboard;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
