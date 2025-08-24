@@ -17,6 +17,28 @@
         <item>Overdue</item>
         <item>Cancel</item>
     </string-array>
+    <string-array name="due_terms">
+        <item>Due on receipt</item>
+        <item>Next day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+        <item>10 days</item>
+        <item>14 days</item>
+        <item>15 days</item>
+        <item>21 days</item>
+        <item>28 days</item>
+        <item>30 days</item>
+        <item>45 days</item>
+        <item>60 days</item>
+        <item>90 days</item>
+        <item>120 days</item>
+        <item>180 days</item>
+        <item>Custom</item>
+    </string-array>
     <string name="app_name">Steel Quotes</string>
     <string name="estimates">Estimates</string>
     <string name="steels">Steels</string>
