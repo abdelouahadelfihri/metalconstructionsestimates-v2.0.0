@@ -11,12 +11,6 @@
         <item>Square Meter</item>
         <item>Cubic Meter</item>
     </string-array>
-    <string-array name="payment_status">
-        <item>All</item>
-        <item>Paid</item>
-        <item>Partially Paid</item>
-        <item>Unpaid</item>
-    </string-array>
     <string name="app_name">Steel Quotes</string>
     <string name="estimates">Estimates</string>
     <string name="steels">Steels</string>
