@@ -137,4 +137,6 @@
     <string name="pending">Pending</string>
     <string name="overdue">Overdue</string>
     <string name="cancel">Cancel</string>
+    <string name="dueTerms">Due Terms</string>
+    <string name="dueDate">Due Date</string>
 </resources>
