@@ -132,4 +132,9 @@
     <string name="noSteels">No steels recorded</string>
     <string name="paymentStatus">Payment Status</string>
     <string name="noEstimateLines">No estimates lines recorded</string>
+    <string name="all">All</string>
+    <string name="approved">Approved</string>
+    <string name="pending">Pending</string>
+    <string name="overdue">Overdue</string>
+    <string name="cancel">Cancel</string>
 </resources>
