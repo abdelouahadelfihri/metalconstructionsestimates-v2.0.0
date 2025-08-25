@@ -351,7 +351,7 @@ public class AddEstimate extends AppCompatActivity {
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
-                long diffInMillis = dueDate.getTime() - issueDate.getTime();
+                long diffInMillis = Objects.requireNonNull(dueDate).getTime() - Objects.requireNonNull(issueDate).getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
