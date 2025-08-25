@@ -41,13 +41,13 @@ import java.util.Objects;
 public class AddEstimate extends AppCompatActivity {
     Integer customerId;
     DBAdapter dbAdapter;
-    TextView expirationDateTextView, issueDateTextView;
+    TextView expirationDateTextView, issueDateTextView, dueDateTextView;
 
-    String expirationDateValue = "", issueDateValue = "";
+    String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
-    private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener;
+    private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener, dueDateSetListener;
     Intent intent;
     boolean customerExists = true;
 
@@ -67,6 +67,7 @@ public class AddEstimate extends AppCompatActivity {
         clearAddEstimateForm = findViewById(R.id.clearButton_add_estimate);
 
         issueDateTextView = findViewById(R.id.issueDateValue);
+        dueDateTextView = findViewById(R.id.dueDateValue);
         expirationDateTextView = findViewById(R.id.expirationDateValue);
 
         selectCustomer.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +96,11 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextInputEditText estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
-                TextInputEditText amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
                 TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                 TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                 TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
 
-                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty() && !amountPaidTextInputEditText.getText().toString().isEmpty()) {
+                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
@@ -114,7 +114,6 @@ public class AddEstimate extends AppCompatActivity {
                             TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                             TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                             TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
-                            TextInputEditText amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
 
                             Estimate estimate = new Estimate();
 
@@ -182,12 +181,6 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setVat(Float.parseFloat(vatTextInputEditText.getText().toString()));
                             }
 
-                            if (Objects.requireNonNull(amountPaidTextInputEditText.getText()).toString().isEmpty()) {
-                                estimate.setAmountPaid(null);
-                            } else {
-                                estimate.setAmountPaid(Float.parseFloat(amountPaidTextInputEditText.getText().toString()));
-                            }
-
                             dbAdapter.saveEstimate(estimate);
                             Toast saveSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully added", Toast.LENGTH_LONG);
                             saveSuccessToast.show();
@@ -217,7 +210,6 @@ public class AddEstimate extends AppCompatActivity {
             customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
             estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
             vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
-            amountPaidTextInputEditText = findViewById(R.id.amountPaidEditText_add_estimate);
 
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
             issueDateTextView.setText(R.string.issueDate);
@@ -225,10 +217,24 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
             Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
             Objects.requireNonNull(vatTextInputEditText.getText()).clear();
-            Objects.requireNonNull(amountPaidTextInputEditText.getText()).clear();
         });
 
         issueDateTextView.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    AddEstimate.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    issueDateSetListener,
+                    year, month, day
+            );
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        });
+
+        dueDateTextView.setOnClickListener(view -> {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -313,6 +319,39 @@ public class AddEstimate extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
                 long diffInMillis = expirationDate.getTime() - issueDate.getTime();
+                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
+                if(daysBetween <= 0){
+                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                    issueDateTextView.setText(R.string.issueDate);
+                    issueDateValue = "";
+                }
+            }
+
+        };
+
+        dueDateSetListener = (picker, year, month, day) -> {
+            month = month + 1;
+            dueDateValue = year + "-" + month + "-" + day;
+            dueDateTextView.setText(dueDateValue);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+
+            Date dueDate = null;
+
+            try {
+                dueDate = sdf.parse(dueDateValue);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            Date issueDate = null;
+
+            if(!issueDateValue.isEmpty()){
+                try {
+                    issueDate = sdf.parse(issueDateValue);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                long diffInMillis = dueDate.getTime() - issueDate.getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
                 if(daysBetween <= 0){
                     Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
