@@ -161,4 +161,5 @@
     <string name="cancel">Cancel</string>
     <string name="dueTerms">Due Terms</string>
     <string name="dueDate">Due Date</string>
+    <string name="status">Status</string>
 </resources>
