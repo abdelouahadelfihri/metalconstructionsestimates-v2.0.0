@@ -10,7 +10,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,11 @@ public class AddEstimate extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
+
+        Spinner estimateStatusSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+        ArrayAdapter<CharSequence> estimateStatusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.estimate_status, android.R.layout.simple_spinner_item);
+        estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
         Button selectCustomer = findViewById(R.id.selectCustomerButton_add_estimate);
         addEstimate = findViewById(R.id.addButton_add_estimate);
