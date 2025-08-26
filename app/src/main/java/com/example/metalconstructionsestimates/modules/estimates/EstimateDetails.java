@@ -564,6 +564,21 @@ public class EstimateDetails extends AppCompatActivity {
             dialog.show();
         });
 
+        dueDateTextView.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(
+                    EstimateDetails.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    dueDateSetListener,
+                    year, month, day
+            );
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        });
+
         expirationDateSetListner = (picker, year, month, day) -> {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
@@ -654,10 +669,27 @@ public class EstimateDetails extends AppCompatActivity {
                 }
                 long diffInMillis = Objects.requireNonNull(dueDate).getTime() - Objects.requireNonNull(issueDate).getTime();
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween <= 0){
-                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
+                if(daysBetween < 0){
+                    Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
                     issueDateTextView.setText(R.string.issueDate);
                     issueDateValue = "";
+                }
+                else{
+                    if(daysBetween == 0){
+                        dueTermsSpinner.setSelection(0);
+                    }
+                    else if(daysBetween == 1){
+                        dueTermsSpinner.setSelection(1);
+                    }
+                    else{
+
+                    }
+                    for (int i = 0; i < dueTermsSpinner.getAdapter().getCount(); i++) {
+                        String item = (String) dueTermsSpinner.getAdapter().getItem(i);
+                        // Do something with the item, e.g., print it
+                        System.out.println("Spinner Item " + i + ": " + item);
+                        // Or use Log: Log.d("SpinnerItem", "Item " + i + ": " + item);
+                    }
                 }
             }
 
