@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -23,11 +22,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.arraysadapters.EstimateLinesListAdapter;
@@ -675,6 +669,8 @@ public class EstimateDetails extends AppCompatActivity {
                     issueDateValue = "";
                 }
                 else{
+                    Boolean daysBetweenInDueTermsSpinner =  false;
+                    String daysBetweenString = daysBetween + " days";
                     if(daysBetween == 0){
                         dueTermsSpinner.setSelection(0);
                     }
@@ -682,13 +678,23 @@ public class EstimateDetails extends AppCompatActivity {
                         dueTermsSpinner.setSelection(1);
                     }
                     else{
-
-                    }
-                    for (int i = 0; i < dueTermsSpinner.getAdapter().getCount(); i++) {
-                        String item = (String) dueTermsSpinner.getAdapter().getItem(i);
-                        // Do something with the item, e.g., print it
-                        System.out.println("Spinner Item " + i + ": " + item);
-                        // Or use Log: Log.d("SpinnerItem", "Item " + i + ": " + item);
+                        for (int i = 0; i < dueTermsSpinner.getAdapter().getCount(); i++) {
+                            String item = (String) dueTermsSpinner.getAdapter().getItem(i);
+                            if(Objects.equals(item, daysBetweenString)){
+                                daysBetweenInDueTermsSpinner = true;
+                                dueTermsSpinner.setSelection(i);
+                            }
+                        }
+                        if(!daysBetweenInDueTermsSpinner){
+                            if (dueTermsSpinner.getAdapter().getCount() != 20) {
+                                String customValue = dueTermsSpinner.getAdapter().getItem(dueTermsSpinner.getAdapter().getCount() - 1).toString();
+                                dueTermsSpinnerAdapter.remove(customValue);
+                                dueTermsSpinnerAdapter.notifyDataSetChanged();
+                            }
+                            dueTermsSpinnerAdapter.add(daysBetweenString);
+                            dueTermsSpinner.setSelection(dueTermsSpinnerAdapter.getCount());
+                            dueTermsSpinnerAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }
