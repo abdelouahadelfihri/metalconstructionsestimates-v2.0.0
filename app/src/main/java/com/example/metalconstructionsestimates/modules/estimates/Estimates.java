@@ -48,14 +48,6 @@ public class Estimates extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        paymentStatusSpinner = findViewById(R.id.spinner_payment_status);
-
-        ArrayAdapter<CharSequence> paymentStatusAdapter = ArrayAdapter.createFromResource(this, R.array.payment_status, android.R.layout.simple_spinner_item);
-
-        paymentStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        paymentStatusSpinner.setAdapter(paymentStatusAdapter);
-
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
 
