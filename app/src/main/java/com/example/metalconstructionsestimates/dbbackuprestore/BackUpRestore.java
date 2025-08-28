@@ -347,7 +347,6 @@ public class BackUpRestore extends GoogleDriveActivity {
             estimate.setExcludingTaxTotalAfterDiscount(estimatesListFromIntermediateDB.get(i).getExcludingTaxTotalAfterDiscount());
             estimate.setVat(estimatesListFromIntermediateDB.get(i).getVat());
             estimate.setAllTaxIncludedTotal(estimatesListFromIntermediateDB.get(i).getAllTaxIncludedTotal());
-            estimate.setAmountPaid(estimatesListFromIntermediateDB.get(i).getAmountPaid());
             if (dbAdapter.getEstimateById(estimateId) == null) {
                 dbAdapter.saveEstimate(estimate);
             } else {
