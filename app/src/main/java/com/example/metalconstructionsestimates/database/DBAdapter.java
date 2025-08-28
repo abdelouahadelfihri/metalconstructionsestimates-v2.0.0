@@ -652,7 +652,6 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -775,7 +774,6 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1001,7 +999,7 @@ public class DBAdapter {
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
@@ -1062,7 +1060,6 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1085,12 +1082,12 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> searchPaidEstimates(String searchText) {
+    public ArrayList<Estimate> searchCanceledEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
@@ -1167,7 +1164,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
             cursor.close();
@@ -1180,7 +1176,7 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> searchPartiallyPaidEstimates(String searchText) {
+    public ArrayList<Estimate> searchApprovedEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
@@ -1261,7 +1257,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
             cursor.close();
@@ -1357,7 +1352,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
             cursor.close();
@@ -1491,7 +1485,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(7));
                 estimate.setVat(cursor.getFloat(8));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(9));
-                estimate.setAmountPaid(cursor.getFloat(10));
             }
             else{
                 estimate = null;
@@ -1630,7 +1623,6 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("amountPaid", estimate.getAmountPaid());
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
@@ -1856,7 +1848,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1919,7 +1910,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -1964,7 +1954,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -2012,7 +2001,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
