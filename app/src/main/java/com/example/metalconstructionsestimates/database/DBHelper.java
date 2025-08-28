@@ -672,7 +672,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "('Tôle ep 20 mm', 'Profile', 'Meter', 160)");
 
             db.execSQL("CREATE TABLE estimate(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "doneIn TEXT,issueDate TEXT,expirationDate TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
+                    + "doneIn TEXT,issueDate TEXT,expirationDate TEXT,dueDate TEXT,dueTerms TEXT,status TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
                     "vat FLOAT,allTaxIncludedTotal FLOAT,amountPaid FLOAT,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
 
             db.execSQL("CREATE TABLE estimateline(id INTEGER PRIMARY KEY AUTOINCREMENT,estimate INTEGER, steel INTEGER," +
