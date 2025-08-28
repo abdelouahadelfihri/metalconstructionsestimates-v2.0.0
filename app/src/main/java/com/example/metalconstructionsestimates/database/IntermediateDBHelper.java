@@ -21,7 +21,7 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
                     + "type TEXT,geometricShape TEXT,unit TEXT,weight FLOAT)");
 
             db.execSQL("CREATE TABLE estimate(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "doneIn TEXT,issueDate TEXT,expirationDate TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
+                    + "doneIn TEXT,issueDate TEXT,expirationDate TEXT,dueDate TEXT,dueTerms TEXT,status TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
                     "vat integer,allTaxIncludedTotal FLOAT,isPaid TEXT,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
 
             db.execSQL("CREATE TABLE estimateline(id INTEGER PRIMARY KEY AUTOINCREMENT,estimate INTEGER, steel INTEGER," +
