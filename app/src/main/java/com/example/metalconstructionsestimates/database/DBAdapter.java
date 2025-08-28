@@ -167,7 +167,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -427,7 +426,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -666,7 +664,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -790,7 +787,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -1005,7 +1001,7 @@ public class DBAdapter {
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
@@ -1078,7 +1074,6 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
             cursor.close();
@@ -1778,7 +1773,6 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("amountPaid", estimate.getAmountPaid());
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
