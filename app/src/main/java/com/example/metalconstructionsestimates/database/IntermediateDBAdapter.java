@@ -287,7 +287,6 @@ public class IntermediateDBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(c.getFloat(7));
                 estimate.setVat(c.getFloat(8));
                 estimate.setAllTaxIncludedTotal(c.getFloat(9));
-                estimate.setAmountPaid(c.getFloat(10));
             }
             else{
                 estimate = null;
@@ -423,7 +422,6 @@ public class IntermediateDBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("amountPaid", estimate.getAmountPaid());
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
@@ -553,7 +551,6 @@ public class IntermediateDBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
-            cv.put("amountPaid", estimate.getAmountPaid());
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
@@ -624,7 +621,6 @@ public class IntermediateDBAdapter {
                 Float excludingTaxTotalAfterDiscount = c.getFloat(7);
                 Float vat = c.getFloat(8);
                 Float allTaxIncludedTotal = c.getFloat(9);
-                Float amountPaid = c.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -636,7 +632,6 @@ public class IntermediateDBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -668,7 +663,6 @@ public class IntermediateDBAdapter {
                 Float excludingTaxTotalAfterDiscount = c.getFloat(7);
                 Float vat = c.getFloat(8);
                 Float allTaxIncludedTotal = c.getFloat(9);
-                Float amountPaid = c.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -680,7 +674,6 @@ public class IntermediateDBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -712,7 +705,6 @@ public class IntermediateDBAdapter {
                 Float excludingTaxTotalAfterDiscount = c.getFloat(7);
                 Float vat = c.getFloat(8);
                 Float allTaxIncludedTotal = c.getFloat(9);
-                Float amountPaid = c.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -724,7 +716,6 @@ public class IntermediateDBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
@@ -860,15 +851,6 @@ public class IntermediateDBAdapter {
                 }
             }
 
-            if(estimate.getAmountPaid() != null){
-                if(query.equals("select * from estimate where ")){
-                    query = query + " amountPaid =" + estimate.getAmountPaid();
-                }
-                else{
-                    query = query + " and amountPaid =" + estimate.getAmountPaid();
-                }
-            }
-
             Cursor c = db.rawQuery(query,null);
             estimatesList.clear();
             while(c.moveToNext()){
@@ -882,7 +864,6 @@ public class IntermediateDBAdapter {
                 Float excludingTaxTotalAfterDiscount = c.getFloat(7);
                 Float vat = c.getFloat(8);
                 Float allTaxIncludedTotal = c.getFloat(9);
-                Float amountPaid = c.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -894,7 +875,6 @@ public class IntermediateDBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
-                estimate.setAmountPaid(amountPaid);
                 estimatesList.add(estimate);
             }
         }
