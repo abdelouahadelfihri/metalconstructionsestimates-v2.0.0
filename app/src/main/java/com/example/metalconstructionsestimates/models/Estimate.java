@@ -7,13 +7,15 @@ public class Estimate implements Serializable {
     private String doneIn;
     private String issueDate;
     private String expirationDate;
+    private String dueDate;
+    private String dueTerms;
+    private String status;
     private Integer customer;
     private Float excludingTaxTotal;
     private Float discount;
     private Float excludingTaxTotalAfterDiscount;
     private Float vat;
     private Float allTaxIncludedTotal;
-    private Float amountPaid;
 
     public Estimate(){
 
@@ -40,7 +42,24 @@ public class Estimate implements Serializable {
         return expirationDate;
     }
     public void setExpirationDate(String expirationDate){ this.expirationDate = expirationDate; }
-
+    public String getDueDate(){
+        return dueDate;
+    }
+    public void setDueDate(String dueDate){
+        this.dueDate = dueDate;
+    }
+    public String getDueTerms(){
+        return dueTerms;
+    }
+    public void setDueTerms(String dueTerms){
+        this.dueTerms = dueTerms;
+    }
+    public String getStatus(){
+        return status;
+    }
+    public void setStatus(String status){
+        this.status = status;
+    }
     public Integer getCustomer(){
         return customer;
     }
@@ -63,6 +82,4 @@ public class Estimate implements Serializable {
     public Float getAllTaxIncludedTotal(){ return allTaxIncludedTotal; }
     public void setAllTaxIncludedTotal(Float allTaxIncludedTotal){ this.allTaxIncludedTotal = allTaxIncludedTotal; }
 
-    public Float getAmountPaid(){ return amountPaid; }
-    public void setAmountPaid(Float amountPaid){ this.amountPaid = amountPaid; }
 }
