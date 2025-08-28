@@ -68,6 +68,7 @@ public class Estimates extends AppCompatActivity {
             estimateListAdapter.updateEstimates(estimatesList);
         }
 
+        /*
         paymentStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 Object item = parent.getItemAtPosition(pos);
@@ -195,7 +196,7 @@ public class Estimates extends AppCompatActivity {
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
         FloatingActionButton clearEstimateForm = findViewById(R.id.fab_clear);
         FloatingActionButton addEstimate = findViewById(R.id.fab_add);
