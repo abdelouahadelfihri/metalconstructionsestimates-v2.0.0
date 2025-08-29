@@ -1245,7 +1245,6 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
@@ -1269,7 +1268,7 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> searchUnPaidEstimates(String searchText) {
+    public ArrayList<Estimate> searchPendingEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         StringBuilder WHEREQuery = new StringBuilder();
@@ -1340,7 +1339,6 @@ public class DBAdapter {
                 Float excludingTaxTotalAfterDiscount = cursor.getFloat(7);
                 Float vat = cursor.getFloat(8);
                 Float allTaxIncludedTotal = cursor.getFloat(9);
-                Float amountPaid = cursor.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
