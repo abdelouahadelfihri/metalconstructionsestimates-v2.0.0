@@ -1983,7 +1983,7 @@ public class DBAdapter {
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE ",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Overdue' AND allTaxIncludedTotal > 0",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
