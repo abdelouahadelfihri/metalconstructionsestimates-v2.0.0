@@ -1924,7 +1924,7 @@ public class DBAdapter {
         return cursor.getCount();
     }
 
-    public ArrayList<Estimate> retrievePaidEstimates(){
+    public ArrayList<Estimate> retrieveCancelledEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
@@ -1966,14 +1966,14 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> retrieveUnpaidEstimates(){
+    public ArrayList<Estimate> retrieveOverdueEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Estimate estimate;
         Cursor cursor = null;
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE (allTaxIncludedTotal IS NOT NULL AND allTaxIncludedTotal != 0.0) AND (amountPaid IS NULL OR amountPaid < allTaxIncludedTotal)",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE ",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2015,7 +2015,7 @@ public class DBAdapter {
 
 
 
-    public ArrayList<Estimate> retrievePartiallyPaidEstimates(){
+    public ArrayList<Estimate> retrievePendingEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
