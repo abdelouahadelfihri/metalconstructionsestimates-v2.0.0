@@ -1933,7 +1933,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE ABS(amountPaid - allTaxIncludedTotal) < 0.001 AND allTaxIncludedTotal > 0",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Cancelled'",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
@@ -1976,14 +1976,14 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> retrieveOverdueEstimates(){
+    public ArrayList<Estimate> retrieveApprovedEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Estimate estimate;
         Cursor cursor = null;
         try{
 
             db = helper.getReadableDatabase();
-            cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Overdue' AND allTaxIncludedTotal > 0",null);
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Approved'",null);
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
@@ -2028,13 +2028,11 @@ public class DBAdapter {
         return estimatesList;
     }
 
-
-
     public ArrayList<Estimate> retrievePendingEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status = 'Pending'",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status ='Pending'",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
