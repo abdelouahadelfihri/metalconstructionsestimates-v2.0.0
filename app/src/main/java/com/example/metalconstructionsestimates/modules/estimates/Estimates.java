@@ -333,7 +333,7 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Pending":
-                            ArrayList<Estimate> pendingEstimatesList = db.searchPaidEstimates(searchText);
+                            ArrayList<Estimate> pendingEstimatesList = db.searchPendingEstimates(searchText);
                             if (!pendingEstimatesList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, paidEstimatesSearchList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -350,7 +350,7 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Cancelled":
-                            ArrayList<Estimate> cancelledEstimatesList = db.searchUnPaidEstimates(searchText);
+                            ArrayList<Estimate> cancelledEstimatesList = db.searchCancelledEstimates(searchText);
                             if (!cancelledEstimatesList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -366,7 +366,7 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                         case "Overdue":
-                            ArrayList<Estimate> overdueEstimatesList = db.searchUnPaidEstimates(searchText);
+                            ArrayList<Estimate> overdueEstimatesList = db.searchOverdueEstimates(searchText);
                             if (!overdueEstimatesList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
