@@ -381,7 +381,6 @@ public class Estimates extends AppCompatActivity {
                                 searchResultToast.show();
                             }
                             break;
-
                     }
                 }
             }
