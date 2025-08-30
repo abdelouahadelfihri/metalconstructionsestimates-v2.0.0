@@ -1110,7 +1110,7 @@ public class DBAdapter {
         return estimatesList;
     }
 
-    public ArrayList<Estimate> searchCanceledEstimates(String searchText) {
+    public ArrayList<Estimate> searchCancelledEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
