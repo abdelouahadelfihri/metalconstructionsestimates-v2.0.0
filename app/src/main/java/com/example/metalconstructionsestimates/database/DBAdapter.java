@@ -1115,7 +1115,7 @@ public class DBAdapter {
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
@@ -1214,7 +1214,7 @@ public class DBAdapter {
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         String WHEREQuery = "";
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
@@ -1314,7 +1314,7 @@ public class DBAdapter {
 
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal", "amountPaid"};
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
