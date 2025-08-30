@@ -1976,6 +1976,53 @@ public class DBAdapter {
         return estimatesList;
     }
 
+    public ArrayList<Estimate> retrieveOverdueEstimates(){
+        ArrayList<Estimate> estimatesList = new ArrayList<>();
+        try{
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Cancelled'",null);
+            Estimate estimate;
+            while(cursor.moveToNext()){
+                Integer estimateId = cursor.getInt(0);
+                String doneIn = cursor.getString(1);
+                String issueDate = cursor.getString(2);
+                String expirationDate = cursor.getString(3);
+                String dueDate = cursor.getString(4);
+                String dueTerms = cursor.getString(5);
+                String status = cursor.getString(6);
+                Integer customer = cursor.getInt(7);
+                Float excludingTaxTotal = cursor.getFloat(8);
+                Float discount = cursor.getFloat(9);
+                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
+                Float vat = cursor.getFloat(11);
+                Float allTaxIncludedTotal = cursor.getFloat(12);
+                estimate = new Estimate();
+                estimate.setId(estimateId);
+                estimate.setDoneIn(doneIn);
+                estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
+                estimate.setDueDate(dueDate);
+                estimate.setDueTerms(dueTerms);
+                estimate.setStatus(status);
+                estimate.setCustomer(customer);
+                estimate.setExcludingTaxTotal(excludingTaxTotal);
+                estimate.setDiscount(discount);
+                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
+                estimate.setVat(vat);
+                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimatesList.add(estimate);
+            }
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+        finally{
+            helper.close();
+        }
+
+        return estimatesList;
+    }
+
     public ArrayList<Estimate> retrieveApprovedEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         Estimate estimate;
