@@ -317,12 +317,12 @@ public class Estimates extends AppCompatActivity {
                     DBAdapter db = new DBAdapter(getApplicationContext());
                     switch(selectedEstimateStatus){
                         case "All":
-                            ArrayList<Estimate> allEstimateList = db.searchEstimates(searchText);
-                            if (!allEstimateList.isEmpty()) {
-                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
+                            ArrayList<Estimate> allEstimatesList = db.searchEstimates(searchText);
+                            if (!allEstimatesList.isEmpty()) {
+                                EstimatesListAdapter all_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, allEstimatesList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(all_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
@@ -335,11 +335,11 @@ public class Estimates extends AppCompatActivity {
                         case "Pending":
                             ArrayList<Estimate> pendingEstimatesList = db.searchPendingEstimates(searchText);
                             if (!pendingEstimatesList.isEmpty()) {
-                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, paidEstimatesSearchList);
+                                EstimatesListAdapter pending_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, pendingEstimatesList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
 
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(pending_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
@@ -352,10 +352,10 @@ public class Estimates extends AppCompatActivity {
                         case "Cancelled":
                             ArrayList<Estimate> cancelledEstimatesList = db.searchCancelledEstimates(searchText);
                             if (!cancelledEstimatesList.isEmpty()) {
-                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
+                                EstimatesListAdapter cancelled_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, cancelledEstimatesList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(cancelled_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
@@ -368,10 +368,10 @@ public class Estimates extends AppCompatActivity {
                         case "Overdue":
                             ArrayList<Estimate> overdueEstimatesList = db.searchOverdueEstimates(searchText);
                             if (!overdueEstimatesList.isEmpty()) {
-                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
+                                EstimatesListAdapter overdue_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(overdue_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
