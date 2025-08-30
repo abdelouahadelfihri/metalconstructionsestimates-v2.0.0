@@ -86,8 +86,8 @@ public class Estimates extends AppCompatActivity {
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
+                ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                 if(!searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -103,7 +103,6 @@ public class Estimates extends AppCompatActivity {
                     }
                 }
                 else{
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -124,10 +123,17 @@ public class Estimates extends AppCompatActivity {
         pendingEstimatesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                selectedEstimateStatus = "Pending";
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
+                ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                 if(!searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -143,7 +149,6 @@ public class Estimates extends AppCompatActivity {
                     }
                 }
                 else{
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -160,13 +165,21 @@ public class Estimates extends AppCompatActivity {
                 }
             }
         });
+
         approvedEstimatesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                selectedEstimateStatus = "Approved";
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
+                ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                 if(!searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -182,7 +195,6 @@ public class Estimates extends AppCompatActivity {
                     }
                 }
                 else{
-                    ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
                     if (!estimatesSearchList.isEmpty()) {
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -199,9 +211,15 @@ public class Estimates extends AppCompatActivity {
                 }
             }
         });
+
         overdueEstimatesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                selectedEstimateStatus = "Overdue";
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
                 if(!searchText.isEmpty()){
@@ -314,7 +332,7 @@ public class Estimates extends AppCompatActivity {
                                 searchResultToast.show();
                             }
                             break;
-                        case "Paid":
+                        case "Pending":
                             ArrayList<Estimate> paidEstimatesSearchList = db.searchPaidEstimates(searchText);
                             if (!paidEstimatesSearchList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, paidEstimatesSearchList);
