@@ -14,7 +14,6 @@
     <string-array name="estimate_status">
         <item>Pending</item>
         <item>Approved</item>
-        <item>Overdue</item>
         <item>Cancelled</item>
     </string-array>
     <string-array name="due_terms">
