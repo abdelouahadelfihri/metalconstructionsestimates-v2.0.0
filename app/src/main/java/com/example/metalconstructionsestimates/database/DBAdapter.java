@@ -1980,7 +1980,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Cancelled'",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE dueDate < date('now') AND status='Pending'",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
