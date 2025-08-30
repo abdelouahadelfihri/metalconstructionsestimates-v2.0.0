@@ -317,7 +317,7 @@ public class Estimates extends AppCompatActivity {
                     DBAdapter db = new DBAdapter(getApplicationContext());
                     switch(selectedEstimateStatus){
                         case "All":
-                            ArrayList<Estimate> estimatesSearchList = db.searchEstimates(searchText);
+                            ArrayList<Estimate> allEstimateSearchList = db.searchEstimates(searchText);
                             if (!estimatesSearchList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
@@ -349,12 +349,11 @@ public class Estimates extends AppCompatActivity {
                                 searchResultToast.show();
                             }
                             break;
-                        case "Partially Paid":
-                            ArrayList<Estimate> partiallyPaidEstimatesSearchList = db.searchPartiallyPaidEstimates(searchText);
-                            if (!partiallyPaidEstimatesSearchList.isEmpty()) {
-                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, partiallyPaidEstimatesSearchList);
+                        case "Cancelled":
+                            ArrayList<Estimate> unPaidEstimatesSearchList = db.searchUnPaidEstimates(searchText);
+                            if (!unPaidEstimatesSearchList.isEmpty()) {
+                                EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
                                 findViewById(R.id.emptyView).setVisibility(View.GONE);
-
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                             }
@@ -366,7 +365,7 @@ public class Estimates extends AppCompatActivity {
                                 searchResultToast.show();
                             }
                             break;
-                        case "Unpaid":
+                        case "Overdue":
                             ArrayList<Estimate> unPaidEstimatesSearchList = db.searchUnPaidEstimates(searchText);
                             if (!unPaidEstimatesSearchList.isEmpty()) {
                                 EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, unPaidEstimatesSearchList);
