@@ -230,7 +230,6 @@ public class AddEstimate extends AppCompatActivity {
             TextInputEditText customerIdTextInputEditText;
             TextInputEditText estimateDiscountTextInputEditText;
             TextInputEditText vatTextInputEditText;
-            TextInputEditText amountPaidTextInputEditText;
 
             estimateLocationTextInputEditText = findViewById(R.id.locationEditText_add_estimate);
             customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
@@ -240,6 +239,7 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
             issueDateTextView.setText(R.string.issueDate);
             expirationDateTextView.setText(R.string.expirationDate);
+            dueDateTextView.setText(R.string.expirationDate);
             Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
             Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
             Objects.requireNonNull(vatTextInputEditText.getText()).clear();
