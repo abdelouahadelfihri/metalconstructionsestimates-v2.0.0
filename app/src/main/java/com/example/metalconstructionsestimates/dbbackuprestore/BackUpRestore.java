@@ -341,6 +341,9 @@ public class BackUpRestore extends GoogleDriveActivity {
             estimate.setDoneIn(estimatesListFromIntermediateDB.get(i).getDoneIn());
             estimate.setIssueDate(estimatesListFromIntermediateDB.get(i).getIssueDate());
             estimate.setExpirationDate(estimatesListFromIntermediateDB.get(i).getExpirationDate());
+            estimate.setDueDate(estimatesListFromIntermediateDB.get(i).getDueDate());
+            estimate.setDueTerms(estimatesListFromIntermediateDB.get(i).getDueTerms());
+            estimate.setStatus(estimatesListFromIntermediateDB.get(i).getStatus());
             estimate.setCustomer(estimatesListFromIntermediateDB.get(i).getCustomer());
             estimate.setExcludingTaxTotal(estimatesListFromIntermediateDB.get(i).getExcludingTaxTotal());
             estimate.setDiscount(estimatesListFromIntermediateDB.get(i).getDiscount());
