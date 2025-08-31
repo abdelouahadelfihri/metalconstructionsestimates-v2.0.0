@@ -51,6 +51,7 @@
     <string name="estimateLineDetails">Estimate Line Details</string>
     <string name="issueDateLabel">Issue Date :</string>
     <string name="issueDate">--/--/----</string>
+    <string name="dueDate">--/--/----</string>
     <string name="expirationDateLabel">Expiration Date :</string>
     <string name="expirationDate">--/--/----</string>
     <string name="error_amount_paid_greater">Amount paid cannot be greater than total</string>
@@ -159,6 +160,6 @@
     <string name="overdue">Overdue</string>
     <string name="cancel">Cancel</string>
     <string name="dueTerms">Due Terms</string>
-    <string name="dueDate">Due Date</string>
+    <string name="dueDateLabel">Due Date</string>
     <string name="status">Status</string>
 </resources>
