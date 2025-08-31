@@ -239,7 +239,7 @@ public class AddEstimate extends AppCompatActivity {
             Objects.requireNonNull(estimateLocationTextInputEditText.getText()).clear();
             issueDateTextView.setText(R.string.issueDate);
             expirationDateTextView.setText(R.string.expirationDate);
-            dueDateTextView.setText(R.string.expirationDate);
+            dueDateTextView.setText(R.string.dueDate);
             Objects.requireNonNull(customerIdTextInputEditText.getText()).clear();
             Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).clear();
             Objects.requireNonNull(vatTextInputEditText.getText()).clear();
