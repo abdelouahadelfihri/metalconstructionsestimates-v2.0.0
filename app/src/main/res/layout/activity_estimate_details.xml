@@ -132,7 +132,7 @@
             android:id="@+id/dueDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dueDate"
+            android:text="@string/dueDateLabel"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toBottomOf="@id/dueTermsLabel"
@@ -142,7 +142,7 @@
             android:id="@+id/dueDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2025-08-31"
+            android:text="@string/dueDate"
             android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="@id/dueDateLabel"
             app:layout_constraintStart_toEndOf="@id/dueDateLabel"/>
