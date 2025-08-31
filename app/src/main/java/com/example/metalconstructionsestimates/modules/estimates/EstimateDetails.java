@@ -297,6 +297,9 @@ public class EstimateDetails extends AppCompatActivity {
                         estimate = new Estimate();
                         TextView issueDate = findViewById(R.id.issueDateValue);
                         TextView expirationDate = findViewById(R.id.expirationDateValue);
+                        TextView dueDate = findViewById(R.id.dueDateValue);
+                        Spinner estimateStatusSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+                        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
                         TextInputEditText discountEditText = findViewById(R.id.discountEditText);
                         TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
                         TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
@@ -323,6 +326,27 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setExpirationDate(expirationDate.getText().toString());
                         } else {
                             estimate.setExpirationDate("");
+                        }
+
+                        if(dueDate.getText().toString().isEmpty()){
+                            estimate.setDueDate("");
+                        }
+                        else{
+                            estimate.setDueDate(dueDate.getText().toString());
+                        }
+
+                        if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
+                            estimate.setStatus("");
+                        }
+                        else{
+                            estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
+                        }
+
+                        if(dueTermsSpinner.getSelectedItem().toString().isEmpty()){
+                            estimate.setDueTerms("");
+                        }
+                        else{
+                            estimate.setDueTerms(dueTermsSpinner.getSelectedItem().toString());
                         }
 
                         Float totalExcludingTax = 0.0f;
