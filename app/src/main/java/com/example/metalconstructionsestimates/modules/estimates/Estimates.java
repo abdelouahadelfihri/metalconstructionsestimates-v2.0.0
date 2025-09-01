@@ -48,6 +48,11 @@ public class Estimates extends AppCompatActivity {
 
         DBAdapter db = new DBAdapter(getApplicationContext());
         ArrayList<Estimate> estimatesList = db.retrieveEstimates();
+        allEstimatesButton = findViewById(R.id.buttonAll);
+        pendingEstimatesButton = findViewById(R.id.buttonPending);
+        overdueEstimatesButton = findViewById(R.id.buttonOverdue);
+        cancelledEstimatesButton = findViewById(R.id.buttonCancel);
+        approvedEstimatesButton = findViewById(R.id.buttonApproved);
         allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         selectedEstimateStatus = "All";
 
