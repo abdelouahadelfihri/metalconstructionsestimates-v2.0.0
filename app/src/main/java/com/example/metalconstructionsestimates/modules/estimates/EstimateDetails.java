@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -176,7 +177,6 @@ public class EstimateDetails extends AppCompatActivity {
             customerIdEditText.get().setText(String.format(estimate.getCustomer().toString()));
         }
 
-
         if(estimate.getExcludingTaxTotal() == null){
             totalExclTaxEditText.setText("");
         }
@@ -246,6 +246,65 @@ public class EstimateDetails extends AppCompatActivity {
                     }
                 }
         );
+
+        dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String dueTerms = parent.getItemAtPosition(position).toString();
+                if(dueTerms == "Custom"){
+
+                }
+                else if(dueTerms == "Due on receipt"){
+                    dueDateTextView.setText(issueDateTextView.getText());
+                }
+                else if(dueTerms == "Next day"){
+                    dueTerms = dueTerms.replace(" days", "");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                    Date date = null;
+                    // Parse the input date
+                    try {
+                        date = sdf.parse(issueDateTextView.getText().toString());
+                        // Now you can work with 'date'
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        // Handle the error gracefully, maybe show a Toast
+                    }
+
+                    // Use Calendar to add days
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    dueDateTextView.setText(sdf.format(calendar.getTime()));
+                }
+                else{
+                    dueTerms = dueTerms.replace(" days", "");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                    Date date = null;
+                    // Parse the input date
+                    try {
+                        date = sdf.parse(issueDateTextView.getText().toString());
+                        // Now you can work with 'date'
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        // Handle the error gracefully, maybe show a Toast
+                    }
+
+                    // Use Calendar to add days
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    calendar.add(Calendar.DAY_OF_MONTH, Integer.parseInt(dueTerms));
+                    dueDateTextView.setText(sdf.format(calendar.getTime()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         newEstimateLineButton.setOnClickListener(view -> {
             Intent intent = new Intent(EstimateDetails.this, AddEstimateLine.class);
