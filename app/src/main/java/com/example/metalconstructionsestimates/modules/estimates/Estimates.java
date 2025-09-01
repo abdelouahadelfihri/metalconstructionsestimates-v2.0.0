@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -83,11 +84,12 @@ public class Estimates extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                allEstimatesButton.setTextColor(getResources().getColor(R.color.white));
                 selectedEstimateStatus = "All";
-                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -129,11 +131,12 @@ public class Estimates extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                pendingEstimatesButton.setTextColor(getResources().getColor(R.color.white));
                 selectedEstimateStatus = "Pending";
-                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -175,11 +178,12 @@ public class Estimates extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                approvedEstimatesButton.setTextColor(getResources().getColor(R.color.white));
                 selectedEstimateStatus = "Approved";
-                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -222,9 +226,12 @@ public class Estimates extends AppCompatActivity {
             public void onClick(View view) {
                 overdueEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 selectedEstimateStatus = "Overdue";
-                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.fabIconTint)
+                );
+                allEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                pendingEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
+                cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.white));
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
                 if(!searchText.isEmpty()){
