@@ -28,7 +28,6 @@ import com.example.metalconstructionsestimates.databinding.ActivityEstimatesBind
 public class Estimates extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
-    Spinner paymentStatusSpinner;
     TextInputEditText estimatesSearchEditText;
     Button allEstimatesButton, pendingEstimatesButton, approvedEstimatesButton,
             overdueEstimatesButton, cancelledEstimatesButton;
@@ -67,12 +66,9 @@ public class Estimates extends AppCompatActivity {
         cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.button_bg_default));
         cancelledEstimatesButton.setTextColor(getResources().getColor(R.color.button_text));
 
-
         approvedEstimatesButton = findViewById(R.id.buttonApproved);
         approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.button_bg_default));
         approvedEstimatesButton.setTextColor(getResources().getColor(R.color.button_text));
-
-
 
         final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(this, estimatesList);
 
