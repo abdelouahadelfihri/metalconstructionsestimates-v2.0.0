@@ -118,7 +118,6 @@ public class Estimates extends AppCompatActivity {
                 cancelledEstimatesButton.setBackgroundColor(getResources().getColor(R.color.button_bg_default));
                 cancelledEstimatesButton.setTextColor(getResources().getColor(R.color.button_text));
 
-
                 approvedEstimatesButton = findViewById(R.id.buttonApproved);
                 approvedEstimatesButton.setBackgroundColor(getResources().getColor(R.color.button_bg_default));
                 approvedEstimatesButton.setTextColor(getResources().getColor(R.color.button_text));
