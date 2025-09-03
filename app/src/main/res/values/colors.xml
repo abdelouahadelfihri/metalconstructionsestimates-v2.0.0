@@ -17,5 +17,6 @@
     <!-- Button selected/pressed background -->
     <color name="button_bg_selected">#0066cc</color>
     <!-- Button text color -->
-    <color name="button_text">#0066cc</color>
+    <color name="button_text_default">#0066cc</color>
+    <color name="button_text_selected">#FFFFFF</color>
 </resources>
