@@ -526,8 +526,5 @@ public class Estimates extends AppCompatActivity {
         clearEstimateForm.setOnClickListener(view -> {
             estimatesSearchEditText.getText().clear();
         });
-
-
     }
-
 }
