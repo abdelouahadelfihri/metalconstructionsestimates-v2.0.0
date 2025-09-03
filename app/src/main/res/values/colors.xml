@@ -15,7 +15,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="button_bg_default">#6200EE</color>
     <!-- Button selected/pressed background -->
-    <color name="button_bg_selected">#2196F3</color>
+    <color name="button_bg_selected">#0066cc</color>
     <!-- Button text color -->
-    <color name="button_text">#2196F3</color>
+    <color name="button_text">#0066cc</color>
 </resources>
