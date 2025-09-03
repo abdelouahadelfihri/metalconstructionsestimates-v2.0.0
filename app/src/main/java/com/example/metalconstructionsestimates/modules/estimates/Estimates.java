@@ -57,19 +57,19 @@ public class Estimates extends AppCompatActivity {
 
         pendingEstimatesButton = findViewById(R.id.buttonPending);
         pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-        pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+        pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
         overdueEstimatesButton = findViewById(R.id.buttonOverdue);
         overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-        overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+        overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
         cancelledEstimatesButton = findViewById(R.id.buttonCancel);
         cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-        cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+        cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
         approvedEstimatesButton = findViewById(R.id.buttonApproved);
         approvedEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-        approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+        approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
         final EstimatesListAdapter estimateListAdapter = new EstimatesListAdapter(this, estimatesList);
 
@@ -105,19 +105,19 @@ public class Estimates extends AppCompatActivity {
 
                 pendingEstimatesButton = findViewById(R.id.buttonPending);
                 pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 overdueEstimatesButton = findViewById(R.id.buttonOverdue);
                 overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 cancelledEstimatesButton = findViewById(R.id.buttonCancel);
                 cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 approvedEstimatesButton = findViewById(R.id.buttonApproved);
                 approvedEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -167,20 +167,20 @@ public class Estimates extends AppCompatActivity {
 
                 allEstimatesButton = findViewById(R.id.buttonAll);
                 allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 overdueEstimatesButton = findViewById(R.id.buttonOverdue);
                 overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 cancelledEstimatesButton = findViewById(R.id.buttonCancel);
                 cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
 
                 approvedEstimatesButton = findViewById(R.id.buttonApproved);
                 approvedEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -229,19 +229,19 @@ public class Estimates extends AppCompatActivity {
 
                 allEstimatesButton = findViewById(R.id.buttonAll);
                 allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 overdueEstimatesButton = findViewById(R.id.buttonOverdue);
                 overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 cancelledEstimatesButton = findViewById(R.id.buttonCancel);
                 cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 pendingEstimatesButton = findViewById(R.id.buttonPending);
                 pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -290,19 +290,19 @@ public class Estimates extends AppCompatActivity {
 
                 allEstimatesButton = findViewById(R.id.buttonAll);
                 allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 approvedEstimatesButton = findViewById(R.id.buttonApproved);
                 approvedEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 cancelledEstimatesButton = findViewById(R.id.buttonCancel);
                 cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 pendingEstimatesButton = findViewById(R.id.buttonPending);
                 pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
@@ -352,19 +352,19 @@ public class Estimates extends AppCompatActivity {
 
                 allEstimatesButton = findViewById(R.id.buttonAll);
                 allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 approvedEstimatesButton = findViewById(R.id.buttonApproved);
                 approvedEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                approvedEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 overdueEstimatesButton = findViewById(R.id.buttonOverdue);
                 overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 pendingEstimatesButton = findViewById(R.id.buttonPending);
                 pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
+                pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
 
                 estimatesSearchEditText = findViewById(R.id.searchEditText);
                 String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
