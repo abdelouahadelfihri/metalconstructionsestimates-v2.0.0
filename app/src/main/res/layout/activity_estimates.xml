@@ -65,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All"
+                android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
 
@@ -73,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pending"
+                android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
 
@@ -81,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Approved"
+                android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
 
@@ -89,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Overdue"
+                android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
 
@@ -97,6 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
+                android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
 
