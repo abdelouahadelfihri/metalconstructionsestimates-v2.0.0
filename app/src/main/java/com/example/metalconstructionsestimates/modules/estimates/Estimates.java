@@ -347,6 +347,7 @@ public class Estimates extends AppCompatActivity {
                 cancelledEstimatesButton = findViewById(R.id.buttonCancel);
                 cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_selected));
                 cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
                 selectedEstimateStatus = "Cancelled";
 
                 allEstimatesButton = findViewById(R.id.buttonAll);
@@ -360,10 +361,6 @@ public class Estimates extends AppCompatActivity {
                 overdueEstimatesButton = findViewById(R.id.buttonOverdue);
                 overdueEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
                 overdueEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
-
-                cancelledEstimatesButton = findViewById(R.id.buttonCancel);
-                cancelledEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
-                cancelledEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text));
 
                 pendingEstimatesButton = findViewById(R.id.buttonPending);
                 pendingEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
