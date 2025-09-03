@@ -164,7 +164,6 @@ public class Estimates extends AppCompatActivity {
                 pendingEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 selectedEstimateStatus = "Pending";
 
-
                 allEstimatesButton = findViewById(R.id.buttonAll);
                 allEstimatesButton.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.button_bg_default));
                 allEstimatesButton.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.button_text_default));
