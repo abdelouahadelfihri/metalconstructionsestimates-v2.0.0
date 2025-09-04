@@ -274,6 +274,7 @@ public class EstimateDetails extends AppCompatActivity {
 
                     // Use Calendar to add days
                     Calendar calendar = Calendar.getInstance();
+                    assert date != null;
                     calendar.setTime(date);
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                     dueDateTextView.setText(sdf.format(calendar.getTime()));
