@@ -272,12 +272,13 @@ public class EstimateDetails extends AppCompatActivity {
                         // Handle the error gracefully, maybe show a Toast
                     }
 
-                    // Use Calendar to add days
-                    Calendar calendar = Calendar.getInstance();
-                    assert date != null;
-                    calendar.setTime(date);
-                    calendar.add(Calendar.DAY_OF_MONTH, 1);
-                    dueDateTextView.setText(sdf.format(calendar.getTime()));
+                    if (date != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        calendar.add(Calendar.DAY_OF_MONTH, Integer.parseInt(dueTerms));
+                        dueDateTextView.setText(sdf.format(calendar.getTime()));
+                    }
+
                 }
                 else{
                     dueTerms = dueTerms.replace(" days", "");
