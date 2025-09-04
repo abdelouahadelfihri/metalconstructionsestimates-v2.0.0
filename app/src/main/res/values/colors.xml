@@ -13,7 +13,7 @@
     <color name="colorPrimary">#6200EE</color>        <!-- Purple -->
     <color name="colorPrimaryDark">#3700B3</color>    <!-- Darker Purple -->
     <color name="colorAccent">#03DAC5</color>
-    <color name="button_bg_default">#FFFFFF</color>
+    <color name="button_bg_default">#E6E6E6</color>
     <!-- Button selected/pressed background -->
     <color name="button_bg_selected">#0066cc</color>
     <!-- Button text color -->
