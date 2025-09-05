@@ -1058,7 +1058,7 @@ public class DBAdapter {
                         if (i < searchTextArray.length - 1) {
                             WHEREQuery = WHEREQuery + ") AND (";
                         } else {
-                            WHEREQuery = WHEREQuery + ")";
+                            WHEREQuery = WHEREQuery + ") AND status = 'Cancelled' OR status = 'Pending' OR status = 'Approved'";
                         }
                     }
                 }
