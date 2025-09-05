@@ -1959,7 +1959,8 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status='Pending' OR status='Approved' OR " +
+                    "status='Cancelled' OR (dueDate < date('now') AND status='Pending')",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
