@@ -1358,7 +1358,6 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
             query = query + " AND status = 'Pending'";
-            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
@@ -1457,7 +1456,6 @@ public class DBAdapter {
             String query = SELECTQuery + WHEREQuery;
 
             query = query + " dueDate < date('now') AND status='Pending'";
-            Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
