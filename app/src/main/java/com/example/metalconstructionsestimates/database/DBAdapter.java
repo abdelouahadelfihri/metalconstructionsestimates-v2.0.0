@@ -1357,8 +1357,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-
-            query = query + " AND (allTaxIncludedTotal IS NOT NULL AND allTaxIncludedTotal != 0.0) AND (amountPaid IS NULL OR amountPaid < allTaxIncludedTotal)";
+            query = query + " AND status = 'Pending'";
             Log.i(TAG, query);
             Cursor cursor = db.rawQuery(query, null);
 
