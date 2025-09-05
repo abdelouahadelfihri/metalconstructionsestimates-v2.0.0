@@ -84,7 +84,7 @@ public class EstimateDetails extends AppCompatActivity {
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
         ArrayAdapter<CharSequence> dueTermsSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.due_terms, android.R.layout.simple_spinner_item);
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
@@ -360,7 +360,7 @@ public class EstimateDetails extends AppCompatActivity {
                         TextView expirationDate = findViewById(R.id.expirationDateValue);
                         TextView dueDate = findViewById(R.id.dueDateValue);
                         Spinner estimateStatusSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
-                        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+                        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
                         TextInputEditText discountEditText = findViewById(R.id.discountEditText);
                         TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
                         TextInputEditText totalAfterDiscountEditText = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
