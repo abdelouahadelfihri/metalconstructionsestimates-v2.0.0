@@ -238,7 +238,7 @@ public class AddEstimate extends AppCompatActivity {
                             }
 
                             if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
-                                estimate.setStatus("");
+                                estimate.setStatus("Pending");
                             }
                             else{
                                 estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
