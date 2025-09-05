@@ -1127,7 +1127,7 @@ public class DBAdapter {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
-                    WHEREQuery = WHEREQuery + ")";
+                    WHEREQuery = WHEREQuery + ") AND status = 'Cancelled'";
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1224,7 +1224,7 @@ public class DBAdapter {
                             WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
                         }
                     }
-                    WHEREQuery = WHEREQuery + ")";
+                    WHEREQuery = WHEREQuery + ") AND status = 'Approved'";
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1322,7 +1322,7 @@ public class DBAdapter {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery.append(")");
+                    WHEREQuery.append(") AND status = 'Pending'");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1419,7 +1419,7 @@ public class DBAdapter {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery.append(")");
+                    WHEREQuery.append(") AND dueDate < date('now') AND status='Pending'");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
