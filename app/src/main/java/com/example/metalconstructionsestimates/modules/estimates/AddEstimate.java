@@ -64,7 +64,7 @@ public class AddEstimate extends AppCompatActivity {
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
         ArrayAdapter<CharSequence> dueTermsSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.due_terms, android.R.layout.simple_spinner_item);
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
