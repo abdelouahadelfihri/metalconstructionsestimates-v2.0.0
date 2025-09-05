@@ -79,12 +79,12 @@ public class EstimateDetails extends AppCompatActivity {
         dbAdapter = new DBAdapter(getApplicationContext());
         estimate = dbAdapter.getEstimateById(estimateId);
 
-        Spinner estimateStatusSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
+        Spinner estimateStatusSpinner = findViewById(R.id.estimateStatusSpinner);
         ArrayAdapter<CharSequence> estimateStatusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.estimate_status, android.R.layout.simple_spinner_item);
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
+        Spinner dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
         ArrayAdapter<CharSequence> dueTermsSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.due_terms, android.R.layout.simple_spinner_item);
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
