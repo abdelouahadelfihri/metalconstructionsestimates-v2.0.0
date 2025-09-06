@@ -260,7 +260,7 @@ public class EstimateDetails extends AppCompatActivity {
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(
-                            getApplicationContext(), // use activity context
+                            EstimateDetails.this, // use activity context
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
