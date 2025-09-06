@@ -12,11 +12,13 @@
         <item>Cubic Meter</item>
     </string-array>
     <string-array name="estimate_status">
+        <item></item>
         <item>Pending</item>
         <item>Approved</item>
         <item>Cancelled</item>
     </string-array>
     <string-array name="due_terms">
+        <item></item>
         <item>Due on receipt</item>
         <item>Next day</item>
         <item>2 days</item>
