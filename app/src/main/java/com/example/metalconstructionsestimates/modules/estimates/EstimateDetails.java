@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -252,10 +253,30 @@ public class EstimateDetails extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 String dueTerms = parent.getItemAtPosition(position).toString();
-                if(dueTerms == "Custom"){
+                if (dueTerms.equals("Custom")) {
+                    final Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(
+                            getApplicationContext(), // use activity context
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                                    // Format date as yyyy-MM-dd (or as you prefer)
+                                    String selectedDate = String.format("%04d-%02d-%02d",
+                                            selectedYear,
+                                            selectedMonth + 1, // month is 0-based
+                                            selectedDay);
+                                    dueDateTextView.setText(selectedDate);
+                                }
+                            },
+                            year, month, day);
+
+                    datePickerDialog.show();
                 }
-                else if(dueTerms == "Due on receipt"){
+                else if(dueTerms.equals("Due on receipt")){
                     dueDateTextView.setText(issueDateTextView.getText());
                 }
                 else if(dueTerms == "Next day"){
