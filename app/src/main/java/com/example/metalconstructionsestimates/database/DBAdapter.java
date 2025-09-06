@@ -1957,9 +1957,10 @@ public class DBAdapter {
 
     public ArrayList<Estimate> retrieveEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
+        Cursor cursor = null;
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status='' OR status='Pending' OR status='Approved' OR " +
+            cursor = db.rawQuery("SELECT * FROM estimate WHERE status='' OR status='Pending' OR status='Approved' OR " +
                     "status='Cancelled' OR (dueDate < date('now') AND status='Pending')",null);
             Estimate estimate;
             while(cursor.moveToNext()){
@@ -1997,6 +1998,9 @@ public class DBAdapter {
             Log.e(TAG, "Database error occurred", e);
         }
         finally{
+            if(cursor != null){
+                cursor.close();
+            }
             helper.close();
         }
 
