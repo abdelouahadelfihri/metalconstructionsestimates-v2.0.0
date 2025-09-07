@@ -251,8 +251,10 @@ public class EstimateDetails extends AppCompatActivity {
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 String dueTerms = parent.getItemAtPosition(position).toString();
+                if(dueTerms.isEmpty()){
+                    return;
+                }
                 if (dueTerms.equals("Custom")) {
                     final Calendar calendar = Calendar.getInstance();
                     int year = calendar.get(Calendar.YEAR);
