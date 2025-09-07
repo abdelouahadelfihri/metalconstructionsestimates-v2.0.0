@@ -8,7 +8,6 @@ import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
 
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
@@ -139,6 +138,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesSearchList);
                     }
                 }
                 else{
@@ -155,6 +155,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesList);
                     }
                 }
             }
@@ -204,6 +205,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesSearchList);
                     }
                 }
                 else{
@@ -220,6 +222,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesPendingList);
                     }
                 }
             }
@@ -269,6 +272,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesSearchList);
                     }
                 }
                 else{
@@ -285,6 +289,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(approvedEstimatesList);
                     }
                 }
             }
@@ -334,6 +339,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesSearchList);
                     }
                 }
                 else{
@@ -350,6 +356,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(overdueEstimatesList);
                     }
                 }
             }
@@ -400,6 +407,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(estimatesSearchList);
                     }
                 }
                 else{
@@ -416,6 +424,7 @@ public class Estimates extends AppCompatActivity {
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
+                        estimateListAdapter.updateEstimates(cancelledEstimatesList);
                     }
                 }
             }
