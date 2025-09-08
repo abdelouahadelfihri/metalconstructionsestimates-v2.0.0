@@ -115,8 +115,11 @@ public class AddEstimate extends AppCompatActivity {
                 }
 
                 else if(dueTerms.equals("Due on receipt")){
-                    dueDateValue = issueDateTextView.getText().toString();
-                    dueDateTextView.setText(dueDateValue);
+                    if(!issueDateValue.isEmpty()){
+                        dueDateValue = issueDateTextView.getText().toString();
+                        dueDateTextView.setText(dueDateValue);
+                    }
+
                 }
                 else if(dueTerms.equals("Next day")){
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -257,11 +260,14 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setExpirationDate("");
                             }
 
-                            if (dueDateTextView.getText().toString().equals(R.string.dueDate)){
+                            if(dueDateValue.isEmpty()){
                                 estimate.setDueDate("");
-                            } else {
+                            }
+                            else{
                                 estimate.setDueDate(dueDateValue);
                             }
+
+                            estimate.setDueDate(dueDateValue);
 
                             if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
                                 estimate.setStatus("Pending");
@@ -387,9 +393,7 @@ public class AddEstimate extends AppCompatActivity {
 
             Date expirationDate = null;
             try {
-                if(!expirationDateValue.isEmpty()){
-                    expirationDate = sdf.parse(expirationDateValue);
-                }
+                expirationDate = sdf.parse(expirationDateValue);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -423,9 +427,7 @@ public class AddEstimate extends AppCompatActivity {
             Date issueDate = null;
 
             try {
-                if(!issueDateValue.isEmpty()){
-                    issueDate = sdf.parse(issueDateValue);
-                }
+                issueDate = sdf.parse(issueDateValue);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
