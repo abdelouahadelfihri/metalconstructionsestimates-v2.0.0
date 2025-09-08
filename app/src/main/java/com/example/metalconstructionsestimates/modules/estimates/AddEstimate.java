@@ -272,7 +272,7 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueTerms(dueTermsSpinner.getSelectedItem().toString());
                             }
 
-                            if (estimateLocationTextInputEditText.getText().toString().isEmpty()) {
+                            if (Objects.requireNonNull(estimateLocationTextInputEditText.getText()).toString().isEmpty()) {
                                 estimate.setDoneIn("");
                             } else {
                                 estimate.setDoneIn(estimateLocationTextInputEditText.getText().toString());
