@@ -123,7 +123,9 @@ public class AddEstimate extends AppCompatActivity {
                     Date date = null;
                     // Parse the input date
                     try {
-                        date = sdf.parse(issueDateTextView.getText().toString());
+                        if(!issueDateTextView.getText().toString().equals("--/--/----")){
+                            date = sdf.parse(issueDateTextView.getText().toString());
+                        }
                         // Now you can work with 'date'
                     } catch (ParseException e) {
                         e.printStackTrace();
