@@ -267,8 +267,6 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueDate(dueDateValue);
                             }
 
-                            estimate.setDueDate(dueDateValue);
-
                             if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
                                 estimate.setStatus("Pending");
                             }
