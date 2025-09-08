@@ -116,7 +116,7 @@ public class AddEstimate extends AppCompatActivity {
 
                 else if(dueTerms.equals("Due on receipt")){
                     dueDateValue = issueDateTextView.getText().toString();
-                    dueDateTextView.setText(issueDateTextView.getText());
+                    dueDateTextView.setText(dueDateValue);
                 }
                 else if(dueTerms.equals("Next day")){
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -257,10 +257,10 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setExpirationDate("");
                             }
 
-                            if (!dueDateValue.isEmpty()){
-                                estimate.setDueDate(dueDateValue);
-                            } else {
+                            if (dueDateTextView.getText().toString().equals(R.string.dueDate)){
                                 estimate.setDueDate("");
+                            } else {
+                                estimate.setDueDate(dueDateValue);
                             }
 
                             if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
