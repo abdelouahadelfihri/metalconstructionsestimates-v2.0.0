@@ -115,6 +115,7 @@ public class AddEstimate extends AppCompatActivity {
                 }
 
                 else if(dueTerms.equals("Due on receipt")){
+                    dueDateValue = issueDateTextView.getText().toString();
                     dueDateTextView.setText(issueDateTextView.getText());
                 }
                 else if(dueTerms.equals("Next day")){
