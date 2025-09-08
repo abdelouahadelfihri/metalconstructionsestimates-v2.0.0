@@ -119,7 +119,6 @@ public class AddEstimate extends AppCompatActivity {
                         dueDateValue = issueDateTextView.getText().toString();
                         dueDateTextView.setText(dueDateValue);
                     }
-
                 }
                 else if(dueTerms.equals("Next day")){
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -453,35 +452,6 @@ public class AddEstimate extends AppCompatActivity {
             month = month + 1;
             dueDateValue = year + "-" + month + "-" + day;
             dueDateTextView.setText(dueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            Date dueDate = null;
-
-            try {
-                if(!dueDateValue.isEmpty()){
-                    dueDate = sdf.parse(dueDateValue);
-                }
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            Date issueDate = null;
-
-            if(!issueDateValue.isEmpty()){
-                try {
-                    issueDate = sdf.parse(issueDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                long diffInMillis = Objects.requireNonNull(dueDate).getTime() - Objects.requireNonNull(issueDate).getTime();
-                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween <= 0){
-                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    issueDateTextView.setText(R.string.issueDate);
-                    issueDateValue = "";
-                }
-            }
-
         };
     }
     public void startActivityForResult() {
