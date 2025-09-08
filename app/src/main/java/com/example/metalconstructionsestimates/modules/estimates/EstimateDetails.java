@@ -160,6 +160,49 @@ public class EstimateDetails extends AppCompatActivity {
             expirationDateTextView.setText("");
         }
 
+        if(estimate.getDueDate().isEmpty()){
+            dueDateTextView.setText(R.string.dueDate);
+        }
+        else{
+            dueDateTextView.setText(estimate.getDueDate());
+        }
+        if(estimate.getDueTerms().isEmpty()){
+            dueTermsSpinner.setSelection(0);
+        }
+        else{
+            int position = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+
+            if (position >= 0) {
+                // ✅ Value exists in the spinner list
+                dueTermsSpinner.setSelection(position);
+            } else {
+                // ❌ Value not found → add it dynamically
+                dueTermsSpinnerAdapter.add(estimate.getDueTerms());
+                dueTermsSpinnerAdapter.notifyDataSetChanged();
+
+                // Select the newly added value
+                int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+                dueTermsSpinner.setSelection(newPosition);
+            }
+        }
+
+        if(estimate.getStatus().isEmpty()){
+            estimateStatusSpinner.setSelection(0);
+        }
+        else{
+            switch(estimate.getStatus()){
+                case "Pending":
+                    estimateStatusSpinner.setSelection(1);
+                    break;
+                case "Approved":
+                    estimateStatusSpinner.setSelection(2);
+                    break;
+                case "Cancelled":
+                    estimateStatusSpinner.setSelection(3);
+                    break;
+            }
+        }
+
         if(!estimate.getIssueDate().isEmpty()){
             issueDateTextView.setText(estimate.getIssueDate());
         }
