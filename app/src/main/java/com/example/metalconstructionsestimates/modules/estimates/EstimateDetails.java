@@ -187,7 +187,7 @@ public class EstimateDetails extends AppCompatActivity {
             }
         }
 
-        if(estimate.getStatus().isEmpty()){
+        if(estimate.getStatus() == null || estimate.getStatus().isEmpty()){
             estimateStatusSpinner.setSelection(0);
         }
         else{
