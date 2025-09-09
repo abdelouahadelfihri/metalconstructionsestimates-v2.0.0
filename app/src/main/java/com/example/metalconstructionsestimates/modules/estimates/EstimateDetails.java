@@ -166,7 +166,8 @@ public class EstimateDetails extends AppCompatActivity {
         else{
             dueDateTextView.setText(estimate.getDueDate());
         }
-        if(estimate.getDueTerms().isEmpty()){
+
+        if (estimate.getDueTerms() == null || estimate.getDueTerms().isEmpty()) {
             dueTermsSpinner.setSelection(0);
         }
         else{
