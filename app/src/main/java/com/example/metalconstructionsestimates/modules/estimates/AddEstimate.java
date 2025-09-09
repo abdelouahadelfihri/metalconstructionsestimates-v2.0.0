@@ -259,7 +259,7 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setExpirationDate("");
                             }
 
-                            if(dueDateValue.isEmpty()){
+                            if (dueDateValue == null || dueDateValue.isEmpty()) {
                                 estimate.setDueDate("");
                             }
                             else{
