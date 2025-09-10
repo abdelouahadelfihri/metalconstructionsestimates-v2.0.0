@@ -160,7 +160,6 @@ public class EstimateDetails extends AppCompatActivity {
         else{
             expirationDateTextView.setText("");
         }
-        Log.i("dueDate", estimate.getDueDate());
         if (estimate.getDueDate() == null || estimate.getDueDate().isEmpty()) {
             dueDateTextView.setText(R.string.dueDate);
         }
