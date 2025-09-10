@@ -226,7 +226,7 @@ public class EstimateDetails extends AppCompatActivity {
             totalExclTaxEditText.setText("");
         }
         else{
-            formattedTotalExcludingTax = new BigDecimal(estimate.getExcludingTaxTotal()).toPlainString();
+            formattedTotalExcludingTax = BigDecimal.valueOf(estimate.getExcludingTaxTotal()).toPlainString();
             totalExclTaxEditText.setText(formattedTotalExcludingTax);
         }
 
