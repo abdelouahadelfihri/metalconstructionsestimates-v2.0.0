@@ -12,7 +12,7 @@
         <item>Cubic Meter</item>
     </string-array>
     <string-array name="estimate_status">
-        <item></item>
+        <item>Select status</item>
         <item>Pending</item>
         <item>Approved</item>
         <item>Cancelled</item>
