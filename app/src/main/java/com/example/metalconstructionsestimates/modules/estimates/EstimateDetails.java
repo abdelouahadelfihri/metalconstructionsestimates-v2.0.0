@@ -460,7 +460,6 @@ public class EstimateDetails extends AppCompatActivity {
                         else{
                             estimate.setDueDate(dueDate.getText().toString());
                         }
-                        Log.i("status", estimateStatusSpinner.getSelectedItem().toString());
 
                         if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
                             estimate.setStatus("");
@@ -468,7 +467,7 @@ public class EstimateDetails extends AppCompatActivity {
                         else{
                             estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
                         }
-                        Log.i("dueTerms", dueTermsSpinner.getSelectedItem().toString());
+
                         if(dueTermsSpinner.getSelectedItem().toString().isEmpty()){
                             estimate.setDueTerms("");
                         }
