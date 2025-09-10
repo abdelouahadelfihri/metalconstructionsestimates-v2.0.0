@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -159,7 +160,7 @@ public class EstimateDetails extends AppCompatActivity {
         else{
             expirationDateTextView.setText("");
         }
-
+        Log.i("dueDate", estimate.getDueDate());
         if (estimate.getDueDate() == null || estimate.getDueDate().isEmpty()) {
             dueDateTextView.setText(R.string.dueDate);
         }
@@ -460,6 +461,7 @@ public class EstimateDetails extends AppCompatActivity {
                         else{
                             estimate.setDueDate(dueDate.getText().toString());
                         }
+                        Log.i("status", estimateStatusSpinner.getSelectedItem().toString());
 
                         if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
                             estimate.setStatus("");
@@ -467,7 +469,7 @@ public class EstimateDetails extends AppCompatActivity {
                         else{
                             estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
                         }
-
+                        Log.i("dueTerms", dueTermsSpinner.getSelectedItem().toString());
                         if(dueTermsSpinner.getSelectedItem().toString().isEmpty()){
                             estimate.setDueTerms("");
                         }
