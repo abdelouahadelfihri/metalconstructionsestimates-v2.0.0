@@ -42,6 +42,7 @@ public class AddEstimate extends AppCompatActivity {
     TextView expirationDateTextView, issueDateTextView, dueDateTextView;
 
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
+    String statusValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
@@ -85,11 +86,24 @@ public class AddEstimate extends AppCompatActivity {
             }
         });
 
+        estimateStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                statusValue = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                statusValue = "Pending"; // default if nothing selected
+            }
+        });
+
+
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 String dueTerms = parent.getItemAtPosition(position).toString();
+
                 if (dueTerms.equals("Custom")) {
                     final Calendar calendar = Calendar.getInstance();
                     int year = calendar.get(Calendar.YEAR);
@@ -97,80 +111,72 @@ public class AddEstimate extends AppCompatActivity {
                     int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(
-                            AddEstimate.this, // use activity context
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                                    // Format date as yyyy-MM-dd (or as you prefer)
-                                    String selectedDate = String.format("%04d-%02d-%02d",
-                                            selectedYear,
-                                            selectedMonth + 1, // month is 0-based
-                                            selectedDay);
-                                    dueDateTextView.setText(selectedDate);
-                                }
+                            AddEstimate.this,
+                            (datePicker, selectedYear, selectedMonth, selectedDay) -> {
+                                String selectedDate = String.format("%04d-%02d-%02d",
+                                        selectedYear,
+                                        selectedMonth + 1,
+                                        selectedDay);
+
+                                dueDateValue = selectedDate;   // ✅ store value
+                                dueDateTextView.setText(dueDateValue);
                             },
                             year, month, day);
 
                     datePickerDialog.show();
                 }
-
-                else if(dueTerms.equals("Due on receipt")){
-                    if(!issueDateValue.isEmpty()){
-                        dueDateValue = issueDateTextView.getText().toString();
+                else if (dueTerms.equals("Due on receipt")) {
+                    if (!issueDateValue.isEmpty()) {
+                        dueDateValue = issueDateTextView.getText().toString(); // ✅ update
                         dueDateTextView.setText(dueDateValue);
                     }
-
                 }
-                else if(dueTerms.equals("Next day")){
+                else if (dueTerms.equals("Next day")) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
                     Date date = null;
-                    // Parse the input date
                     try {
-                        if(!issueDateTextView.getText().toString().equals("--/--/----")){
+                        if (!issueDateTextView.getText().toString().equals("--/--/----")) {
                             date = sdf.parse(issueDateTextView.getText().toString());
                         }
-                        // Now you can work with 'date'
                     } catch (ParseException e) {
                         e.printStackTrace();
-                        // Handle the error gracefully, maybe show a Toast
                     }
 
-                    // Use Calendar to add days
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(date);
-                    calendar.add(Calendar.DAY_OF_MONTH, 1);
-                    dueDateTextView.setText(sdf.format(calendar.getTime()));
+                    if (date != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+                        dueDateValue = sdf.format(calendar.getTime()); // ✅ update
+                        dueDateTextView.setText(dueDateValue);
+                    }
                 }
-                else{
+                else { // e.g. "30 days"
                     dueTerms = dueTerms.replace(" days", "");
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
                     Date date = null;
-                    // Parse the input date
                     try {
-                        if(!issueDateTextView.getText().toString().equals("--/--/----")){
+                        if (!issueDateTextView.getText().toString().equals("--/--/----")) {
                             date = sdf.parse(issueDateTextView.getText().toString());
                         }
-                        // Now you can work with 'date'
                     } catch (ParseException e) {
                         e.printStackTrace();
-                        // Handle the error gracefully, maybe show a Toast
                     }
 
-                    // Use Calendar to add days
                     if (date != null) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
                         calendar.add(Calendar.DAY_OF_MONTH, Integer.parseInt(dueTerms));
-                        dueDateTextView.setText(sdf.format(calendar.getTime()));
+
+                        dueDateValue = sdf.format(calendar.getTime()); // ✅ update
+                        dueDateTextView.setText(dueDateValue);
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // nothing
             }
         });
 
@@ -268,11 +274,10 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueDate(dueDateValue);
                             }
 
-                            if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
+                            if (statusValue == null || statusValue.isEmpty() || statusValue.equals("Select status")) {
                                 estimate.setStatus("Pending");
-                            }
-                            else{
-                                estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
+                            } else {
+                                estimate.setStatus(statusValue);
                             }
 
                             if(dueTermsSpinner.getSelectedItem().toString().isEmpty()){
