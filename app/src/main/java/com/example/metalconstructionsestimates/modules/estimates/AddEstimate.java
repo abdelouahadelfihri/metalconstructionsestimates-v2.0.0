@@ -119,6 +119,7 @@ public class AddEstimate extends AppCompatActivity {
                         dueDateValue = issueDateTextView.getText().toString();
                         dueDateTextView.setText(dueDateValue);
                     }
+
                 }
                 else if(dueTerms.equals("Next day")){
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
