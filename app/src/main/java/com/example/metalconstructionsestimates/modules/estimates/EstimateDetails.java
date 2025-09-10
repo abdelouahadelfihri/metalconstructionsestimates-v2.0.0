@@ -479,25 +479,25 @@ public class EstimateDetails extends AppCompatActivity {
                         totalExcludingTax = dbAdapter.getEstimateExcludingTaxTotal(estimateId);
                         estimate.setExcludingTaxTotal(totalExcludingTax);
 
-                        if (!discountEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(discountEditText.getText()).toString().isEmpty()) {
                             estimate.setDiscount(Float.parseFloat(discountEditText.getText().toString()));
                         } else {
                             estimate.setDiscount(null);
                         }
 
-                        if (!totalAfterDiscountEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(totalAfterDiscountEditText.getText()).toString().isEmpty()) {
                             estimate.setExcludingTaxTotalAfterDiscount(Float.parseFloat(totalAfterDiscountEditText.getText().toString()));
                         } else {
                             estimate.setExcludingTaxTotalAfterDiscount(null);
                         }
 
-                        if (!vatEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(vatEditText.getText()).toString().isEmpty()) {
                             estimate.setVat(Float.parseFloat(vatEditText.getText().toString()));
                         } else {
                             estimate.setVat(null);
                         }
 
-                        if (!totalAllTaxIncludedEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(totalAllTaxIncludedEditText.getText()).toString().isEmpty()) {
                             estimate.setAllTaxIncludedTotal(Float.parseFloat(totalAllTaxIncludedEditText.getText().toString()));
                         } else {
                             estimate.setAllTaxIncludedTotal(null);
