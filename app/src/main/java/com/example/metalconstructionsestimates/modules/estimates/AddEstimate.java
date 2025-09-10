@@ -293,7 +293,7 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDiscount(Float.parseFloat(estimateDiscountTextInputEditText.getText().toString()));
                             }
 
-                            if (vatTextInputEditText.getText().toString().isEmpty()) {
+                            if (Objects.requireNonNull(vatTextInputEditText.getText()).toString().isEmpty()) {
                                 estimate.setVat(null);
                             } else {
                                 estimate.setVat(Float.parseFloat(vatTextInputEditText.getText().toString()));
