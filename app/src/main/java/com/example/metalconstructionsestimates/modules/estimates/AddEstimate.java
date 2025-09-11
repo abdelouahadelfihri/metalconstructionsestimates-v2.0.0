@@ -100,7 +100,6 @@ public class AddEstimate extends AppCompatActivity {
             }
         });
 
-
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -173,7 +172,6 @@ public class AddEstimate extends AppCompatActivity {
             }
         });
 
-
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -198,7 +196,7 @@ public class AddEstimate extends AppCompatActivity {
                 TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                 TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
 
-                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty()) {
+                if (Objects.requireNonNull(estimateLocationTextInputEditText.getText()).toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
@@ -219,7 +217,7 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setCustomer(customerId);
                                 customerExists = true;
                             } else {
-                                if (customerIdTextInputEditText.getText().toString().isEmpty()) {
+                                if (Objects.requireNonNull(customerIdTextInputEditText.getText()).toString().isEmpty()) {
                                     estimate.setCustomer(null);
                                 } else {
                                     if (allDigitString(customerIdTextInputEditText.getText().toString())) {
@@ -268,14 +266,14 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueDate(dueDateValue);
                             }
 
-                            if (statusValue == null || statusValue.isEmpty() || statusValue.equals("Select status")) {
+                            if (estimateStatusSpinner.getSelectedItem().toString().equals("Select status")) {
                                 estimate.setStatus("Pending");
                             } else {
-                                estimate.setStatus(statusValue);
+                                estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
                             }
 
-                            if(dueTermsSpinner.getSelectedItem().toString().isEmpty()){
-                                estimate.setDueTerms("");
+                            if(dueTermsSpinner.getSelectedItem().toString().equals("Select due terms")){
+                                estimate.setDueTerms("Select due terms");
                             }
                             else{
                                 estimate.setDueTerms(dueTermsSpinner.getSelectedItem().toString());
