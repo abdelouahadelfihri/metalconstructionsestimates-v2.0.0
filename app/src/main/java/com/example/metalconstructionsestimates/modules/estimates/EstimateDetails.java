@@ -296,6 +296,10 @@ public class EstimateDetails extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String dueTerms = parent.getItemAtPosition(position).toString();
+                if(dueTerms.equals("Select due terms")){
+                    dueTermsSpinner.setSelection(0);
+                    return;
+                }
                 if(dueTerms.isEmpty()){
                     return;
                 }
