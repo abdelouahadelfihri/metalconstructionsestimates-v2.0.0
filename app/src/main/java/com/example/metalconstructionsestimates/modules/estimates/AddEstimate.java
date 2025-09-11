@@ -115,7 +115,9 @@ public class AddEstimate extends AppCompatActivity {
 
                 Date issueDate = null;
                 try {
-                    issueDate = sdf.parse(issueDateStr);
+                    if(!issueDateStr.equals("--/--/----")){
+                        issueDate = sdf.parse(issueDateStr);
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
