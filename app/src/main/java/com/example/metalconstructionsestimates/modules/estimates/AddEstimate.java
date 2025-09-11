@@ -196,7 +196,7 @@ public class AddEstimate extends AppCompatActivity {
                 TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                 TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
 
-                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && estimateDiscountTextInputEditText.getText().toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty()) {
+                if (estimateLocationTextInputEditText.getText().toString().isEmpty() && issueDateValue.isEmpty() && expirationDateValue.isEmpty() && customerIdTextInputEditText.getText().toString().isEmpty() && Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).toString().isEmpty() && vatTextInputEditText.getText().toString().isEmpty()) {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields.", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
