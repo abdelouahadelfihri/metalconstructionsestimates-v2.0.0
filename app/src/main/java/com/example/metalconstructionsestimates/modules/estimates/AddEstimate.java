@@ -168,6 +168,7 @@ public class AddEstimate extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Log.i("AddEstimateActivity", "Nothing selected in dueTermsSpinner");
                 dueTermsValue = "Select due terms";
                 dueDateValue = "";
             }
