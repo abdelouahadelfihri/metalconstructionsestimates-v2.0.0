@@ -105,6 +105,7 @@ public class AddEstimate extends AppCompatActivity {
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 dueTermsValue = parent.getItemAtPosition(position).toString();
 
                 // Reset dueDateValue each time
@@ -115,8 +116,9 @@ public class AddEstimate extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
                 Date issueDate = null;
+
                 try {
-                    if(!issueDateTextView.toString().equals("--/--/----")){
+                    if(!issueDateStr.equals("--/--/----")){
                         issueDate = sdf.parse(issueDateStr);
                     }
                 } catch (ParseException e) {
