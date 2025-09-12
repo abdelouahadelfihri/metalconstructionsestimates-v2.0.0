@@ -268,17 +268,10 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueDate(dueDateValue);
                             }
 
-                            if (estimateStatusSpinner.getSelectedItem().toString().equals("Select status")) {
+                            if (statusValue == null || statusValue.equals("Select status")) {
                                 estimate.setStatus("Pending");
                             } else {
-                                estimate.setStatus(estimateStatusSpinner.getSelectedItem().toString());
-                            }
-
-                            if(dueTermsSpinner.getSelectedItem().toString().equals("Select due terms")){
-                                estimate.setDueTerms("Select due terms");
-                            }
-                            else{
-                                estimate.setDueTerms(dueTermsSpinner.getSelectedItem().toString());
+                                estimate.setStatus(statusValue);
                             }
 
                             if (Objects.requireNonNull(estimateLocationTextInputEditText.getText()).toString().isEmpty()) {
