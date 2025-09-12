@@ -549,6 +549,9 @@ public class EstimateDetails extends AppCompatActivity {
                 TextInputEditText vatEditText = findViewById(R.id.vatEditText);
                 TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdEditText.getText().toString()));
+                Log.i("EstimateDetailsActivity", "Estimate due terms: " + estimate.getDueTerms());
+                Log.i("EstimateDetailsActivity", "Estimate status: " + estimate.getStatus());
+                Log.i("EstimateDetailsActivity", "Estimate due date: " + estimate.getDueDate());
                 locationEditText.setText(estimate.getDoneIn());
                 issueDate.setText(estimate.getIssueDate());
                 expirationDate.setText(estimate.getExpirationDate());
