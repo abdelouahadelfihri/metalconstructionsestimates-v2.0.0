@@ -116,7 +116,7 @@ public class AddEstimate extends AppCompatActivity {
 
                 Date issueDate = null;
                 try {
-                    if(!issueDateStr.equals("--/--/----")){
+                    if(!issueDateTextView.toString().equals("--/--/----")){
                         issueDate = sdf.parse(issueDateStr);
                     }
                 } catch (ParseException e) {
@@ -124,46 +124,46 @@ public class AddEstimate extends AppCompatActivity {
                 }
 
                 Calendar cal = Calendar.getInstance();
+                if (issueDate == null) {
+                    return;
+                }
+                cal.setTime(issueDate);
 
-                if (issueDate != null) {
-                    cal.setTime(issueDate);
+                if (dueTermsValue.equals("Due on receipt")) {
+                    // Same as issue date
+                    dueDateValue = issueDateStr;
 
-                    if (dueTermsValue.equals("Due on receipt")) {
-                        // Same as issue date
-                        dueDateValue = issueDateStr;
+                } else if (dueTermsValue.equals("Next day")) {
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                    dueDateValue = sdf.format(cal.getTime());
 
-                    } else if (dueTermsValue.equals("Next day")) {
-                        cal.add(Calendar.DAY_OF_MONTH, 1);
-                        dueDateValue = sdf.format(cal.getTime());
+                } else if (dueTermsValue.equals("Custom")) {
+                    // Open DatePicker for custom selection
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(
+                            AddEstimate.this,
+                            (view1, year, month, dayOfMonth) -> {
+                                Calendar customCal = Calendar.getInstance();
+                                customCal.set(year, month, dayOfMonth);
+                                dueDateValue = sdf.format(customCal.getTime());
+                                dueDateTextView.setText(dueDateValue);
+                            },
+                            cal.get(Calendar.YEAR),
+                            cal.get(Calendar.MONTH),
+                            cal.get(Calendar.DAY_OF_MONTH)
+                    );
+                    datePickerDialog.show();
 
-                    } else if (dueTermsValue.equals("Custom")) {
-                        // Open DatePicker for custom selection
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                                AddEstimate.this,
-                                (view1, year, month, dayOfMonth) -> {
-                                    Calendar customCal = Calendar.getInstance();
-                                    customCal.set(year, month, dayOfMonth);
-                                    dueDateValue = sdf.format(customCal.getTime());
-                                    dueDateTextView.setText(dueDateValue);
-                                },
-                                cal.get(Calendar.YEAR),
-                                cal.get(Calendar.MONTH),
-                                cal.get(Calendar.DAY_OF_MONTH)
-                        );
-                        datePickerDialog.show();
+                } else if (!dueTermsValue.equals("Select due terms")) {
+                    // For "2 days", "3 days", ..., "180 days"
+                    String daysStr = dueTermsValue.replace(" days", "").trim();
+                    int days = Integer.parseInt(daysStr);
+                    cal.add(Calendar.DAY_OF_MONTH, days);
+                    dueDateValue = sdf.format(cal.getTime());
+                }
 
-                    } else if (!dueTermsValue.equals("Select due terms")) {
-                        // For "2 days", "3 days", ..., "180 days"
-                        String daysStr = dueTermsValue.replace(" days", "").trim();
-                        int days = Integer.parseInt(daysStr);
-                        cal.add(Calendar.DAY_OF_MONTH, days);
-                        dueDateValue = sdf.format(cal.getTime());
-                    }
-
-                    // Update your UI if due date was set
-                    if (!dueDateValue.isEmpty()) {
-                        dueDateTextView.setText(dueDateValue);
-                    }
+                // Update your UI if due date was set
+                if (!dueDateValue.isEmpty()) {
+                    dueDateTextView.setText(dueDateValue);
                 }
             }
 
@@ -414,7 +414,7 @@ public class AddEstimate extends AppCompatActivity {
             issueDateTextView.setText(issueDateValue);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-            Date issueDate = null;
+            Date issueDate;
 
             try {
                 issueDate = sdf.parse(issueDateValue);
@@ -422,7 +422,7 @@ public class AddEstimate extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
-            Date expirationDate = null;
+            Date expirationDate;
 
             if(!expirationDateValue.isEmpty()){
                 try {
