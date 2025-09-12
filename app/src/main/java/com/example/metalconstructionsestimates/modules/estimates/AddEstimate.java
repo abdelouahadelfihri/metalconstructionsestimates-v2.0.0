@@ -43,9 +43,10 @@ public class AddEstimate extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDateTextView, issueDateTextView, dueDateTextView;
 
+    private String statusValue = "Select status";
+    private String dueTermsValue = "Select due terms";
+
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
-    String statusValue = "";
-    private String dueTermsValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
     Button addEstimate;
     Button clearAddEstimateForm;
