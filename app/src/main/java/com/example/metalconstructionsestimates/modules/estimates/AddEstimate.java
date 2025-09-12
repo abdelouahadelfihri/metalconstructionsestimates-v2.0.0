@@ -106,7 +106,7 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 dueTermsValue = parent.getItemAtPosition(position).toString();
-                Log.i("AddEstimateActivity", "Selected dueTerms: " + dueTermsValue);
+
                 // Reset dueDateValue each time
                 dueDateValue = "";
 
@@ -131,9 +131,11 @@ public class AddEstimate extends AppCompatActivity {
 
                 if (dueTermsValue.equals("Due on receipt")) {
                     // Same as issue date
-                    dueDateValue = issueDateStr;
-
-                } else if (dueTermsValue.equals("Next day")) {
+                    if (!issueDateStr.isEmpty()) {
+                        dueDateValue = issueDateStr;
+                    }
+                }
+                else if (dueTermsValue.equals("Next day")) {
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                     dueDateValue = sdf.format(cal.getTime());
 
