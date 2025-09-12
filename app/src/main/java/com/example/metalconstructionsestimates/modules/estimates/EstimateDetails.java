@@ -555,13 +555,13 @@ public class EstimateDetails extends AppCompatActivity {
                 locationEditText.setText(estimate.getDoneIn());
                 issueDate.setText(estimate.getIssueDate());
                 expirationDate.setText(estimate.getExpirationDate());
-                formattedTotalExcludingTax = new BigDecimal(estimate.getExcludingTaxTotal()).toPlainString();
+                formattedTotalExcludingTax = BigDecimal.valueOf(estimate.getExcludingTaxTotal()).toPlainString();
                 totalExclTaxEditText.setText(formattedTotalExcludingTax);
                 discountEditText.setText(String.format(estimate.getDiscount().toString()));
-                formattedTotalAfterDiscount = new BigDecimal(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
+                formattedTotalAfterDiscount = BigDecimal.valueOf(estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
                 totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
                 vatEditText.setText(String.format(estimate.getVat().toString()));
-                formattedTotalAllTaxIncluded = new BigDecimal(estimate.getAllTaxIncludedTotal()).toPlainString();
+                formattedTotalAllTaxIncluded = BigDecimal.valueOf(estimate.getAllTaxIncludedTotal()).toPlainString();
                 totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
                 ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(Integer.parseInt(estimateIdEditText.getText().toString()));
 
