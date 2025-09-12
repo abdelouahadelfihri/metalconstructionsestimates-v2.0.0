@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -118,7 +119,7 @@ public class AddEstimate extends AppCompatActivity {
                         issueDate = sdf.parse(issueDateStr);
                     }
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.e("AddEstimateActivity", "Error parsing issue date", e);
                 }
 
                 Calendar cal = Calendar.getInstance();
@@ -285,7 +286,7 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDoneIn(estimateLocationTextInputEditText.getText().toString());
                             }
 
-                            if (estimateDiscountTextInputEditText.getText().toString().isEmpty()) {
+                            if (Objects.requireNonNull(estimateDiscountTextInputEditText.getText()).toString().isEmpty()) {
                                 estimate.setDiscount(null);
                             } else {
                                 estimate.setDiscount(Float.parseFloat(estimateDiscountTextInputEditText.getText().toString()));
