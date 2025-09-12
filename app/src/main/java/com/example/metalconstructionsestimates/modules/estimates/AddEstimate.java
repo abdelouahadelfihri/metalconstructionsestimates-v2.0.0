@@ -105,7 +105,7 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 dueTermsValue = parent.getItemAtPosition(position).toString();
-
+                Log.i("AddEstimateActivity", "Selected dueTerms: " + dueTermsValue);
                 // Reset dueDateValue each time
                 dueDateValue = "";
 
