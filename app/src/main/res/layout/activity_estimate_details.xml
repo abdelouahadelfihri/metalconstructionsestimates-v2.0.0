@@ -39,10 +39,10 @@
                 android:id="@+id/estimateIdEditText_estimate_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:hint="@string/estimateId"
                 android:textColor="#333333"
-                android:textColorHint="#4A4A4A"
-                android:background="@android:color/transparent" />
+                android:textColorHint="#4A4A4A" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Location -->
