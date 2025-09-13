@@ -64,6 +64,8 @@ public class AddEstimate extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(view -> finish());
 
+        Estimate estimate = new Estimate();
+
         Spinner estimateStatusSpinner = (Spinner) findViewById(R.id.estimateStatusSpinner);
         ArrayAdapter<CharSequence> estimateStatusSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.estimate_status, android.R.layout.simple_spinner_item);
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,6 +103,7 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 statusValue = parent.getItemAtPosition(position).toString();
+                estimate.setStatus(parent.getItemAtPosition(position).toString());
                 Log.d("AddEstimate", "Status selected: " + statusValue);  // Debug log
             }
 
@@ -115,6 +118,7 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 dueTermsValue = parent.getItemAtPosition(position).toString();
+                estimate.setDueTerms(parent.getItemAtPosition(position).toString());
                 // Reset dueDateValue each time
                 dueDateValue = "";
 
@@ -142,6 +146,7 @@ public class AddEstimate extends AppCompatActivity {
                 if (dueTermsValue.equals("Due on receipt")) {
                     // Same as issue date
                     dueDateValue = issueDateStr;
+                    estimate.setDueDate(issueDateStr);
                 } else if (dueTermsValue.equals("Next day")) {
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                     dueDateValue = sdf.format(cal.getTime());
@@ -233,8 +238,6 @@ public class AddEstimate extends AppCompatActivity {
                         TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                         TextInputEditText estimateDiscountTextInputEditText = findViewById(R.id.discountEditText_add_estimate);
                         TextInputEditText vatTextInputEditText = findViewById(R.id.vatEditText_add_estimate);
-
-                        Estimate estimate = new Estimate();
 
                         // Customer handling (preserve selected customerId if set)
                         if (customerId != null) {
