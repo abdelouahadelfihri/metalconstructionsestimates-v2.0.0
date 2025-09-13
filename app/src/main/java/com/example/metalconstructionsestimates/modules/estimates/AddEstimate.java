@@ -441,6 +441,7 @@ public class AddEstimate extends AppCompatActivity {
         dueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             dueDateValue = year + "-" + month + "-" + day;
+            estimate.setDueDate(dueDateValue);
             dueDateTextView.setText(dueDateValue);
         };
     }
