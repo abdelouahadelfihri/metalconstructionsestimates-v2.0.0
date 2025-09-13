@@ -95,7 +95,7 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 statusValue = parent.getItemAtPosition(position).toString();
-                estimate.setStatus(statusValue);
+                estimate.setStatus(parent.getItemAtPosition(position).toString());
             }
 
             @Override
@@ -110,7 +110,7 @@ public class AddEstimate extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 dueTermsValue = parent.getItemAtPosition(position).toString();
-                estimate.setDueTerms(dueTermsValue);
+                estimate.setDueTerms(parent.getItemAtPosition(position).toString());
 
                 // Get issue date from your TextView
                 String issueDateStr = issueDateTextView.getText().toString();
