@@ -42,8 +42,8 @@ public class AddEstimate extends AppCompatActivity {
     DBAdapter dbAdapter;
     TextView expirationDateTextView, issueDateTextView, dueDateTextView;
 
-    private String statusValue = "Pending";  // Default to Pending, not "Select status"
-    private String dueTermsValue = "Select due terms";
+    String statusValue = "Pending";  // Default to Pending, not "Select status"
+    String dueTermsValue = "Select due terms";
 
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
