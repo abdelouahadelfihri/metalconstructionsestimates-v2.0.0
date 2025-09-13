@@ -150,6 +150,7 @@ public class AddEstimate extends AppCompatActivity {
                 } else if (dueTermsValue.equals("Next day")) {
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                     dueDateValue = sdf.format(cal.getTime());
+                    estimate.setDueDate(dueDateValue);
                 } else if (dueTermsValue.equals("Custom")) {
                     // Open DatePicker for custom selection
                     DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -158,6 +159,7 @@ public class AddEstimate extends AppCompatActivity {
                                 Calendar customCal = Calendar.getInstance();
                                 customCal.set(year, month, dayOfMonth);
                                 dueDateValue = sdf.format(customCal.getTime());
+                                estimate.setDueDate(dueDateValue);
                                 dueDateTextView.setText(dueDateValue);
                                 Log.d("AddEstimate", "Custom due date: " + dueDateValue);
                             },
@@ -173,6 +175,7 @@ public class AddEstimate extends AppCompatActivity {
                     int days = Integer.parseInt(daysStr);
                     cal.add(Calendar.DAY_OF_MONTH, days);
                     dueDateValue = sdf.format(cal.getTime());
+                    estimate.setDueDate(dueDateValue);
                     Log.d("AddEstimate", "Due date set to " + days + " days: " + dueDateValue);
                 }
 
@@ -185,7 +188,6 @@ public class AddEstimate extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 dueTermsValue = "Select due terms";
-                Log.d("AddEstimate", "Due terms nothing selected: " + dueTermsValue);
             }
         });
 
