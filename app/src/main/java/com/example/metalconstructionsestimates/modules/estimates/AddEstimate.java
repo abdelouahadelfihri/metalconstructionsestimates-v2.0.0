@@ -112,9 +112,6 @@ public class AddEstimate extends AppCompatActivity {
                 dueTermsValue = parent.getItemAtPosition(position).toString();
                 estimate.setDueTerms(dueTermsValue);
 
-                // Reset dueDateValue each time
-                dueDateValue = "";
-
                 // Get issue date from your TextView
                 String issueDateStr = issueDateTextView.getText().toString();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
