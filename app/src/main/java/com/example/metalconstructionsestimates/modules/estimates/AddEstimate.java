@@ -270,19 +270,6 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setExpirationDate("");
                             }
 
-                            if (dueDateValue == null || dueDateValue.isEmpty()) {
-                                estimate.setDueDate("");
-                            }
-                            else{
-                                estimate.setDueDate(dueDateValue);
-                            }
-
-                            if (statusValue == null || statusValue.equals("Select status")) {
-                                estimate.setStatus("Pending");
-                            } else {
-                                estimate.setStatus(statusValue);
-                            }
-
                             if (Objects.requireNonNull(estimateLocationTextInputEditText.getText()).toString().isEmpty()) {
                                 estimate.setDoneIn("");
                             } else {
