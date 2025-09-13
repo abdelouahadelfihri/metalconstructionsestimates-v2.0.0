@@ -143,14 +143,10 @@ public class AddEstimate extends AppCompatActivity {
 
                 if (dueTermsValue.equals("Due on receipt")) {
                     // Same as issue date
-                    if (!issueDateStr.isEmpty()) {
-                        dueDateValue = issueDateStr;
-                        Log.d("AddEstimate", "Due date set to issue date: " + dueDateValue);
-                    }
+                    dueDateValue = issueDateStr;
                 } else if (dueTermsValue.equals("Next day")) {
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                     dueDateValue = sdf.format(cal.getTime());
-                    Log.d("AddEstimate", "Due date set to next day: " + dueDateValue);
                 } else if (dueTermsValue.equals("Custom")) {
                     // Open DatePicker for custom selection
                     DatePickerDialog datePickerDialog = new DatePickerDialog(
