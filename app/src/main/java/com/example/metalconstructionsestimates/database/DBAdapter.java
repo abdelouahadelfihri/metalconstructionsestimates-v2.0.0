@@ -1615,12 +1615,15 @@ public class DBAdapter {
                 estimate.setDoneIn(cursor.getString(1));
                 estimate.setIssueDate(cursor.getString(2));
                 estimate.setExpirationDate(cursor.getString(3));
-                estimate.setCustomer(cursor.getInt(4));
-                estimate.setExcludingTaxTotal(cursor.getFloat(5));
-                estimate.setDiscount(cursor.getFloat(6));
-                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(7));
-                estimate.setVat(cursor.getFloat(8));
-                estimate.setAllTaxIncludedTotal(cursor.getFloat(9));
+                estimate.setDueDate(cursor.getString(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
             }
             else{
                 estimate = null;
