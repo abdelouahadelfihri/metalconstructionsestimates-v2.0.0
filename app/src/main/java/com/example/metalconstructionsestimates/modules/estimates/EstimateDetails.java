@@ -59,7 +59,7 @@ public class EstimateDetails extends AppCompatActivity {
     Estimate estimate;
 
     DBAdapter dbAdapter;
-    TextView expirationDateTextView,issueDateTextView, dueDateTextView;
+    TextView expirationDateTextView, issueDateTextView, dueDateTextView;
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
 
     private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener, dueDateSetListener;
@@ -153,21 +153,21 @@ public class EstimateDetails extends AppCompatActivity {
             activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
         }
 
-
-        if(!estimate.getExpirationDate().isEmpty()){
-            expirationDateTextView.setText(estimate.getExpirationDate());
+        if(estimate.getIssueDate().isEmpty()){
+            issueDateTextView.setText(R.string.issueDate);
         }
         else{
-            expirationDateTextView.setText("");
+            issueDateTextView.setText(estimate.getIssueDate());
         }
-        if (estimate.getDueDate() == null || estimate.getDueDate().isEmpty()) {
+
+        if (estimate.getDueDate().isEmpty()) {
             dueDateTextView.setText(R.string.dueDate);
         }
         else{
             dueDateTextView.setText(estimate.getDueDate());
         }
 
-        if (estimate.getDueTerms() == null || estimate.getDueTerms().isEmpty()) {
+        if (estimate.getDueTerms().isEmpty()) {
             dueTermsSpinner.setSelection(0);
         }
         else{
@@ -187,7 +187,7 @@ public class EstimateDetails extends AppCompatActivity {
             }
         }
 
-        if(estimate.getStatus() == null || estimate.getStatus().isEmpty()){
+        if(estimate.getStatus().isEmpty()){
             estimateStatusSpinner.setSelection(0);
         }
         else{
@@ -204,11 +204,11 @@ public class EstimateDetails extends AppCompatActivity {
             }
         }
 
-        if(!estimate.getIssueDate().isEmpty()){
-            issueDateTextView.setText(estimate.getIssueDate());
+        if(!estimate.getExpirationDate().isEmpty()){
+            expirationDateTextView.setText(estimate.getExpirationDate());
         }
         else{
-            issueDateTextView.setText("");
+            expirationDateTextView.setText(R.string.expirationDate);
         }
 
         estimateIdEditText.setText(String.format(estimate.getId().toString()));
@@ -539,8 +539,9 @@ public class EstimateDetails extends AppCompatActivity {
         refreshEstimateLinesListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView issueDate = findViewById(R.id.issueDateValue);
-                TextView expirationDate = findViewById(R.id.expirationDateValue);
+                TextView issueDateTextView = findViewById(R.id.issueDateValue);
+                TextView expirationDateTextView = findViewById(R.id.expirationDateValue);
+                TextView dueDateTextView = findViewById(R.id.dueDateValue);
                 TextInputEditText totalExclTaxEditText = findViewById(R.id.totalExclTaxEditText);
                 TextInputEditText discountEditText = findViewById(R.id.discountEditText);
                 TextInputEditText estimateIdEditText = findViewById(R.id.estimateIdEditText_estimate_details);
@@ -550,8 +551,65 @@ public class EstimateDetails extends AppCompatActivity {
                 TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdEditText.getText().toString()));
                 locationEditText.setText(estimate.getDoneIn());
-                issueDate.setText(estimate.getIssueDate());
-                expirationDate.setText(estimate.getExpirationDate());
+
+                if(estimate.getIssueDate().isEmpty()){
+                    issueDateTextView.setText(R.string.issueDate);
+                }
+                else{
+                    issueDateTextView.setText(estimate.getIssueDate());
+                }
+
+                if (estimate.getDueDate().isEmpty()) {
+                    dueDateTextView.setText(R.string.dueDate);
+                }
+                else{
+                    dueDateTextView.setText(estimate.getDueDate());
+                }
+
+                if (estimate.getDueTerms().isEmpty()) {
+                    dueTermsSpinner.setSelection(0);
+                }
+                else{
+                    int position = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+
+                    if (position >= 0) {
+                        // ✅ Value exists in the spinner list
+                        dueTermsSpinner.setSelection(position);
+                    } else {
+                        // ❌ Value not found → add it dynamically
+                        dueTermsSpinnerAdapter.add(estimate.getDueTerms());
+                        dueTermsSpinnerAdapter.notifyDataSetChanged();
+
+                        // Select the newly added value
+                        int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+                        dueTermsSpinner.setSelection(newPosition);
+                    }
+                }
+
+                if(estimate.getStatus().isEmpty()){
+                    estimateStatusSpinner.setSelection(0);
+                }
+                else{
+                    switch(estimate.getStatus()){
+                        case "Pending":
+                            estimateStatusSpinner.setSelection(1);
+                            break;
+                        case "Approved":
+                            estimateStatusSpinner.setSelection(2);
+                            break;
+                        case "Cancelled":
+                            estimateStatusSpinner.setSelection(3);
+                            break;
+                    }
+                }
+
+                if(!estimate.getExpirationDate().isEmpty()){
+                    expirationDateTextView.setText(estimate.getExpirationDate());
+                }
+                else{
+                    expirationDateTextView.setText(R.string.expirationDate);
+                }
+
                 formattedTotalExcludingTax = BigDecimal.valueOf(estimate.getExcludingTaxTotal()).toPlainString();
                 totalExclTaxEditText.setText(formattedTotalExcludingTax);
                 discountEditText.setText(String.format(estimate.getDiscount().toString()));
