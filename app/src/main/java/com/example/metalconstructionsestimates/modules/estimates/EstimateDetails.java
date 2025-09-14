@@ -546,18 +546,6 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setAllTaxIncludedTotal(null);
                         }
 
-                        if(dbAdapter.getCustomerById(Integer.parseInt(Objects.requireNonNull(customerIdEditText.getText()).toString())) == null){
-                            Toast.makeText(getApplicationContext(), "Customer does not exist", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        else{
-                            if (!Objects.requireNonNull(customerIdEditText.getText()).toString().isEmpty()) {
-                                estimate.setCustomer(Integer.parseInt(customerIdEditText.getText().toString()));
-                            } else {
-                                estimate.setCustomer(null);
-                            }
-                        }
-
                         dbAdapter.updateEstimate(estimate);
                         Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
