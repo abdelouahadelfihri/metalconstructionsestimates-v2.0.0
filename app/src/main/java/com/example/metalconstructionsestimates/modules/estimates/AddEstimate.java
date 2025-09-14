@@ -465,6 +465,7 @@ public class AddEstimate extends AppCompatActivity {
         activityResultLauncher.launch(intent);
 
     }
+
     public boolean allDigitString(String s) {
         boolean result = true;
         for (int i = 0; i < s.length(); i++) {

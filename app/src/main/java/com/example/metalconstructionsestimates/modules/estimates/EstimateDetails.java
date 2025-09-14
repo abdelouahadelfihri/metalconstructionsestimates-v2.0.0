@@ -19,6 +19,8 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -51,6 +53,7 @@ public class EstimateDetails extends AppCompatActivity {
 
     Integer estimateId;
     Integer customerId;
+    boolean customerExists = true;
 
     String formattedTotalExcludingTax;
     String formattedTotalAfterDiscount;
@@ -219,7 +222,8 @@ public class EstimateDetails extends AppCompatActivity {
             customerIdEditText.get().setText("");
         }
         else{
-            customerIdEditText.get().setText(String.format(estimate.getCustomer().toString()));
+            String customerName = dbAdapter.getCustomerById(estimate.getCustomer()).getName();
+            customerIdEditText.get().setText(String.format(customerName));
         }
 
         if(estimate.getExcludingTaxTotal() == null){
@@ -284,6 +288,7 @@ public class EstimateDetails extends AppCompatActivity {
                                 assert customerIdExtraResult != null;
                                 selectedCustomerId.set(Integer.parseInt(customerIdExtraResult));
                                 customerIdEditText.set(findViewById(R.id.customerIdEditText));
+                                customerId = selectedCustomerId.get();
                                 String customerName = dbAdapter.getCustomerById(selectedCustomerId.get()).getName();
                                 customerIdEditText.get().setText(customerName);
                             }
@@ -438,6 +443,40 @@ public class EstimateDetails extends AppCompatActivity {
                         TextInputEditText vatEditText = findViewById(R.id.vatEditText);
                         TextInputEditText totalAllTaxIncludedEditText = findViewById(R.id.totalInclTaxEditText);
 
+                        if (customerId != null) {
+                            estimate.setCustomer(customerId);
+                            customerExists = true;
+                        } else {
+                            if (Objects.requireNonNull(customerIdEditText.getText()).toString().isEmpty()) {
+                                estimate.setCustomer(null);
+                            } else {
+                                if (allDigitString(customerIdEditText.getText().toString())) {
+                                    Customer customer = dbAdapter.getCustomerById(Integer.parseInt(customerIdEditText.getText().toString()));
+                                    if (customer != null) {
+                                        estimate.setCustomer(customer.getId());
+                                        customerExists = true;
+                                    } else {
+                                        customerExists = false;
+                                    }
+                                } else {
+                                    Integer customer = dbAdapter.getCustomerIdByName(customerIdEditText.getText().toString());
+                                    if (customer != null) {
+                                        estimate.setCustomer(customer);
+                                        customerExists = true;
+                                    } else {
+                                        customerExists = false;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!customerExists) {
+                            Toast customerNotExistingToast = Toast.makeText(getApplicationContext(), "Le client saisi ne corresponds à aucun client dans la base de données", Toast.LENGTH_LONG);
+                            customerNotExistingToast.show();
+                            customerExists = true;
+                            return;
+                        }
+
                         estimate.setId(Integer.parseInt(estimateIdEditText.getText().toString()));
 
                         if (!locationEditText.getText().toString().isEmpty()) {
@@ -518,6 +557,7 @@ public class EstimateDetails extends AppCompatActivity {
                                 estimate.setCustomer(null);
                             }
                         }
+
                         dbAdapter.updateEstimate(estimate);
                         Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Estimate has been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
@@ -914,5 +954,16 @@ public class EstimateDetails extends AppCompatActivity {
     public void startActivityForResult() {
         Intent intent = new Intent(EstimateDetails.this, Customers.class);
         activityResultLauncher.launch(intent);
+    }
+
+    public boolean allDigitString(String s) {
+        boolean result = true;
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 }
