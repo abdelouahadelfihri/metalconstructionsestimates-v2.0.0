@@ -261,6 +261,24 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setIssueDate("");
                             }
 
+                            if(!dueDateValue.isEmpty()){
+                                estimate.setDueDate(dueDateValue);
+                            } else {
+                                estimate.setDueDate("");
+                            }
+
+                            if(!statusValue.isEmpty()){
+                                estimate.setStatus(statusValue);
+                            } else {
+                                estimate.setStatus("");
+                            }
+
+                            if(!dueTermsValue.isEmpty()){
+                                estimate.setDueTerms(dueTermsValue);
+                            } else {
+                                estimate.setDueTerms("");
+                            }
+
                             if (!expirationDateValue.isEmpty()){
                                 estimate.setExpirationDate(expirationDateValue);
                             } else {
