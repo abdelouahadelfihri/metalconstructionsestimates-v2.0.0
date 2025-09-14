@@ -1752,6 +1752,9 @@ public class DBAdapter {
             ContentValues cv = new ContentValues();
             cv.put("doneIn", estimate.getDoneIn());
             cv.put("issueDate", estimate.getIssueDate());
+            cv.put("dueDate", estimate.getDueDate());
+            cv.put("dueTerms", estimate.getDueTerms());
+            cv.put("status", estimate.getStatus());
             cv.put("expirationDate", estimate.getExpirationDate());
             cv.put("customer", estimate.getCustomer());
             cv.put("excludingTaxTotal", estimate.getExcludingTaxTotal());
