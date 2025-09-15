@@ -1455,7 +1455,7 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " dueDate < date('now') AND status='Pending'";
+            query = query + " dueDate < date('now') AND status = 'Pending'";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
