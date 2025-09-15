@@ -326,8 +326,8 @@ public class Estimates extends AppCompatActivity {
                 DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
 
                 if(!searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(searchText);
-                    if(estimatesSearchList.isEmpty()){
+                    ArrayList<Estimate> overdueEstimatesSearchList = dbAdapter.searchOverdueEstimates(searchText);
+                    if(overdueEstimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                         activityEstimatesBinding.emptyView.setText(R.string.noResult);
                         findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
@@ -335,11 +335,11 @@ public class Estimates extends AppCompatActivity {
                         searchResultToast.show();
                     }
                     else{
-                        EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
+                        EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesSearchList);
                         findViewById(R.id.emptyView).setVisibility(View.GONE);
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
-                        estimateListAdapter.updateEstimates(estimatesSearchList);
+                        estimateListAdapter.updateEstimates(overdueEstimatesSearchList);
                     }
                 }
                 else{
