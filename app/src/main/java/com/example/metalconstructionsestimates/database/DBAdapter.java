@@ -1357,7 +1357,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            query = query + " AND status = 'Pending'";
+            query = query + " AND status = 'Pending' and dueDate >= date('now')";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
@@ -2185,7 +2185,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status ='Pending'",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM estimate WHERE status ='Pending' and dueDate >= date('now')",null);
             Estimate estimate;
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
