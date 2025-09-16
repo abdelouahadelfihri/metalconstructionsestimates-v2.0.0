@@ -496,6 +496,10 @@ public class AddEstimate extends AppCompatActivity {
                     // Select the newly added value
                     int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
                     dueTermsSpinner.setSelection(newPosition);
+                    dueTermsSpinner.post(() -> {
+                        dueTermsSpinnerAdapter.remove(dueTerm);
+                        dueTermsSpinnerAdapter.notifyDataSetChanged();
+                    });
                 }
             }
         };
