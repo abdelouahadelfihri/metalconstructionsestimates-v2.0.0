@@ -42,8 +42,10 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -89,8 +91,13 @@ public class EstimateDetails extends AppCompatActivity {
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
-        ArrayAdapter<CharSequence> dueTermsSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.due_terms, android.R.layout.simple_spinner_item);
+        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
+        String[] termsArray = getResources().getStringArray(R.array.due_terms);
+        List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
+
+        ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, termsList
+        );
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
 
@@ -879,65 +886,53 @@ public class EstimateDetails extends AppCompatActivity {
         dueDateSetListener = (picker, year, month, day) -> {
             month = month + 1;
             dueDateValue = year + "-" + month + "-" + day;
+            estimate.setDueDate(dueDateValue);
             dueDateTextView.setText(dueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
-
-            Date dueDate = null;
-
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dueDate = null, issueDate = null;
             try {
                 dueDate = sdf.parse(dueDateValue);
+                issueDate = sdf.parse(issueDateValue);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
+            long diffInMillis = dueDate.getTime() - issueDate.getTime();
+            long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
-            Date issueDate = null;
+            if(daysBetween <= 0){
+                Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
+                dueDateTextView.setText(R.string.dueDate);
+                dueDateValue = "";
+            }
+            else if(daysBetween == 0){
+                dueTermsSpinner.setSelection(1);
+            }
+            else if(daysBetween == 1){
+                dueTermsSpinner.setSelection(2);
+            }
+            else{
+                String dueTerm = daysBetween + " days";
+                dueDateTextView.setText(dueDateValue);
+                int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
 
-            if(!issueDateValue.isEmpty()){
-                try {
-                    issueDate = sdf.parse(issueDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                long diffInMillis = Objects.requireNonNull(dueDate).getTime() - Objects.requireNonNull(issueDate).getTime();
-                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween < 0){
-                    Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    issueDateTextView.setText(R.string.issueDate);
-                    issueDateValue = "";
-                }
-                else{
-                    Boolean daysBetweenInDueTermsSpinner =  false;
-                    String daysBetweenString = daysBetween + " days";
-                    if(daysBetween == 0){
-                        dueTermsSpinner.setSelection(0);
-                    }
-                    else if(daysBetween == 1){
-                        dueTermsSpinner.setSelection(1);
-                    }
-                    else{
-                        for (int i = 0; i < dueTermsSpinner.getAdapter().getCount(); i++) {
-                            String item = (String) dueTermsSpinner.getAdapter().getItem(i);
-                            if(Objects.equals(item, daysBetweenString)){
-                                daysBetweenInDueTermsSpinner = true;
-                                dueTermsSpinner.setSelection(i);
-                            }
-                        }
-                        if(!daysBetweenInDueTermsSpinner){
-                            if (dueTermsSpinner.getAdapter().getCount() != 20) {
-                                String customValue = dueTermsSpinner.getAdapter().getItem(dueTermsSpinner.getAdapter().getCount() - 1).toString();
-                                dueTermsSpinnerAdapter.remove(customValue);
-                                dueTermsSpinnerAdapter.notifyDataSetChanged();
-                            }
-                            dueTermsSpinnerAdapter.add(daysBetweenString);
-                            dueTermsSpinner.setSelection(dueTermsSpinnerAdapter.getCount());
-                            dueTermsSpinnerAdapter.notifyDataSetChanged();
-                        }
-                    }
+                if (position >= 0) {
+                    // ✅ Value exists in the spinner list
+                    dueTermsSpinner.setSelection(position);
+                } else {
+                    // ❌ Value not found → add it dynamically
+                    dueTermsSpinnerAdapter.add(dueTerm);
+                    dueTermsSpinnerAdapter.notifyDataSetChanged();
+
+                    // Select the newly added value
+                    int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+                    dueTermsSpinner.setSelection(newPosition);
+                    dueTermsSpinner.post(() -> {
+                        dueTermsSpinnerAdapter.remove(dueTerm);
+                        dueTermsSpinnerAdapter.notifyDataSetChanged();
+                    });
                 }
             }
-
         };
-
     }
     public void startActivityForResult() {
         Intent intent = new Intent(EstimateDetails.this, Customers.class);
