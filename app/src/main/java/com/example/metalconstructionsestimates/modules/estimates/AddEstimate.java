@@ -30,9 +30,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -72,7 +75,12 @@ public class AddEstimate extends AppCompatActivity {
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
         Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
-        ArrayAdapter<CharSequence> dueTermsSpinnerAdapter = ArrayAdapter.createFromResource(this, R.array.due_terms, android.R.layout.simple_spinner_item);
+        String[] termsArray = getResources().getStringArray(R.array.due_terms);
+        List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
+
+        ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, termsList
+        );
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
 
