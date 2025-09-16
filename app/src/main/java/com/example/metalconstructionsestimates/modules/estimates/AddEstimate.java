@@ -458,6 +458,46 @@ public class AddEstimate extends AppCompatActivity {
             dueDateValue = year + "-" + month + "-" + day;
             estimate.setDueDate(dueDateValue);
             dueDateTextView.setText(dueDateValue);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dueDate = null, issueDate = null;
+            try {
+                dueDate = sdf.parse(dueDateValue);
+                issueDate = sdf.parse(issueDateValue);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            long diffInMillis = dueDate.getTime() - issueDate.getTime();
+            long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
+
+            if(daysBetween <= 0){
+                Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
+                dueDateTextView.setText(R.string.dueDate);
+                dueDateValue = "";
+            }
+            else if(daysBetween == 0){
+                dueTermsSpinner.setSelection(1);
+            }
+            else if(daysBetween == 1){
+                dueTermsSpinner.setSelection(2);
+            }
+            else{
+                String dueTerm = daysBetween + " days";
+                dueDateTextView.setText(dueDateValue);
+                int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
+
+                if (position >= 0) {
+                    // ✅ Value exists in the spinner list
+                    dueTermsSpinner.setSelection(position);
+                } else {
+                    // ❌ Value not found → add it dynamically
+                    dueTermsSpinnerAdapter.add(dueTerm);
+                    dueTermsSpinnerAdapter.notifyDataSetChanged();
+
+                    // Select the newly added value
+                    int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
+                    dueTermsSpinner.setSelection(newPosition);
+                }
+            }
         };
     }
     public void startActivityForResult() {
