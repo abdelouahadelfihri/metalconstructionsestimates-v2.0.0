@@ -899,7 +899,7 @@ public class EstimateDetails extends AppCompatActivity {
             long diffInMillis = dueDate.getTime() - issueDate.getTime();
             long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
-            if(daysBetween <= 0){
+            if(daysBetween < 0){
                 Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
                 dueDateTextView.setText(R.string.dueDate);
                 dueDateValue = "";
