@@ -76,15 +76,17 @@ public class AddEstimate extends AppCompatActivity {
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
+        Spinner dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
+
         String[] termsArray = getResources().getStringArray(R.array.due_terms);
         List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
 
-        AtomicReference<ArrayAdapter<String>> dueTermsSpinnerAdapter = new AtomicReference<>(new ArrayAdapter<>(
+        ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, termsList
-        ));
-        dueTermsSpinnerAdapter.get().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dueTermsSpinner.setAdapter((SpinnerAdapter) dueTermsSpinnerAdapter);
+        );
+
+        dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
 
         Button selectCustomer = findViewById(R.id.selectCustomerButton_add_estimate);
         addEstimate = findViewById(R.id.addButton_add_estimate);
@@ -493,7 +495,7 @@ public class AddEstimate extends AppCompatActivity {
             else{
                 String dueTerm = daysBetween + " days";
                 dueDateTextView.setText(dueDateValue);
-                int position = dueTermsSpinnerAdapter.get().getPosition(dueTerm);
+                int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
 
                 if (position >= 0) {
                     // ✅ Value exists in the spinner list
@@ -503,9 +505,11 @@ public class AddEstimate extends AppCompatActivity {
                         termsList.remove(21);
                     }
                     termsList.add(dueTerm);
-                    dueTermsSpinnerAdapter.set(new ArrayAdapter<>(
+                    ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
                             this, android.R.layout.simple_spinner_item, termsList
-                    ));
+                    );
+                    dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
                     dueTermsSpinner.setSelection(termsList.size() - 1);
                 }
             }
