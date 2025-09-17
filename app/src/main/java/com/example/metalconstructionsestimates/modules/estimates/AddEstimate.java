@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AddEstimate extends AppCompatActivity {
     Integer customerId;
@@ -78,11 +80,11 @@ public class AddEstimate extends AppCompatActivity {
         String[] termsArray = getResources().getStringArray(R.array.due_terms);
         List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
 
-        ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
+        AtomicReference<ArrayAdapter<String>> dueTermsSpinnerAdapter = new AtomicReference<>(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, termsList
-        );
-        dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
+        ));
+        dueTermsSpinnerAdapter.get().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dueTermsSpinner.setAdapter((SpinnerAdapter) dueTermsSpinnerAdapter);
 
         Button selectCustomer = findViewById(R.id.selectCustomerButton_add_estimate);
         addEstimate = findViewById(R.id.addButton_add_estimate);
@@ -491,23 +493,20 @@ public class AddEstimate extends AppCompatActivity {
             else{
                 String dueTerm = daysBetween + " days";
                 dueDateTextView.setText(dueDateValue);
-                int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
+                int position = dueTermsSpinnerAdapter.get().getPosition(dueTerm);
 
                 if (position >= 0) {
                     // ✅ Value exists in the spinner list
                     dueTermsSpinner.setSelection(position);
                 } else {
-                    // ❌ Value not found → add it dynamically
-                    dueTermsSpinnerAdapter.add(dueTerm);
-                    dueTermsSpinnerAdapter.notifyDataSetChanged();
-
-                    // Select the newly added value
-                    int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
-                    dueTermsSpinner.setSelection(newPosition);
-                    dueTermsSpinner.post(() -> {
-                        dueTermsSpinnerAdapter.remove(dueTerm);
-                        dueTermsSpinnerAdapter.notifyDataSetChanged();
-                    });
+                    if(termsList.size() > 21){
+                        termsList.remove(21);
+                    }
+                    termsList.add(dueTerm);
+                    dueTermsSpinnerAdapter.set(new ArrayAdapter<>(
+                            this, android.R.layout.simple_spinner_item, termsList
+                    ));
+                    dueTermsSpinner.setSelection(termsList.size() - 1);
                 }
             }
         };
