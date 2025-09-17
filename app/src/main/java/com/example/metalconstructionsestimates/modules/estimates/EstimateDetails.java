@@ -91,13 +91,15 @@ public class EstimateDetails extends AppCompatActivity {
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
-        Spinner dueTermsSpinner = (Spinner) findViewById(R.id.dueTermsSpinner);
+        Spinner dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
+
         String[] termsArray = getResources().getStringArray(R.array.due_terms);
         List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
 
         ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, termsList
         );
+
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
 
@@ -919,17 +921,16 @@ public class EstimateDetails extends AppCompatActivity {
                     // ✅ Value exists in the spinner list
                     dueTermsSpinner.setSelection(position);
                 } else {
-                    // ❌ Value not found → add it dynamically
-                    dueTermsSpinnerAdapter.add(dueTerm);
-                    dueTermsSpinnerAdapter.notifyDataSetChanged();
-
-                    // Select the newly added value
-                    int newPosition = dueTermsSpinnerAdapter.getPosition(estimate.getDueTerms());
-                    dueTermsSpinner.setSelection(newPosition);
-                    dueTermsSpinner.post(() -> {
-                        dueTermsSpinnerAdapter.remove(dueTerm);
-                        dueTermsSpinnerAdapter.notifyDataSetChanged();
-                    });
+                    if(termsList.size() > 21){
+                        termsList.remove(21);
+                    }
+                    termsList.add(dueTerm);
+                    ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
+                            this, android.R.layout.simple_spinner_item, termsList
+                    );
+                    dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
+                    dueTermsSpinner.setSelection(termsList.size() - 1);
                 }
             }
         };
