@@ -403,7 +403,7 @@ public class AddEstimate extends AppCompatActivity {
             expirationDateValue = year + "-" + month + "-" + day;
             expirationDateTextView.setText(expirationDateValue);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             Date expirationDate = null;
             try {
@@ -436,7 +436,7 @@ public class AddEstimate extends AppCompatActivity {
             month = month + 1;
             issueDateValue = year + "-" + month + "-" + day;
             issueDateTextView.setText(issueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             Date issueDate;
 
@@ -511,7 +511,7 @@ public class AddEstimate extends AppCompatActivity {
             dueDateValue = year + "-" + month + "-" + day;
             estimate.setDueDate(dueDateValue);
             dueDateTextView.setText(dueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date dueDate = null, issueDate = null;
             try {
                 dueDate = sdf.parse(dueDateValue);
