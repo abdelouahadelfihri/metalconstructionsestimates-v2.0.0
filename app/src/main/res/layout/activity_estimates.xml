@@ -64,7 +64,7 @@
                 android:id="@+id/buttonAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All"
+                android:text="@string/allEstimatesButton"
                 android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
@@ -73,7 +73,7 @@
                 android:id="@+id/buttonPending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pending"
+                android:text="@string/pendingEstimatesButton"
                 android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
@@ -82,7 +82,7 @@
                 android:id="@+id/buttonApproved"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Approved"
+                android:text="@string/approvedEstimatesButton"
                 android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
@@ -91,7 +91,7 @@
                 android:id="@+id/buttonOverdue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Overdue"
+                android:text="@string/overdueEstimatesButton"
                 android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
@@ -100,7 +100,7 @@
                 android:id="@+id/buttonCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
+                android:text="@string/cancelledEstimatesButton"
                 android:background="@drawable/rounded_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_marginEnd="8dp"/>
