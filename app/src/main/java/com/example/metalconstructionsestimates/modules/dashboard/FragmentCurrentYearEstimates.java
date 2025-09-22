@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.arraysadapters.EstimatesListAdapter;
+import com.example.metalconstructionsestimates.recyclerviewadapters.EstimatesListAdapter;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentYearEstimatesBinding;
 import com.example.metalconstructionsestimates.models.Estimate;

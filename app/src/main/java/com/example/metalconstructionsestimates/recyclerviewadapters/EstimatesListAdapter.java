@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.arraysadapters;
+package com.example.metalconstructionsestimates.recyclerviewadapters;
 
 import android.content.Context;
 import android.content.Intent;

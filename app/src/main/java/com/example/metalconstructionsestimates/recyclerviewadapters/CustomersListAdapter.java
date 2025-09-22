@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.arraysadapters;
+package com.example.metalconstructionsestimates.recyclerviewadapters;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.customers.CustomerDetails;
-import com.example.metalconstructionsestimates.modules.steels.SteelDetails;
+
 import java.util.ArrayList;
 
 public class CustomersListAdapter extends RecyclerView.Adapter<CustomersListAdapter.ViewHolder> {

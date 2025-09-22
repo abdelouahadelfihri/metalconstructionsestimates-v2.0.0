@@ -1,7 +1,6 @@
 package com.example.metalconstructionsestimates.modules.steels;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,16 +12,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.arraysadapters.SteelsListAdapter;
+import com.example.metalconstructionsestimates.recyclerviewadapters.SteelsListAdapter;
 import com.example.metalconstructionsestimates.databinding.ActivitySteelsBinding;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Steel;

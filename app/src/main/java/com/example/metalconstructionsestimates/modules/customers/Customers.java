@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.arraysadapters.CustomersListAdapter;
+import com.example.metalconstructionsestimates.recyclerviewadapters.CustomersListAdapter;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
