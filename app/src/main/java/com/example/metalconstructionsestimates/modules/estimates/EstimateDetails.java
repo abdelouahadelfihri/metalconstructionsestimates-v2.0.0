@@ -343,7 +343,7 @@ public class EstimateDetails extends AppCompatActivity {
                     dueDateTextView.setText(issueDateTextView.getText());
                 }
                 else if(dueTerms.equals("Next day")){
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                     Date date = null;
                     // Parse the input date
                     try {
@@ -364,7 +364,7 @@ public class EstimateDetails extends AppCompatActivity {
                 }
                 else{
                     dueTerms = dueTerms.replace(" days", "");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
                     Date date = null;
                     // Parse the input date
@@ -822,7 +822,7 @@ public class EstimateDetails extends AppCompatActivity {
             month = month + 1;
             expirationDateValue = year + "-" + month + "-" + day;
             expirationDateTextView.setText(expirationDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
             Date expirationDate = null;
 
@@ -855,7 +855,7 @@ public class EstimateDetails extends AppCompatActivity {
             month = month + 1;
             issueDateValue = year + "-" + month + "-" + day;
             issueDateTextView.setText(issueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
             Date issueDate = null;
 
@@ -891,6 +891,8 @@ public class EstimateDetails extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
 
+            assert dueDate != null;
+            assert issueDate != null;
             long diffInMillis = dueDate.getTime() - issueDate.getTime();
 
             long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
@@ -934,7 +936,7 @@ public class EstimateDetails extends AppCompatActivity {
             dueDateValue = year + "-" + month + "-" + day;
             estimate.setDueDate(dueDateValue);
             dueDateTextView.setText(dueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date dueDate = null, issueDate = null;
             try {
                 dueDate = sdf.parse(dueDateValue);
@@ -942,6 +944,8 @@ public class EstimateDetails extends AppCompatActivity {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
+            assert dueDate != null;
+            assert issueDate != null;
             long diffInMillis = dueDate.getTime() - issueDate.getTime();
             long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
