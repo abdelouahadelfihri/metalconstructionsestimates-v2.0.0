@@ -80,7 +80,7 @@ public class CustomerDetails extends AppCompatActivity {
 
         updateCustomer.setOnClickListener(view -> {
             AlertDialog.Builder alertUpdate = new AlertDialog.Builder(CustomerDetails.this);
-            alertUpdate.setTitle("Update Confirmation");
+            alertUpdate.setTitle("Confirm Update");
             alertUpdate.setMessage("Do you really want to update customer ?");
             alertUpdate.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete

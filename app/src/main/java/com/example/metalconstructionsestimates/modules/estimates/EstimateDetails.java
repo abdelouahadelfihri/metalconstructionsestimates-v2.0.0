@@ -432,7 +432,7 @@ public class EstimateDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertUpdate = new AlertDialog.Builder(EstimateDetails.this);
-                alertUpdate.setTitle("Update Confirmation");
+                alertUpdate.setTitle("Confirm Update");
                 alertUpdate.setMessage("Do you really want to update the estimate ?");
                 alertUpdate.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
