@@ -80,8 +80,8 @@ public class AddSteel extends AppCompatActivity {
                     emptyFields.show();
                 } else {
                     AlertDialog.Builder alertAdd = new AlertDialog.Builder(AddSteel.this);
-                    alertAdd.setTitle("Confirmation d'ajout");
-                    alertAdd.setMessage("Voulez-vous vraiment ajouter l\'acier?");
+                    alertAdd.setTitle("Add Confirmation");
+                    alertAdd.setMessage("Do you really want to add the steel ?");
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
