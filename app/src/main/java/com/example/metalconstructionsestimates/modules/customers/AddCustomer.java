@@ -71,7 +71,7 @@ public class AddCustomer extends AppCompatActivity {
                     emptyFields.show();
                 } else {
                     AlertDialog.Builder alertAdd = new AlertDialog.Builder(AddCustomer.this);
-                    alertAdd.setTitle("Add Confirmation");
+                    alertAdd.setTitle("Confirm Add");
                     alertAdd.setMessage("Do you really want to add the new customer ?");
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
