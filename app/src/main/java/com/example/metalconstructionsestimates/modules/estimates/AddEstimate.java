@@ -464,44 +464,46 @@ public class AddEstimate extends AppCompatActivity {
             }
 
             Date dueDate = null;
-            try {
-                dueDate = sdf.parse(dueDateValue);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-            long diffInMillis = dueDate.getTime() - issueDate.getTime();
-            long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
+            if(!dueDateValue.isEmpty()){
+                try {
+                    dueDate = sdf.parse(dueDateValue);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                long diffInMillis = dueDate.getTime() - issueDate.getTime();
+                long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
-            if(daysBetween < 0){
-                Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
-                dueDateTextView.setText(R.string.dueDate);
-                dueDateValue = "";
-            }
-            else if(daysBetween == 0){
-                dueTermsSpinner.setSelection(1);
-            }
-            else if(daysBetween == 1){
-                dueTermsSpinner.setSelection(2);
-            }
-            else{
-                String dueTerm = daysBetween + " days";
-                dueDateTextView.setText(dueDateValue);
-                int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
+                if(daysBetween < 0){
+                    Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
+                    dueDateTextView.setText(R.string.dueDate);
+                    dueDateValue = "";
+                }
+                else if(daysBetween == 0){
+                    dueTermsSpinner.setSelection(1);
+                }
+                else if(daysBetween == 1){
+                    dueTermsSpinner.setSelection(2);
+                }
+                else{
+                    String dueTerm = daysBetween + " days";
+                    dueDateTextView.setText(dueDateValue);
+                    int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
 
-                if (position >= 0) {
-                    // ✅ Value exists in the spinner list
-                    dueTermsSpinner.setSelection(position);
-                } else {
-                    if(termsList.size() > 21){
-                        termsList.remove(21);
+                    if (position >= 0) {
+                        // ✅ Value exists in the spinner list
+                        dueTermsSpinner.setSelection(position);
+                    } else {
+                        if(termsList.size() > 21){
+                            termsList.remove(21);
+                        }
+                        termsList.add(dueTerm);
+                        ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
+                                this, android.R.layout.simple_spinner_item, termsList
+                        );
+                        dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
+                        dueTermsSpinner.setSelection(termsList.size() - 1);
                     }
-                    termsList.add(dueTerm);
-                    ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
-                            this, android.R.layout.simple_spinner_item, termsList
-                    );
-                    dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
-                    dueTermsSpinner.setSelection(termsList.size() - 1);
                 }
             }
         };
