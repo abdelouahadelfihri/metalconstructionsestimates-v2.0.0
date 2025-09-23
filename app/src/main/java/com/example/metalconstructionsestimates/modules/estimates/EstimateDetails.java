@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EstimateDetails extends AppCompatActivity {
 
     Integer estimateId;
-    Integer customerId;
+    Integer customerId = null;
     boolean customerExists = true;
 
     String formattedTotalExcludingTax;

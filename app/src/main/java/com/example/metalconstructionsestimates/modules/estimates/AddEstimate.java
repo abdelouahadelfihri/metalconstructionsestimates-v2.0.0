@@ -254,6 +254,7 @@ public class AddEstimate extends AppCompatActivity {
                                             estimate.setCustomer(customer);
                                             customerExists = true;
                                         } else {
+                                            estimate.setCustomer(null);
                                             customerExists = false;
                                         }
                                     }
@@ -264,7 +265,6 @@ public class AddEstimate extends AppCompatActivity {
                                 Toast customerNotExistingToast = Toast.makeText(getApplicationContext(), "Le client saisi ne corresponds à aucun client dans la base de données", Toast.LENGTH_LONG);
                                 customerNotExistingToast.show();
                                 customerExists = true;
-                                return;
                             }
 
                             if (!issueDateValue.isEmpty()) {
