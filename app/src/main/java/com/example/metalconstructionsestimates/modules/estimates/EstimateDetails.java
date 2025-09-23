@@ -357,7 +357,7 @@ public class EstimateDetails extends AppCompatActivity {
                     if (date != null) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(date);
-                        calendar.add(Calendar.DAY_OF_MONTH, Integer.parseInt(dueTerms));
+                        calendar.add(Calendar.DAY_OF_MONTH, 1);
                         dueDateTextView.setText(sdf.format(calendar.getTime()));
                     }
 
