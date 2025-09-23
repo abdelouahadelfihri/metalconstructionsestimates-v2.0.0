@@ -360,7 +360,6 @@ public class EstimateDetails extends AppCompatActivity {
                         calendar.add(Calendar.DAY_OF_MONTH, 1);
                         dueDateTextView.setText(sdf.format(calendar.getTime()));
                     }
-
                 }
                 else{
                     dueTerms = dueTerms.replace(" days", "");
