@@ -202,7 +202,7 @@ public class AddEstimate extends AppCompatActivity {
                         String customerIdExtraResult;
                         customerIdExtraResult = Objects.requireNonNull(Objects.requireNonNull(data).getExtras()).getString("customerIdExtraResult");
                         assert customerIdExtraResult != null;
-                        customerId = Integer.parseInt(customerIdExtraResult);
+                            customerId = Integer.parseInt(customerIdExtraResult);
                         TextInputEditText customerIdTextInputEditText = findViewById(R.id.customerEditText_add_estimate);
                         String customerName = dbAdapter.getCustomerById(customerId).getName();
                         customerIdTextInputEditText.setText(customerName);

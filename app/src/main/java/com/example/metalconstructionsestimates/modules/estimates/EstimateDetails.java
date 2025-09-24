@@ -166,15 +166,19 @@ public class EstimateDetails extends AppCompatActivity {
 
         if(estimate.getIssueDate().isEmpty()){
             issueDateTextView.setText(R.string.issueDate);
+            issueDateValue = "";
         }
         else{
+            issueDateValue = estimate.getIssueDate();
             issueDateTextView.setText(estimate.getIssueDate());
         }
 
         if (estimate.getDueDate().isEmpty()) {
             dueDateTextView.setText(R.string.dueDate);
+            dueDateValue = "";
         }
         else{
+            dueDateValue = estimate.getDueDate();
             dueDateTextView.setText(estimate.getDueDate());
         }
 
