@@ -680,6 +680,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     "quantityPlusMargin FLOAT,unitPrice FLOAT,totalPrice FLOAT," +
                     "FOREIGN KEY (steel) REFERENCES steel(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (estimate) REFERENCES estimate(id) ON DELETE CASCADE)");
+            db.execSQL("CREATE TABLE estimateline(id INTEGER PRIMARY KEY AUTOINCREMENT,estimate INTEGER, steel INTEGER," +
+                    "weight float,length float,width float,height float,quantity INTEGER,total Float,margin INTEGER," +
+                    "quantityPlusMargin FLOAT,unitPrice FLOAT,totalPrice FLOAT," +
+                    "FOREIGN KEY (steel) REFERENCES steel(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (estimate) REFERENCES estimate(id) ON DELETE CASCADE)");
         }
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
