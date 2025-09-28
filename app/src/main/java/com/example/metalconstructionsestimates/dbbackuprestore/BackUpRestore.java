@@ -33,6 +33,7 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.gms.common.api.ApiException;
 import com.google.api.services.drive.Drive;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -181,15 +182,48 @@ public class BackUpRestore extends GoogleDriveActivity {
         activityResultPickFileLauncher.launch(intent);
     }
 
-    public void restoreDatabase(Uri fileUri){
+    public void restoreDatabase(Uri fileUri) {
 
-    String destinationFilePath = getDatabasePath("intermediateestimatesdb").getAbsolutePath();
+        String destinationFilePath = getDatabasePath("intermediateestimatesdb").getAbsolutePath();
 
-    DocumentFile sourceFile = DocumentFile.fromSingleUri(getApplicationContext(), fileUri);
+        DocumentFile sourceFile = DocumentFile.fromSingleUri(getApplicationContext(), fileUri);
 
+
+        try {
+            // Read the database content into a byte array
+            assert sourceFile != null;
+            InputStream fis = getApplicationContext().getContentResolver().openInputStream(sourceFile.getUri());
+            assert fis != null;
+
+            // Use a ByteArrayOutputStream to collect data
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024]; // Use a fixed-size buffer
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            fis.close();
+
+            // Write the content to the new file
+            FileOutputStream fos = new FileOutputStream(destinationFilePath);
+            fos.write(baos.toByteArray());
+            fos.close();
+
+            updateActualDbFromIntermediateDb();
+            runOnUiThread(() -> Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Database error occurred", e);
+            runOnUiThread(() -> Toast.makeText(this, "Error restoring database", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+
+    /*
     try {
         // Read the database content into a byte array
+        assert sourceFile != null;
         InputStream fis = getApplicationContext().getContentResolver().openInputStream(sourceFile.getUri());
+        assert fis != null;
         byte[] buffer = new byte[fis.available()];
         fis.read(buffer);
         fis.close();
@@ -200,11 +234,14 @@ public class BackUpRestore extends GoogleDriveActivity {
         fos.close();
         updateActualDbFromIntermediateDb();
         runOnUiThread(() -> Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show());
-        } catch (IOException e) {
+    }
+    catch (IOException e) {
         Log.e(LOG_TAG, "Database error occurred", e);
         runOnUiThread(() -> Toast.makeText(this, "Error restoring database", Toast.LENGTH_SHORT).show());
         }
     }
+
+     */
 
     private void pickDirectory() {
 
