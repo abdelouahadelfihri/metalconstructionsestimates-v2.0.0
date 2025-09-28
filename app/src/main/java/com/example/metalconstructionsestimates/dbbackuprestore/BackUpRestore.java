@@ -255,13 +255,41 @@ public class BackUpRestore extends GoogleDriveActivity {
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent intent = result.getData();
+                    assert intent != null;
                     Uri uri = intent.getData();
+                    assert uri != null;
                     DocumentFile documentFile = DocumentFile.fromTreeUri(getApplicationContext(), uri);
+                    assert documentFile != null;
                     DocumentFile estimatesdb_backup = documentFile.createFile(null,"estimatesdb_backup" + System.currentTimeMillis());
 
                     DBHelper dbHelper = new DBHelper(getApplicationContext());
                     SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+                    try {
+                        // Read the database content into a byte array
+                        FileInputStream fis = new FileInputStream(db.getPath());
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        byte[] buffer = new byte[1024]; // Use a fixed-size buffer
+                        int bytesRead;
+                        while ((bytesRead = fis.read(buffer)) != -1) {
+                            baos.write(buffer, 0, bytesRead);
+                        }
+                        fis.close();
+
+                        // Write the content to the new file
+                        OutputStream os = getApplicationContext().getContentResolver().openOutputStream(estimatesdb_backup.getUri());
+                        assert os != null;
+                        os.write(baos.toByteArray());
+                        os.close();
+                        Toast.makeText(this, "Database backup completed successfully", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Log.e(LOG_TAG, "Database error occurred", e);
+                    } finally {
+                        db.close();
+                    }
+
+
+                    /*
                     try {
                         // Read the database content into a byte array
                         FileInputStream fis = new FileInputStream(db.getPath());
@@ -271,6 +299,7 @@ public class BackUpRestore extends GoogleDriveActivity {
 
                         // Write the content to the new file
                         OutputStream os = getApplicationContext().getContentResolver().openOutputStream(estimatesdb_backup.getUri());
+                        assert os != null;
                         os.write(buffer);
                         os.close();
                         Toast.makeText(this, "Database backup completed successfully", Toast.LENGTH_SHORT).show();
@@ -278,7 +307,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         Log.e(LOG_TAG, "Database error occurred", e);
                     } finally {
                         db.close();
-                    }
+                    }*/
                 }
             }
     );
