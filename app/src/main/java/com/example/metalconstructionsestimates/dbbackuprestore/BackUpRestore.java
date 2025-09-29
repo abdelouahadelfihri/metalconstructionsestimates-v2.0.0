@@ -278,6 +278,7 @@ public class BackUpRestore extends GoogleDriveActivity {
 
                         // Write the content to the new file
                         OutputStream os = getApplicationContext().getContentResolver().openOutputStream(estimatesdb_backup.getUri());
+                        assert os != null;
                         os.write(baos.toByteArray());
                         os.close();
                         Toast.makeText(this, "Database backup completed successfully", Toast.LENGTH_SHORT).show();
