@@ -263,9 +263,8 @@ public class BackUpRestore extends GoogleDriveActivity {
                     DocumentFile estimatesdb_backup = documentFile.createFile(null,"estimatesdb_backup" + System.currentTimeMillis());
 
                     DBHelper dbHelper = new DBHelper(getApplicationContext());
-                    SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-                    try {
+                    try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
                         // Read the database content into a byte array
                         FileInputStream fis = new FileInputStream(db.getPath());
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -284,8 +283,6 @@ public class BackUpRestore extends GoogleDriveActivity {
                         Toast.makeText(this, "Database backup completed successfully", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Log.e(LOG_TAG, "Database error occurred", e);
-                    } finally {
-                        db.close();
                     }
 
 
