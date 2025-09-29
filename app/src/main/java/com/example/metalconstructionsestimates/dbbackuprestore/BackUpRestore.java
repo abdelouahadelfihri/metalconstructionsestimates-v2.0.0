@@ -108,7 +108,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                 task.run();
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error in task: " + loadingMessage, e);
-                handler.post(() -> showMessage("Error: " + e.getMessage()));
+                handler.post(() -> showToastMessage("Error: " + e.getMessage()));
             } finally {
                 handler.post(progressDialog::dismiss);
             }
@@ -117,22 +117,22 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     private void performGoogleDriveBackup() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showMessage("Google Drive sign-in failed"));
+            handler.post(() -> showToastMessage("Google Drive sign-in failed"));
             return;
         }
 
         File db = new File(DB_LOCATION);
         googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
-                .addOnSuccessListener(r -> handler.post(() -> showMessage("Backup to Google Drive successful")))
+                .addOnSuccessListener(r -> handler.post(() -> showToastMessage("Backup to Google Drive successful")))
                 .addOnFailureListener(e -> handler.post(() -> {
                     Log.e(LOG_TAG, "Error uploading file", e);
-                    showMessage("Error during backup");
+                    showToastMessage("Error during backup");
                 }));
     }
 
     private void performGoogleDriveRestore() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showMessage("Google Drive sign-in failed"));
+            handler.post(() -> showToastMessage("Google Drive sign-in failed"));
             return;
         }
 
@@ -145,11 +145,11 @@ public class BackUpRestore extends GoogleDriveActivity {
         googleDriveRepository.downloadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                 .addOnSuccessListener(r -> {
                     updateActualDbFromIntermediateDb();
-                    handler.post(() -> showMessage("Database restored from Google Drive"));
+                    handler.post(() -> showToastMessage("Database restored from Google Drive"));
                 })
                 .addOnFailureListener(e -> handler.post(() -> {
                     Log.e(LOG_TAG, "Error downloading file", e);
-                    showMessage("Error during restore");
+                    showToastMessage("Error during restore");
                 }));
     }
 
@@ -175,13 +175,13 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     @Override
     protected void onGoogleDriveSignedInSuccess(Drive driveApi) {
-        handler.post(() -> showMessage("Google Drive Client is ready"));
+        handler.post(() -> showToastMessage("Google Drive Client is ready"));
         googleDriveRepository = new GoogleDriveApiDataRepository(driveApi);
     }
 
     @Override
     protected void onGoogleDriveSignedInFailed(ApiException exception) {
-        handler.post(() -> showMessage("Google Drive sign-in failed"));
+        handler.post(() -> showToastMessage("Google Drive sign-in failed"));
         Log.e(LOG_TAG, "Error during Google Drive sign-in", exception);
     }
 
@@ -220,10 +220,10 @@ public class BackUpRestore extends GoogleDriveActivity {
             }
 
             updateActualDbFromIntermediateDb();
-            handler.post(() -> Toast.makeText(this, "Database restored successfully!", Toast.LENGTH_SHORT).show());
+            handler.post(() -> showToastMessage("Database restored successfully!"));
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error restoring database", e);
-            handler.post(() -> Toast.makeText(this, "Error restoring database: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            handler.post(() -> showToastMessage("Error restoring database: " + e.getMessage()));
         }
     }
 
@@ -238,19 +238,19 @@ public class BackUpRestore extends GoogleDriveActivity {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     Uri uri = result.getData().getData();
                     if (uri == null) {
-                        handler.post(() -> showMessage("Failed to select directory"));
+                        handler.post(() -> showToastMessage("Failed to select directory"));
                         return;
                     }
 
                     DocumentFile documentFile = DocumentFile.fromTreeUri(getApplicationContext(), uri);
                     if (documentFile == null) {
-                        handler.post(() -> showMessage("Invalid directory selected"));
+                        handler.post(() -> showToastMessage("Invalid directory selected"));
                         return;
                     }
 
                     DocumentFile backupFile = documentFile.createFile("application/octet-stream", "estimatesdb_backup_" + System.currentTimeMillis());
                     if (backupFile == null) {
-                        handler.post(() -> showMessage("Failed to create backup file"));
+                        handler.post(() -> showToastMessage("Failed to create backup file"));
                         return;
                     }
 
@@ -271,11 +271,11 @@ public class BackUpRestore extends GoogleDriveActivity {
                                     throw new IOException("Failed to open output stream");
                                 }
                                 os.write(baos.toByteArray());
-                                handler.post(() -> showMessage("Database backup completed successfully"));
+                                handler.post(() -> showToastMessage("Database backup completed successfully"));
                             }
                         } catch (IOException e) {
                             Log.e(LOG_TAG, "Error during backup", e);
-                            handler.post(() -> showMessage("Error during backup: " + e.getMessage()));
+                            handler.post(() -> showToastMessage("Error during backup: " + e.getMessage()));
                         }
                     });
                 }
@@ -338,12 +338,12 @@ public class BackUpRestore extends GoogleDriveActivity {
                 handler.post(() -> Log.d(LOG_TAG, "Database update completed successfully"));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
-                handler.post(() -> showMessage("Error updating database: " + e.getMessage()));
+                handler.post(() -> showToastMessage("Error updating database: " + e.getMessage()));
             }
         });
     }
 
-    private void showMessage(String message) {
+    private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
