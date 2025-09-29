@@ -276,6 +276,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         fis.close();
 
                         // Write the content to the new file
+                        assert estimatesdb_backup != null;
                         OutputStream os = getApplicationContext().getContentResolver().openOutputStream(estimatesdb_backup.getUri());
                         assert os != null;
                         os.write(baos.toByteArray());
