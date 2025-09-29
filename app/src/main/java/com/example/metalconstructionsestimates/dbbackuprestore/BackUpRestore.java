@@ -352,7 +352,7 @@ public class BackUpRestore extends GoogleDriveActivity {
         for (int i = 0; i < steelsListFromIntermediateDB.size(); i++) {
 
             Integer steelId = steelsListFromIntermediateDB.get(i).getId();
-
+            Log.d("steelId", steelId.toString());
             steel.setId(steelsListFromIntermediateDB.get(i).getId());
             steel.setType(steelsListFromIntermediateDB.get(i).getType());
             steel.setGeometricShape(steelsListFromIntermediateDB.get(i).getGeometricShape());
