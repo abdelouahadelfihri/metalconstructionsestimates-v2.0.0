@@ -2366,4 +2366,13 @@ public class DBAdapter {
             helper.close();
         }
     }
+
+    public void close() {
+        if (db != null && db.isOpen()) {
+            db.close();
+        }
+        if (helper != null) {
+            helper.close();
+        }
+    }
 }
