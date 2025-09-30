@@ -1065,4 +1065,13 @@ public class AddEstimateLine extends AppCompatActivity {
         // Start the target activity for result using the ActivityResultLauncher
         activityResultLauncher.launch(intent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
+    }
 }
