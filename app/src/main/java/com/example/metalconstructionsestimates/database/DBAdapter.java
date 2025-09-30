@@ -1515,9 +1515,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return customersList;
 
@@ -1538,9 +1536,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public Integer getCustomerIdByName(String customerName){
@@ -1556,9 +1552,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
         return customerId;
     }
     public Customer getCustomerById(Integer customerId){
@@ -1583,9 +1577,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
         return customer;
     }
 
@@ -1656,9 +1648,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
         return estimateLine;
     }
 
@@ -1683,9 +1673,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
         return steel;
     }
 
@@ -1709,9 +1697,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return steel;
 
@@ -1730,9 +1716,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void saveEstimate(Estimate estimate){
@@ -1756,9 +1740,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public Float getEstimateExcludingTaxTotal(Integer estimateId){
@@ -1803,9 +1785,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void setSeqCustomers(){
@@ -1816,9 +1796,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void setSeqEstimateLines(){
@@ -1829,9 +1807,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void setSeqSteels(){
@@ -1842,9 +1818,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void setSeqEstimates(){
@@ -1855,9 +1829,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void updateCustomer(Customer customer){
@@ -1875,9 +1847,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void updateEstimate(Estimate estimate){
@@ -1901,9 +1871,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void updateSteel(Steel steel){
@@ -1919,9 +1887,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void updateEstimateLine(EstimateLine estimateLine){
@@ -1945,9 +1911,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public ArrayList<Estimate> retrieveEstimates(){
@@ -2014,9 +1978,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return cursor.getCount();
     }
@@ -2061,9 +2023,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return estimatesList;
     }
@@ -2108,9 +2068,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return estimatesList;
     }
@@ -2207,9 +2165,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
         return estimatesList;
     }
@@ -2238,9 +2194,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
         return steelsList;
     }
 
@@ -2307,9 +2261,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void deleteCustomer(Integer customerId){
@@ -2320,9 +2272,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
 
     }
 
@@ -2335,9 +2285,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void deleteEstimate(Integer estimateId){
@@ -2348,9 +2296,7 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        finally{
-            helper.close();
-        }
+        
     }
 
     public void close() {
