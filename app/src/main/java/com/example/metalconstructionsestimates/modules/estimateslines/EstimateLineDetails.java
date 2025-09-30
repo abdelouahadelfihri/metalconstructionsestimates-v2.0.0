@@ -1248,4 +1248,12 @@ public class EstimateLineDetails extends AppCompatActivity {
         return total.add(total.multiply(margin).divide(new BigDecimal("100")));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
+    }
 }
