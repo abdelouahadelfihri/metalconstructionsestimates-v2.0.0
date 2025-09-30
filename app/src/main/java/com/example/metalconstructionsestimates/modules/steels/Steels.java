@@ -33,7 +33,7 @@ public class Steels extends AppCompatActivity {
     TextInputEditText steelsSearchEditText;
     FloatingActionButton addSteel, clearSearchSteelForm, reloadSteelsList;
     ActivitySteelsBinding activitySteelsBinding;
-
+    DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +42,7 @@ public class Steels extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        AtomicReference<DBAdapter> db = new AtomicReference<>(new DBAdapter(getApplicationContext()));
-        ArrayList<Steel> steelsList = db.get().retrieveSteels();
+        ArrayList<Steel> steelsList = dbAdapter.retrieveSteels();
         AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.steelsRecyclerView));
 
         if (steelsList.isEmpty()) {
@@ -97,8 +95,7 @@ public class Steels extends AppCompatActivity {
         reloadSteelsList.setOnClickListener(view -> {
 
             recyclerViewSteels.set(findViewById(R.id.steelsRecyclerView));
-            db.set(new DBAdapter(getApplicationContext()));
-            ArrayList<Steel> steels_list = db.get().retrieveSteels();
+            ArrayList<Steel> steels_list = dbAdapter.retrieveSteels();
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
                 recyclerViewSteels.get().setVisibility(View.GONE);
@@ -125,5 +122,14 @@ public class Steels extends AppCompatActivity {
             steelsSearchEditText.getText().clear();
 
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
     }
 }
