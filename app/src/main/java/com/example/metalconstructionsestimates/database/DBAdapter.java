@@ -1515,7 +1515,6 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
 
         return customersList;
 
@@ -1697,7 +1696,6 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
 
         return steel;
 
@@ -1978,7 +1976,6 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
 
         return cursor.getCount();
     }
@@ -2023,7 +2020,6 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
 
         return estimatesList;
     }
@@ -2068,7 +2064,6 @@ public class DBAdapter {
         catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
 
         return estimatesList;
     }
