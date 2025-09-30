@@ -31,6 +31,7 @@ public class Estimates extends AppCompatActivity {
     Button allEstimatesButton, pendingEstimatesButton, approvedEstimatesButton,
             overdueEstimatesButton, cancelledEstimatesButton;
     String selectedEstimateStatus;
+    DBAdapter dbAdapter;
 
     private ActivityEstimatesBinding activityEstimatesBinding;
     @Override
@@ -45,8 +46,8 @@ public class Estimates extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        DBAdapter db = new DBAdapter(getApplicationContext());
-        ArrayList<Estimate> estimatesList = db.retrieveEstimates();
+        dbAdapter = new DBAdapter(getApplicationContext());
+        ArrayList<Estimate> estimatesList = dbAdapter.retrieveEstimates();
 
         allEstimatesButton = findViewById(R.id.buttonAll);
 
@@ -549,5 +550,14 @@ public class Estimates extends AppCompatActivity {
         clearEstimateForm.setOnClickListener(view -> {
             estimatesSearchEditText.getText().clear();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
     }
 }
