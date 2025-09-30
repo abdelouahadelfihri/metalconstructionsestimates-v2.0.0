@@ -211,7 +211,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.TUESDAY:
@@ -231,7 +230,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.WEDNESDAY:
@@ -251,7 +249,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.THURSDAY:
@@ -271,7 +268,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.FRIDAY:
@@ -291,7 +287,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.SATURDAY:
@@ -311,7 +306,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.SUNDAY:
@@ -331,7 +325,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
         }
@@ -476,7 +469,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.TUESDAY:
@@ -494,7 +486,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.WEDNESDAY:
@@ -512,7 +503,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.THURSDAY:
@@ -530,7 +520,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
 
                 break;
@@ -549,7 +538,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.SATURDAY:
@@ -567,7 +555,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
             case Calendar.SUNDAY:
@@ -585,7 +572,6 @@ public class DBAdapter {
                     if (cursor != null) {
                         cursor.close();
                     }
-                    helper.close();
                 }
                 break;
         }
