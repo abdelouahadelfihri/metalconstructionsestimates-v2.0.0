@@ -29,6 +29,7 @@ public class Customers extends AppCompatActivity {
 
     private ActivityCustomersBinding binding;
 
+    DBAdapter dbAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,7 @@ public class Customers extends AppCompatActivity {
         setSupportActionBar(toolBar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Context c = getApplicationContext();
-        DBAdapter dbAdapter = new DBAdapter(c);
+        dbAdapter = new DBAdapter(c);
         ArrayList<Customer> listCustomers = dbAdapter.retrieveCustomers();
         TextView noCustomersTextView = findViewById(R.id.noCustomersTextView);
         CustomersListAdapter customersListAdapter = new CustomersListAdapter(this, listCustomers);
@@ -77,8 +78,8 @@ public class Customers extends AppCompatActivity {
                 String searchText = s.toString();
                 if(!searchText.isEmpty()){
                     binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(Customers.this.getApplicationContext()));
-                    DBAdapter db = new DBAdapter(getApplicationContext());
-                    ArrayList<Customer> customersSearchList = db.searchCustomers(searchText);
+                    dbAdapter = new DBAdapter(getApplicationContext());
+                    ArrayList<Customer> customersSearchList = dbAdapter.searchCustomers(searchText);
                     if (!customersSearchList.isEmpty()) {
                         CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersSearchList);
                         findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
@@ -120,5 +121,14 @@ public class Customers extends AppCompatActivity {
             customerSearchEditText = findViewById(R.id.searchEditText_customers);
             customerSearchEditText.getText().clear();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
     }
 }
