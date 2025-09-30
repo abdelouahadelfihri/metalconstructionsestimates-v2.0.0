@@ -173,4 +173,14 @@ public class AddSteel extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (adapter != null) {
+            adapter.close();
+        }
+    }
 }
