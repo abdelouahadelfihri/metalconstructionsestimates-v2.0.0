@@ -1014,4 +1014,13 @@ public class EstimateDetails extends AppCompatActivity {
         }
         return result;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
+    }
 }
