@@ -201,4 +201,14 @@ public class SteelDetails extends AppCompatActivity {
         finish();  // or use NavUtils.navigateUpFromSameTask(this);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Close DBAdapter to release database resources
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
+    }
+
 }
