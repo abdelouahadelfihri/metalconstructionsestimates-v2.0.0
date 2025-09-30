@@ -917,8 +917,6 @@ public class DBAdapter {
 
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
 
         return customersList;
@@ -995,8 +993,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
 
         return steelsList;
@@ -1090,8 +1086,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
         return estimatesList;
     }
@@ -1186,8 +1180,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
 
         return estimatesList;
@@ -1283,8 +1275,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
 
         return estimatesList;
@@ -1381,8 +1371,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
         return estimatesList;
     }
@@ -1479,8 +1467,6 @@ public class DBAdapter {
             cursor.close();
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
-        } finally {
-            helper.close();
         }
         return estimatesList;
     }
