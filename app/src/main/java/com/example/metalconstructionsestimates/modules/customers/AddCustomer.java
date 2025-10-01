@@ -25,7 +25,7 @@ public class AddCustomer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
-        adapter = new DBAdapter(getApplicationContext());
+        dbAdapter = new DBAdapter(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -119,7 +119,7 @@ public class AddCustomer extends AppCompatActivity {
                                 customer.setAddress(customerAddressTextInputEditText.getText().toString());
                             }
 
-                            adapter.saveCustomer(customer);
+                            dbAdapter.saveCustomer(customer);
                             Toast addsuccess = Toast.makeText(getApplicationContext(), "Customer has been successfully added", Toast.LENGTH_LONG);
                             addsuccess.show();
                             intent = new Intent(AddCustomer.this, Customers.class);
@@ -143,8 +143,8 @@ public class AddCustomer extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources
-        if (adapter != null) {
-            adapter.close();
+        if (dbAdapter != null) {
+            dbAdapter.close();
         }
     }
 }
