@@ -23,11 +23,13 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
     public FragmentCurrentDayEstimates() {}
 
+    DBAdapter dbAdapter;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCurrentDayEstimatesBinding.inflate(inflater, container, false);
 
-        DBAdapter dbAdapter = new DBAdapter(requireContext());
+        dbAdapter = new DBAdapter(requireContext());
 
         // Set Count
         int count = dbAdapter.getCurrentDayEstimatesCount();
