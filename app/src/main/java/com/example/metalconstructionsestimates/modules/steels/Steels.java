@@ -33,11 +33,12 @@ public class Steels extends AppCompatActivity {
     TextInputEditText steelsSearchEditText;
     FloatingActionButton addSteel, clearSearchSteelForm, reloadSteelsList;
     ActivitySteelsBinding activitySteelsBinding;
-    DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+    DBAdapter dbAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activitySteelsBinding = ActivitySteelsBinding.inflate(getLayoutInflater());
+        dbAdapter = new DBAdapter(getApplicationContext());
         setContentView(activitySteelsBinding.getRoot());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
