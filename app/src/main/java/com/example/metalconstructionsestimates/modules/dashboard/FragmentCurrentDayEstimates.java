@@ -63,5 +63,8 @@ public class FragmentCurrentDayEstimates extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
     }
 }
