@@ -54,4 +54,13 @@ public class FragmentCurrentMonthEstimates extends Fragment {
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+        if (dbAdapter != null) {
+            dbAdapter.close();
+        }
+    }
 }
