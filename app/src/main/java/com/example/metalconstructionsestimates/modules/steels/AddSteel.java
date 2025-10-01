@@ -35,7 +35,7 @@ public class AddSteel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_steel);
-        adapter = new DBAdapter(getApplicationContext());
+        dbAdapter = new DBAdapter(getApplicationContext());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -115,7 +115,7 @@ public class AddSteel extends AppCompatActivity {
                                 steel.setUnit(steelUnitSpinner.getSelectedItem().toString());
                             }
 
-                            adapter.saveSteel(steel);
+                            dbAdapter.saveSteel(steel);
                             Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
                             intent = new Intent(AddSteel.this, Steels.class);
@@ -179,8 +179,8 @@ public class AddSteel extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources
-        if (adapter != null) {
-            adapter.close();
+        if (dbAdapter != null) {
+            dbAdapter.close();
         }
     }
 
