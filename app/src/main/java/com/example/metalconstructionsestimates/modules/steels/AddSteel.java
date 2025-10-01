@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class AddSteel extends AppCompatActivity {
     Steel steel;
-    DBAdapter adapter;
+    DBAdapter dbAdapter;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

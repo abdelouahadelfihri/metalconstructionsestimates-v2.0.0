@@ -19,7 +19,7 @@ import com.example.metalconstructionsestimates.models.Customer;
 
 public class AddCustomer extends AppCompatActivity {
     Customer customer;
-    DBAdapter adapter;
+    DBAdapter dbAdapter;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

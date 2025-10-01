@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class CustomerDetails extends AppCompatActivity {
     Customer customer;
-    DBAdapter adapter;
+    DBAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
