@@ -22,13 +22,15 @@ public class FragmentCurrentYearEstimates extends Fragment {
 
     public FragmentCurrentYearEstimates() {}
 
+    DBAdapter dbAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCurrentYearEstimatesBinding.inflate(inflater, container, false);
 
         if (getContext() == null) return binding.getRoot();
 
-        DBAdapter dbAdapter = new DBAdapter(getContext());
+        dbAdapter = new DBAdapter(getContext());
 
         int count = dbAdapter.getCurrentYearEstimatesCount();
         binding.tvEstimateCountValue.setText(String.valueOf(count));
