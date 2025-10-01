@@ -31,8 +31,8 @@ public class CustomerDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String customerIdExtra = getIntent().getStringExtra("customerIdExtra");
         Integer customerId = Integer.parseInt(customerIdExtra);
-        adapter = new DBAdapter(getApplicationContext());
-        customer = adapter.getCustomerById(customerId);
+        dbAdapter = new DBAdapter(getApplicationContext());
+        customer = dbAdapter.getCustomerById(customerId);
 
         AtomicReference<TextInputEditText> customerIdTextInputEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText_customer_details));
         TextInputEditText customerNameTextInputEditText = findViewById(R.id.nameEditText_customer_details);
@@ -62,11 +62,11 @@ public class CustomerDetails extends AppCompatActivity {
                 // continue with delete
                 customer = new Customer();
                 customerIdTextInputEditText.set(findViewById(R.id.customerIdEditText_customer_details));
-                adapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
+                dbAdapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
                 Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
                 deletesuccess.show();
-                if(adapter.retrieveCustomers().isEmpty()){
-                    adapter.setSeqCustomers();
+                if(dbAdapter.retrieveCustomers().isEmpty()){
+                    dbAdapter.setSeqCustomers();
                 }
             });
             alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -128,7 +128,7 @@ public class CustomerDetails extends AppCompatActivity {
                     customer.setAddress("");
                 }
 
-                adapter.updateCustomer(customer);
+                dbAdapter.updateCustomer(customer);
                 Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Modification du client a été effectué avec succés", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
             });
@@ -152,8 +152,8 @@ public class CustomerDetails extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources
-        if (adapter != null) {
-            adapter.close();
+        if (dbAdapter != null) {
+            dbAdapter.close();
         }
     }
 }
