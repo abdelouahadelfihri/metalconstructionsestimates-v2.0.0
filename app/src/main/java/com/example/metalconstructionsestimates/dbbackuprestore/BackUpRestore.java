@@ -121,8 +121,6 @@ public class BackUpRestore extends GoogleDriveActivity {
             return;
         }
 
-        Toast.makeText(this, "Please wait, backup in progress...", Toast.LENGTH_LONG).show();
-
         File db = new File(DB_LOCATION);
         googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                 .addOnSuccessListener(r -> handler.post(() -> showToastMessage("Backup to Google Drive successful")))
