@@ -142,8 +142,6 @@ public class BackUpRestore extends GoogleDriveActivity {
             db.delete();
         }
 
-        Toast.makeText(this, "Please wait, restore in progress...", Toast.LENGTH_LONG).show();
-
         googleDriveRepository.downloadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                 .addOnSuccessListener(r -> {
                     updateActualDbFromIntermediateDb();
