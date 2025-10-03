@@ -2280,6 +2280,26 @@ public class DBAdapter {
         
     }
 
+    public void clearSteelsTable() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete("steels", null, null);
+    }
+
+    public void clearCustomersTable() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete("customer", null, null);
+    }
+
+    public void clearEstimatesTable() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete("estimate", null, null);
+    }
+
+    public void clearEstimatesLinesTable() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete("estimateline", null, null);
+    }
+
     public void close() {
         if (db != null && db.isOpen()) {
             db.close();
