@@ -694,7 +694,7 @@ public class DBHelper extends SQLiteOpenHelper {
         customer.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         customer.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
         customer.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
-        customer.setTel(cursor.getString(cursor.getColumnIndexOrThrow("tel")));
+        customer.setTelephone(cursor.getString(cursor.getColumnIndexOrThrow("tel")));
         customer.setMobile(cursor.getString(cursor.getColumnIndexOrThrow("mobile")));
         customer.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
         customer.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
