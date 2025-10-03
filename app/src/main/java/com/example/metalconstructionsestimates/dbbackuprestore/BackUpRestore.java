@@ -333,6 +333,12 @@ public class BackUpRestore extends GoogleDriveActivity {
     private void updateActualDbFromIntermediateDb() {
         executorService.execute(() -> {
             try {
+
+                dbAdapter.clearEstimatesLinesTable();
+                dbAdapter.clearEstimatesTable();
+                dbAdapter.clearCustomersTable();
+                dbAdapter.clearSteelsTable();
+
                 // Retrieve data from intermediate database
                 ArrayList<Steel> steelsListFromIntermediateDB = intermediateDBAdapter.retrieveSteels();
                 for (Steel steel : steelsListFromIntermediateDB) {
