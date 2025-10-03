@@ -333,55 +333,90 @@ public class BackUpRestore extends GoogleDriveActivity {
     private void updateActualDbFromIntermediateDb() {
         executorService.execute(() -> {
             try {
+                // === 1. Merge STEELS ===
+                ArrayList<Steel> steelsFromBackup = intermediateDBAdapter.retrieveSteels();
+                for (Steel backupSteel : steelsFromBackup) {
+                    // Try to find an existing steel by (type, geometricShape, unit, weight)
+                    Steel existingSteel = dbAdapter.findSteelByContent(
+                            backupSteel.getType(),
+                            backupSteel.getGeometricShape(),
+                            backupSteel.getUnit(),
+                            backupSteel.getWeight()
+                    );
 
-                dbAdapter.clearEstimatesLinesTable();
-                dbAdapter.clearEstimatesTable();
-                dbAdapter.clearCustomersTable();
-                dbAdapter.clearSteelsTable();
-
-                // Retrieve data from intermediate database
-                ArrayList<Steel> steelsListFromIntermediateDB = intermediateDBAdapter.retrieveSteels();
-                for (Steel steel : steelsListFromIntermediateDB) {
-                    if (dbAdapter.getSteelById(steel.getId()) == null) {
-                        dbAdapter.saveSteel(steel);
+                    if (existingSteel == null) {
+                        dbAdapter.saveSteel(backupSteel);
                     } else {
-                        dbAdapter.updateSteel(steel);
+                        backupSteel.setId(existingSteel.getId());
+                        dbAdapter.updateSteel(backupSteel);
                     }
                 }
 
-                ArrayList<Customer> customersListFromIntermediateDB = intermediateDBAdapter.retrieveCustomers();
-                for (Customer customer : customersListFromIntermediateDB) {
-                    if (dbAdapter.getCustomerById(customer.getId()) == null) {
-                        dbAdapter.saveCustomer(customer);
+                // === 2. Merge CUSTOMERS ===
+                ArrayList<Customer> customersFromBackup = intermediateDBAdapter.retrieveCustomers();
+                for (Customer backupCustomer : customersFromBackup) {
+                    // Use name+email+tel as a "composite unique key"
+                    Customer existingCustomer = dbAdapter.findCustomerByContent(
+                            backupCustomer.getName(),
+                            backupCustomer.getEmail(),
+                            backupCustomer.getTel()
+                    );
+
+                    if (existingCustomer == null) {
+                        dbAdapter.saveCustomer(backupCustomer);
                     } else {
-                        dbAdapter.updateCustomer(customer);
+                        backupCustomer.setId(existingCustomer.getId());
+                        dbAdapter.updateCustomer(backupCustomer);
                     }
                 }
 
-                ArrayList<Estimate> estimatesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimates();
-                for (Estimate estimate : estimatesListFromIntermediateDB) {
-                    if (dbAdapter.getEstimateById(estimate.getId()) == null) {
-                        dbAdapter.saveEstimate(estimate);
-                    } else {
-                        dbAdapter.updateEstimate(estimate);
-                    }
+                // === 3. Merge ESTIMATES ===
+                ArrayList<Estimate> estimatesFromBackup = intermediateDBAdapter.retrieveEstimates();
+                for (Estimate backupEstimate : estimatesFromBackup) {
+                    // There's no natural unique key here. Let's match on (issueDate, customer, total amounts)
+                    Estimate existingEstimate = dbAdapter.findEstimateByContent(
+                            backupEstimate.getIssueDate(),
+                            backupEstimate.getCustomer(),
+                            backupEstimate.getAllTaxIncludedTotal()
+                    );
 
-                    ArrayList<EstimateLine> estimateLinesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimatesLines();
-                    for (EstimateLine estimateLine : estimateLinesListFromIntermediateDB) {
-                        if (dbAdapter.getEstimateLineById(estimateLine.getId()) == null) {
-                            dbAdapter.saveEstimateLine(estimateLine);
-                        } else {
-                            dbAdapter.updateEstimateLine(estimateLine);
-                        }
+                    if (existingEstimate == null) {
+                        dbAdapter.saveEstimate(backupEstimate);
+                    } else {
+                        backupEstimate.setId(existingEstimate.getId());
+                        dbAdapter.updateEstimate(backupEstimate);
                     }
                 }
-                handler.post(() -> Log.d(LOG_TAG, "Database update completed successfully"));
+
+                // === 4. Merge ESTIMATE LINES ===
+                ArrayList<EstimateLine> estimateLinesFromBackup = intermediateDBAdapter.retrieveEstimatesLines();
+                for (EstimateLine backupLine : estimateLinesFromBackup) {
+                    // Match based on (estimate, steel, length, width, height, quantity)
+                    EstimateLine existingLine = dbAdapter.findEstimateLineByContent(
+                            backupLine.getEstimate(),
+                            backupLine.getSteel(),
+                            backupLine.getLength(),
+                            backupLine.getWidth(),
+                            backupLine.getHeight(),
+                            backupLine.getQuantity()
+                    );
+
+                    if (existingLine == null) {
+                        dbAdapter.saveEstimateLine(backupLine);
+                    } else {
+                        backupLine.setId(existingLine.getId());
+                        dbAdapter.updateEstimateLine(backupLine);
+                    }
+                }
+
+                handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
                 handler.post(() -> showToastMessage("Error updating database: " + e.getMessage()));
             }
         });
     }
+
 
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

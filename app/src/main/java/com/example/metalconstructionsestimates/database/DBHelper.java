@@ -1,10 +1,13 @@
 package com.example.metalconstructionsestimates.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.metalconstructionsestimates.models.Customer;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -685,6 +688,19 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.e(TAG, "Database error occurred", e);
         }
     }
+
+    private Customer buildCustomerFromCursor(Cursor cursor) {
+        Customer customer = new Customer();
+        customer.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+        customer.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+        customer.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
+        customer.setTel(cursor.getString(cursor.getColumnIndexOrThrow("tel")));
+        customer.setMobile(cursor.getString(cursor.getColumnIndexOrThrow("mobile")));
+        customer.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
+        customer.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+        return customer;
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

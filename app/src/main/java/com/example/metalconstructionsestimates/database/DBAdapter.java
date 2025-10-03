@@ -2280,25 +2280,36 @@ public class DBAdapter {
         
     }
 
-    public void clearSteelsTable() {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("steel", null, null);
+    public Steel findSteelByContent(String type, String geometricShape, String unit, float weight) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query("steel",
+                null,
+                "type=? AND geometricShape=? AND unit=? AND weight=?",
+                new String[]{type, geometricShape, unit, String.valueOf(weight)},
+                null, null, null);
+        Steel steel = null;
+        if (c.moveToFirst()) {
+            steel = buildSteelFromCursor(c);
+        }
+        c.close();
+        return steel;
     }
 
-    public void clearCustomersTable() {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("customer", null, null);
+    public Customer findCustomerByContent(String name, String email, String tel) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.query("customer",
+                null,
+                "name=? AND email=? AND tel=?",
+                new String[]{name, email, tel},
+                null, null, null);
+        Customer customer = null;
+        if (c.moveToFirst()) {
+            customer = buildCustomerFromCursor(c);
+        }
+        c.close();
+        return customer;
     }
 
-    public void clearEstimatesTable() {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("estimate", null, null);
-    }
-
-    public void clearEstimatesLinesTable() {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("estimateline", null, null);
-    }
 
     public void close() {
         if (db != null && db.isOpen()) {
