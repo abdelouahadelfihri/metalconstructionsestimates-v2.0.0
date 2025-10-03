@@ -445,12 +445,12 @@ public class EstimateLineDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextInputEditText estimateLineIdEditText = findViewById(R.id.et_estimate_line_id);
-                DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
-                adapter.deleteEstimateLine(Integer.parseInt(estimateLineIdEditText.getText().toString()));
+                dbAdapter = new DBAdapter(getApplicationContext());
+                dbAdapter.deleteEstimateLine(Integer.parseInt(estimateLineIdEditText.getText().toString()));
                 Toast deleteResult = Toast.makeText(getApplicationContext(), "The estimate line has been successfully deleted.", Toast.LENGTH_LONG);
                 deleteResult.show();
-                if(adapter.retrieveEstimatesLinesCount() == 0){
-                    adapter.setSeqEstimateLines();
+                if(dbAdapter.retrieveEstimatesLinesCount() == 0){
+                    dbAdapter.setSeqEstimateLines();
                 }
                 String estimateId = estimateLine.getEstimate().toString();
                 Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
