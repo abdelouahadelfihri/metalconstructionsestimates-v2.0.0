@@ -121,13 +121,33 @@ public class BackUpRestore extends GoogleDriveActivity {
             return;
         }
 
-        File db = new File(DB_LOCATION);
-        googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
-                .addOnSuccessListener(r -> handler.post(() -> showToastMessage("Backup to Google Drive successful")))
-                .addOnFailureListener(e -> handler.post(() -> {
-                    Log.e(LOG_TAG, "Error uploading file", e);
-                    showToastMessage("Error during backup");
-                }));
+        executorService.execute(() -> {
+            try {
+                DBHelper dbHelper = new DBHelper(getApplicationContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                // Create a temporary consistent backup using VACUUM INTO
+                File tempDb = new File(getCacheDir(), "temp_db.db");
+                if (tempDb.exists()) {
+                    tempDb.delete();
+                }
+                db.execSQL("VACUUM INTO '" + tempDb.getAbsolutePath().replace("'", "''") + "'");
+
+                // Upload the temp file
+                googleDriveRepository.uploadFile(tempDb, GOOGLE_DRIVE_DB_LOCATION)
+                        .addOnSuccessListener(r -> handler.post(() -> showToastMessage("Backup to Google Drive successful")))
+                        .addOnFailureListener(e -> handler.post(() -> {
+                            Log.e(LOG_TAG, "Error uploading file", e);
+                            showToastMessage("Error during backup");
+                        }));
+
+                // Clean up temp file
+                tempDb.delete();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error during Google Drive backup", e);
+                handler.post(() -> showToastMessage("Error: " + e.getMessage()));
+            }
+        });
     }
 
     private void performGoogleDriveRestore() {
@@ -255,25 +275,39 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
 
                     executorService.execute(() -> {
-                        try (DBHelper dbHelper = new DBHelper(getApplicationContext());
-                             SQLiteDatabase db = dbHelper.getReadableDatabase();
-                             FileInputStream fis = new FileInputStream(db.getPath())) {
+                        try {
+                            DBHelper dbHelper = new DBHelper(getApplicationContext());
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            byte[] buffer = new byte[1024];
-                            int bytesRead;
-                            while ((bytesRead = fis.read(buffer)) != -1) {
-                                baos.write(buffer, 0, bytesRead);
+                            // Create a temporary consistent backup using VACUUM INTO
+                            String tempBackupPath = getCacheDir() + "/temp_backup.db";
+                            File tempFile = new File(tempBackupPath);
+                            if (tempFile.exists()) {
+                                tempFile.delete();
                             }
+                            db.execSQL("VACUUM INTO '" + tempBackupPath.replace("'", "''") + "'");  // Escape single quotes in path if needed
 
-                            try (OutputStream os = getApplicationContext().getContentResolver().openOutputStream(backupFile.getUri())) {
-                                if (os == null) {
-                                    throw new IOException("Failed to open output stream");
+                            // Read from the temp file
+                            try (FileInputStream fis = new FileInputStream(tempBackupPath)) {
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                byte[] buffer = new byte[1024];
+                                int bytesRead;
+                                while ((bytesRead = fis.read(buffer)) != -1) {
+                                    baos.write(buffer, 0, bytesRead);
                                 }
-                                os.write(baos.toByteArray());
-                                handler.post(() -> showToastMessage("Database backup completed successfully"));
+
+                                try (OutputStream os = getApplicationContext().getContentResolver().openOutputStream(backupFile.getUri())) {
+                                    if (os == null) {
+                                        throw new IOException("Failed to open output stream");
+                                    }
+                                    os.write(baos.toByteArray());
+                                    handler.post(() -> showToastMessage("Database backup completed successfully"));
+                                }
                             }
-                        } catch (IOException e) {
+
+                            // Clean up temp file
+                            new File(tempBackupPath).delete();
+                        } catch (Exception e) {
                             Log.e(LOG_TAG, "Error during backup", e);
                             handler.post(() -> showToastMessage("Error during backup: " + e.getMessage()));
                         }
