@@ -2282,7 +2282,7 @@ public class DBAdapter {
 
     public void clearSteelsTable() {
         SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("steels", null, null);
+        db.delete("steel", null, null);
     }
 
     public void clearCustomersTable() {
