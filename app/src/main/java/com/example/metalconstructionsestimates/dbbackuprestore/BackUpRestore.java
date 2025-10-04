@@ -359,7 +359,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                     Customer existingCustomer = dbAdapter.findCustomerByContent(
                             backupCustomer.getName(),
                             backupCustomer.getEmail(),
-                            backupCustomer.getTel()
+                            backupCustomer.getTelephone()
                     );
 
                     if (existingCustomer == null) {
@@ -375,9 +375,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                 for (Estimate backupEstimate : estimatesFromBackup) {
                     // There's no natural unique key here. Let's match on (issueDate, customer, total amounts)
                     Estimate existingEstimate = dbAdapter.findEstimateByContent(
-                            backupEstimate.getIssueDate(),
-                            backupEstimate.getCustomer(),
-                            backupEstimate.getAllTaxIncludedTotal()
+                            backupEstimate
                     );
 
                     if (existingEstimate == null) {
@@ -393,12 +391,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                 for (EstimateLine backupLine : estimateLinesFromBackup) {
                     // Match based on (estimate, steel, length, width, height, quantity)
                     EstimateLine existingLine = dbAdapter.findEstimateLineByContent(
-                            backupLine.getEstimate(),
-                            backupLine.getSteel(),
-                            backupLine.getLength(),
-                            backupLine.getWidth(),
-                            backupLine.getHeight(),
-                            backupLine.getQuantity()
+                            backupLine
                     );
 
                     if (existingLine == null) {
