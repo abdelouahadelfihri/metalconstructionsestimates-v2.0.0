@@ -2281,7 +2281,7 @@ public class DBAdapter {
     }
 
     public Steel findSteelByContent(String type, String geometricShape, String unit, float weight) {
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor c = db.query("steel",
                 null,
                 "type=? AND geometricShape=? AND unit=? AND weight=?",
@@ -2309,6 +2309,49 @@ public class DBAdapter {
         c.close();
         return customer;
     }
+
+    public Estimate findEstimateByContent(Estimate estimate) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM estimate WHERE doneIn = ? AND issueDate = ? AND customer = ? AND excludingTaxTotal = ?";
+        String[] args = new String[]{
+                estimate.getDoneIn(),
+                estimate.getIssueDate(),
+                String.valueOf(estimate.getCustomerId()),
+                String.valueOf(estimate.getExcludingTaxTotal())
+        };
+
+        Cursor cursor = db.rawQuery(sql, args);
+        Estimate result = null;
+        if (cursor.moveToFirst()) {
+            result = buildEstimateFromCursor(cursor);
+        }
+        cursor.close();
+        return result;
+    }
+
+    public EstimateLine findEstimateLineByContent(EstimateLine line) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM estimateline WHERE estimate = ? AND steel = ? AND weight = ? AND length = ? AND width = ? AND height = ? AND quantity = ?";
+        String[] args = new String[]{
+                String.valueOf(line.getEstimateId()),
+                String.valueOf(line.getSteelId()),
+                String.valueOf(line.getWeight()),
+                String.valueOf(line.getLength()),
+                String.valueOf(line.getWidth()),
+                String.valueOf(line.getHeight()),
+                String.valueOf(line.getQuantity())
+        };
+
+        Cursor cursor = db.rawQuery(sql, args);
+        EstimateLine result = null;
+        if (cursor.moveToFirst()) {
+            result = buildEstimateLineFromCursor(cursor);
+        }
+        cursor.close();
+        return result;
+    }
+
+
 
 
     public void close() {
