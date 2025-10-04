@@ -696,7 +696,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    private Customer buildCustomerFromCursor(Cursor cursor) {
+    public Customer buildCustomerFromCursor(Cursor cursor) {
         Customer customer = new Customer();
         customer.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         customer.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
@@ -708,7 +708,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return customer;
     }
 
-    private Steel buildSteelFromCursor(Cursor cursor) {
+    public Steel buildSteelFromCursor(Cursor cursor) {
         Steel steel = new Steel();
         steel.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         steel.setType(cursor.getString(cursor.getColumnIndexOrThrow("type")));
@@ -718,7 +718,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return steel;
     }
 
-    private Estimate buildEstimateFromCursor(Cursor cursor) {
+    public Estimate buildEstimateFromCursor(Cursor cursor) {
         Estimate estimate = new Estimate();
         estimate.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         estimate.setDoneIn(cursor.getString(cursor.getColumnIndexOrThrow("doneIn")));
@@ -736,7 +736,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return estimate;
     }
 
-    private EstimateLine buildEstimateLineFromCursor(Cursor cursor) {
+    public EstimateLine buildEstimateLineFromCursor(Cursor cursor) {
         EstimateLine line = new EstimateLine();
         line.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         line.setEstimate(cursor.getInt(cursor.getColumnIndexOrThrow("estimate")));

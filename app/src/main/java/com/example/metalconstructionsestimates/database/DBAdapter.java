@@ -2289,7 +2289,7 @@ public class DBAdapter {
                 null, null, null);
         Steel steel = null;
         if (c.moveToFirst()) {
-            steel = buildSteelFromCursor(c);
+            steel = helper.buildSteelFromCursor(c);
         }
         c.close();
         return steel;
@@ -2345,7 +2345,7 @@ public class DBAdapter {
         Cursor cursor = db.rawQuery(sql, args);
         EstimateLine result = null;
         if (cursor.moveToFirst()) {
-            result = buildEstimateLineFromCursor(cursor);
+            result = helper.buildEstimateLineFromCursor(cursor);
         }
         cursor.close();
         return result;
