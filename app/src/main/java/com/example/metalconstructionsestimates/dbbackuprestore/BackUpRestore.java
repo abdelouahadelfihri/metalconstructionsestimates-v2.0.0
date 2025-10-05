@@ -324,7 +324,6 @@ public class BackUpRestore extends GoogleDriveActivity {
                 }
                 cursor.close();
 
-
                 // === 2. Merge CUSTOMERS ===
                 Cursor customersCursor = intermediateHelper.getAllCustomers();
                 while (cursor.moveToNext()) {
@@ -341,7 +340,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateCustomer(backupCustomer);
                     }
                 }
-                cursor.close();
+                customersCursor.close();
 
 
                 // === 3. Merge ESTIMATES ===
