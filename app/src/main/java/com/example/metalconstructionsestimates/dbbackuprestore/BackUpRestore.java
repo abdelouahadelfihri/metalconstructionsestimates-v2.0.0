@@ -108,7 +108,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                 task.run();
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error in task: " + loadingMessage, e);
-                handler.post(() -> showToastMessage("Error: " + e.getMessage()));
+                handler.post(() -> showMessage("Error: " + e.getMessage()));
             } finally {
                 handler.post(progressDialog::dismiss);
             }
@@ -117,42 +117,22 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     private void performGoogleDriveBackup() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showToastMessage("Google Drive sign-in failed"));
+            handler.post(() -> showMessage("Google Drive sign-in failed"));
             return;
         }
 
-        executorService.execute(() -> {
-            try {
-                DBHelper dbHelper = new DBHelper(getApplicationContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-                // Create a temporary consistent backup using VACUUM INTO
-                File tempDb = new File(getCacheDir(), "temp_db.db");
-                if (tempDb.exists()) {
-                    tempDb.delete();
-                }
-                db.execSQL("VACUUM INTO '" + tempDb.getAbsolutePath().replace("'", "''") + "'");
-
-                // Upload the temp file
-                googleDriveRepository.uploadFile(tempDb, GOOGLE_DRIVE_DB_LOCATION)
-                        .addOnSuccessListener(r -> handler.post(() -> showToastMessage("Backup to Google Drive successful")))
-                        .addOnFailureListener(e -> handler.post(() -> {
-                            Log.e(LOG_TAG, "Error uploading file", e);
-                            showToastMessage("Error during backup");
-                        }));
-
-                // Clean up temp file
-                tempDb.delete();
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Error during Google Drive backup", e);
-                handler.post(() -> showToastMessage("Error: " + e.getMessage()));
-            }
-        });
+        File db = new File(DB_LOCATION);
+        googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
+                .addOnSuccessListener(r -> handler.post(() -> showMessage("Backup to Google Drive successful")))
+                .addOnFailureListener(e -> handler.post(() -> {
+                    Log.e(LOG_TAG, "Error uploading file", e);
+                    showMessage("Error during backup");
+                }));
     }
 
     private void performGoogleDriveRestore() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showToastMessage("Google Drive sign-in failed"));
+            handler.post(() -> showMessage("Google Drive sign-in failed"));
             return;
         }
 
@@ -165,11 +145,11 @@ public class BackUpRestore extends GoogleDriveActivity {
         googleDriveRepository.downloadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                 .addOnSuccessListener(r -> {
                     updateActualDbFromIntermediateDb();
-                    handler.post(() -> showToastMessage("Database restored from Google Drive"));
+                    handler.post(() -> showMessage("Database restored from Google Drive"));
                 })
                 .addOnFailureListener(e -> handler.post(() -> {
                     Log.e(LOG_TAG, "Error downloading file", e);
-                    showToastMessage("Error during restore");
+                    showMessage("Error during restore");
                 }));
     }
 
@@ -195,13 +175,13 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     @Override
     protected void onGoogleDriveSignedInSuccess(Drive driveApi) {
-        handler.post(() -> showToastMessage("Google Drive Client is ready"));
+        handler.post(() -> showMessage("Google Drive Client is ready"));
         googleDriveRepository = new GoogleDriveApiDataRepository(driveApi);
     }
 
     @Override
     protected void onGoogleDriveSignedInFailed(ApiException exception) {
-        handler.post(() -> showToastMessage("Google Drive sign-in failed"));
+        handler.post(() -> showMessage("Google Drive sign-in failed"));
         Log.e(LOG_TAG, "Error during Google Drive sign-in", exception);
     }
 
@@ -240,10 +220,10 @@ public class BackUpRestore extends GoogleDriveActivity {
             }
 
             updateActualDbFromIntermediateDb();
-            handler.post(() -> showToastMessage("Database restored successfully!"));
+            handler.post(() -> showMessage("Database restored successfully!"));
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error restoring database", e);
-            handler.post(() -> showToastMessage("Error restoring database: " + e.getMessage()));
+            handler.post(() -> showMessage("Error restoring database: " + e.getMessage()));
         }
     }
 
@@ -258,58 +238,44 @@ public class BackUpRestore extends GoogleDriveActivity {
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     Uri uri = result.getData().getData();
                     if (uri == null) {
-                        handler.post(() -> showToastMessage("Failed to select directory"));
+                        handler.post(() -> showMessage("Failed to select directory"));
                         return;
                     }
 
                     DocumentFile documentFile = DocumentFile.fromTreeUri(getApplicationContext(), uri);
                     if (documentFile == null) {
-                        handler.post(() -> showToastMessage("Invalid directory selected"));
+                        handler.post(() -> showMessage("Invalid directory selected"));
                         return;
                     }
 
                     DocumentFile backupFile = documentFile.createFile("application/octet-stream", "estimatesdb_backup_" + System.currentTimeMillis());
                     if (backupFile == null) {
-                        handler.post(() -> showToastMessage("Failed to create backup file"));
+                        handler.post(() -> showMessage("Failed to create backup file"));
                         return;
                     }
 
                     executorService.execute(() -> {
-                        try {
-                            DBHelper dbHelper = new DBHelper(getApplicationContext());
-                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        try (DBHelper dbHelper = new DBHelper(getApplicationContext());
+                             SQLiteDatabase db = dbHelper.getReadableDatabase();
+                             FileInputStream fis = new FileInputStream(db.getPath())) {
 
-                            // Create a temporary consistent backup using VACUUM INTO
-                            String tempBackupPath = getCacheDir() + "/temp_backup.db";
-                            File tempFile = new File(tempBackupPath);
-                            if (tempFile.exists()) {
-                                tempFile.delete();
-                            }
-                            db.execSQL("VACUUM INTO '" + tempBackupPath.replace("'", "''") + "'");  // Escape single quotes in path if needed
-
-                            // Read from the temp file
-                            try (FileInputStream fis = new FileInputStream(tempBackupPath)) {
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                byte[] buffer = new byte[1024];
-                                int bytesRead;
-                                while ((bytesRead = fis.read(buffer)) != -1) {
-                                    baos.write(buffer, 0, bytesRead);
-                                }
-
-                                try (OutputStream os = getApplicationContext().getContentResolver().openOutputStream(backupFile.getUri())) {
-                                    if (os == null) {
-                                        throw new IOException("Failed to open output stream");
-                                    }
-                                    os.write(baos.toByteArray());
-                                    handler.post(() -> showToastMessage("Database backup completed successfully"));
-                                }
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            byte[] buffer = new byte[1024];
+                            int bytesRead;
+                            while ((bytesRead = fis.read(buffer)) != -1) {
+                                baos.write(buffer, 0, bytesRead);
                             }
 
-                            // Clean up temp file
-                            new File(tempBackupPath).delete();
-                        } catch (Exception e) {
+                            try (OutputStream os = getContentResolver().openOutputStream(backupFile.getUri())) {
+                                if (os == null) {
+                                    throw new IOException("Failed to open output stream");
+                                }
+                                os.write(baos.toByteArray());
+                                handler.post(() -> showMessage("Database backup completed successfully"));
+                            }
+                        } catch (IOException e) {
                             Log.e(LOG_TAG, "Error during backup", e);
-                            handler.post(() -> showToastMessage("Error during backup: " + e.getMessage()));
+                            handler.post(() -> showMessage("Error during backup: " + e.getMessage()));
                         }
                     });
                 }
@@ -331,85 +297,49 @@ public class BackUpRestore extends GoogleDriveActivity {
     }
 
     private void updateActualDbFromIntermediateDb() {
-        executorService.execute(() -> {
-            try {
-                // === 1. Merge STEELS ===
-                ArrayList<Steel> steelsFromBackup = intermediateDBAdapter.retrieveSteels();
-                for (Steel backupSteel : steelsFromBackup) {
-                    // Try to find an existing steel by (type, geometricShape, unit, weight)
-                    Steel existingSteel = dbAdapter.findSteelByContent(
-                            backupSteel.getType(),
-                            backupSteel.getGeometricShape(),
-                            backupSteel.getUnit(),
-                            backupSteel.getWeight()
-                    );
-
-                    if (existingSteel == null) {
-                        dbAdapter.saveSteel(backupSteel);
-                    } else {
-                        backupSteel.setId(existingSteel.getId());
-                        dbAdapter.updateSteel(backupSteel);
-                    }
+        try {
+            // Retrieve data from intermediate database
+            ArrayList<Steel> steelsListFromIntermediateDB = intermediateDBAdapter.retrieveSteels();
+            for (Steel steel : steelsListFromIntermediateDB) {
+                if (dbAdapter.getSteelById(steel.getId()) == null) {
+                    dbAdapter.saveSteel(steel);
+                } else {
+                    dbAdapter.updateSteel(steel);
                 }
-
-                // === 2. Merge CUSTOMERS ===
-                ArrayList<Customer> customersFromBackup = intermediateDBAdapter.retrieveCustomers();
-                for (Customer backupCustomer : customersFromBackup) {
-                    // Use name+email+tel as a "composite unique key"
-                    Customer existingCustomer = dbAdapter.findCustomerByContent(
-                            backupCustomer.getName(),
-                            backupCustomer.getEmail(),
-                            backupCustomer.getTelephone()
-                    );
-
-                    if (existingCustomer == null) {
-                        dbAdapter.saveCustomer(backupCustomer);
-                    } else {
-                        backupCustomer.setId(existingCustomer.getId());
-                        dbAdapter.updateCustomer(backupCustomer);
-                    }
-                }
-
-                // === 3. Merge ESTIMATES ===
-                ArrayList<Estimate> estimatesFromBackup = intermediateDBAdapter.retrieveEstimates();
-                for (Estimate backupEstimate : estimatesFromBackup) {
-                    // There's no natural unique key here. Let's match on (issueDate, customer, total amounts)
-                    Estimate existingEstimate = dbAdapter.findEstimateByContent(
-                            backupEstimate
-                    );
-
-                    if (existingEstimate == null) {
-                        dbAdapter.saveEstimate(backupEstimate);
-                    } else {
-                        backupEstimate.setId(existingEstimate.getId());
-                        dbAdapter.updateEstimate(backupEstimate);
-                    }
-                }
-
-                // === 4. Merge ESTIMATE LINES ===
-                ArrayList<EstimateLine> estimateLinesFromBackup = intermediateDBAdapter.retrieveEstimatesLines();
-                for (EstimateLine backupLine : estimateLinesFromBackup) {
-                    // Match based on (estimate, steel, length, width, height, quantity)
-                    EstimateLine existingLine = dbAdapter.findEstimateLineByContent(
-                            backupLine
-                    );
-
-                    if (existingLine == null) {
-                        dbAdapter.saveEstimateLine(backupLine);
-                    } else {
-                        backupLine.setId(existingLine.getId());
-                        dbAdapter.updateEstimateLine(backupLine);
-                    }
-                }
-
-                handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
-                handler.post(() -> showToastMessage("Error updating database: " + e.getMessage()));
             }
-        });
-    }
 
+            ArrayList<Customer> customersListFromIntermediateDB = intermediateDBAdapter.retrieveCustomers();
+            for (Customer customer : customersListFromIntermediateDB) {
+                if (dbAdapter.getCustomerById(customer.getId()) == null) {
+                    dbAdapter.saveCustomer(customer);
+                } else {
+                    dbAdapter.updateCustomer(customer);
+                }
+            }
+
+            ArrayList<Estimate> estimatesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimates();
+            for (Estimate estimate : estimatesListFromIntermediateDB) {
+                if (dbAdapter.getEstimateById(estimate.getId()) == null) {
+                    dbAdapter.saveEstimate(estimate);
+                } else {
+                    dbAdapter.updateEstimate(estimate);
+                }
+
+                ArrayList<EstimateLine> estimateLinesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimatesLines();
+                for (EstimateLine estimateLine : estimateLinesListFromIntermediateDB) {
+                    if (dbAdapter.getEstimateLineById(estimateLine.getId()) == null) {
+                        dbAdapter.saveEstimateLine(estimateLine);
+                    } else {
+                        dbAdapter.updateEstimateLine(estimateLine);
+                    }
+                }
+            }
+            Log.d(LOG_TAG, "Database update completed successfully");
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
+            showMessage("Error updating database: " + e.getMessage());
+        }
+    }
 
     private void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
