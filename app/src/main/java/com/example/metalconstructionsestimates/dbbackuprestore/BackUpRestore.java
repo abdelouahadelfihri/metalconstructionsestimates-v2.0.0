@@ -2,6 +2,7 @@ package com.example.metalconstructionsestimates.dbbackuprestore;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.database.DBHelper;
 import com.example.metalconstructionsestimates.database.IntermediateDBAdapter;
+import com.example.metalconstructionsestimates.database.IntermediateDBHelper;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveActivity;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveApiDataRepository;
 import com.example.metalconstructionsestimates.models.Customer;
@@ -55,6 +57,7 @@ public class BackUpRestore extends GoogleDriveActivity {
     private Handler handler;
     private DBAdapter dbAdapter;
     private IntermediateDBAdapter intermediateDBAdapter;
+    private IntermediateDBHelper intermediateHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,41 +302,82 @@ public class BackUpRestore extends GoogleDriveActivity {
     private void updateActualDbFromIntermediateDb() {
         try {
             // Retrieve data from intermediate database
-            ArrayList<Steel> steelsListFromIntermediateDB = intermediateDBAdapter.retrieveSteels();
-            for (Steel steel : steelsListFromIntermediateDB) {
-                if (dbAdapter.getSteelById(steel.getId()) == null) {
-                    dbAdapter.saveSteel(steel);
+            Cursor backupCursor = intermediateHelper.getAllCustomers();
+            while (backupCursor.moveToNext()) {
+                Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(backupCursor);
+
+                // 1️⃣ Try to find a match in the actual DB using some unique identifier
+                Customer existingCustomer = dbAdapter.findCustomerByContent(backupCustomer);
+
+                if (existingCustomer == null) {
+                    // 2️⃣ No match → insert
+                    dbAdapter.saveCustomer(backupCustomer);
                 } else {
-                    dbAdapter.updateSteel(steel);
+                    // 3️⃣ Match found → update existing record with the backup data
+                    backupCustomer.setId(existingCustomer.getId()); // keep same ID
+                    dbAdapter.updateCustomer(backupCustomer);
                 }
             }
+            backupCursor.close();
 
-            ArrayList<Customer> customersListFromIntermediateDB = intermediateDBAdapter.retrieveCustomers();
-            for (Customer customer : customersListFromIntermediateDB) {
-                if (dbAdapter.getCustomerById(customer.getId()) == null) {
-                    dbAdapter.saveCustomer(customer);
+            Cursor backupCursor = intermediateHelper.getAllCustomers();
+            while (backupCursor.moveToNext()) {
+                Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(backupCursor);
+
+                // 1️⃣ Try to find a match in the actual DB using some unique identifier
+                Customer existingCustomer = dbAdapter.findCustomerByContent(backupCustomer);
+
+                if (existingCustomer == null) {
+                    // 2️⃣ No match → insert
+                    dbAdapter.saveCustomer(backupCustomer);
                 } else {
-                    dbAdapter.updateCustomer(customer);
+                    // 3️⃣ Match found → update existing record with the backup data
+                    backupCustomer.setId(existingCustomer.getId()); // keep same ID
+                    dbAdapter.updateCustomer(backupCustomer);
                 }
             }
+            backupCursor.close();
 
-            ArrayList<Estimate> estimatesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimates();
-            for (Estimate estimate : estimatesListFromIntermediateDB) {
-                if (dbAdapter.getEstimateById(estimate.getId()) == null) {
-                    dbAdapter.saveEstimate(estimate);
+
+            Cursor backupCursor = intermediateHelper.getAllCustomers();
+            while (backupCursor.moveToNext()) {
+                Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(backupCursor);
+
+                // 1️⃣ Try to find a match in the actual DB using some unique identifier
+                Customer existingCustomer = dbAdapter.findCustomerByContent(backupCustomer);
+
+                if (existingCustomer == null) {
+                    // 2️⃣ No match → insert
+                    dbAdapter.saveCustomer(backupCustomer);
                 } else {
-                    dbAdapter.updateEstimate(estimate);
-                }
-
-                ArrayList<EstimateLine> estimateLinesListFromIntermediateDB = intermediateDBAdapter.retrieveEstimatesLines();
-                for (EstimateLine estimateLine : estimateLinesListFromIntermediateDB) {
-                    if (dbAdapter.getEstimateLineById(estimateLine.getId()) == null) {
-                        dbAdapter.saveEstimateLine(estimateLine);
-                    } else {
-                        dbAdapter.updateEstimateLine(estimateLine);
-                    }
+                    // 3️⃣ Match found → update existing record with the backup data
+                    backupCustomer.setId(existingCustomer.getId()); // keep same ID
+                    dbAdapter.updateCustomer(backupCustomer);
                 }
             }
+            backupCursor.close();
+
+
+            Cursor backupCursor = intermediateHelper.getAllCustomers();
+            while (backupCursor.moveToNext()) {
+                Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(backupCursor);
+
+                // 1️⃣ Try to find a match in the actual DB using some unique identifier
+                Customer existingCustomer = dbAdapter.findCustomerByContent(backupCustomer);
+
+                if (existingCustomer == null) {
+                    // 2️⃣ No match → insert
+                    dbAdapter.saveCustomer(backupCustomer);
+                } else {
+                    // 3️⃣ Match found → update existing record with the backup data
+                    backupCustomer.setId(existingCustomer.getId()); // keep same ID
+                    dbAdapter.updateCustomer(backupCustomer);
+                }
+            }
+            backupCursor.close();
+
+
+
             Log.d(LOG_TAG, "Database update completed successfully");
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
