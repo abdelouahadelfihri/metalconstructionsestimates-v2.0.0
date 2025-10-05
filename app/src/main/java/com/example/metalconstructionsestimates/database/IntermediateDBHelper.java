@@ -102,4 +102,24 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
         line.setTotalPrice(cursor.getFloat(cursor.getColumnIndexOrThrow("totalPrice")));
         return line;
     }
+
+    public Cursor getAllCustomers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM customer", null);
+    }
+
+    public Cursor getAllSteels() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM steel", null);
+    }
+
+    public Cursor getAllEstimates() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM estimate", null);
+    }
+
+    public Cursor getAllEstimatesLines() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM estimateline", null);
+    }
 }
