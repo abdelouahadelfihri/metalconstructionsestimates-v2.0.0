@@ -304,9 +304,10 @@ public class BackUpRestore extends GoogleDriveActivity {
         executorService.execute(() -> {
             try {
                 // === 1. Merge STEELS ===
-                ArrayList<Steel> steelsFromBackup = intermediateDBAdapter.retrieveSteels();
-                for (Steel backupSteel : steelsFromBackup) {
-                    // Try to find an existing steel by (type, geometricShape, unit, weight)
+                Cursor cursor = intermediateHelper.getAllSteels();
+                while (cursor.moveToNext()) {
+                    Steel backupSteel = intermediateHelper.buildSteelFromCursor(cursor);
+
                     Steel existingSteel = dbAdapter.findSteelByContent(
                             backupSteel.getType(),
                             backupSteel.getGeometricShape(),
@@ -321,30 +322,37 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateSteel(backupSteel);
                     }
                 }
+                cursor.close();
+
 
                 // === 2. Merge CUSTOMERS ===
-                ArrayList<Customer> customersFromBackup = intermediateDBAdapter.retrieveCustomers();
-                for (Customer backupCustomer : customersFromBackup) {
-                    // Use name+email+tel as a "composite unique key"
-                    Customer existingCustomer = dbAdapter.findCustomerByContent(
+                Cursor customersCursor = intermediateHelper.getAllCustomers();
+                while (cursor.moveToNext()) {
+                    Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(customersCursor);
+                    Customer existing = dbAdapter.findCustomerByContent(
                             backupCustomer.getName(),
                             backupCustomer.getEmail(),
                             backupCustomer.getTelephone()
                     );
-
-                    if (existingCustomer == null) {
+                    if (existing == null) {
                         dbAdapter.saveCustomer(backupCustomer);
                     } else {
-                        backupCustomer.setId(existingCustomer.getId());
+                        backupCustomer.setId(existing.getId());
                         dbAdapter.updateCustomer(backupCustomer);
                     }
                 }
+                cursor.close();
+
 
                 // === 3. Merge ESTIMATES ===
-                ArrayList<Estimate> estimatesFromBackup = intermediateDBAdapter.retrieveEstimates();
-                for (Estimate backupEstimate : estimatesFromBackup) {
-                    // There's no natural unique key here. Let's match on (issueDate, customer, total amounts)
-                    Estimate existingEstimate = dbAdapter.findEstimateByContent(backupEstimate);
+                Cursor estimateCursor = intermediateHelper.getAllEstimates();
+                while (estimateCursor.moveToNext()) {
+                    Estimate backupEstimate = intermediateHelper.buildEstimateFromCursor(estimateCursor);
+
+                    // Try to find an existing estimate by (issueDate, customerId, allTaxIncludedTotal)
+                    Estimate existingEstimate = dbAdapter.findEstimateByContent(
+                            backupEstimate
+                    );
 
                     if (existingEstimate == null) {
                         dbAdapter.saveEstimate(backupEstimate);
@@ -353,12 +361,18 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateEstimate(backupEstimate);
                     }
                 }
+                estimateCursor.close();
+
 
                 // === 4. Merge ESTIMATE LINES ===
-                ArrayList<EstimateLine> estimateLinesFromBackup = intermediateDBAdapter.retrieveEstimatesLines();
-                for (EstimateLine backupLine : estimateLinesFromBackup) {
-                    // Match based on (estimate, steel, length, width, height, quantity)
-                    EstimateLine existingLine = dbAdapter.findEstimateLineByContent(backupLine);
+                Cursor estimateLineCursor = intermediateHelper.getAllEstimatesLines();
+                while (estimateLineCursor.moveToNext()) {
+                    EstimateLine backupLine = intermediateHelper.buildEstimateLineFromCursor(estimateLineCursor);
+
+                    // Match based on (estimateId, steelId, length, width, height, quantity)
+                    EstimateLine existingLine = dbAdapter.findEstimateLineByContent(
+                            backupLine
+                    );
 
                     if (existingLine == null) {
                         dbAdapter.saveEstimateLine(backupLine);
@@ -367,6 +381,8 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateEstimateLine(backupLine);
                     }
                 }
+                estimateLineCursor.close();
+
                 handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
