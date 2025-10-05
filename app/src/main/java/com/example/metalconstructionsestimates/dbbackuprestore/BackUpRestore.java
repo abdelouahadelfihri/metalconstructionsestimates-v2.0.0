@@ -3,6 +3,7 @@ package com.example.metalconstructionsestimates.dbbackuprestore;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -366,7 +367,6 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateEstimateLine(backupLine);
                     }
                 }
-
                 handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
