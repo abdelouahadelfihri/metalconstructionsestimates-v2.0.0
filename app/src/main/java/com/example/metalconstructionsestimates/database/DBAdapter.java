@@ -2281,7 +2281,7 @@ public class DBAdapter {
     }
 
     public Steel findSteelByContent(String type, String geometricShape, String unit, float weight) {
-        SQLiteDatabase db = helper.getReadableDatabase();
+        db = helper.getReadableDatabase();
         Cursor c = db.query("steel",
                 null,
                 "type=? AND geometricShape=? AND unit=? AND weight=?",
@@ -2296,7 +2296,7 @@ public class DBAdapter {
     }
 
     public Customer findCustomerByContent(String name, String email, String tel) {
-        SQLiteDatabase db = helper.getReadableDatabase();
+        db = helper.getReadableDatabase();
         Cursor c = db.query("customer",
                 null,
                 "name=? AND email=? AND tel=?",
@@ -2311,7 +2311,7 @@ public class DBAdapter {
     }
 
     public Estimate findEstimateByContent(Estimate estimate) {
-        SQLiteDatabase db = helper.getReadableDatabase();
+        db = helper.getReadableDatabase();
         String sql = "SELECT * FROM estimate WHERE doneIn = ? AND issueDate = ? AND customer = ? AND excludingTaxTotal = ?";
         String[] args = new String[]{
                 estimate.getDoneIn(),
@@ -2330,7 +2330,7 @@ public class DBAdapter {
     }
 
     public EstimateLine findEstimateLineByContent(EstimateLine line) {
-        SQLiteDatabase db = helper.getReadableDatabase();
+        db = helper.getReadableDatabase();
         String sql = "SELECT * FROM estimateline WHERE estimate = ? AND steel = ? AND weight = ? AND length = ? AND width = ? AND height = ? AND quantity = ?";
         String[] args = new String[]{
                 String.valueOf(line.getEstimate()),
