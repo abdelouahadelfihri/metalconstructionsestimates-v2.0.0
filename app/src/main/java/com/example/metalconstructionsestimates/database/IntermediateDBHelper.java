@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.metalconstructionsestimates.models.Customer;
+import com.example.metalconstructionsestimates.models.Estimate;
+import com.example.metalconstructionsestimates.models.EstimateLine;
+import com.example.metalconstructionsestimates.models.Steel;
 
 public class IntermediateDBHelper extends SQLiteOpenHelper {
 
@@ -42,7 +45,7 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    private Customer buildCustomerFromCursor(Cursor cursor) {
+    public Customer buildCustomerFromCursor(Cursor cursor) {
         Customer customer = new Customer();
         customer.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         customer.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
@@ -52,5 +55,51 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
         customer.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
         customer.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
         return customer;
+    }
+
+    public Steel buildSteelFromCursor(Cursor cursor) {
+        Steel steel = new Steel();
+        steel.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+        steel.setType(cursor.getString(cursor.getColumnIndexOrThrow("type")));
+        steel.setGeometricShape(cursor.getString(cursor.getColumnIndexOrThrow("geometricShape")));
+        steel.setUnit(cursor.getString(cursor.getColumnIndexOrThrow("unit")));
+        steel.setWeight(cursor.getFloat(cursor.getColumnIndexOrThrow("weight")));
+        return steel;
+    }
+
+    public Estimate buildEstimateFromCursor(Cursor cursor) {
+        Estimate estimate = new Estimate();
+        estimate.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+        estimate.setDoneIn(cursor.getString(cursor.getColumnIndexOrThrow("doneIn")));
+        estimate.setIssueDate(cursor.getString(cursor.getColumnIndexOrThrow("issueDate")));
+        estimate.setExpirationDate(cursor.getString(cursor.getColumnIndexOrThrow("expirationDate")));
+        estimate.setDueDate(cursor.getString(cursor.getColumnIndexOrThrow("dueDate")));
+        estimate.setDueTerms(cursor.getString(cursor.getColumnIndexOrThrow("dueTerms")));
+        estimate.setStatus(cursor.getString(cursor.getColumnIndexOrThrow("status")));
+        estimate.setCustomer(cursor.getInt(cursor.getColumnIndexOrThrow("customer")));
+        estimate.setExcludingTaxTotal(cursor.getFloat(cursor.getColumnIndexOrThrow("excludingTaxTotal")));
+        estimate.setDiscount(cursor.getFloat(cursor.getColumnIndexOrThrow("discount")));
+        estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(cursor.getColumnIndexOrThrow("excludingTaxTotalAfterDiscount")));
+        estimate.setVat(cursor.getFloat(cursor.getColumnIndexOrThrow("vat")));
+        estimate.setAllTaxIncludedTotal(cursor.getFloat(cursor.getColumnIndexOrThrow("allTaxIncludedTotal")));
+        return estimate;
+    }
+
+    public EstimateLine buildEstimateLineFromCursor(Cursor cursor) {
+        EstimateLine line = new EstimateLine();
+        line.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+        line.setEstimate(cursor.getInt(cursor.getColumnIndexOrThrow("estimate")));
+        line.setSteel(cursor.getInt(cursor.getColumnIndexOrThrow("steel")));
+        line.setWeight(cursor.getFloat(cursor.getColumnIndexOrThrow("weight")));
+        line.setLength(cursor.getFloat(cursor.getColumnIndexOrThrow("length")));
+        line.setWidth(cursor.getFloat(cursor.getColumnIndexOrThrow("width")));
+        line.setHeight(cursor.getFloat(cursor.getColumnIndexOrThrow("height")));
+        line.setQuantity(cursor.getLong(cursor.getColumnIndexOrThrow("quantity")));
+        line.setTotal(cursor.getFloat(cursor.getColumnIndexOrThrow("total")));
+        line.setMargin(cursor.getInt(cursor.getColumnIndexOrThrow("margin")));
+        line.setNetQuantityPlusMargin(cursor.getFloat(cursor.getColumnIndexOrThrow("quantityPlusMargin")));
+        line.setUnitPrice(cursor.getFloat(cursor.getColumnIndexOrThrow("unitPrice")));
+        line.setTotalPrice(cursor.getFloat(cursor.getColumnIndexOrThrow("totalPrice")));
+        return line;
     }
 }
