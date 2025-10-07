@@ -484,6 +484,22 @@ public class Estimates extends AppCompatActivity {
                                 searchResultToast.show();
                             }
                             break;
+                        case "Approved":
+                            ArrayList<Estimate> approvedEstimatesList = db.searchApprovedEstimates(searchText);
+                            if (!approvedEstimatesList.isEmpty()) {
+                                EstimatesListAdapter approved_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, approvedEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(approved_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
                         case "Cancelled":
                             ArrayList<Estimate> cancelledEstimatesList = db.searchCancelledEstimates(searchText);
                             if (!cancelledEstimatesList.isEmpty()) {
