@@ -581,6 +581,24 @@ public class Estimates extends AppCompatActivity {
 
         clearEstimateForm.setOnClickListener(view -> {
             estimatesSearchEditText.getText().clear();
+
+            DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+
+            ArrayList<Estimate> estimatesSearchList = dbAdapter.retrieveEstimates();
+
+            if(estimatesSearchList.isEmpty()){
+                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                Toast reloadResultToast = Toast.makeText(getApplicationContext(), "Estimates list is empty", Toast.LENGTH_LONG);
+                reloadResultToast.show();
+            }
+            else{
+                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                estimateListAdapter.updateEstimates(estimatesSearchList);
+            }
+
         });
     }
 
