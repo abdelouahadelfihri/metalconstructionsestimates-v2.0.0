@@ -1001,20 +1001,21 @@ public class DBAdapter {
     public ArrayList<Estimate> searchEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String WHEREQuery = "";
+        StringBuilder WHEREQuery = new StringBuilder();
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.isEmpty()) {
-                            WHEREQuery = WHEREQuery + " " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.toString().isEmpty()) {
+                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         } else {
-                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1022,25 +1023,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (WHEREQuery.isEmpty()) {
-                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.length() == 0) {
+                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 } else {
                                     if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
 
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            WHEREQuery = WHEREQuery + ") AND (";
+                            WHEREQuery.append(") AND (");
                         } else {
-                            WHEREQuery = WHEREQuery + ") AND status = 'Cancelled' OR status = 'Pending' OR status = 'Approved'";
+                            WHEREQuery.append(")");
                         }
                     }
                 }
@@ -1049,6 +1050,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
+            query = query + " AND status = 'Cancelled' OR status = 'Pending' OR status = 'Approved'";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
@@ -1093,48 +1095,47 @@ public class DBAdapter {
     public ArrayList<Estimate> searchCancelledEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String WHEREQuery = "";
+        StringBuilder WHEREQuery = new StringBuilder();
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery == "") {
-                            WHEREQuery = WHEREQuery + "(" + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.toString().isEmpty()) {
+                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         } else {
-                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery = WHEREQuery + ") AND status = 'Cancelled'";
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
                         searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if (!searchTextArray[i].isEmpty()) {
+                        if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (WHEREQuery.isEmpty()) {
-                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.length() == 0) {
+                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 } else {
                                     if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
 
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 }
                             }
                         }
-
                         if (i < searchTextArray.length - 1) {
-                            WHEREQuery = WHEREQuery + ") AND (";
+                            WHEREQuery.append(") AND (");
                         } else {
-                            WHEREQuery = WHEREQuery + ")";
+                            WHEREQuery.append(")");
                         }
                     }
                 }
@@ -1188,21 +1189,21 @@ public class DBAdapter {
     public ArrayList<Estimate> searchApprovedEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        String WHEREQuery = "";
+        StringBuilder WHEREQuery = new StringBuilder();
         try {
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
+            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
             if (!searchText.isEmpty()) {
                 String[] searchTextArray = searchText.split(";");
                 if (searchTextArray.length == 1) {
                     for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery == "") {
-                            WHEREQuery = WHEREQuery + " (" + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                        if (WHEREQuery.toString().isEmpty()) {
+                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         } else {
-                            WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
+                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery = WHEREQuery + ") AND status = 'Approved'";
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1210,25 +1211,25 @@ public class DBAdapter {
                         if(!searchTextArray[i].isEmpty()){
                             for (int j = 0; j < estimateTableColumns.length; j++) {
                                 if (i == 0) {
-                                    if (WHEREQuery.isEmpty()) {
-                                        WHEREQuery = WHEREQuery + "(" + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                    if (WHEREQuery.length() == 0) {
+                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 } else {
                                     if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery = WHEREQuery + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
 
                                     } else {
-                                        WHEREQuery = WHEREQuery + " OR " + estimateTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
                                     }
                                 }
                             }
                         }
                         if (i < searchTextArray.length - 1) {
-                            WHEREQuery = WHEREQuery + ") AND (";
+                            WHEREQuery.append(") AND (");
                         } else {
-                            WHEREQuery = WHEREQuery + ") AND status = 'Approved'";
+                            WHEREQuery.append(")");
                         }
                     }
                 }
@@ -1298,7 +1299,7 @@ public class DBAdapter {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery.append(") AND status = 'Pending'");
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
@@ -1379,7 +1380,6 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         StringBuilder WHEREQuery = new StringBuilder();
-
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
@@ -1393,7 +1393,7 @@ public class DBAdapter {
                             WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
                         }
                     }
-                    WHEREQuery.append(") AND dueDate < date('now') AND status='Pending'");
+                    WHEREQuery.append(")");
                 } else {
                     for (int i = 0; i < searchTextArray.length; i++) {
                         searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
