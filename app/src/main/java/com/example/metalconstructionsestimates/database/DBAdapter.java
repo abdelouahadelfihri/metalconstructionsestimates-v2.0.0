@@ -1239,7 +1239,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            Log.i(TAG, query);
+            query = query + " AND (status = 'Approved')";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
