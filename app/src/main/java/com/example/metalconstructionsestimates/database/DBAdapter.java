@@ -1002,6 +1002,7 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM estimate WHERE ";
         StringBuilder WHEREQuery = new StringBuilder();
+
         try {
             searchText = searchText.replaceAll("^\\s+|\\s+$", "");
             String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
