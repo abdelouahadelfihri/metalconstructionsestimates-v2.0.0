@@ -1051,7 +1051,7 @@ public class DBAdapter {
             db = helper.getReadableDatabase();
 
             String query = SELECTQuery + WHEREQuery;
-            query = query + " AND status = 'Cancelled' OR status = 'Pending' OR status = 'Approved'";
+            query = query + " AND (status = 'Cancelled' OR status = 'Pending' OR status = 'Approved')";
             Cursor cursor = db.rawQuery(query, null);
 
             Estimate estimate;
