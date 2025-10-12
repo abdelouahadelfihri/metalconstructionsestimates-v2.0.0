@@ -535,19 +535,88 @@ public class Estimates extends AppCompatActivity {
                     }
                 }
                 else{
-                    ArrayList<Estimate> estimatesList = dbAdapter.retrieveEstimates();
-                    if (!estimatesList.isEmpty()) {
-                        EstimatesListAdapter overdue_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
-                        activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                        activityEstimatesBinding.estimatesRecyclerView.setAdapter(overdue_estimates_list_adapter);
-                    }
-                    else{
-                        activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                        searchResultToast.show();
+                    switch(selectedEstimateStatus){
+                        case "All":
+                            ArrayList<Estimate> allEstimatesList = dbAdapter.retrieveEstimates();
+                            if (!allEstimatesList.isEmpty()) {
+                                EstimatesListAdapter all_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, allEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(all_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
+                        case "Pending":
+                            ArrayList<Estimate> pendingEstimatesList = dbAdapter.retrievePendingEstimates();
+                            if (!pendingEstimatesList.isEmpty()) {
+                                EstimatesListAdapter pending_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, pendingEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(pending_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
+                        case "Approved":
+                            ArrayList<Estimate> approvedEstimatesList = dbAdapter.retrieveApprovedEstimates();
+                            if (!approvedEstimatesList.isEmpty()) {
+                                EstimatesListAdapter approved_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, approvedEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(approved_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
+                        case "Cancelled":
+                            ArrayList<Estimate> cancelledEstimatesList = dbAdapter.retrieveCancelledEstimates();
+                            if (!cancelledEstimatesList.isEmpty()) {
+                                EstimatesListAdapter cancelled_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, cancelledEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(cancelled_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
+                        case "Overdue":
+                            ArrayList<Estimate> overdueEstimatesList = dbAdapter.retrieveOverdueEstimates();
+                            if (!overdueEstimatesList.isEmpty()) {
+                                EstimatesListAdapter overdue_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesList);
+                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.estimatesRecyclerView.setAdapter(overdue_estimates_list_adapter);
+                            }
+                            else{
+                                activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
+                                searchResultToast.show();
+                            }
+                            break;
                     }
                 }
             }
