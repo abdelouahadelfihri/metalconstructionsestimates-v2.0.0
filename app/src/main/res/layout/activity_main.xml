@@ -1,156 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.drawerlayout.widget.DrawerLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/drawerLayout"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<!-- Main content with Coordinator so Toolbar and scrolling interact properly -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scrollContent"
+    <!-- AppBar with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:background="#0066cc"
             app:title="@string/app_name"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:titleTextColor="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/imageViewCustomers"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_marginBottom="40dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/customers"
-            android:contentDescription="@string/customers"
-            app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.37" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
-            android:id="@+id/imageViewEstimates"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_marginBottom="40dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/estimates"
-            app:tint="#0066cc"
-            android:src="@drawable/estimates"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toEndOf="@id/imageViewCustomers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.37" />
+    <!-- Scrollable content below Toolbar -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/textViewCustomers"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/customers"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/imageViewCustomers"
-            app:layout_constraintStart_toStartOf="@id/imageViewCustomers"
-            app:layout_constraintEnd_toEndOf="@id/imageViewCustomers" />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
-        <TextView
-            android:id="@+id/textViewEstimates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/estimates"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/imageViewEstimates"
-            app:layout_constraintStart_toStartOf="@id/imageViewEstimates"
-            app:layout_constraintEnd_toEndOf="@id/imageViewEstimates" />
+            <ImageView
+                android:id="@+id/imageViewCustomers"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/customers"
+                android:contentDescription="@string/customers"
+                app:tint="#0066cc"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageViewEstimates"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.37" />
 
-        <!-- Second row -->
-        <ImageView
-            android:id="@+id/imageViewSteels"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/steels"
-            android:contentDescription="@string/steels"
-            app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/textViewCustomers"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imageViewDashboard"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.37" />
+            <ImageView
+                android:id="@+id/imageViewEstimates"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="40dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/estimates"
+                app:tint="#0066cc"
+                android:src="@drawable/estimates"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageViewCustomers"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.37" />
 
-        <ImageView
-            android:id="@+id/imageViewDashboard"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/dashboard"
-            android:src="@drawable/dashboard"
-            app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/textViewEstimates"
-            app:layout_constraintStart_toEndOf="@id/imageViewSteels"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.37" />
+            <TextView
+                android:id="@+id/textViewCustomers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customers"
+                android:layout_margin="8dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewCustomers"
+                app:layout_constraintStart_toStartOf="@id/imageViewCustomers"
+                app:layout_constraintEnd_toEndOf="@id/imageViewCustomers" />
 
-        <TextView
-            android:id="@+id/textViewSteels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/steels"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/imageViewSteels"
-            app:layout_constraintStart_toStartOf="@id/imageViewSteels"
-            app:layout_constraintEnd_toEndOf="@id/imageViewSteels" />
+            <TextView
+                android:id="@+id/textViewEstimates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/estimates"
+                android:layout_margin="8dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewEstimates"
+                app:layout_constraintStart_toStartOf="@id/imageViewEstimates"
+                app:layout_constraintEnd_toEndOf="@id/imageViewEstimates" />
 
-        <TextView
-            android:id="@+id/textViewDashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dashboard"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/imageViewDashboard"
-            app:layout_constraintStart_toStartOf="@id/imageViewDashboard"
-            app:layout_constraintEnd_toEndOf="@id/imageViewDashboard" />
+            <!-- Second row -->
+            <ImageView
+                android:id="@+id/imageViewSteels"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/steels"
+                android:contentDescription="@string/steels"
+                app:tint="#0066cc"
+                app:layout_constraintTop_toBottomOf="@id/textViewCustomers"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageViewDashboard"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.37" />
 
-        <!-- Third row center -->
-        <ImageView
-            android:id="@+id/imageViewBackups"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/database"
-            android:contentDescription="@string/backups"
-            app:tint="#0066cc"
-            app:layout_constraintTop_toBottomOf="@id/textViewSteels"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.37" />
+            <ImageView
+                android:id="@+id/imageViewDashboard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/dashboard"
+                android:src="@drawable/dashboard"
+                app:tint="#0066cc"
+                app:layout_constraintTop_toBottomOf="@id/textViewEstimates"
+                app:layout_constraintStart_toEndOf="@id/imageViewSteels"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.37" />
 
-        <!-- TextView 5 -->
-        <TextView
-            android:id="@+id/textViewBackups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/backuprestore"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/imageViewBackups"
-            app:layout_constraintStart_toStartOf="@id/imageViewBackups"
-            app:layout_constraintEnd_toEndOf="@id/imageViewBackups" />
+            <TextView
+                android:id="@+id/textViewSteels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/steels"
+                android:layout_margin="8dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewSteels"
+                app:layout_constraintStart_toStartOf="@id/imageViewSteels"
+                app:layout_constraintEnd_toEndOf="@id/imageViewSteels" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewDashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dashboard"
+                android:layout_margin="8dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewDashboard"
+                app:layout_constraintStart_toStartOf="@id/imageViewDashboard"
+                app:layout_constraintEnd_toEndOf="@id/imageViewDashboard" />
 
-</ScrollView>
+            <!-- Third row center -->
+            <ImageView
+                android:id="@+id/imageViewBackups"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/database"
+                android:contentDescription="@string/backups"
+                app:tint="#0066cc"
+                app:layout_constraintTop_toBottomOf="@id/textViewSteels"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.37" />
+
+            <!-- TextView 5 -->
+            <TextView
+                android:id="@+id/textViewBackups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/backuprestore"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewBackups"
+                app:layout_constraintStart_toStartOf="@id/imageViewBackups"
+                app:layout_constraintEnd_toEndOf="@id/imageViewBackups" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!-- Drawer menu -->
+<com.google.android.material.navigation.NavigationView
+    android:id="@+id/navigationView"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:fitsSystemWindows="true"
+    app:headerLayout="@layout/drawer_header"
+    app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
