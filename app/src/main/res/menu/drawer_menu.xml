@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_customers"
+            android:icon="@drawable/customers"
+            android:title="@string/customers" />
+        <item
+            android:id="@+id/nav_estimates"
+            android:icon="@drawable/estimates"
+            android:title="@string/estimates" />
+        <item
+            android:id="@+id/nav_steels"
+            android:icon="@drawable/steels"
+            android:title="@string/steels" />
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/dashboard"
+            android:title="@string/dashboard" />
+        <item
+            android:id="@+id/nav_backup"
+            android:icon="@drawable/database"
+            android:title="@string/backuprestore" />
+    </group>
+</menu>
