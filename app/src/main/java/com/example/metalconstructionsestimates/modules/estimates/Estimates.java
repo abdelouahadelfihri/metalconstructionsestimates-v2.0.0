@@ -618,6 +618,7 @@ public class Estimates extends AppCompatActivity {
                             }
                             break;
                     }
+
                 }
             }
         });
