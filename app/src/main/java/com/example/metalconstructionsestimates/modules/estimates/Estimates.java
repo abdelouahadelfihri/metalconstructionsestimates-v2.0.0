@@ -621,6 +621,7 @@ public class Estimates extends AppCompatActivity {
 
                 }
             }
+
         });
 
         reloadEstimatesList.setOnClickListener(view -> {
