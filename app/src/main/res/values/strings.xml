@@ -169,4 +169,6 @@
     <string name="approvedEstimatesButton">Approved</string>
     <string name="overdueEstimatesButton">Overdue</string>
     <string name="cancelledEstimatesButton">Cancelled</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
