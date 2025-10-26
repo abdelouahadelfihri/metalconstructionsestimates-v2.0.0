@@ -102,6 +102,7 @@
     <string name="selectSteel">Select</string>
     <string name="customer_id">Customer Id</string>
     <string name="customer_name">Customer Name</string>
+    <string name="business_name">Business Name</string>
     <string name="customer_email">Email</string>
     <string name="customer_phone">Phone</string>
     <string name="customer_mobile">Mobile</string>
