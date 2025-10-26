@@ -212,7 +212,6 @@ android:layout_height="match_parent">
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/nav_header"
         app:itemIconTint="@color/drawer_icon_color"
-        app:itemTextColor="@color/drawer_text_color"
         android:background="@android:color/white" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
