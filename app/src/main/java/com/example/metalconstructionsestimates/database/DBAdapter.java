@@ -2389,11 +2389,13 @@ public class DBAdapter {
 
     private Business buildBusinessFromCursor(Cursor cursor) {
         String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
-        String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
         String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+        String mobile = cursor.getString(cursor.getColumnIndexOrThrow("mobile"));
+        String fax = cursor.getString(cursor.getColumnIndexOrThrow("fax"));
+        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
-        return new Business(name, address, phone, email);
+        return new Business(name, email, phone, mobile, fax, address);
     }
 
 }
