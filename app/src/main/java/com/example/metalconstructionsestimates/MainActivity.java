@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.metalconstructionsestimates.modules.business.BusinessActivity;
 import com.example.metalconstructionsestimates.modules.dashboard.Dashboard;
 import com.example.metalconstructionsestimates.dbbackuprestore.BackUpRestore;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             } else if (id == R.id.nav_dashboard) {
                 Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                startActivity(intent);
+            } else if (id == R.id.nav_business) {
+                Intent intent = new Intent(MainActivity.this, BusinessActivity.class);
                 startActivity(intent);
             } else if (id == R.id.nav_backup) {
                 Intent intent = new Intent(MainActivity.this, BackUpRestore.class);
