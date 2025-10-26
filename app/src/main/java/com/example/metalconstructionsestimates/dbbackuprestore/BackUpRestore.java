@@ -29,6 +29,7 @@ import com.example.metalconstructionsestimates.database.IntermediateDBAdapter;
 import com.example.metalconstructionsestimates.database.IntermediateDBHelper;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveActivity;
 import com.example.metalconstructionsestimates.dbbackuprestore.google.GoogleDriveApiDataRepository;
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
@@ -381,6 +382,17 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
                 }
                 estimateLineCursor.close();
+                // === Merge BUSINESS (single record) ===
+                Business backupBusiness = intermediateHelper.getBusiness();
+                if (backupBusiness != null) {
+                    Business existingBusiness = dbAdapter.getBusiness();
+
+                    if (existingBusiness == null) {
+                        dbAdapter.saveBusiness(backupBusiness);
+                    } else {
+                        dbAdapter.updateBusiness(backupBusiness);
+                    }
+                }
 
                 handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
             } catch (Exception e) {
