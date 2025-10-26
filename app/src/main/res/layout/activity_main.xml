@@ -147,7 +147,7 @@ android:layout_height="match_parent">
 
             <!-- Third row center -->
             <ImageView
-                android:id="@+id/imageViewBackups"
+                android:id="@+id/imageViewBusiness"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
@@ -157,21 +157,21 @@ android:layout_height="match_parent">
                 app:tint="#0066cc"
                 app:layout_constraintTop_toBottomOf="@id/textViewSteels"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewBusiness"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewBackups"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintWidth_percent="0.37" />
 
             <ImageView
-                android:id="@+id/imageViewBusiness"
+                android:id="@+id/imageViewBackups"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/database"
-                android:contentDescription="@string/backups"
+                android:contentDescription="@string/backuprestore"
                 app:tint="#0066cc"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDashboard"
-                app:layout_constraintStart_toEndOf="@+id/imageViewBackups"
+                app:layout_constraintStart_toEndOf="@+id/imageViewBusiness"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintWidth_percent="0.37" />
@@ -191,7 +191,7 @@ android:layout_height="match_parent">
                 android:id="@+id/textViewBusiness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/backuprestore"
+                android:text="@string/business"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewBusiness"
                 app:layout_constraintStart_toStartOf="@id/imageViewBusiness"
