@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
@@ -102,6 +103,34 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
         line.setTotalPrice(cursor.getFloat(cursor.getColumnIndexOrThrow("totalPrice")));
         return line;
     }
+
+    // Build Business object from cursor
+    public Business buildBusinessFromCursor(Cursor cursor) {
+        Business business = new Business();
+
+        business.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+        business.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
+        business.setPhone(cursor.getString(cursor.getColumnIndexOrThrow("phone")));
+        business.setMobile(cursor.getString(cursor.getColumnIndexOrThrow("mobile")));
+        business.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
+        business.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+
+        return business;
+    }
+
+    // Get the single business record from intermediate DB
+    public Business getBusiness() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM business LIMIT 1", null);
+        Business business = null;
+        if (cursor.moveToFirst()) {
+            business = buildBusinessFromCursor(cursor);
+        }
+        cursor.close();
+        return business;
+    }
+
+
 
     public Cursor getAllCustomers() {
         SQLiteDatabase db = this.getReadableDatabase();
