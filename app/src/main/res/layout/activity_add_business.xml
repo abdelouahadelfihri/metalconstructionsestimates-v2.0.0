@@ -40,7 +40,7 @@
                 android:id="@+id/nameLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_name"
+                android:hint="@string/business_name"
                 android:background="@drawable/shape"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName_add_customer"
+                    android:id="@+id/etName_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
