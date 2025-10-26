@@ -13,8 +13,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:src="@drawable/app_icon"
-        android:contentDescription="@string/app_name"
-        app:tint="@android:color/white"/>
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/headerTitle"
