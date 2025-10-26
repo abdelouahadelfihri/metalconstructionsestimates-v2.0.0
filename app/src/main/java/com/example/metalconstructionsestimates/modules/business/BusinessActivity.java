@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.metalconstructionsestimates.MainActivity;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
@@ -81,7 +82,7 @@ public class BusinessActivity extends AppCompatActivity {
                             TextInputEditText businessMobileTextInputEditText = findViewById(R.id.etMobile_add_business);
                             TextInputEditText businessFaxTextInputEditText = findViewById(R.id.etFax_add_business);
                             TextInputEditText businessAddressTextInputEditText = findViewById(R.id.etAddress_add_business);
-                            business = new business();
+                            business = new Business();
 
                             if (businessNameTextInputEditText.getText().toString().isEmpty()) {
                                 business.setName("");
@@ -96,9 +97,9 @@ public class BusinessActivity extends AppCompatActivity {
                             }
 
                             if (businessPhoneTextInputEditText.getText().toString().isEmpty()) {
-                                business.setTelephone("");
+                                business.setPhone("");
                             } else {
-                                business.setTelephone(businessPhoneTextInputEditText.getText().toString());
+                                business.setPhone(businessPhoneTextInputEditText.getText().toString());
                             }
 
                             if (businessMobileTextInputEditText.getText().toString().isEmpty()) {
@@ -119,10 +120,10 @@ public class BusinessActivity extends AppCompatActivity {
                                 business.setAddress(businessAddressTextInputEditText.getText().toString());
                             }
 
-                            dbAdapter.savebusiness(business);
-                            Toast addsuccess = Toast.makeText(getApplicationContext(), "business has been successfully added", Toast.LENGTH_LONG);
-                            addsuccess.show();
-                            intent = new Intent(BusinessActivity.this, businesss.class);
+                            dbAdapter.saveBusiness(business);
+                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Business has been successfully added", Toast.LENGTH_LONG);
+                            addSuccessToast.show();
+                            intent = new Intent(BusinessActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });

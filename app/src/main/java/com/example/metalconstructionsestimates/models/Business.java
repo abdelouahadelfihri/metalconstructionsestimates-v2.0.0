@@ -8,18 +8,21 @@ public class Business {
     private String fax;
     private String address;
 
-    // Constructor
-    public Business(String name, String address, String phone,String mobile, String fax, String email) {
+    // ✅ Default constructor
+    public Business() {
+    }
+
+    // ✅ Optional constructor with parameters (if you want)
+    public Business(String name, String email, String phone, String mobile, String fax, String address) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.mobile = mobile;
         this.fax = fax;
         this.address = address;
-
     }
 
-    // Getters
+    // Getters and setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -37,5 +40,4 @@ public class Business {
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
-
 }
