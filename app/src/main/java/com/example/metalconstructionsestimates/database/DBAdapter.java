@@ -2272,30 +2272,6 @@ public class DBAdapter {
         
     }
 
-    public void saveBusiness(Business business) {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.delete("business", null, null); // remove old record (keep only one)
-        ContentValues values = new ContentValues();
-        values.put("name", business.getName());
-        values.put("address", business.getAddress());
-        values.put("phone", business.getPhone());
-        values.put("email", business.getEmail());
-        db.insert("business", null, values);
-    }
-
-    public Business getBusiness() {
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM business LIMIT 1", null);
-        Business business = null;
-        if (cursor.moveToFirst()) {
-            business = buildBusinessFromCursor(cursor);
-        }
-        cursor.close();
-        return business;
-    }
-
-
-
     public void deleteEstimate(Integer estimateId){
         try{
             db = helper.getWritableDatabase();
@@ -2396,6 +2372,51 @@ public class DBAdapter {
         String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
         return new Business(name, email, phone, mobile, fax, address);
+    }
+
+    // Get the single business from main DB
+    public Business getBusiness() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM business LIMIT 1", null);
+        Business business = null;
+        if (cursor.moveToFirst()) {
+            business = new Business();
+            business.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+            business.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
+            business.setPhone(cursor.getString(cursor.getColumnIndexOrThrow("phone")));
+            business.setMobile(cursor.getString(cursor.getColumnIndexOrThrow("mobile")));
+            business.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
+            business.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+        }
+        cursor.close();
+        return business;
+    }
+
+    // Save business
+    public void saveBusiness(Business business) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", business.getName());
+        values.put("email", business.getEmail());
+        values.put("phone", business.getPhone());
+        values.put("mobile", business.getMobile());
+        values.put("fax", business.getFax());
+        values.put("address", business.getAddress());
+        db.insert("business", null, values);
+    }
+
+    public void updateBusiness(Business business) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", business.getName());
+        values.put("email", business.getEmail());
+        values.put("phone", business.getPhone());
+        values.put("mobile", business.getMobile());
+        values.put("fax", business.getFax());
+        values.put("address", business.getAddress());
+
+        // Update all rows (there should only be one)
+        db.update("business", values, null, null);
     }
 
 }
