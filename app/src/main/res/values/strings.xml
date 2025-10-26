@@ -102,7 +102,6 @@
     <string name="selectSteel">Select</string>
     <string name="customer_id">Customer Id</string>
     <string name="customer_name">Customer Name</string>
-    <string name="business_name">Business Name</string>
     <string name="customer_email">Email</string>
     <string name="customer_phone">Phone</string>
     <string name="customer_mobile">Mobile</string>
@@ -174,4 +173,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="business">Company Profile</string>
+    <string name="business_name">Business Name</string>
+    <string name="business_email">Email</string>
+    <string name="business_phone">Phone</string>
+    <string name="business_mobile">Mobile</string>
+    <string name="business_fax">Fax</string>
+    <string name="business_address">Address</string>
 </resources>
