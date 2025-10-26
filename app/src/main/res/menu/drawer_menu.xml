@@ -21,5 +21,9 @@
             android:id="@+id/nav_backup"
             android:icon="@drawable/database"
             android:title="@string/backuprestore" />
+        <item
+            android:id="@+id/nav_business"
+            android:icon="@drawable/business"
+            android:title="@string/business" />
     </group>
 </menu>
