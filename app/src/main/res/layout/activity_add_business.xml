@@ -63,7 +63,7 @@
                 android:id="@+id/emailLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_email"
+                android:hint="@string/business_email"
                 android:background="@drawable/shape"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail_add_customer"
+                    android:id="@+id/etEmail_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -88,7 +88,7 @@
                 android:id="@+id/phoneLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_phone"
+                android:hint="@string/business_phone"
                 android:background="@drawable/shape"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -99,7 +99,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPhone_add_customer"
+                    android:id="@+id/etPhone_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -112,7 +112,7 @@
                 android:id="@+id/mobileLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_mobile"
+                android:hint="@string/business_mobile"
                 android:background="@drawable/shape"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -123,7 +123,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMobile_add_customer"
+                    android:id="@+id/etMobile_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -136,7 +136,7 @@
                 android:id="@+id/faxLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_fax"
+                android:hint="@string/business_fax"
                 android:background="@drawable/shape"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -147,7 +147,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFax_add_customer"
+                    android:id="@+id/etFax_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -160,7 +160,7 @@
                 android:id="@+id/addressLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/customer_address"
+                android:hint="@string/business_address"
                 android:background="@drawable/shape"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -172,7 +172,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAddress_add_customer"
+                    android:id="@+id/etAddress_add_business"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="100dp"
