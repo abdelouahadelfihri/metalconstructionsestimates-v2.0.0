@@ -19,4 +19,8 @@
     <!-- Button text color -->
     <color name="button_text_default">#0066cc</color>
     <color name="button_text_selected">#FFFFFF</color>
+    <color name="drawer_icon_color">#0066cc</color>
+    <color name="drawer_icon_color_checked">#004c99</color> <!-- optional for selected item -->
+    <color name="drawer_text_color">#0066cc</color>
+    <color name="drawer_text_color_checked">#004c99</color>
 </resources>
