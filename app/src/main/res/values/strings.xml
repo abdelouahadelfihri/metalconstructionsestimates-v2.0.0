@@ -173,5 +173,5 @@
     <string name="cancelledEstimatesButton">Cancelled</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="business">Business</string>
+    <string name="business">Company Profile</string>
 </resources>
