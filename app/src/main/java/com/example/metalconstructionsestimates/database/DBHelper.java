@@ -710,15 +710,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return customer;
     }
 
-    public Business buildBusinessFromCursor(Cursor cursor) {
-        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
-        String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
-        String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
-
-        return new Business(name, address, phone, email);
-    }
-
     public Steel buildSteelFromCursor(Cursor cursor) {
         Steel steel = new Steel();
         steel.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
