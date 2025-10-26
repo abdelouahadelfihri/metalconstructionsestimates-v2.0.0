@@ -393,7 +393,6 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.updateBusiness(backupBusiness);
                     }
                 }
-
                 handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
