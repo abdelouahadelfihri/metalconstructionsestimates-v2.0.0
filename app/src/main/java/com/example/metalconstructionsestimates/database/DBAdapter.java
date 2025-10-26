@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
@@ -2270,6 +2272,30 @@ public class DBAdapter {
         
     }
 
+    public void saveBusiness(Business business) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete("business", null, null); // remove old record (keep only one)
+        ContentValues values = new ContentValues();
+        values.put("name", business.getName());
+        values.put("address", business.getAddress());
+        values.put("phone", business.getPhone());
+        values.put("email", business.getEmail());
+        db.insert("business", null, values);
+    }
+
+    public Business getBusiness() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM business LIMIT 1", null);
+        Business business = null;
+        if (cursor.moveToFirst()) {
+            business = buildBusinessFromCursor(cursor);
+        }
+        cursor.close();
+        return business;
+    }
+
+
+
     public void deleteEstimate(Integer estimateId){
         try{
             db = helper.getWritableDatabase();
@@ -2360,4 +2386,14 @@ public class DBAdapter {
             helper.close();
         }
     }
+
+    private Business buildBusinessFromCursor(Cursor cursor) {
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+        String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+
+        return new Business(name, address, phone, email);
+    }
+
 }
