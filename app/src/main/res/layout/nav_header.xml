@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:orientation="horizontal"
     android:padding="16dp"
     android:background="#0066cc"
-    android:gravity="bottom">
+    android:gravity="center">  <!-- centers both vertically and horizontally -->
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/headerImage"
@@ -21,6 +20,5 @@
         android:text="@string/app_name"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:layout_marginTop="8dp"/>
-
+        android:layout_marginStart="8dp"/> <!-- small space from the image -->
 </LinearLayout>
