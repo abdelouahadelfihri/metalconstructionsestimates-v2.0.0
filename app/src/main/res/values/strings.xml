@@ -109,6 +109,7 @@
     <string name="customer_address">Address</string>
     <string name="addEstimate">Add New Estimate</string>
     <string name="addCustomer">Add New Customer</string>
+    <string name="addBusiness">Add New Business</string>
     <string name="addSteel">Add New Steel</string>
     <string name="isEstimatePaid">Paid</string>
     <string name="estimateLinesRecyclerView">Estimate Lines RecyclerView</string>
