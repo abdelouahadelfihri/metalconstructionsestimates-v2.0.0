@@ -389,6 +389,8 @@
             app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
             app:layout_constraintTop_toTopOf="@id/newEstimateLineButton" />
 
+        <!-- Print and Send Estimate Buttons -->
+
         <Button
             android:id="@+id/printEstimateButton"
             android:layout_width="0dp"
@@ -416,11 +418,7 @@
             app:layout_constraintStart_toEndOf="@id/deleteEstimateButton"
             app:layout_constraintTop_toTopOf="@+id/printEstimateButton" />
 
-
         <!-- Delete and Refresh Buttons -->
-
-
-
 
         <Button
             android:id="@+id/deleteEstimateButton"
