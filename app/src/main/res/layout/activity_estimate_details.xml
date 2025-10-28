@@ -432,7 +432,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@id/refreshEstimateLinesListButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton" />
+            app:layout_constraintTop_toBottomOf="@+id/printEstimateButton" />
 
         <Button
             android:id="@+id/refreshEstimateLinesListButton"
