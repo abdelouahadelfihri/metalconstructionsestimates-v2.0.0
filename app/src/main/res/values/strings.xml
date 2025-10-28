@@ -179,4 +179,5 @@
     <string name="business_mobile">Mobile</string>
     <string name="business_fax">Fax</string>
     <string name="business_address">Address</string>
+    <string name="preview">Preview</string>
 </resources>
