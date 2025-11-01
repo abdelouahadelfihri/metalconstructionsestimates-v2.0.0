@@ -389,35 +389,6 @@
             app:layout_constraintStart_toEndOf="@id/newEstimateLineButton"
             app:layout_constraintTop_toTopOf="@id/newEstimateLineButton" />
 
-        <!-- Print and Send Estimate Buttons -->
-
-        <Button
-            android:id="@+id/printEstimateButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/sendEstimateByMailButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newEstimateLineButton" />
-
-        <Button
-            android:id="@+id/sendEstimateByMailButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/refresh"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/deleteEstimateButton"
-            app:layout_constraintTop_toTopOf="@+id/printEstimateButton" />
-
         <!-- Delete and Refresh Buttons -->
 
         <Button
@@ -432,7 +403,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@id/refreshEstimateLinesListButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/printEstimateButton" />
+            app:layout_constraintTop_toBottomOf="@+id/newEstimateLineButton" />
 
         <Button
             android:id="@+id/refreshEstimateLinesListButton"
