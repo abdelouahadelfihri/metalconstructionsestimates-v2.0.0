@@ -1007,8 +1007,7 @@ public class EstimateDetails extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.estimate_details_menu, menu);
-        return true;
+        return false;
     }
 
     @Override
