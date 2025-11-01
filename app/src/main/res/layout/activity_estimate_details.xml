@@ -25,14 +25,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:gravity="center_vertical|space_between"
+                android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:paddingEnd="8dp">
 
                 <TextView
                     android:id="@+id/toolbarTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/estimateDetails"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -47,8 +48,7 @@
                     android:textColor="@android:color/white"
                     app:strokeColor="@android:color/white"
                     app:strokeWidth="1dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
+                    app:cornerRadius="16dp"
                     app:backgroundTint="#004C99" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
