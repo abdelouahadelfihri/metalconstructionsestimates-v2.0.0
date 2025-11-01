@@ -80,6 +80,9 @@ public class EstimateDetails extends AppCompatActivity {
         setContentView(activityEstimateDetailsBinding.getRoot());
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         String estimateIdExtra = getIntent().getStringExtra("estimateIdExtra");
         assert estimateIdExtra != null;
