@@ -1,205 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-<!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#0066cc"
-        app:title="Estimate Preview"
-        app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <!-- Scrollable content -->
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/buttonsRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <!-- Toolbar -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#0066cc"
+                app:title="Estimate Preview"
+                app:titleTextColor="@android:color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Estimate Label -->
-        <TextView
-            android:id="@+id/tvEstimateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ESTIMATE"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"/>
+            <!-- Estimate Label -->
+            <TextView
+                android:id="@+id/tvEstimateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ESTIMATE"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-        <!-- Business & Customer Info Row -->
-        <LinearLayout
-            android:id="@+id/infoRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvEstimateLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Business Info -->
+            <!-- Business & Customer Info Row -->
             <LinearLayout
+                android:id="@+id/infoRow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tvEstimateLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Business Info -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Business Information"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvBusinessInfo"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Business Information"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvBusinessInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Company Name\nAddress\nPhone: +212 600 000 000" />
+                </LinearLayout>
+
+                <!-- Customer Info -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Company Name\nAddress\nPhone: +212 600 000 000" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer Information"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvCustomerInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Customer Name\nAddress\nPhone: +212 611 111 111" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Customer Info -->
+            <!-- Table Header -->
             <LinearLayout
+                android:id="@+id/tableHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/infoRow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Customer Information"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
+                    android:layout_weight="1"
+                    android:text="Qty"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCustomerInfo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Customer Name\nAddress\nPhone: +212 611 111 111" />
+                    android:layout_weight="2"
+                    android:text="Product"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Unit Price"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Table Header -->
-        <LinearLayout
-            android:id="@+id/tableHeader"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/infoRow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
+            <!-- Lines -->
+            <LinearLayout
+                android:id="@+id/linesContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Qty"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/tableHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
+            <!-- Totals -->
+            <LinearLayout
+                android:id="@+id/totalsLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Product"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/linesContainer"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Unit Price"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Total"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Lines -->
-        <LinearLayout
-            android:id="@+id/linesContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/tableHeader"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- Totals -->
-        <LinearLayout
-            android:id="@+id/totalsLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/linesContainer"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView android:id="@+id/tvVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VAT: 20%" />
-            <TextView android:id="@+id/tvDiscount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Discount: 10%" />
-            <TextView android:id="@+id/tvTotalBeforeVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Before VAT: 0.00" />
-            <TextView android:id="@+id/tvAllTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total After VAT: 0.00" />
-        </LinearLayout>
+                <TextView android:id="@+id/tvVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VAT: 20%" />
+                <TextView android:id="@+id/tvDiscount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Discount: 10%" />
+                <TextView android:id="@+id/tvTotalBeforeVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Before VAT: 0.00" />
+                <TextView android:id="@+id/tvAllTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total After VAT: 0.00" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!-- Buttons fixed at bottom -->
-    <LinearLayout
-        android:id="@+id/buttonsRow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnDownloadPdf"
+        <!-- Buttons -->
+        <LinearLayout
+            android:id="@+id/buttonsRow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Download"
-            android:backgroundTint="#0066cc"
-            android:textColor="@android:color/white"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btnPrint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Print"
-            android:backgroundTint="#008577"
-            android:textColor="@android:color/white"/>
+            <Button
+                android:id="@+id/btnDownloadPdf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Download"
+                android:backgroundTint="#0066cc"
+                android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/btnSendMail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Send Email"
-            android:backgroundTint="#FF9800"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnPrint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Print"
+                android:backgroundTint="#008577"
+                android:textColor="@android:color/white" />
 
+            <Button
+                android:id="@+id/btnSendMail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Send Email"
+                android:backgroundTint="#FF9800"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
