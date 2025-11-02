@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+<!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#0066cc"
+        app:title="Estimate Preview"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#0066cc"
-            app:title="Estimate Preview"
-            app:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- Scrollable content -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/buttonsRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Estimate Label -->
         <TextView
@@ -155,47 +160,46 @@
             <TextView android:id="@+id/tvTotalBeforeVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Before VAT: 0.00" />
             <TextView android:id="@+id/tvAllTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total After VAT: 0.00" />
         </LinearLayout>
+    </ScrollView>
 
-        <!-- Buttons -->
-        <LinearLayout
-            android:id="@+id/buttonsRow"
+    <!-- Buttons fixed at bottom -->
+    <LinearLayout
+        android:id="@+id/buttonsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnDownloadPdf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/totalsLayout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_weight="1"
+            android:text="Download"
+            android:backgroundTint="#0066cc"
+            android:textColor="@android:color/white"/>
 
-            <Button
-                android:id="@+id/btnDownloadPdf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Download"
-                android:backgroundTint="#0066cc"
-                android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/btnPrint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Print"
+            android:backgroundTint="#008577"
+            android:textColor="@android:color/white"/>
 
-            <Button
-                android:id="@+id/btnPrint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Print"
-                android:backgroundTint="#008577"
-                android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/btnSendMail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Send Email"
+            android:backgroundTint="#FF9800"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSendMail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send Email"
-                android:backgroundTint="#FF9800"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
