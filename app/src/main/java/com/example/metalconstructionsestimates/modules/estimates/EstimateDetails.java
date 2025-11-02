@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.models.Customer;
+import com.example.metalconstructionsestimates.modules.estimatepreview.EstimatePreviewActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -71,6 +73,7 @@ public class EstimateDetails extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener, dueDateSetListener;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    MaterialButton previewButton;
 
     ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
     @Override
@@ -102,6 +105,17 @@ public class EstimateDetails extends AppCompatActivity {
         ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, termsList
         );
+
+        previewButton = findViewById(R.id.previewButton);
+
+        previewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EstimateDetails.this, EstimatePreviewActivity.class);
+                intent.putExtra("estimateId", estimateIdExtra);
+                startActivity(intent);
+            }
+        });
 
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
