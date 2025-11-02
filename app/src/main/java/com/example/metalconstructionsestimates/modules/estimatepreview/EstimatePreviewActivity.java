@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
+import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 
 import java.io.File;
@@ -46,6 +47,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String estimateId = getIntent().getStringExtra("estimateId");
+
         linesContainer = findViewById(R.id.linesContainer);
         tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);
         tvAllTotal = findViewById(R.id.tvAllTotal);
@@ -56,8 +59,12 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         btnPrint = findViewById(R.id.btnPrint);
         btnSendMail = findViewById(R.id.btnSendMail);
 
+        DBAdapter dbAdapter = new DBAdapter(this);
+
+
         // Example: Fill estimateLines dynamically from database or intent
-        estimateLines = ExampleData.getEstimateLines(); // Replace with your data source
+        assert estimateId != null;
+        estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId)); // Replace with your data source
         fillEstimateLines();
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
