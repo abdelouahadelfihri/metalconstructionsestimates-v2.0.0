@@ -3,8 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -14,8 +17,9 @@
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Scrollable Content -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -25,49 +29,123 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:id="@+id/previewContainer"
-            android:orientation="vertical"
-            android:padding="16dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
             <!-- Business Info -->
-            <TextView android:text="Business Information" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/tvBusinessInfo" android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/lblBusiness"
+                android:text="Business Information"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBusinessInfo"
+                app:layout_constraintTop_toBottomOf="@id/lblBusiness"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="12dp" />
 
             <!-- Customer Info -->
-            <TextView android:text="Customer Information" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/tvCustomerInfo" android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/lblCustomer"
+                android:text="Customer Information"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvBusinessInfo"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCustomerInfo"
+                app:layout_constraintTop_toBottomOf="@id/lblCustomer"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="12dp" />
 
             <!-- Estimate Info -->
-            <TextView android:text="Estimate Details" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/tvEstimateInfo" android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/lblEstimate"
+                android:text="Estimate Details"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvCustomerInfo"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvEstimateInfo"
+                app:layout_constraintTop_toBottomOf="@id/lblEstimate"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="12dp" />
 
             <!-- Line Items -->
-            <TextView android:text="Estimate Lines" android:textStyle="bold" android:textSize="16sp" />
-            <LinearLayout
-                android:id="@+id/linesContainer"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/lblLines"
+                android:text="Estimate Lines"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvEstimateInfo"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLines"
+                app:layout_constraintTop_toBottomOf="@id/lblLines"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="12dp" />
 
             <!-- Totals -->
-            <TextView android:text="Totals" android:textStyle="bold" android:textSize="16sp" />
-            <TextView android:id="@+id/tvTotals"/>
+            <TextView
+                android:id="@+id/lblTotals"
+                android:text="Totals"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/tvLines"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvTotals"
+                app:layout_constraintTop_toBottomOf="@id/lblTotals"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <!-- Buttons Row -->
     <Button
         android:id="@+id/btnDownloadPdf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Download PDF"
+        android:backgroundTint="#0066cc"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="#0066cc"
-        android:textColor="@android:color/white"/>
+        app:layout_constraintEnd_toStartOf="@id/btnSendEmail"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <Button
+        android:id="@+id/btnSendEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Send Email"
+        android:backgroundTint="#008800"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDownloadPdf"
+        app:layout_constraintEnd_toStartOf="@id/btnPrint" />
+
+    <Button
+        android:id="@+id/btnPrint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Print"
+        android:backgroundTint="#444444"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnSendEmail"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
