@@ -1,25 +1,22 @@
 package com.example.metalconstructionsestimates.modules.estimatepreview;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.metalconstructionsestimates.R;
-import com.example.metalconstructionsestimates.models.Business;
-import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 
 import java.io.File;
@@ -29,130 +26,178 @@ import java.util.List;
 
 public class EstimatePreviewActivity extends AppCompatActivity {
 
-    private TextView tvBusinessInfo, tvCustomerInfo, tvEstimateInfo, tvTotals;
     private LinearLayout linesContainer;
-    private Button btnDownloadPdf;
+    private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
+    private Button btnDownloadPdf, btnPrint, btnSendMail;
 
-    private Estimate estimate;
-    private Customer customer;
-    private Business business;
     private List<EstimateLine> estimateLines;
+    private double totalBeforeVat = 0;
+    private double vatRate = 0.2;      // 20% VAT
+    private double discountRate = 0.1; // 10% Discount
+    private double totalAfterVat = 0;
+
+    private File generatedPdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_preview);
 
-        tvBusinessInfo = findViewById(R.id.tvBusinessInfo);
-        tvCustomerInfo = findViewById(R.id.tvCustomerInfo);
-        tvEstimateInfo = findViewById(R.id.tvEstimateInfo);
-        tvTotals = findViewById(R.id.tvTotals);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         linesContainer = findViewById(R.id.linesContainer);
+        tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);
+        tvAllTotal = findViewById(R.id.tvAllTotal);
+        tvVat = findViewById(R.id.tvVat);
+        tvDiscount = findViewById(R.id.tvDiscount);
+
         btnDownloadPdf = findViewById(R.id.btnDownloadPdf);
+        btnPrint = findViewById(R.id.btnPrint);
+        btnSendMail = findViewById(R.id.btnSendMail);
 
-        // Receive data from previous activity
-        estimate = (Estimate) getIntent().getSerializableExtra("estimate");
-        customer = (Customer) getIntent().getSerializableExtra("customer");
-        business = (Business) getIntent().getSerializableExtra("business");
-        estimateLines = (List<EstimateLine>) getIntent().getSerializableExtra("lines");
+        // Example: Fill estimateLines dynamically from database or intent
+        estimateLines = ExampleData.getEstimateLines(); // Replace with your data source
+        fillEstimateLines();
 
-        // Display the data
-        displayPreview();
-
-        btnDownloadPdf.setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            } else {
-                generatePdf();
-            }
-        });
+        btnDownloadPdf.setOnClickListener(v -> createPdf());
+        btnPrint.setOnClickListener(v -> printPdf());
+        btnSendMail.setOnClickListener(v -> sendEmail());
     }
 
-    private void displayPreview() {
-        if (business != null) {
-            tvBusinessInfo.setText(
-                    business.getName() + "\n" +
-                            business.getAddress() + "\n" +
-                            "Email: " + business.getEmail() + "\n" +
-                            "Phone: " + business.getPhone());
-        }
-
-        if (customer != null) {
-            tvCustomerInfo.setText(
-                    customer.getName() + "\n" +
-                            customer.getAddress() + "\n" +
-                            "Tel: " + customer.getTelephone() + " / " + customer.getMobile());
-        }
-
-        if (estimate != null) {
-            tvEstimateInfo.setText(
-                    "Issued: " + estimate.getIssueDate() + "\n" +
-                            "Expires: " + estimate.getExpirationDate() + "\n" +
-                            "Status: " + estimate.getStatus());
-        }
-
-        if (estimateLines != null) {
-            for (EstimateLine line : estimateLines) {
-                TextView lineView = new TextView(this);
-                lineView.setText(
-                        "Steel ID: " + line.getSteel() +
-                                " | Qty: " + line.getQuantity() +
-                                " | Unit: " + line.getUnitPrice() +
-                                " | Total: " + line.getTotalPrice());
-                linesContainer.addView(lineView);
-            }
-        }
-
-        if (estimate != null) {
-            tvTotals.setText(
-                    "Subtotal: " + estimate.getExcludingTaxTotal() + "\n" +
-                            "Discount: " + estimate.getDiscount() + "\n" +
-                            "VAT: " + estimate.getVat() + "\n" +
-                            "Total: " + estimate.getAllTaxIncludedTotal());
-        }
-    }
-
-    private void generatePdf() {
-        PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create(); // A4
-        PdfDocument.Page page = document.startPage(pageInfo);
-
-        Canvas canvas = page.getCanvas();
-        Paint paint = new Paint();
-        int x = 40, y = 50;
-
-        paint.setTextSize(16);
-        canvas.drawText("Estimate Preview", x, y, paint);
-        y += 30;
-
-        paint.setTextSize(12);
-        canvas.drawText("Business: " + business.getName(), x, y, paint); y += 15;
-        canvas.drawText("Customer: " + customer.getName(), x, y, paint); y += 15;
-        canvas.drawText("Issue Date: " + estimate.getIssueDate(), x, y, paint); y += 25;
+    private void fillEstimateLines() {
+        linesContainer.removeAllViews();
+        totalBeforeVat = 0;
 
         for (EstimateLine line : estimateLines) {
-            canvas.drawText("Steel " + line.getSteel() + " | Qty: " + line.getQuantity() +
-                    " | Unit: " + line.getUnitPrice() + " | Total: " + line.getTotalPrice(), x, y, paint);
-            y += 15;
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+
+            TextView qty = createCell(String.valueOf(line.getQuantity()), 1);
+            TextView product = createCell(line.getSteel() + "", 2); // Replace with product name if available
+            TextView unitPrice = createCell(String.format("%.2f", line.getUnitPrice()), 1);
+            TextView total = createCell(String.format("%.2f", line.getTotalPrice()), 1);
+
+            row.addView(qty);
+            row.addView(product);
+            row.addView(unitPrice);
+            row.addView(total);
+
+            linesContainer.addView(row);
+
+            totalBeforeVat += line.getTotalPrice();
         }
 
+        double discount = totalBeforeVat * discountRate;
+        double vat = (totalBeforeVat - discount) * vatRate;
+        totalAfterVat = (totalBeforeVat - discount) + vat;
+
+        tvTotalBeforeVat.setText(String.format("Total Before VAT: %.2f", totalBeforeVat));
+        tvDiscount.setText(String.format("Discount: %.2f", discount));
+        tvVat.setText(String.format("VAT: %.2f", vat));
+        tvAllTotal.setText(String.format("Total After VAT: %.2f", totalAfterVat));
+    }
+
+    private TextView createCell(String text, int weight) {
+        TextView tv = new TextView(this);
+        tv.setText(text);
+        tv.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
+        tv.setPadding(8, 8, 8, 8);
+        return tv;
+    }
+
+    private void createPdf() {
+        PdfDocument pdfDocument = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+
+        Paint paint = new Paint();
+        int y = 50;
+
+        // Title
+        paint.setTextSize(22);
+        paint.setFakeBoldText(true);
+        canvas.drawText("ESTIMATE", 40, y, paint);
+        y += 40;
+
+        // Business & Customer info
+        paint.setTextSize(14);
+        paint.setFakeBoldText(true);
+        canvas.drawText("Business Information:", 40, y, paint);
+        paint.setFakeBoldText(false);
+        canvas.drawText(findViewById(R.id.tvBusinessInfo).toString(), 40, y + 20, paint);
+
+        canvas.drawText("Customer Information:", 300, y, paint);
+        canvas.drawText(findViewById(R.id.tvCustomerInfo).toString(), 300, y + 20, paint);
+        y += 60;
+
+        // Table header
+        paint.setFakeBoldText(true);
+        canvas.drawText("Qty", 40, y, paint);
+        canvas.drawText("Product", 100, y, paint);
+        canvas.drawText("Unit Price", 300, y, paint);
+        canvas.drawText("Total", 400, y, paint);
         y += 20;
-        canvas.drawText("Total (TTC): " + estimate.getAllTaxIncludedTotal(), x, y, paint);
+        paint.setFakeBoldText(false);
 
-        document.finishPage(page);
+        // Table rows
+        for (EstimateLine line : estimateLines) {
+            canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
+            canvas.drawText(line.getSteel() + "", 100, y, paint); // Replace with product name
+            canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
+            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
+            y += 20;
+        }
 
-        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(downloads, "Estimate_" + estimate.getId() + ".pdf");
+        // Totals
+        y += 20;
+        canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvDiscount.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvVat.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvAllTotal.getText().toString(), 300, y, paint);
 
+        pdfDocument.finishPage(page);
+
+        File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Estimates");
+        if (!pdfDir.exists()) pdfDir.mkdirs();
+
+        generatedPdf = new File(pdfDir, "Estimate.pdf");
         try {
-            document.writeTo(new FileOutputStream(file));
-            Toast.makeText(this, "PDF saved: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            pdfDocument.writeTo(new FileOutputStream(generatedPdf));
+            Toast.makeText(this, "PDF saved: " + generatedPdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
         }
 
-        document.close();
+        pdfDocument.close();
+    }
+
+    private void printPdf() {
+        if (generatedPdf != null && generatedPdf.exists()) {
+            Intent printIntent = new Intent(Intent.ACTION_VIEW);
+            printIntent.setDataAndType(Uri.fromFile(generatedPdf), "application/pdf");
+            printIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(printIntent);
+        } else {
+            Toast.makeText(this, "Please generate PDF first", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void sendEmail() {
+        if (generatedPdf != null && generatedPdf.exists()) {
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("application/pdf");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Estimate PDF");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the attached estimate.");
+            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(generatedPdf));
+            startActivity(Intent.createChooser(emailIntent, "Send Email"));
+        } else {
+            Toast.makeText(this, "Please generate PDF first", Toast.LENGTH_SHORT).show();
+        }
     }
 }
