@@ -71,7 +71,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
         btnPrint.setOnClickListener(v -> printPdf());
-        btnSendMail.setOnClickListener(v -> sendEmail());
+        btnSendMail.setOnClickListener(v -> sendEmail(getApplicationContext()));
     }
 
     private void fillEstimateLines() {
