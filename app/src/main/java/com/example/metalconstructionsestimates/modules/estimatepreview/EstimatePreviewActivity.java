@@ -1,5 +1,6 @@
 package com.example.metalconstructionsestimates.modules.estimatepreview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -207,4 +209,27 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             Toast.makeText(this, "Please generate PDF first", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void sendEmail(Context context) {
+        if (generatedPdf != null && generatedPdf.exists()) {
+            Uri pdfUri = FileProvider.getUriForFile(
+                    context,
+                    context.getPackageName() + ".fileprovider",
+                    generatedPdf
+            );
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("application/pdf");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"recipient@example.com"});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your PDF File");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the attached PDF file.");
+            emailIntent.putExtra(Intent.EXTRA_STREAM, pdfUri);
+            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            context.startActivity(Intent.createChooser(emailIntent, "Send email using:"));
+        } else {
+            Toast.makeText(this, "Please generate PDF first", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 }
