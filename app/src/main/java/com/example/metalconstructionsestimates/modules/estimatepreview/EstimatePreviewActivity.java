@@ -197,19 +197,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         }
     }
 
-    private void sendEmail() {
-        if (generatedPdf != null && generatedPdf.exists()) {
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("application/pdf");
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Estimate PDF");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the attached estimate.");
-            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(generatedPdf));
-            startActivity(Intent.createChooser(emailIntent, "Send Email"));
-        } else {
-            Toast.makeText(this, "Please generate PDF first", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void sendEmail(Context context) {
         if (generatedPdf != null && generatedPdf.exists()) {
             Uri pdfUri = FileProvider.getUriForFile(
