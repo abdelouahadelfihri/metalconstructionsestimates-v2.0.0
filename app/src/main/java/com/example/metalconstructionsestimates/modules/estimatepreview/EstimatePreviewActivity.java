@@ -40,6 +40,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private double totalAfterVat = 0;
 
     private File generatedPdf;
+    DBAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         btnPrint = findViewById(R.id.btnPrint);
         btnSendMail = findViewById(R.id.btnSendMail);
 
-        DBAdapter dbAdapter = new DBAdapter(this);
+        dbAdapter = new DBAdapter(this);
 
 
         // Example: Fill estimateLines dynamically from database or intent
