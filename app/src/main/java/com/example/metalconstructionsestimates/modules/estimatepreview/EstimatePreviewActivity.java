@@ -20,6 +20,8 @@ import androidx.core.content.FileProvider;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
+import com.example.metalconstructionsestimates.models.Customer;
+import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 
 import java.io.File;
@@ -207,7 +209,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             );
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("application/pdf");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"recipient@example.com"});
+            Estimate estimate = dbAdapter.getEstimateById(Integer.parseInt(getIntent().getStringExtra("estimateId")));
+            Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{customer.getEmail()});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your PDF File");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the attached PDF file.");
             emailIntent.putExtra(Intent.EXTRA_STREAM, pdfUri);
