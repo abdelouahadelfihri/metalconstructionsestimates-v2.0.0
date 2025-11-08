@@ -33,6 +33,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
     private LinearLayout linesContainer;
     private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
+
+    // New business & customer info TextViews
+    private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
+    private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private Button btnDownloadPdf, btnPrint, btnSendMail;
 
     private List<EstimateLine> estimateLines;
