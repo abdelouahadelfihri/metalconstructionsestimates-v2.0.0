@@ -85,15 +85,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView qty = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            TextView product = createCell(line.getSteel() + "", 2); // Replace with product name if available
-            TextView unitPrice = createCell(String.format("%.2f", line.getUnitPrice()), 1);
-            TextView total = createCell(String.format("%.2f", line.getTotalPrice()), 1);
+            TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
+            String productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            TextView productTextView = createCell(productType + "", 2); // Replace with product name if available
+            TextView unitPriceTextView = createCell(String.format("%.2f", line.getUnitPrice()), 1);
+            TextView totalTextView = createCell(String.format("%.2f", line.getTotalPrice()), 1);
 
-            row.addView(qty);
-            row.addView(product);
-            row.addView(unitPrice);
-            row.addView(total);
+            row.addView(qtyTextView);
+            row.addView(productTextView);
+            row.addView(unitPriceTextView);
+            row.addView(totalTextView);
 
             linesContainer.addView(row);
 
