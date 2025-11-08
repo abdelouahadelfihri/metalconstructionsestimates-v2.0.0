@@ -58,7 +58,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
         tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
 
-// Customer Info
+        // Customer Info
         tvCustomerName = findViewById(R.id.tvCustomerName);
         tvCustomerAddress = findViewById(R.id.tvCustomerAddress);
         tvCustomerPhone = findViewById(R.id.tvCustomerPhone);
@@ -151,13 +151,20 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // Business & Customer info
         paint.setTextSize(14);
         paint.setFakeBoldText(true);
+        // Business Info
         canvas.drawText("Business Information:", 40, y, paint);
         paint.setFakeBoldText(false);
-        canvas.drawText(findViewById(R.id.tvBusinessInfo).toString(), 40, y + 20, paint);
+        canvas.drawText(tvBusinessName.getText().toString(), 40, y + 20, paint);
+        canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 40, paint);
+        canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 60, paint);
 
+        // Customer Info
         canvas.drawText("Customer Information:", 300, y, paint);
-        canvas.drawText(findViewById(R.id.tvCustomerInfo).toString(), 300, y + 20, paint);
-        y += 60;
+        canvas.drawText(tvCustomerName.getText().toString(), 300, y + 20, paint);
+        canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 40, paint);
+        canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 60, paint);
+
+        y += 80;
 
         // Table header
         paint.setFakeBoldText(true);
