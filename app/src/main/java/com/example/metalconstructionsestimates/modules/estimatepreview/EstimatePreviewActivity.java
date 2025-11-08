@@ -53,6 +53,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_preview);
 
+        // Business Info
+        tvBusinessName = findViewById(R.id.tvBusinessName);
+        tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
+        tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
+
+// Customer Info
+        tvCustomerName = findViewById(R.id.tvCustomerName);
+        tvCustomerAddress = findViewById(R.id.tvCustomerAddress);
+        tvCustomerPhone = findViewById(R.id.tvCustomerPhone);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
