@@ -85,7 +85,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView qty = createCell(String.valueOf(line.getQuantity()), 1);
+            TextView qty = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
             TextView product = createCell(line.getSteel() + "", 2); // Replace with product name if available
             TextView unitPrice = createCell(String.format("%.2f", line.getUnitPrice()), 1);
             TextView total = createCell(String.format("%.2f", line.getTotalPrice()), 1);
