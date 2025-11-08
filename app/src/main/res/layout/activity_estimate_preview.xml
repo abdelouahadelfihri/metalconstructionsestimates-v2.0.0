@@ -64,11 +64,23 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvBusinessInfo"
+                        android:id="@+id/tvBusinessName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Company Name\nAddress\nPhone: +212 600 000 000" />
+                        android:text="Company Name" />
+
+                    <TextView
+                        android:id="@+id/tvBusinessAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address" />
+
+                    <TextView
+                        android:id="@+id/tvBusinessPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone: +212 600 000 000" />
                 </LinearLayout>
 
                 <!-- Customer Info -->
@@ -86,11 +98,23 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvCustomerInfo"
+                        android:id="@+id/tvCustomerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Customer Name\nAddress\nPhone: +212 611 111 111" />
+                        android:text="Customer Name" />
+
+                    <TextView
+                        android:id="@+id/tvCustomerAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address" />
+
+                    <TextView
+                        android:id="@+id/tvCustomerPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone: +212 611 111 111" />
                 </LinearLayout>
             </LinearLayout>
 
