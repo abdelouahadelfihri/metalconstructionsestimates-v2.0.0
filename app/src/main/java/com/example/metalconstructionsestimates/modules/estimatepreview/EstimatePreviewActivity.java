@@ -99,11 +99,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         btnPrint = findViewById(R.id.btnPrint);
         btnSendMail = findViewById(R.id.btnSendMail);
 
-        dbAdapter = new DBAdapter(this);
-
-
         // Example: Fill estimateLines dynamically from database or intent
-        assert estimateId != null;
         estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId)); // Replace with your data source
         fillEstimateLines();
 
