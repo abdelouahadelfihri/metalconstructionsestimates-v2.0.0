@@ -58,6 +58,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvBusinessName = findViewById(R.id.tvBusinessName);
         tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
         tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
+        dbAdapter = new DBAdapter(this);
         Business business = dbAdapter.getBusiness();
         assert business != null;
         tvBusinessName.setText(business.getName());
