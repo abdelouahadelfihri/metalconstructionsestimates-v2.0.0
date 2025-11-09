@@ -218,7 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Print"
-            app:icon="@android:drawable/ic_menu_manage"
+            app:icon="@drawable/printer"
             app:iconGravity="textStart"
             app:iconPadding="8dp"
             android:backgroundTint="#008577"
