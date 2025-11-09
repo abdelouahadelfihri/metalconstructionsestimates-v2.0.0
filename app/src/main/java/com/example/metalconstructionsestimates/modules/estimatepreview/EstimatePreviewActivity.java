@@ -60,10 +60,13 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
         dbAdapter = new DBAdapter(getApplicationContext());
         Business business = dbAdapter.getBusiness();
-        assert business != null;
-        tvBusinessName.setText(business.getName());
-        tvBusinessAddress.setText(business.getAddress());
-        tvBusinessPhone.setText(business.getPhone());
+        if (business != null) {
+            tvBusinessName.setText(business.getName());
+            tvBusinessAddress.setText(business.getAddress());
+            tvBusinessPhone.setText(business.getPhone());
+        } else {
+            Toast.makeText(this, "No business record found. Please add your business info first.", Toast.LENGTH_LONG).show();
+        }
 
         String estimateId = getIntent().getStringExtra("estimateId");
         assert estimateId != null;
