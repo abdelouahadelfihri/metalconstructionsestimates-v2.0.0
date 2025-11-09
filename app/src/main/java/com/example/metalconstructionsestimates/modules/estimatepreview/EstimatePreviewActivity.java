@@ -49,7 +49,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
     private File generatedPdf;
     DBAdapter dbAdapter;
-
+    Estimate estimate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +77,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvCustomerAddress = findViewById(R.id.tvCustomerAddress);
         tvCustomerPhone = findViewById(R.id.tvCustomerPhone);
 
-        Estimate estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateId));
+        estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateId));
         Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
         if (customer != null) {
             tvCustomerName.setText(customer.getName());
@@ -133,14 +133,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             totalBeforeVat += line.getTotalPrice();
         }
 
-        double discount = totalBeforeVat * discountRate;
-        double vat = (totalBeforeVat - discount) * vatRate;
-        totalAfterVat = (totalBeforeVat - discount) + vat;
 
-        tvTotalBeforeVat.setText(String.format("Total Before VAT: %.2f", totalBeforeVat));
-        tvDiscount.setText(String.format("Discount: %.2f", discount));
-        tvVat.setText(String.format("VAT: %.2f", vat));
-        tvAllTotal.setText(String.format("Total After VAT: %.2f", totalAfterVat));
+        tvTotalBeforeVat.setText(String.format("Total Before VAT: %.2f", estimate.getExcludingTaxTotal()));
+        discountRate = estimate.getDiscount();
+        double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
+        double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() /100f;
+
+        tvDiscount.setText(String.format("Discount: %.2f = %.2f", estimate.getDiscount(), discount));
+        tvVat.setText(String.format("VAT: %.2f = %.2f", estimate.getVat(), vat));
+
+        tvAllTotal.setText(String.format("Total After VAT: %.2f", estimate.getAllTaxIncludedTotal()));
     }
 
     private TextView createCell(String text, int weight) {
