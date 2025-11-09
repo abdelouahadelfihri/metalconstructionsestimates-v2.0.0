@@ -186,42 +186,55 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
         <!-- Buttons -->
-        <LinearLayout
-            android:id="@+id/buttonsRow"
+    <LinearLayout
+        android:id="@+id/buttonsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDownloadPdf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_weight="1"
+            android:text="Download"
+            app:icon="@android:drawable/ic_menu_save"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:backgroundTint="#0066cc"
+            android:textColor="@android:color/white" />
 
-            <Button
-                android:id="@+id/btnDownloadPdf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Download"
-                android:backgroundTint="#0066cc"
-                android:textColor="@android:color/white" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Print"
+            app:icon="@android:drawable/ic_menu_manage"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:backgroundTint="#008577"
+            android:textColor="@android:color/white" />
 
-            <Button
-                android:id="@+id/btnPrint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Print"
-                android:backgroundTint="#008577"
-                android:textColor="@android:color/white" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSendMail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Send"
+            app:icon="@android:drawable/ic_dialog_email"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:backgroundTint="#FF9800"
+            android:textColor="@android:color/white" />
 
-            <Button
-                android:id="@+id/btnSendMail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send Email"
-                android:backgroundTint="#FF9800"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
