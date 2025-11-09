@@ -25,8 +25,8 @@ public class DBAdapter {
     DBHelper helper;
     private static final String TAG = "DBAdapter";
     public DBAdapter(Context context) {
-        this.context = context;
-        helper = new DBHelper(context);
+        this.context = context.getApplicationContext();
+        this.helper = new DBHelper(this.context); // 👈 this line is REQUIRED
     }
 
     public int getEstimatesCount() {
