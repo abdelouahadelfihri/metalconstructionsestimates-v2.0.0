@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
@@ -57,16 +58,28 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvBusinessName = findViewById(R.id.tvBusinessName);
         tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
         tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
+        Business business = dbAdapter.getBusiness();
+        assert business != null;
+        tvBusinessName.setText(business.getName());
+        tvBusinessAddress.setText(business.getAddress());
+        tvBusinessPhone.setText(business.getPhone());
+
+        String estimateId = getIntent().getStringExtra("estimateId");
+        assert estimateId != null;
 
         // Customer Info
         tvCustomerName = findViewById(R.id.tvCustomerName);
         tvCustomerAddress = findViewById(R.id.tvCustomerAddress);
         tvCustomerPhone = findViewById(R.id.tvCustomerPhone);
 
+        Estimate estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateId));
+        Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
+        tvCustomerName.setText(customer.getName());
+        tvCustomerAddress.setText(customer.getAddress());
+        tvCustomerPhone.setText(customer.getTelephone());
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        String estimateId = getIntent().getStringExtra("estimateId");
 
         linesContainer = findViewById(R.id.linesContainer);
         tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);
