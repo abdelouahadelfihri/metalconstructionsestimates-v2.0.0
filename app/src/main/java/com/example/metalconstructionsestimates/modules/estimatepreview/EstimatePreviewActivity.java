@@ -78,9 +78,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         Estimate estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateId));
         Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
-        tvCustomerName.setText(customer.getName());
-        tvCustomerAddress.setText(customer.getAddress());
-        tvCustomerPhone.setText(customer.getTelephone());
+        if (customer != null) {
+            tvCustomerName.setText(customer.getName());
+            tvCustomerAddress.setText(customer.getAddress());
+            tvCustomerPhone.setText(customer.getTelephone());
+        } else {
+            Toast.makeText(this, "No customer record found. Please add your business info first.", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
