@@ -199,37 +199,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btnDownloadPdf"
+        <LinearLayout
+            android:id="@+id/btnDownloadSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Download"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#0066cc"
-            android:ellipsize="none"
-            android:singleLine="true"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnPrint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Print"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#008577"
-            android:ellipsize="none"
-            android:singleLine="true"/>
+            <ImageView
+                android:id="@+id/btnDownloadPdf"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/file"
+                android:contentDescription="Download"
+                android:tint="#0066cc"/>
 
-        <Button
-            android:id="@+id/btnSendMail"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download"
+                android:textSize="12sp"
+                android:textColor="#0066cc"/>
+        </LinearLayout>
+
+        <!-- Print -->
+        <LinearLayout
+            android:id="@+id/btnPrintSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Send Email"
-            android:textColor="@android:color/white"
-            android:backgroundTint="#FF9800"
-            android:ellipsize="none"
-            android:singleLine="true"/>
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/btnPrint"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/printer"
+                android:contentDescription="Print"
+                android:tint="#008577"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Print"
+                android:textSize="12sp"
+                android:textColor="#008577"/>
+        </LinearLayout>
+
+        <!-- Send Email -->
+        <LinearLayout
+            android:id="@+id/btnSendMailSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/btnSendMail"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/paper"
+                android:contentDescription="Send Email"
+                android:tint="#FF9800"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send by Email"
+                android:textSize="12sp"
+                android:textColor="#FF9800"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
