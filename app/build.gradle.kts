@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.metalconstructionsestimates"
+    namespace = "com.example.steelquotes"
     compileSdk = 34
 
     packaging {
