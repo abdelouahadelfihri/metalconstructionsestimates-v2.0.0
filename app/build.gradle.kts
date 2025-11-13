@@ -21,7 +21,7 @@ android {
                 "xlargeScreens" to "false"
             )
         )
-        applicationId = "com.example.metalconstructionsestimates"
+        applicationId = "com.example.steelquotes"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
