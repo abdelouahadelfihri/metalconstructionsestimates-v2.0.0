@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.steelquotes"
+    namespace = "com.example.metalconstructionsestimates"
     compileSdk = 34
 
     packaging {
@@ -21,7 +21,7 @@ android {
                 "xlargeScreens" to "false"
             )
         )
-        applicationId = "com.example.steelquotes"
+        applicationId = "com.example.metalconstructionsestimates"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
