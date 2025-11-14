@@ -150,6 +150,7 @@
     <string name="noPaidEstimates">No paid estimates recorded</string>
     <string name="noPartiallyPaidEstimates">No partially paid estimates recorded</string>
     <string name="noEstimates">No estimates recorded</string>
+    <string name="noEstimatesLines">No estimates recorded</string>
     <string name="noResult">No result found</string>
     <string name="estimateRecorded">estimate recorded</string>
     <string name="estimatesRecorded">estimates recorded</string>
