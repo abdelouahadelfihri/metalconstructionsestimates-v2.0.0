@@ -235,14 +235,23 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private void printPdf() {
 
         if (generatedPdf == null || !generatedPdf.exists()) {
-            createPdf(); // generate automatically if not done
+            createPdf();
         }
 
         if (generatedPdf != null && generatedPdf.exists()) {
+
+            Uri pdfUri = FileProvider.getUriForFile(
+                    this,
+                    getPackageName() + ".provider",
+                    generatedPdf
+            );
+
             Intent printIntent = new Intent(Intent.ACTION_VIEW);
-            printIntent.setDataAndType(Uri.fromFile(generatedPdf), "application/pdf");
-            printIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            printIntent.setDataAndType(pdfUri, "application/pdf");
+            printIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
             startActivity(printIntent);
+
         } else {
             Toast.makeText(this, "Failed to generate PDF", Toast.LENGTH_SHORT).show();
         }
