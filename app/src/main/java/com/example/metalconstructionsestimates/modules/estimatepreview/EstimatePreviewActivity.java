@@ -13,6 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
@@ -23,10 +30,7 @@ import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
-import com.google.android.material.button.MaterialButton;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -215,8 +219,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         if (!pdfDir.exists()) pdfDir.mkdirs();
 
         generatedPdf = new File(pdfDir, "Estimate.pdf");
+
         try {
             pdfDocument.writeTo(new FileOutputStream(generatedPdf));
+            copyToDownloads(generatedPdf);
             Toast.makeText(this, "PDF saved: " + generatedPdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -270,5 +276,31 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         }
 
     }
+
+    private void copyToDownloads(File sourceFile) {
+        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File destFile = new File(downloads, "Estimate.pdf");
+
+        try {
+            InputStream in = new FileInputStream(sourceFile);
+            OutputStream out = new FileOutputStream(destFile);
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+
+            in.close();
+            out.close();
+
+            Toast.makeText(this, "Copied to Downloads: " + destFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Copy failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }
