@@ -219,14 +219,13 @@
                 android:layout_height="36dp"
                 android:src="@drawable/file"
                 android:contentDescription="Download"
-                android:tint="#0066cc"/>
+                app:tint="#0066cc" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Download"
-                android:textSize="12sp"
-                android:textColor="#0066cc"/>
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Print -->
@@ -244,14 +243,13 @@
                 android:layout_height="36dp"
                 android:src="@drawable/printer"
                 android:contentDescription="Print"
-                android:tint="#008577"/>
+                app:tint="#008577" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Print"
-                android:textSize="12sp"
-                android:textColor="#008577"/>
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- Send Email -->
@@ -269,14 +267,13 @@
                 android:layout_height="36dp"
                 android:src="@drawable/paper"
                 android:contentDescription="Send Email"
-                android:tint="#FF9800"/>
+                app:tint="#0066cc" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Send by Email"
-                android:textSize="12sp"
-                android:textColor="#FF9800"/>
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
