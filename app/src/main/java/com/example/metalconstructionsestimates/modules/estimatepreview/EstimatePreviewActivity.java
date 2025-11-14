@@ -43,7 +43,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private ImageView btnDownloadPdf, btnPrint, btnSendMail;
-
+    String productType;
     private List<EstimateLine> estimateLines;
     private double discountRate = 0.1; // 10% Discount
 
@@ -117,7 +117,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             row.setOrientation(LinearLayout.HORIZONTAL);
 
             TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            String productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            productType = dbAdapter.getSteelById(line.getSteel()).getType();
             TextView productTextView = createCell(productType + "", 2); // Replace with product name if available
             TextView unitPriceTextView = createCell(String.format("%.2f", line.getUnitPrice()), 1);
             TextView totalTextView = createCell(String.format("%.2f", line.getTotalPrice()), 1);
@@ -196,7 +196,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // Table rows
         for (EstimateLine line : estimateLines) {
             canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-            canvas.drawText(line.getSteel() + "", 100, y, paint); // Replace with product name
+            canvas.drawText(productType + "", 100, y, paint); // Replace with product name
             canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
             canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
             y += 20;
