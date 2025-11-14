@@ -380,7 +380,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/noEstimates"
+            android:text="@string/noEstimatesLines"
             android:gravity="center"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/vatLayout"
