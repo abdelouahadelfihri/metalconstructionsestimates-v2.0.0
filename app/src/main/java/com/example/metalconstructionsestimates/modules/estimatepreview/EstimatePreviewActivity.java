@@ -210,7 +210,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Estimates");
+        File pdfDir = new File(getExternalFilesDir(null), "Estimates");
+
         if (!pdfDir.exists()) pdfDir.mkdirs();
 
         generatedPdf = new File(pdfDir, "Estimate.pdf");
