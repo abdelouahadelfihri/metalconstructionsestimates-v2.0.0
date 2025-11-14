@@ -8,6 +8,7 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,13 +38,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     // New business & customer info TextViews
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
-    private MaterialButton btnDownloadPdf, btnPrint, btnSendMail;
+    private ImageView btnDownloadPdf, btnPrint, btnSendMail;
 
     private List<EstimateLine> estimateLines;
-    private double totalBeforeVat = 0;
-    private double vatRate = 0.2;      // 20% VAT
     private double discountRate = 0.1; // 10% Discount
-    private double totalAfterVat = 0;
 
     private File generatedPdf;
     DBAdapter dbAdapter;
@@ -109,7 +107,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
     private void fillEstimateLines() {
         linesContainer.removeAllViews();
-        totalBeforeVat = 0;
 
         for (EstimateLine line : estimateLines) {
             LinearLayout row = new LinearLayout(this);
@@ -128,7 +125,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
             linesContainer.addView(row);
 
-            totalBeforeVat += line.getTotalPrice();
         }
 
 
