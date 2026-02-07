@@ -94,6 +94,22 @@ public class Customers extends AppCompatActivity {
                         searchResultToast.show();
                     }
                 }
+                else{
+                    ArrayList<Customer> listCustomers = dbAdapter.retrieveCustomers();
+                    TextView noCustomersTextView = findViewById(R.id.noCustomersTextView);
+                    CustomersListAdapter customersListAdapter = new CustomersListAdapter(Customers.this, listCustomers);
+
+                    if(listCustomers.isEmpty()){
+                        binding.customerRecyclerView.setVisibility(View.GONE);
+                        noCustomersTextView.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        noCustomersTextView.setVisibility(View.GONE);
+                        binding.customerRecyclerView.setVisibility(View.VISIBLE);
+                        binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        binding.customerRecyclerView.setAdapter(customersListAdapter);
+                    }
+                }
             }
         });
 
