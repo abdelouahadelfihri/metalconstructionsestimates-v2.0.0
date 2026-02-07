@@ -232,58 +232,36 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         pdfDocument.close();
     }
 
-    private void printPdf() {
+    private void printPdf(File pdfFile) {
+        PrintManager printManager =
+                (PrintManager) getSystemService(Context.PRINT_SERVICE);
 
-        if (generatedPdf == null || !generatedPdf.exists()) {
-            createPdf();
-        }
+        PrintDocumentAdapter adapter =
+                new PdfPrintAdapter(this, pdfFile.getAbsolutePath());
 
-        if (generatedPdf != null && generatedPdf.exists()) {
-
-            Uri pdfUri = FileProvider.getUriForFile(
-                    this,
-                    getPackageName() + ".provider",
-                    generatedPdf
-            );
-
-            Intent printIntent = new Intent(Intent.ACTION_VIEW);
-            printIntent.setDataAndType(pdfUri, "application/pdf");
-            printIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            startActivity(printIntent);
-
-        } else {
-            Toast.makeText(this, "Failed to generate PDF", Toast.LENGTH_SHORT).show();
-        }
+        printManager.print(
+                "Estimate Print",
+                adapter,
+                new PrintAttributes.Builder().build()
+        );
     }
 
-    public void sendEmail(Context context) {
+    private void sendPdfByEmail(String email, File pdfFile) {
+        Uri uri = FileProvider.getUriForFile(
+                this,
+                getPackageName() + ".provider",
+                pdfFile
+        );
 
-        if (generatedPdf == null || !generatedPdf.exists()) {
-            createPdf(); // generate automatically if not done
-        }
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("application/pdf");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Estimate");
+        intent.putExtra(Intent.EXTRA_TEXT, "Please find the estimate attached.");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        if (generatedPdf != null && generatedPdf.exists()) {
-            Uri pdfUri = FileProvider.getUriForFile(
-                    context,
-                    context.getPackageName() + ".fileprovider",
-                    generatedPdf
-            );
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("application/pdf");
-            Estimate estimate = dbAdapter.getEstimateById(Integer.parseInt(getIntent().getStringExtra("estimateId")));
-            Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{customer.getEmail()});
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your PDF File");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Please find the attached PDF file.");
-            emailIntent.putExtra(Intent.EXTRA_STREAM, pdfUri);
-            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            context.startActivity(Intent.createChooser(emailIntent, "Send email using:"));
-        } else {
-            Toast.makeText(this, "Failed to generate PDF", Toast.LENGTH_SHORT).show();
-        }
-
+        startActivity(Intent.createChooser(intent, "Send estimate"));
     }
 
     private void copyToDownloads(File sourceFile) {
@@ -310,6 +288,5 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             Toast.makeText(this, "Copy failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
 
 }
