@@ -8,6 +8,9 @@ import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +33,7 @@ import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
+import com.example.metalconstructionsestimates.printings.PdfPrintAdapter;
 
 import java.io.IOException;
 import java.util.List;
@@ -105,8 +109,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         fillEstimateLines();
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
-        btnPrint.setOnClickListener(v -> printPdf());
-        btnSendMail.setOnClickListener(v -> sendEmail(getApplicationContext()));
+        btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
+        btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(),generatedPdf));
     }
 
     private void fillEstimateLines() {
@@ -214,16 +218,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File pdfDir = new File(getExternalFilesDir(null), "Estimates");
+        File downloadsDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-        if (!pdfDir.exists()) pdfDir.mkdirs();
-
-        generatedPdf = new File(pdfDir, "Estimate.pdf");
+        generatedPdf = new File(downloadsDir, "Estimate.pdf");
 
         try {
             pdfDocument.writeTo(new FileOutputStream(generatedPdf));
-            copyToDownloads(generatedPdf);
-            Toast.makeText(this, "PDF saved: " + generatedPdf.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this,
+                    "PDF saved to Downloads",
+                    Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
@@ -282,7 +286,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             in.close();
             out.close();
 
-            Toast.makeText(this, "Copied to Downloads: " + destFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "PDF saved: " + destFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Copy failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
