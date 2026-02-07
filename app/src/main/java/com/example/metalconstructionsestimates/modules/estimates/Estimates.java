@@ -449,7 +449,6 @@ public class Estimates extends AppCompatActivity {
                 String searchText = s.toString();
                 if(!searchText.isEmpty()){
                     activityEstimatesBinding.estimatesRecyclerView.setLayoutManager(new LinearLayoutManager(Estimates.this.getApplicationContext()));
-                    DBAdapter db = new DBAdapter(getApplicationContext());
                     switch(selectedEstimateStatus){
                         case "All":
                             ArrayList<Estimate> allEstimatesList = dbAdapter.searchEstimates(searchText);
