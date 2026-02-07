@@ -89,6 +89,23 @@ public class Steels extends AppCompatActivity {
                         searchResultToast.show();
                     }
                 }
+                else{
+                    ArrayList<Steel> steelsList = dbAdapter.retrieveSteels();
+                    AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.steelsRecyclerView));
+
+                    if (steelsList.isEmpty()) {
+                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
+                        activitySteelsBinding.noSteelsTextView.setVisibility(View.VISIBLE);
+                        activitySteelsBinding.noSteelsTextView.setText(R.string.noSteels);
+                    } else {
+                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
+                        activitySteelsBinding.noSteelsTextView.setVisibility(View.GONE);
+                        steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList);
+                        recyclerViewSteels.get().setHasFixedSize(true);
+                        recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        recyclerViewSteels.get().setAdapter(steelsListAdapter);
+                    }
+                }
             }
         });
 
