@@ -109,8 +109,29 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         fillEstimateLines();
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
-        btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
-        btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(),generatedPdf));
+        btnPrint.setOnClickListener(v -> {
+            if (generatedPdf == null) {
+                createPdf();
+            }
+
+            if (generatedPdf != null && generatedPdf.exists()) {
+                printPdf(generatedPdf);
+            } else {
+                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnSendMail.setOnClickListener(v -> {
+            if (generatedPdf == null || !generatedPdf.exists()) {
+                createPdf(); // generate first
+            }
+
+            if (generatedPdf != null && generatedPdf.exists()) {
+                sendPdfByEmail(customer.getEmail(), generatedPdf);
+            } else {
+                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void fillEstimateLines() {
@@ -200,7 +221,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // Table rows
         for (EstimateLine line : estimateLines) {
             canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-            canvas.drawText(productType + "", 100, y, paint); // Replace with product name
+            String productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            canvas.drawText(productType, 100, y, paint); // Replace with product name
             canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
             canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
             y += 20;
@@ -218,8 +240,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
         generatedPdf = new File(downloadsDir, "Estimate.pdf");
 
