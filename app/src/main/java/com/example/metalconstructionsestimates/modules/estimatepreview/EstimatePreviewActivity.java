@@ -267,30 +267,4 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         startActivity(Intent.createChooser(intent, "Send estimate"));
     }
-
-    private void copyToDownloads(File sourceFile) {
-        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File destFile = new File(downloads, "Estimate.pdf");
-
-        try {
-            InputStream in = new FileInputStream(sourceFile);
-            OutputStream out = new FileOutputStream(destFile);
-
-            byte[] buffer = new byte[1024];
-            int length;
-
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
-            }
-
-            in.close();
-            out.close();
-
-            Toast.makeText(this, "PDF saved: " + destFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Copy failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
 }
