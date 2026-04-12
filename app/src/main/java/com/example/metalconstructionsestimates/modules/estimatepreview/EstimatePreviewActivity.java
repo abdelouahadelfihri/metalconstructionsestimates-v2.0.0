@@ -1,5 +1,6 @@
 package com.example.metalconstructionsestimates.modules.estimatepreview;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -177,58 +179,71 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private void createPdf() {
+
         PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.PageInfo pageInfo =
+                new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
         Paint paint = new Paint();
         int y = 50;
 
-        // Title
+        // ================= TITLE =================
         paint.setTextSize(22);
         paint.setFakeBoldText(true);
         canvas.drawText("ESTIMATE", 40, y, paint);
         y += 40;
 
-        // Business & Customer info
+        // ================= BUSINESS =================
         paint.setTextSize(14);
         paint.setFakeBoldText(true);
-        // Business Info
+
         canvas.drawText("Business Information:", 40, y, paint);
         paint.setFakeBoldText(false);
+
         canvas.drawText(tvBusinessName.getText().toString(), 40, y + 20, paint);
         canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 40, paint);
         canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 60, paint);
 
-        // Customer Info
+        // ================= CUSTOMER =================
         canvas.drawText("Customer Information:", 300, y, paint);
         canvas.drawText(tvCustomerName.getText().toString(), 300, y + 20, paint);
         canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 40, paint);
         canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 60, paint);
 
-        y += 80;
+        y += 90;
 
-        // Table header
+        // ================= HEADER =================
         paint.setFakeBoldText(true);
         canvas.drawText("Qty", 40, y, paint);
         canvas.drawText("Product", 100, y, paint);
         canvas.drawText("Unit Price", 300, y, paint);
-        canvas.drawText("Total", 400, y, paint);
+        canvas.drawText("Total", 420, y, paint);
+
         y += 20;
         paint.setFakeBoldText(false);
 
-        // Table rows
+        // ================= LINES =================
         for (EstimateLine line : estimateLines) {
+
             canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-            String productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            canvas.drawText(productType, 100, y, paint); // Replace with product name
+
+            String productType = "";
+            if (line.getSteel() != 0) {
+                productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            }
+
+            canvas.drawText(productType, 100, y, paint);
+
             canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
+            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 420, y, paint);
+
             y += 20;
         }
 
-        // Totals
+        // ================= TOTALS =================
         y += 20;
         canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint);
         y += 20;
@@ -240,18 +255,33 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-
-        generatedPdf = new File(downloadsDir, "Estimate.pdf");
-
+        // ================= SAVE TO DOWNLOADS (MODERN WAY) =================
         try {
-            pdfDocument.writeTo(new FileOutputStream(generatedPdf));
+
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, "Estimate.pdf");
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = getContentResolver().insert(
+                    MediaStore.Files.getContentUri("external"),
+                    values
+            );
+
+            OutputStream outputStream = getContentResolver().openOutputStream(uri);
+            pdfDocument.writeTo(outputStream);
+
+            if (outputStream != null) outputStream.close();
+
             Toast.makeText(this,
-                    "PDF saved to Downloads",
+                    "Saved to Downloads",
                     Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "Error saving PDF: " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         }
 
         pdfDocument.close();
