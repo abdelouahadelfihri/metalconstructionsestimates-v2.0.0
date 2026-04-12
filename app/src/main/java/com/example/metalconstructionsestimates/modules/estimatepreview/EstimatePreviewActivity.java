@@ -53,7 +53,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private List<EstimateLine> estimateLines;
     private double discountRate = 0.1; // 10% Discount
 
-    private File generatedPdf;
     DBAdapter dbAdapter;
     Estimate estimate;
     @Override
@@ -112,26 +111,23 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
         btnPrint.setOnClickListener(v -> {
-            if (generatedPdf == null) {
-                createPdf();
-            }
-
-            if (generatedPdf != null && generatedPdf.exists()) {
-                printPdf(generatedPdf);
-            } else {
-                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
+            File pdf = createPdf();
+            if (pdf != null && pdf.exists()) {
+                printPdf(pdf);
             }
         });
 
         btnSendMail.setOnClickListener(v -> {
-            if (generatedPdf == null || !generatedPdf.exists()) {
-                createPdf(); // generate first
+
+            if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
+                Toast.makeText(this, "Email missing", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            if (generatedPdf != null && generatedPdf.exists()) {
-                sendPdfByEmail(customer.getEmail(), generatedPdf);
-            } else {
-                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
+            File pdf = createPdf();
+
+            if (pdf != null && pdf.exists()) {
+                sendPdfByEmail(customer.getEmail(), pdf);
             }
         });
     }
@@ -178,9 +174,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         return tv;
     }
 
-    private void createPdf() {
+    private File createPdf() {
 
         PdfDocument pdfDocument = new PdfDocument();
+
         PdfDocument.PageInfo pageInfo =
                 new PdfDocument.PageInfo.Builder(595, 842, 1).create();
 
@@ -194,6 +191,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(22);
         paint.setFakeBoldText(true);
         canvas.drawText("ESTIMATE", 40, y, paint);
+
         y += 40;
 
         // ================= BUSINESS =================
@@ -215,8 +213,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         y += 90;
 
-        // ================= HEADER =================
+        // ================= TABLE HEADER =================
         paint.setFakeBoldText(true);
+
         canvas.drawText("Qty", 40, y, paint);
         canvas.drawText("Product", 100, y, paint);
         canvas.drawText("Unit Price", 300, y, paint);
@@ -225,7 +224,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         y += 20;
         paint.setFakeBoldText(false);
 
-        // ================= LINES =================
+        // ================= TABLE LINES =================
         for (EstimateLine line : estimateLines) {
 
             canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
@@ -237,54 +236,60 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
             canvas.drawText(productType, 100, y, paint);
 
-            canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 420, y, paint);
+            canvas.drawText(
+                    String.format("%.2f", line.getUnitPrice()),
+                    300,
+                    y,
+                    paint
+            );
+
+            canvas.drawText(
+                    String.format("%.2f", line.getTotalPrice()),
+                    420,
+                    y,
+                    paint
+            );
 
             y += 20;
         }
 
         // ================= TOTALS =================
         y += 20;
+
         canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint);
         y += 20;
+
         canvas.drawText(tvDiscount.getText().toString(), 300, y, paint);
         y += 20;
+
         canvas.drawText(tvVat.getText().toString(), 300, y, paint);
         y += 20;
+
         canvas.drawText(tvAllTotal.getText().toString(), 300, y, paint);
 
         pdfDocument.finishPage(page);
 
-        // ================= SAVE TO DOWNLOADS (MODERN WAY) =================
+        // ================= SAVE FILE =================
+        File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+
+        if (!downloadsDir.exists()) {
+            downloadsDir.mkdirs();
+        }
+
+        File file = new File(downloadsDir, "Estimate.pdf");
+
         try {
+            pdfDocument.writeTo(new FileOutputStream(file));
+            Toast.makeText(this, "PDF created successfully", Toast.LENGTH_SHORT).show();
 
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.MediaColumns.DISPLAY_NAME, "Estimate.pdf");
-            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
-            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-
-            Uri uri = getContentResolver().insert(
-                    MediaStore.Files.getContentUri("external"),
-                    values
-            );
-
-            OutputStream outputStream = getContentResolver().openOutputStream(uri);
-            pdfDocument.writeTo(outputStream);
-
-            if (outputStream != null) outputStream.close();
-
-            Toast.makeText(this,
-                    "Saved to Downloads",
-                    Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this,
-                    "Error saving PDF: " + e.getMessage(),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error creating PDF", Toast.LENGTH_SHORT).show();
         }
 
         pdfDocument.close();
+
+        return file;
     }
 
     private void printPdf(File pdfFile) {
