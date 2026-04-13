@@ -109,27 +109,135 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId)); // Replace with your data source
         fillEstimateLines();
 
-        btnDownloadPdf.setOnClickListener(v -> createPdf());
+        btnDownloadPdf.setOnClickListener(v -> downloadPdf());
         btnPrint.setOnClickListener(v -> {
-            File pdf = createPdf();
+            File pdf = createPdfFile();
+
             if (pdf != null && pdf.exists()) {
                 printPdf(pdf);
+            } else {
+                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         btnSendMail.setOnClickListener(v -> {
 
             if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
-                Toast.makeText(this, "Email missing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Customer email missing", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            File pdf = createPdf();
+            File pdf = createPdfFile();
 
             if (pdf != null && pdf.exists()) {
                 sendPdfByEmail(customer.getEmail(), pdf);
+            } else {
+                Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void downloadPdf() {
+
+        PdfDocument pdfDocument = new PdfDocument();
+
+        PdfDocument.PageInfo pageInfo =
+                new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+
+        Paint paint = new Paint();
+        int y = 50;
+
+        // ===== SAME DRAWING CODE =====
+        paint.setTextSize(22);
+        paint.setFakeBoldText(true);
+        canvas.drawText("ESTIMATE", 40, y, paint);
+        y += 40;
+
+        paint.setTextSize(14);
+        paint.setFakeBoldText(true);
+
+        canvas.drawText("Business Information:", 40, y, paint);
+        paint.setFakeBoldText(false);
+
+        canvas.drawText(tvBusinessName.getText().toString(), 40, y + 20, paint);
+        canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 40, paint);
+        canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 60, paint);
+
+        canvas.drawText("Customer Information:", 300, y, paint);
+        canvas.drawText(tvCustomerName.getText().toString(), 300, y + 20, paint);
+        canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 40, paint);
+        canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 60, paint);
+
+        y += 90;
+
+        paint.setFakeBoldText(true);
+        canvas.drawText("Qty", 40, y, paint);
+        canvas.drawText("Product", 100, y, paint);
+        canvas.drawText("Unit Price", 300, y, paint);
+        canvas.drawText("Total", 420, y, paint);
+
+        y += 20;
+        paint.setFakeBoldText(false);
+
+        for (EstimateLine line : estimateLines) {
+
+            canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
+
+            String productType = "";
+            if (line.getSteel() != 0) {
+                productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            }
+
+            canvas.drawText(productType, 100, y, paint);
+
+            canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
+            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 420, y, paint);
+
+            y += 20;
+        }
+
+        y += 20;
+        canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvDiscount.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvVat.getText().toString(), 300, y, paint);
+        y += 20;
+        canvas.drawText(tvAllTotal.getText().toString(), 300, y, paint);
+
+        pdfDocument.finishPage(page);
+
+        // ===== SAVE TO REAL DOWNLOADS =====
+        try {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME,
+                    "Estimate_" + System.currentTimeMillis() + ".pdf");
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = getContentResolver().insert(
+                    MediaStore.Files.getContentUri("external"),
+                    values
+            );
+
+            OutputStream out = getContentResolver().openOutputStream(uri);
+            pdfDocument.writeTo(out);
+
+            if (out != null) out.close();
+
+            Toast.makeText(this, "Saved to Downloads", Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Download failed", Toast.LENGTH_SHORT).show();
+        }
+
+        pdfDocument.close();
     }
 
     private void fillEstimateLines() {
@@ -174,7 +282,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         return tv;
     }
 
-    private File createPdf() {
+    private File createPdfFile() {
 
         PdfDocument pdfDocument = new PdfDocument();
 
