@@ -49,6 +49,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private ImageView btnDownloadPdf, btnPrint, btnSendMail;
+    private File cachedPdf;
     String productType;
     private List<EstimateLine> estimateLines;
     private double discountRate = 0.1; // 10% Discount
@@ -111,7 +112,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         btnDownloadPdf.setOnClickListener(v -> downloadPdf());
         btnPrint.setOnClickListener(v -> {
-            File pdf = createPdfFile();
+            File pdf = getOrCreatePdf();
 
             if (pdf != null && pdf.exists()) {
                 printPdf(pdf);
@@ -129,7 +130,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 return;
             }
 
-            File pdf = createPdfFile();
+            File pdf = getOrCreatePdf();
 
             if (pdf != null && pdf.exists()) {
                 sendPdfByEmail(customer.getEmail(), pdf);
@@ -137,6 +138,13 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 Toast.makeText(this, "PDF not available", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private File getOrCreatePdf() {
+        if (cachedPdf == null || !cachedPdf.exists()) {
+            cachedPdf = createPdfFile();
+        }
+        return cachedPdf;
     }
 
     private void downloadPdf() {
