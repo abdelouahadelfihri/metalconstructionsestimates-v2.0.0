@@ -17,6 +17,12 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
 
     public IntermediateDBHelper(Context context) { super(context, "intermediateestimatesdb", null, 1); }
 
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
     private static final String TAG = "IntermediateDBHelper";
 
     public void onCreate(SQLiteDatabase db){
