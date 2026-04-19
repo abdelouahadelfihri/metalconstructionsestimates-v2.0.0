@@ -427,7 +427,7 @@ public class EstimateDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         TextInputEditText estimateIdTextInputEditText = findViewById(R.id.estimateIdEditText_estimate_details);
-                        dbAdapter.deleteEstimate(Integer.parseInt(estimateIdTextInputEditText.getText().toString()));
+                        dbAdapter.deleteEstimate(Integer.parseInt(Objects.requireNonNull(estimateIdTextInputEditText.getText()).toString()));
                         Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Suppression du devis a été effectuée avec succés", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
 
