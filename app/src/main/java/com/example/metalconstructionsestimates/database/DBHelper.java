@@ -17,6 +17,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = "DBHelper";
     public DBHelper(Context context) { super(context, "estimatesdb", null, 1); }
 
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
+
     public void onCreate(SQLiteDatabase db){
         try{
             db.execSQL("CREATE TABLE customer(id INTEGER PRIMARY KEY AUTOINCREMENT,"
