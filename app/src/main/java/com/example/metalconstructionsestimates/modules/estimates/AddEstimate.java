@@ -269,22 +269,24 @@ public class AddEstimate extends AppCompatActivity {
                                 customerExists = true;
                             }
 
-                            if (!issueDateValue.isEmpty()) {
-                                estimate.setIssueDate(issueDateValue);
+                            // ISSUE DATE
+                            if (issueDateTimestamp != 0) {
+                                estimate.setIssueDate(issueDateTimestamp);
                             } else {
-                                estimate.setIssueDate("");
+                                estimate.setIssueDate(0);
                             }
 
-                            if(!dueDateValue.isEmpty()){
-                                estimate.setDueDate(dueDateValue);
+                            // EXPIRATION DATE
+                            if (expirationDateTimestamp != 0) {
+                                estimate.setExpirationDate(expirationDateTimestamp);
                             } else {
-                                estimate.setDueDate("");
+                                estimate.setExpirationDate(0);
                             }
-
-                            if(!statusValue.isEmpty()){
-                                estimate.setStatus(statusValue);
+                            // DUE DATE
+                            if (dueDateTimestamp != 0) {
+                                estimate.setDueDate(dueDateTimestamp);
                             } else {
-                                estimate.setStatus("");
+                                estimate.setDueDate(0);
                             }
 
                             if(!dueTermsValue.isEmpty()){
