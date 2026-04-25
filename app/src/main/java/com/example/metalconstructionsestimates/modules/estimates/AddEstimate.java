@@ -120,73 +120,82 @@ public class AddEstimate extends AppCompatActivity {
         });
 
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 dueTermsValue = parent.getItemAtPosition(position).toString();
-                estimate.setDueTerms(parent.getItemAtPosition(position).toString());
+                estimate.setDueTerms(dueTermsValue);
 
-                // Get issue date from your TextView
-                String issueDateStr = issueDateTextView.getText().toString();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
-                Date issueDate = null;
-
-                try {
-                    if(!issueDateStr.equals("--/--/----")){
-                        issueDate = sdf.parse(issueDateStr);
-                    }
-                } catch (ParseException e) {
-                    Log.e("AddEstimateActivity", "Error parsing issue date", e);
+                // IMPORTANT: use timestamp, not TextView
+                if (issueDateTimestamp == 0) {
+                    return;
                 }
 
                 Calendar cal = Calendar.getInstance();
-                if (issueDate == null) {
-                    return;
-                }
-                cal.setTime(issueDate);
+                cal.setTimeInMillis(issueDateTimestamp);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+                long dueTimestamp = 0;
 
                 if (dueTermsValue.equals("Due on receipt")) {
+
                     // Same as issue date
-                    if (!issueDateStr.isEmpty()) {
-                        dueDateValue = issueDateStr;
-                        estimate.setDueDate(issueDateStr);
-                    }
-                }
-                else if (dueTermsValue.equals("Next day")) {
+                    dueTimestamp = issueDateTimestamp;
+
+                } else if (dueTermsValue.equals("Next day")) {
+
                     cal.add(Calendar.DAY_OF_MONTH, 1);
-                    dueDateValue = sdf.format(cal.getTime());
-                    estimate.setDueDate(dueDateValue);
+                    dueTimestamp = cal.getTimeInMillis();
 
                 } else if (dueTermsValue.equals("Custom")) {
-                    // Open DatePicker for custom selection
+
                     DatePickerDialog datePickerDialog = new DatePickerDialog(
                             AddEstimate.this,
                             (view1, year, month, dayOfMonth) -> {
+
                                 Calendar customCal = Calendar.getInstance();
-                                customCal.set(year, month, dayOfMonth);
-                                dueDateValue = sdf.format(customCal.getTime());
-                                estimate.setDueDate(dueDateValue);
-                                dueDateTextView.setText(dueDateValue);
+                                customCal.set(year, month, dayOfMonth, 0, 0, 0);
+                                customCal.set(Calendar.MILLISECOND, 0);
+
+                                long customTimestamp = customCal.getTimeInMillis();
+
+                                // save
+                                dueDateTimestamp = customTimestamp;
+                                estimate.setDueDate(customTimestamp);
+
+                                // display
+                                String formatted = sdf.format(customCal.getTime());
+                                dueDateValue = formatted;
+                                dueDateTextView.setText(formatted);
                             },
                             cal.get(Calendar.YEAR),
                             cal.get(Calendar.MONTH),
                             cal.get(Calendar.DAY_OF_MONTH)
                     );
                     datePickerDialog.show();
+                    return;
 
                 } else if (!dueTermsValue.equals("Select due terms")) {
-                    // For "2 days", "3 days", ..., "180 days"
+
+                    // "2 days", "3 days", etc.
                     String daysStr = dueTermsValue.replace(" days", "").trim();
                     int days = Integer.parseInt(daysStr);
+
                     cal.add(Calendar.DAY_OF_MONTH, days);
-                    dueDateValue = sdf.format(cal.getTime());
-                    estimate.setDueDate(dueDateValue);
+                    dueTimestamp = cal.getTimeInMillis();
                 }
 
-                // Update your UI if due date was set
-                if (!dueDateValue.isEmpty()) {
-                    dueDateTextView.setText(dueDateValue);
+                // ===== SAVE + DISPLAY =====
+                if (dueTimestamp != 0) {
+
+                    dueDateTimestamp = dueTimestamp;
+                    estimate.setDueDate(dueTimestamp);
+
+                    String formatted = sdf.format(new Date(dueTimestamp));
+                    dueDateValue = formatted;
+                    dueDateTextView.setText(formatted);
                 }
             }
 
@@ -293,12 +302,6 @@ public class AddEstimate extends AppCompatActivity {
                                 estimate.setDueTerms(dueTermsValue);
                             } else {
                                 estimate.setDueTerms("");
-                            }
-
-                            if (!expirationDateValue.isEmpty()){
-                                estimate.setExpirationDate(expirationDateValue);
-                            } else {
-                                estimate.setExpirationDate("");
                             }
 
                             if (Objects.requireNonNull(estimateLocationTextInputEditText.getText()).toString().isEmpty()) {
@@ -603,7 +606,7 @@ public class AddEstimate extends AppCompatActivity {
             dueDateTimestamp = dueTimestamp;
 
             // also update your model if needed
-            estimate.setDueDate(dueDateValue);
+            estimate.setDueDate(dueDateTimestamp);
         };
     }
     public void startActivityForResult() {
