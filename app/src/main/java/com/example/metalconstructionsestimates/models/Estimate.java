@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Estimate implements Serializable {
     private Integer id;
     private String doneIn;
-    private String issueDate;
-    private String expirationDate;
-    private String dueDate;
+    private long issueDate;
+    private long expirationDate;
+    private long dueDate;
     private String dueTerms;
     private String status;
     private Integer customer;
@@ -33,19 +33,19 @@ public class Estimate implements Serializable {
     }
     public void setDoneIn(String doneIn){ this.doneIn = doneIn; }
 
-    public String getIssueDate(){
+    public long getIssueDate(){
         return issueDate;
     }
-    public void setIssueDate(String issueDate){ this.issueDate = issueDate; }
+    public void setIssueDate(long issueDate){ this.issueDate = issueDate; }
 
-    public String getExpirationDate(){
+    public long getExpirationDate(){
         return expirationDate;
     }
-    public void setExpirationDate(String expirationDate){ this.expirationDate = expirationDate; }
-    public String getDueDate(){
+    public void setExpirationDate(long expirationDate){ this.expirationDate = expirationDate; }
+    public long getDueDate(){
         return dueDate;
     }
-    public void setDueDate(String dueDate){
+    public void setDueDate(long dueDate){
         this.dueDate = dueDate;
     }
     public String getDueTerms(){
