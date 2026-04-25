@@ -70,7 +70,11 @@ public class EstimateDetails extends AppCompatActivity {
     TextView expirationDateTextView, issueDateTextView, dueDateTextView;
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
 
-    private DatePickerDialog.OnDateSetListener expirationDateSetListner, issueDateSetListener, dueDateSetListener;
+    long issueDateTimestamp = 0;
+    long dueDateTimestamp = 0;
+    long expirationDateTimestamp = 0;
+
+    private DatePickerDialog.OnDateSetListener expirationDateSetListener, issueDateSetListener, dueDateSetListener;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
     MaterialButton previewButton;
@@ -182,22 +186,30 @@ public class EstimateDetails extends AppCompatActivity {
             activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
         }
 
-        if(estimate.getIssueDate().isEmpty()){
+        if (estimate.getIssueDate() == 0) {
             issueDateTextView.setText(R.string.issueDate);
             issueDateValue = "";
-        }
-        else{
-            issueDateValue = estimate.getIssueDate();
-            issueDateTextView.setText(estimate.getIssueDate());
+        } else {
+            long issueTimestamp = estimate.getIssueDate();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(issueTimestamp));
+
+            issueDateValue = formattedDate;
+            issueDateTextView.setText(formattedDate);
         }
 
-        if (estimate.getDueDate().isEmpty()) {
+        if (estimate.getDueDate() == 0) {
             dueDateTextView.setText(R.string.dueDate);
             dueDateValue = "";
-        }
-        else{
-            dueDateValue = estimate.getDueDate();
-            dueDateTextView.setText(estimate.getDueDate());
+        } else {
+            long dueTimestamp = estimate.getDueDate();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(dueTimestamp));
+
+            dueDateValue = formattedDate;
+            dueDateTextView.setText(formattedDate);
         }
 
         if (estimate.getDueTerms().isEmpty()) {
@@ -514,23 +526,24 @@ public class EstimateDetails extends AppCompatActivity {
                             estimate.setDoneIn("");
                         }
 
-                        if (!issueDate.getText().toString().isEmpty()) {
-                            estimate.setIssueDate(issueDate.getText().toString());
+                        // ISSUE DATE
+                        if (issueDateTimestamp != 0) {
+                            estimate.setIssueDate(issueDateTimestamp);
                         } else {
-                            estimate.setIssueDate("");
+                            estimate.setIssueDate(0);
                         }
 
-                        if (!expirationDate.getText().toString().isEmpty()) {
-                            estimate.setExpirationDate(expirationDate.getText().toString());
+                        // EXPIRATION DATE
+                        if (expirationDateTimestamp != 0) {
+                            estimate.setExpirationDate(expirationDateTimestamp);
                         } else {
-                            estimate.setExpirationDate("");
+                            estimate.setExpirationDate(0);
                         }
-
-                        if(dueDate.getText().toString().isEmpty()){
-                            estimate.setDueDate("");
-                        }
-                        else{
-                            estimate.setDueDate(dueDate.getText().toString());
+                        // DUE DATE
+                        if (dueDateTimestamp != 0) {
+                            estimate.setDueDate(dueDateTimestamp);
+                        } else {
+                            estimate.setDueDate(0);
                         }
 
                         if(estimateStatusSpinner.getSelectedItem().toString().isEmpty()){
@@ -817,7 +830,7 @@ public class EstimateDetails extends AppCompatActivity {
             DatePickerDialog dialog = new DatePickerDialog(
                     EstimateDetails.this,
                     android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                    expirationDateSetListner,
+                    expirationDateSetListener,
                     year, month, day
             );
             Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -839,182 +852,208 @@ public class EstimateDetails extends AppCompatActivity {
             dialog.show();
         });
 
-        expirationDateSetListner = (picker, year, month, day) -> {
-            month = month + 1;
-            expirationDateValue = year + "-" + month + "-" + day;
+        expirationDateSetListener = (picker, year, month, day) -> {
+
+            // Create calendar (month is already 0-based from DatePicker)
+            Calendar cal = Calendar.getInstance();
+            cal.set(year, month, day, 0, 0, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+
+            // Timestamp (for DB)
+            long expirationTimestamp = cal.getTimeInMillis();
+
+            // Formatted string (for UI)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            expirationDateValue = sdf.format(cal.getTime());
             expirationDateTextView.setText(expirationDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
-            Date expirationDate = null;
+            // ===== VALIDATION =====
+            if (issueDateTimestamp > 0) {
 
-            try {
-                expirationDate = sdf.parse(expirationDateValue);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            Date issueDate = null;
-
-            if(!issueDateValue.isEmpty()){
-                try {
-                    issueDate = sdf.parse(issueDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                long diffInMillis = expirationDate.getTime() - issueDate.getTime();
+                long diffInMillis = expirationTimestamp - issueDateTimestamp;
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween <= 0){
-                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    TextView expirationDateTextView = (TextView) findViewById(R.id.expirationDateValue);
+
+                if (daysBetween <= 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Expiration date should be after the issue date",
+                            Toast.LENGTH_SHORT).show();
+
                     expirationDateTextView.setText(R.string.expirationDate);
                     expirationDateValue = "";
+                    return;
                 }
             }
+
+            // Save timestamp (important)
+            expirationDateTimestamp = expirationTimestamp;
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
-            month = month + 1;
-            issueDateValue = year + "-" + month + "-" + day;
+
+            // Build issue date as timestamp
+            Calendar issueCal = Calendar.getInstance();
+            issueCal.set(year, month, day, 0, 0, 0);
+            issueCal.set(Calendar.MILLISECOND, 0);
+
+            long issueTimestamp = issueCal.getTimeInMillis();
+
+            // UI format (only for display)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            issueDateValue = sdf.format(issueCal.getTime());
             issueDateTextView.setText(issueDateValue);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
-            Date issueDate = null;
+            // =========================
+            // VALIDATE against expiration
+            // =========================
+            if (expirationDateTimestamp > 0) {
 
-            try {
-                issueDate = sdf.parse(issueDateValue);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            Date expirationDate = null;
-
-            if(!expirationDateValue.isEmpty()){
-                try {
-                    expirationDate = sdf.parse(expirationDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                long diffInMillis = expirationDate.getTime() - issueDate.getTime();
+                long diffInMillis = expirationDateTimestamp - issueTimestamp;
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
-                if(daysBetween <= 0){
-                    Toast.makeText(getApplicationContext(), "Expiration date should be after the issue date", Toast.LENGTH_SHORT).show();
-                    TextView issueDateTextView = (TextView) findViewById(R.id.issueDateValue);
+
+                if (daysBetween <= 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "Expiration date should be after the issue date",
+                            Toast.LENGTH_SHORT).show();
+
                     issueDateTextView.setText(R.string.issueDate);
                     issueDateValue = "";
+                    issueDateTimestamp = 0;
+                    return;
                 }
             }
 
-            Date dueDate = null;
-            if(!dueDateValue.isEmpty()){
-                try {
-                    dueDate = sdf.parse(dueDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+            // =========================
+            // VALIDATE against due date
+            // =========================
+            if (dueDateTimestamp > 0) {
 
-                assert dueDate != null;
-                assert issueDate != null;
-                long diffInMillis = dueDate.getTime() - issueDate.getTime();
-
+                long diffInMillis = dueDateTimestamp - issueTimestamp;
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
-                if(daysBetween < 0){
-                    Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
+                if (daysBetween < 0) {
+
+                    Toast.makeText(getApplicationContext(),
+                            "Due date should be after the issue date",
+                            Toast.LENGTH_SHORT).show();
+
                     dueDateTextView.setText(R.string.dueDate);
                     dueDateValue = "";
-                }
-                else if(daysBetween == 0){
+                    dueDateTimestamp = 0;
+
+                } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
-                }
-                else if(daysBetween == 1){
+
+                } else if (daysBetween == 1) {
                     dueTermsSpinner.setSelection(2);
-                }
-                else{
+
+                } else {
+
                     String dueTerm = daysBetween + " days";
-                    dueDateTextView.setText(dueDateValue);
+
                     int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
 
                     if (position >= 0) {
-                        // ✅ Value exists in the spinner list
                         dueTermsSpinner.setSelection(position);
                     } else {
-                        if(termsList.size() > 21){
+
+                        if (termsList.size() > 21) {
                             termsList.remove(21);
                         }
+
                         termsList.add(dueTerm);
-                        ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
-                                this, android.R.layout.simple_spinner_item, termsList
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                                this,
+                                android.R.layout.simple_spinner_item,
+                                termsList
                         );
-                        dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        dueTermsSpinner.setAdapter(adapter);
+
                         dueTermsSpinner.setSelection(termsList.size() - 1);
                     }
                 }
             }
+
+            // store timestamp for DB
+            issueDateTimestamp = issueTimestamp;
         };
 
         dueDateSetListener = (picker, year, month, day) -> {
-            month = month + 1;
-            dueDateValue = year + "-" + month + "-" + day;
-            estimate.setDueDate(dueDateValue);
+
+            // Build due date as timestamp
+            Calendar dueCal = Calendar.getInstance();
+            dueCal.set(year, month, day, 0, 0, 0);
+            dueCal.set(Calendar.MILLISECOND, 0);
+
+            long dueTimestamp = dueCal.getTimeInMillis();
+
+            // UI display format only
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            dueDateValue = sdf.format(dueCal.getTime());
             dueDateTextView.setText(dueDateValue);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            // =========================
+            // VALIDATION against issue date
+            // =========================
+            if (issueDateTimestamp > 0) {
 
-            Date dueDate = null;
-
-            try {
-                dueDate = sdf.parse(dueDateValue);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            Date issueDate = null;
-
-            if(!issueDateValue.isEmpty()){
-                try {
-                    issueDate = sdf.parse(issueDateValue);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                assert dueDate != null;
-                assert issueDate != null;
-                long diffInMillis = dueDate.getTime() - issueDate.getTime();
+                long diffInMillis = dueTimestamp - issueDateTimestamp;
                 long daysBetween = diffInMillis / (1000 * 60 * 60 * 24);
 
-                if(daysBetween < 0){
-                    Toast.makeText(getApplicationContext(), "Due date should be after the issue date", Toast.LENGTH_SHORT).show();
+                if (daysBetween < 0) {
+
+                    Toast.makeText(getApplicationContext(),
+                            "Due date should be after the issue date",
+                            Toast.LENGTH_SHORT).show();
+
                     dueDateTextView.setText(R.string.dueDate);
                     dueDateValue = "";
-                }
-                else if(daysBetween == 0){
+                    dueDateTimestamp = 0;
+                    return;
+
+                } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
-                }
-                else if(daysBetween == 1){
+
+                } else if (daysBetween == 1) {
                     dueTermsSpinner.setSelection(2);
-                }
-                else{
+
+                } else {
+
                     String dueTerm = daysBetween + " days";
-                    dueDateTextView.setText(dueDateValue);
+
                     int position = dueTermsSpinnerAdapter.getPosition(dueTerm);
 
                     if (position >= 0) {
-                        // ✅ Value exists in the spinner list
                         dueTermsSpinner.setSelection(position);
                     } else {
-                        if(termsList.size() > 21){
+
+                        if (termsList.size() > 21) {
                             termsList.remove(21);
                         }
+
                         termsList.add(dueTerm);
-                        ArrayAdapter<String> due_terms_spinner_adapter = new ArrayAdapter<>(
-                                this, android.R.layout.simple_spinner_item, termsList
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                                this,
+                                android.R.layout.simple_spinner_item,
+                                termsList
                         );
-                        dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        dueTermsSpinner.setAdapter(due_terms_spinner_adapter);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        dueTermsSpinner.setAdapter(adapter);
+
                         dueTermsSpinner.setSelection(termsList.size() - 1);
                     }
                 }
             }
+
+            // store timestamp for DB
+            dueDateTimestamp = dueTimestamp;
+
+            // also update your model if needed
+            estimate.setDueDate(dueDateValue);
         };
     }
 
