@@ -148,9 +148,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -411,9 +411,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -647,9 +647,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -775,9 +775,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1066,9 +1066,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1159,9 +1159,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1254,9 +1254,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1350,9 +1350,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1445,9 +1445,9 @@ public class DBAdapter {
             while (cursor.moveToNext()) {
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1584,9 +1584,9 @@ public class DBAdapter {
                 cursor.moveToFirst();
                 estimate.setId(cursor.getInt(0));
                 estimate.setDoneIn(cursor.getString(1));
-                estimate.setIssueDate(cursor.getString(2));
-                estimate.setExpirationDate(cursor.getString(3));
-                estimate.setDueDate(cursor.getString(4));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
                 estimate.setDueTerms(cursor.getString(5));
                 estimate.setStatus(cursor.getString(6));
                 estimate.setCustomer(cursor.getInt(7));
@@ -1916,9 +1916,9 @@ public class DBAdapter {
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -1983,9 +1983,9 @@ public class DBAdapter {
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -2027,9 +2027,9 @@ public class DBAdapter {
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -2073,9 +2073,9 @@ public class DBAdapter {
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -2123,9 +2123,9 @@ public class DBAdapter {
             while(cursor.moveToNext()){
                 Integer estimateId = cursor.getInt(0);
                 String doneIn = cursor.getString(1);
-                String issueDate = cursor.getString(2);
-                String expirationDate = cursor.getString(3);
-                String dueDate = cursor.getString(4);
+                long issueDate = cursor.getLong(2);
+                long expirationDate = cursor.getLong(3);
+                long dueDate = cursor.getLong(4);
                 String dueTerms = cursor.getString(5);
                 String status = cursor.getString(6);
                 Integer customer = cursor.getInt(7);
@@ -2319,21 +2319,28 @@ public class DBAdapter {
     }
 
     public Estimate findEstimateByContent(Estimate estimate) {
+
         db = helper.getReadableDatabase();
+
         String sql = "SELECT * FROM estimate WHERE doneIn = ? AND issueDate = ? AND customer = ? AND excludingTaxTotal = ?";
+
         String[] args = new String[]{
                 estimate.getDoneIn(),
-                estimate.getIssueDate(),
+                String.valueOf(estimate.getIssueDate()),
                 String.valueOf(estimate.getCustomer()),
                 String.valueOf(estimate.getExcludingTaxTotal())
         };
 
         Cursor cursor = db.rawQuery(sql, args);
+
         Estimate result = null;
+
         if (cursor.moveToFirst()) {
             result = helper.buildEstimateFromCursor(cursor);
         }
+
         cursor.close();
+
         return result;
     }
 
