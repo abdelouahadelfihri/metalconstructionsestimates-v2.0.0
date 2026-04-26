@@ -249,10 +249,14 @@ public class EstimateDetails extends AppCompatActivity {
             }
         }
 
-        if(!estimate.getExpirationDate().isEmpty()){
-            expirationDateTextView.setText(estimate.getExpirationDate());
-        }
-        else{
+        if (estimate.getExpirationDate() != 0) {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formatted = sdf.format(new Date(estimate.getExpirationDate()));
+
+            expirationDateTextView.setText(formatted);
+
+        } else {
             expirationDateTextView.setText(R.string.expirationDate);
         }
 
@@ -622,18 +626,26 @@ public class EstimateDetails extends AppCompatActivity {
                 estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateIdEditText.getText().toString()));
                 locationEditText.setText(estimate.getDoneIn());
 
-                if(estimate.getIssueDate().isEmpty()){
+                if (estimate.getIssueDate() != 0) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String formatted = sdf.format(new Date(estimate.getIssueDate()));
+
+                    issueDateTextView.setText(formatted);
+
+                } else {
                     issueDateTextView.setText(R.string.issueDate);
                 }
-                else{
-                    issueDateTextView.setText(estimate.getIssueDate());
-                }
 
-                if (estimate.getDueDate().isEmpty()) {
+                if (estimate.getDueDate() != 0) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String formatted = sdf.format(new Date(estimate.getDueDate()));
+
+                    dueDateTextView.setText(formatted);
+
+                } else {
                     dueDateTextView.setText(R.string.dueDate);
-                }
-                else{
-                    dueDateTextView.setText(estimate.getDueDate());
                 }
 
                 if (estimate.getDueTerms().isEmpty()) {
@@ -673,10 +685,14 @@ public class EstimateDetails extends AppCompatActivity {
                     }
                 }
 
-                if(!estimate.getExpirationDate().isEmpty()){
-                    expirationDateTextView.setText(estimate.getExpirationDate());
-                }
-                else{
+                if (estimate.getExpirationDate() != 0) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    String formatted = sdf.format(new Date(estimate.getExpirationDate()));
+
+                    expirationDateTextView.setText(formatted);
+
+                } else {
                     expirationDateTextView.setText(R.string.expirationDate);
                 }
 
