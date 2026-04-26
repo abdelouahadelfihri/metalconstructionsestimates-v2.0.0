@@ -729,9 +729,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Estimate estimate = new Estimate();
         estimate.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         estimate.setDoneIn(cursor.getString(cursor.getColumnIndexOrThrow("doneIn")));
-        estimate.setIssueDate(cursor.getString(cursor.getColumnIndexOrThrow("issueDate")));
-        estimate.setExpirationDate(cursor.getString(cursor.getColumnIndexOrThrow("expirationDate")));
-        estimate.setDueDate(cursor.getString(cursor.getColumnIndexOrThrow("dueDate")));
+        estimate.setIssueDate(cursor.getLong(cursor.getColumnIndexOrThrow("issueDate")));
+        estimate.setExpirationDate(cursor.getLong(cursor.getColumnIndexOrThrow("expirationDate")));
+        estimate.setDueDate(cursor.getLong(cursor.getColumnIndexOrThrow("dueDate")));
         estimate.setDueTerms(cursor.getString(cursor.getColumnIndexOrThrow("dueTerms")));
         estimate.setStatus(cursor.getString(cursor.getColumnIndexOrThrow("status")));
         estimate.setCustomer(cursor.getInt(cursor.getColumnIndexOrThrow("customer")));

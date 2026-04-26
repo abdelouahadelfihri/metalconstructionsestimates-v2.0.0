@@ -186,14 +186,15 @@ public class IntermediateDBAdapter {
                 c.moveToFirst();
                 estimate.setId(c.getInt(0));
                 estimate.setDoneIn(c.getString(1));
-                estimate.setIssueDate(c.getString(2));
-                estimate.setExpirationDate(c.getString(3));
-                estimate.setCustomer(c.getInt(4));
-                estimate.setExcludingTaxTotal(c.getFloat(5));
-                estimate.setDiscount(c.getFloat(6));
-                estimate.setExcludingTaxTotalAfterDiscount(c.getFloat(7));
-                estimate.setVat(c.getFloat(8));
-                estimate.setAllTaxIncludedTotal(c.getFloat(9));
+                estimate.setIssueDate(c.getLong(2));
+                estimate.setExpirationDate(c.getLong(3));
+                estimate.setDueDate(c.getLong(4));
+                estimate.setCustomer(c.getInt(5));
+                estimate.setExcludingTaxTotal(c.getFloat(6));
+                estimate.setDiscount(c.getFloat(7));
+                estimate.setExcludingTaxTotalAfterDiscount(c.getFloat(8));
+                estimate.setVat(c.getFloat(9));
+                estimate.setAllTaxIncludedTotal(c.getFloat(10));
             }
             else{
                 estimate = null;
@@ -520,18 +521,20 @@ public class IntermediateDBAdapter {
             while(c.moveToNext()){
                 Integer estimateId = c.getInt(0);
                 String doneIn = c.getString(1);
-                String issueDate = c.getString(2);
-                String expirationDate = c.getString(3);
-                Integer customer = c.getInt(4);
-                Float excludingTaxTotal = c.getFloat(5);
-                Float discount = c.getFloat(6);
-                Float excludingTaxTotalAfterDiscount = c.getFloat(7);
-                Float vat = c.getFloat(8);
-                Float allTaxIncludedTotal = c.getFloat(9);
+                Long issueDate = c.getLong(2);
+                Long expirationDate = c.getLong(3);
+                Long dueDate = c.getLong(4);
+                Integer customer = c.getInt(5);
+                Float excludingTaxTotal = c.getFloat(6);
+                Float discount = c.getFloat(7);
+                Float excludingTaxTotalAfterDiscount = c.getFloat(8);
+                Float vat = c.getFloat(9);
+                Float allTaxIncludedTotal = c.getFloat(10);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
                 estimate.setIssueDate(issueDate);
+                estimate.setExpirationDate(expirationDate);
                 estimate.setExpirationDate(expirationDate);
                 estimate.setCustomer(customer);
                 estimate.setExcludingTaxTotal(excludingTaxTotal);
@@ -562,8 +565,8 @@ public class IntermediateDBAdapter {
             while(c.moveToNext()){
                 Integer estimateId = c.getInt(0);
                 String doneIn = c.getString(1);
-                String issueDate = c.getString(2);
-                String expirationDate = c.getString(3);
+                Long issueDate = c.getLong(2);
+                Long expirationDate = c.getLong(3);
                 Integer customer = c.getInt(4);
                 Float excludingTaxTotal = c.getFloat(5);
                 Float discount = c.getFloat(6);
@@ -604,19 +607,25 @@ public class IntermediateDBAdapter {
             while(c.moveToNext()){
                 Integer estimateId = c.getInt(0);
                 String doneIn = c.getString(1);
-                String issueDate = c.getString(2);
-                String expirationDate = c.getString(3);
-                Integer customer = c.getInt(4);
-                Float excludingTaxTotal = c.getFloat(5);
-                Float discount = c.getFloat(6);
-                Float excludingTaxTotalAfterDiscount = c.getFloat(7);
-                Float vat = c.getFloat(8);
-                Float allTaxIncludedTotal = c.getFloat(9);
+                Long issueDate = c.getLong(2);
+                Long expirationDate = c.getLong(3);
+                Long dueDate = c.getLong(4);
+                String dueTerms = c.getString(5);
+                String status = c.getString(6);
+                Integer customer = c.getInt(7);
+                Float excludingTaxTotal = c.getFloat(8);
+                Float discount = c.getFloat(9);
+                Float excludingTaxTotalAfterDiscount = c.getFloat(10);
+                Float vat = c.getFloat(11);
+                Float allTaxIncludedTotal = c.getFloat(12);
                 estimate = new Estimate();
                 estimate.setId(estimateId);
                 estimate.setDoneIn(doneIn);
                 estimate.setIssueDate(issueDate);
                 estimate.setExpirationDate(expirationDate);
+                estimate.setDueDate(dueDate);
+                estimate.setDueTerms(dueTerms);
+                estimate.setStatus(status);
                 estimate.setCustomer(customer);
                 estimate.setExcludingTaxTotal(excludingTaxTotal);
                 estimate.setDiscount(discount);
