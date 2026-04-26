@@ -902,6 +902,7 @@ public class EstimateDetails extends AppCompatActivity {
 
             // Save timestamp (important)
             expirationDateTimestamp = expirationTimestamp;
+            estimate.setExpirationDate(expirationDateTimestamp);
         };
 
         issueDateSetListener = (picker, year, month, day) -> {
@@ -994,6 +995,7 @@ public class EstimateDetails extends AppCompatActivity {
 
             // store timestamp for DB
             issueDateTimestamp = issueTimestamp;
+            estimate.setIssueDate(issueDateTimestamp);
         };
 
         dueDateSetListener = (picker, year, month, day) -> {
@@ -1069,7 +1071,7 @@ public class EstimateDetails extends AppCompatActivity {
             dueDateTimestamp = dueTimestamp;
 
             // also update your model if needed
-            estimate.setDueDate(dueDateValue);
+            estimate.setDueDate(dueDateTimestamp);
         };
     }
 
