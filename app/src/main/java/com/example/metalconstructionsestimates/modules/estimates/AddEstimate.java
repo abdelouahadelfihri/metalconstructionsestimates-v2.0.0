@@ -444,6 +444,7 @@ public class AddEstimate extends AppCompatActivity {
         issueDateSetListener = (picker, year, month, day) -> {
 
             // Build issue date as timestamp
+            String currentIssueDateValue = issueDateTextView.getText().toString();
             Calendar issueCal = Calendar.getInstance();
             issueCal.set(year, month, day, 0, 0, 0);
             issueCal.set(Calendar.MILLISECOND, 0);
@@ -467,11 +468,12 @@ public class AddEstimate extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Expiration date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
-
-                    issueDateTextView.setText(R.string.issueDate);
-                    issueDateValue = "";
-                    issueDateTimestamp = 0;
-                    return;
+                    if(currentIssueDateValue.isEmpty()){
+                        issueDateTextView.setText(R.string.issueDate);
+                        issueDateValue = "";
+                        issueDateTimestamp = 0;
+                        return;
+                    }
                 }
             }
 
@@ -488,10 +490,12 @@ public class AddEstimate extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
-
-                    dueDateTextView.setText(R.string.dueDate);
-                    dueDateValue = "";
-                    dueDateTimestamp = 0;
+                    if(currentIssueDateValue.isEmpty()){
+                        issueDateTextView.setText(R.string.issueDate);
+                        issueDateValue = "";
+                        issueDateTimestamp = 0;
+                        return;
+                    }
 
                 } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
@@ -536,6 +540,7 @@ public class AddEstimate extends AppCompatActivity {
         dueDateSetListener = (picker, year, month, day) -> {
 
             // Build due date as timestamp
+            String previousDueDateValue = dueDateTextView.getText().toString();
             Calendar dueCal = Calendar.getInstance();
             dueCal.set(year, month, day, 0, 0, 0);
             dueCal.set(Calendar.MILLISECOND, 0);
@@ -561,10 +566,12 @@ public class AddEstimate extends AppCompatActivity {
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    dueDateTextView.setText(R.string.dueDate);
-                    dueDateValue = "";
-                    dueDateTimestamp = 0;
-                    return;
+                    if(previousDueDateValue.isEmpty()){
+                        dueDateTextView.setText(R.string.dueDate);
+                        dueDateValue = "";
+                        dueDateTimestamp = 0;
+                        return;
+                    }
 
                 } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
