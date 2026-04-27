@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
+import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdapter.EstimateViewHolder>{
 
@@ -53,7 +56,14 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
         String formattedTotal = formatLargeNumber(total);
         String estimateTotalAllTaxIncluded = "Incl. VAT : " + formattedTotal;
         String estimateId = "Estimate Id : " + estimate.getId().toString();
-        String estimateCreationDate = "Issue Date : " + estimate.getIssueDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        String formattedDate = "";
+        if (estimate.getIssueDate() != 0) {
+            formattedDate = sdf.format(new Date(estimate.getIssueDate()));
+        }
+
+        String estimateCreationDate = "Issue Date : " + formattedDate;
         String estimateDoneIn = "Location : " + estimate.getDoneIn();
 
         holder.estimateIdTextView.setText(estimateId);
