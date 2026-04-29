@@ -911,6 +911,7 @@ public class EstimateDetails extends AppCompatActivity {
                         expirationDateValue = currentExpirationDateValue;
                         expirationDateTimestamp = previousExpirationDateTimestamp;
                     }
+
                     return;
                 }
             }
