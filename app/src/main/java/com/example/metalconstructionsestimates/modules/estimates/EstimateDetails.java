@@ -71,8 +71,11 @@ public class EstimateDetails extends AppCompatActivity {
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
 
     long issueDateTimestamp = 0;
+    long previousIssueDateTimestamp = 0;
     long dueDateTimestamp = 0;
+    long previousDueDateTimestamp = 0;
     long expirationDateTimestamp = 0;
+    long previousExpirationDateTimestamp = 0;
 
     private DatePickerDialog.OnDateSetListener expirationDateSetListener, issueDateSetListener, dueDateSetListener;
 
@@ -191,6 +194,7 @@ public class EstimateDetails extends AppCompatActivity {
             issueDateValue = "";
         } else {
             long issueTimestamp = estimate.getIssueDate();
+            previousIssueDateTimestamp = estimate.getIssueDate();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(issueTimestamp));
@@ -204,7 +208,7 @@ public class EstimateDetails extends AppCompatActivity {
             dueDateValue = "";
         } else {
             long dueTimestamp = estimate.getDueDate();
-
+            previousDueDateTimestamp = estimate.getDueDate();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(dueTimestamp));
 
@@ -249,16 +253,19 @@ public class EstimateDetails extends AppCompatActivity {
             }
         }
 
-        if (estimate.getExpirationDate() != 0) {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String formatted = sdf.format(new Date(estimate.getExpirationDate()));
-
-            expirationDateTextView.setText(formatted);
-
-        } else {
+        if (estimate.getExpirationDate() == 0) {
             expirationDateTextView.setText(R.string.expirationDate);
-        }
+            previousExpirationDateTimestamp = 0;
+            expirationDateValue = "";
+        } else {
+            long expirationTimestamp = estimate.getExpirationDate();
+            previousExpirationDateTimestamp = estimate.getExpirationDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(expirationTimestamp));
+
+            expirationDateValue = formattedDate;
+            expirationDateTextView.setText(formattedDate);
+        }   
 
         estimateIdEditText.setText(String.format(estimate.getId().toString()));
         locationEditText.setText(estimate.getDoneIn());
@@ -870,6 +877,7 @@ public class EstimateDetails extends AppCompatActivity {
 
         expirationDateSetListener = (picker, year, month, day) -> {
 
+            String currentExpirationDateValue = expirationDateTextView.getText().toString();
             // Create calendar (month is already 0-based from DatePicker)
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day, 0, 0, 0);
@@ -894,8 +902,15 @@ public class EstimateDetails extends AppCompatActivity {
                             "Expiration date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    expirationDateTextView.setText(R.string.expirationDate);
-                    expirationDateValue = "";
+                    if(currentExpirationDateValue.equals(getString(R.string.expirationDate))){
+                        expirationDateTextView.setText(R.string.expirationDate);
+                        expirationDateValue = "";
+                        expirationDateTimestamp = 0;
+                    } else {
+                        expirationDateTextView.setText(currentExpirationDateValue);
+                        expirationDateValue = currentExpirationDateValue;
+                        expirationDateTimestamp = previousExpirationDateTimestamp;
+                    }
                     return;
                 }
             }
@@ -908,6 +923,8 @@ public class EstimateDetails extends AppCompatActivity {
         issueDateSetListener = (picker, year, month, day) -> {
 
             // Build issue date as timestamp
+            String currentIssueDateValue = issueDateTextView.getText().toString();
+            previousIssueDateTimestamp = issueDateTimestamp;
             Calendar issueCal = Calendar.getInstance();
             issueCal.set(year, month, day, 0, 0, 0);
             issueCal.set(Calendar.MILLISECOND, 0);
@@ -931,10 +948,16 @@ public class EstimateDetails extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Expiration date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
-
-                    issueDateTextView.setText(R.string.issueDate);
-                    issueDateValue = "";
-                    issueDateTimestamp = 0;
+                    if(currentIssueDateValue.equals(getString(R.string.issueDate))){
+                        issueDateTextView.setText(R.string.issueDate);
+                        issueDateValue = "";
+                        issueDateTimestamp = 0;
+                    }
+                    else{
+                        issueDateTextView.setText(currentIssueDateValue);
+                        issueDateValue = currentIssueDateValue;
+                        issueDateTimestamp = previousIssueDateTimestamp;
+                    }
                     return;
                 }
             }
@@ -953,9 +976,16 @@ public class EstimateDetails extends AppCompatActivity {
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    dueDateTextView.setText(R.string.dueDate);
-                    dueDateValue = "";
-                    dueDateTimestamp = 0;
+                    if(currentIssueDateValue.equals(getString(R.string.issueDate))){
+                        issueDateTextView.setText(R.string.issueDate);
+                        issueDateValue = "";
+                        issueDateTimestamp = 0;
+                    } else {
+                        issueDateTextView.setText(currentIssueDateValue);
+                        issueDateValue = currentIssueDateValue;
+                        issueDateTimestamp = previousIssueDateTimestamp;
+                    }
+                    return;
 
                 } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
@@ -1000,6 +1030,8 @@ public class EstimateDetails extends AppCompatActivity {
 
         dueDateSetListener = (picker, year, month, day) -> {
 
+            String currentDueDateValue = dueDateTextView.getText().toString();
+            previousDueDateTimestamp = dueDateTimestamp;
             // Build due date as timestamp
             Calendar dueCal = Calendar.getInstance();
             dueCal.set(year, month, day, 0, 0, 0);
@@ -1026,9 +1058,16 @@ public class EstimateDetails extends AppCompatActivity {
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    dueDateTextView.setText(R.string.dueDate);
-                    dueDateValue = "";
-                    dueDateTimestamp = 0;
+                    if(currentDueDateValue.equals(R.string.dueDate)){
+                        dueDateTextView.setText(R.string.dueDate);
+                        dueDateValue = "";
+                        dueDateTimestamp = 0;
+                    }
+                    else{
+                        dueDateTextView.setText(currentDueDateValue);
+                        dueDateValue = currentDueDateValue;
+                        dueDateTimestamp = previousDueDateTimestamp;
+                    }
                     return;
 
                 } else if (daysBetween == 0) {
