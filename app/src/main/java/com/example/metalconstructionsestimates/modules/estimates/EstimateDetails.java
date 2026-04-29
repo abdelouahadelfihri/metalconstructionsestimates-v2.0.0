@@ -530,9 +530,9 @@ public class EstimateDetails extends AppCompatActivity {
                             return;
                         }
 
-                        estimate.setId(Integer.parseInt(estimateIdEditText.getText().toString()));
+                        estimate.setId(Integer.parseInt(Objects.requireNonNull(estimateIdEditText.getText()).toString()));
 
-                        if (!locationEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(locationEditText.getText()).toString().isEmpty()) {
                             estimate.setDoneIn(locationEditText.getText().toString());
                         } else {
                             estimate.setDoneIn("");
