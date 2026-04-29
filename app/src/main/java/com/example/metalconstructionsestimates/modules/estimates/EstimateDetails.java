@@ -445,8 +445,8 @@ public class EstimateDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDelete = new AlertDialog.Builder(EstimateDetails.this);
-                alertDelete.setTitle("Confirmation de suppression");
-                alertDelete.setMessage("Voulez-vous vraiment supprimer le devis?");
+                alertDelete.setTitle("Delete Confirmation");
+                alertDelete.setMessage("Do you really want to delete the estimate ?");
                 alertDelete.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
