@@ -196,6 +196,7 @@ public class EstimateDetails extends AppCompatActivity {
         } else {
             long issueTimestamp = estimate.getIssueDate();
             previousIssueDateTimestamp = estimate.getIssueDate();
+            issueDateTimestamp = estimate.getIssueDate();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(issueTimestamp));
@@ -211,6 +212,7 @@ public class EstimateDetails extends AppCompatActivity {
         } else {
             long dueTimestamp = estimate.getDueDate();
             previousDueDateTimestamp = estimate.getDueDate();
+            dueDateTimestamp = estimate.getDueDate();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(dueTimestamp));
 
@@ -261,6 +263,7 @@ public class EstimateDetails extends AppCompatActivity {
             expirationDateValue = "";
         } else {
             long expirationTimestamp = estimate.getExpirationDate();
+            expirationDateTimestamp = estimate.getExpirationDate();
             previousExpirationDateTimestamp = estimate.getExpirationDate();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(new Date(expirationTimestamp));
