@@ -192,6 +192,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (estimate.getIssueDate() == 0) {
             issueDateTextView.setText(R.string.issueDate);
             issueDateValue = "";
+            previousIssueDateTimestamp = 0;
         } else {
             long issueTimestamp = estimate.getIssueDate();
             previousIssueDateTimestamp = estimate.getIssueDate();
@@ -206,6 +207,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (estimate.getDueDate() == 0) {
             dueDateTextView.setText(R.string.dueDate);
             dueDateValue = "";
+            previousDueDateTimestamp = 0;
         } else {
             long dueTimestamp = estimate.getDueDate();
             previousDueDateTimestamp = estimate.getDueDate();
@@ -926,7 +928,6 @@ public class EstimateDetails extends AppCompatActivity {
 
             // Build issue date as timestamp
             String currentIssueDateValue = issueDateTextView.getText().toString();
-            previousIssueDateTimestamp = issueDateTimestamp;
             Calendar issueCal = Calendar.getInstance();
             issueCal.set(year, month, day, 0, 0, 0);
             issueCal.set(Calendar.MILLISECOND, 0);
@@ -1033,7 +1034,6 @@ public class EstimateDetails extends AppCompatActivity {
         dueDateSetListener = (picker, year, month, day) -> {
 
             String currentDueDateValue = dueDateTextView.getText().toString();
-            previousDueDateTimestamp = dueDateTimestamp;
             // Build due date as timestamp
             Calendar dueCal = Calendar.getInstance();
             dueCal.set(year, month, day, 0, 0, 0);
@@ -1059,8 +1059,7 @@ public class EstimateDetails extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
-
-                    if(currentDueDateValue.equals(R.string.dueDate)){
+                    if(currentDueDateValue.equals(getString(R.string.dueDate))){
                         dueDateTextView.setText(R.string.dueDate);
                         dueDateValue = "";
                         dueDateTimestamp = 0;
