@@ -50,6 +50,9 @@ public class AddEstimate extends AppCompatActivity {
     long issueDateTimestamp = 0;
     long dueDateTimestamp = 0;
     long expirationDateTimestamp = 0;
+    long previousIssueDateTimestamp = 0;
+    long previousDueDateTimestamp = 0;
+    long previousExpirationDateTimestamp = 0;
 
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
     private ActivityResultLauncher<Intent> activityResultLauncher;
@@ -407,6 +410,8 @@ public class AddEstimate extends AppCompatActivity {
 
         expirationDateSetListener = (picker, year, month, day) -> {
 
+            String currentExpirationDateValue = expirationDateTextView.getText().toString();
+            previousExpirationDateTimestamp = expirationDateTimestamp;
             // Create calendar (month is already 0-based from DatePicker)
             Calendar cal = Calendar.getInstance();
             cal.set(year, month, day, 0, 0, 0);
@@ -431,8 +436,15 @@ public class AddEstimate extends AppCompatActivity {
                             "Expiration date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    expirationDateTextView.setText(R.string.expirationDate);
-                    expirationDateValue = "";
+                    if(currentExpirationDateValue.equals(getString(R.string.expirationDate))){
+                        expirationDateTextView.setText(R.string.expirationDate);
+                        expirationDateValue = "";
+                        expirationDateTimestamp = 0;
+                    } else {
+                        expirationDateTextView.setText(currentExpirationDateValue);
+                        expirationDateValue = currentExpirationDateValue;
+                        expirationDateTimestamp = previousExpirationDateTimestamp;
+                    }
                     return;
                 }
             }
@@ -445,6 +457,7 @@ public class AddEstimate extends AppCompatActivity {
 
             // Build issue date as timestamp
             String currentIssueDateValue = issueDateTextView.getText().toString();
+            previousIssueDateTimestamp = issueDateTimestamp;
             Calendar issueCal = Calendar.getInstance();
             issueCal.set(year, month, day, 0, 0, 0);
             issueCal.set(Calendar.MILLISECOND, 0);
@@ -468,12 +481,17 @@ public class AddEstimate extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             "Expiration date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
-                    if(currentIssueDateValue.isEmpty()){
+                    if(currentIssueDateValue.equals(getString(R.string.issueDate))){
                         issueDateTextView.setText(R.string.issueDate);
                         issueDateValue = "";
                         issueDateTimestamp = 0;
-                        return;
                     }
+                    else{
+                        issueDateTextView.setText(currentIssueDateValue);
+                        issueDateValue = currentIssueDateValue;
+                        issueDateTimestamp = previousIssueDateTimestamp;
+                    }
+                    return;
                 }
             }
 
@@ -540,7 +558,8 @@ public class AddEstimate extends AppCompatActivity {
         dueDateSetListener = (picker, year, month, day) -> {
 
             // Build due date as timestamp
-            String previousDueDateValue = dueDateTextView.getText().toString();
+            String currentDueDateValue = dueDateTextView.getText().toString();
+            previousDueDateTimestamp = dueDateTimestamp;
             Calendar dueCal = Calendar.getInstance();
             dueCal.set(year, month, day, 0, 0, 0);
             dueCal.set(Calendar.MILLISECOND, 0);
@@ -566,12 +585,17 @@ public class AddEstimate extends AppCompatActivity {
                             "Due date should be after the issue date",
                             Toast.LENGTH_SHORT).show();
 
-                    if(previousDueDateValue.isEmpty()){
+                    if(currentDueDateValue.equals(getString(R.string.dueDate))){
                         dueDateTextView.setText(R.string.dueDate);
                         dueDateValue = "";
                         dueDateTimestamp = 0;
-                        return;
                     }
+                    else{
+                        dueDateTextView.setText(currentDueDateValue);
+                        dueDateValue = currentDueDateValue;
+                        dueDateTimestamp = previousDueDateTimestamp;
+                    }
+                    return;
 
                 } else if (daysBetween == 0) {
                     dueTermsSpinner.setSelection(1);
