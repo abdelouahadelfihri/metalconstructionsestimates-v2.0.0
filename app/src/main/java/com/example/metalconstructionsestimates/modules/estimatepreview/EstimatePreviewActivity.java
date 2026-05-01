@@ -48,11 +48,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     // New business & customer info TextViews
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
-    private ImageView btnDownloadPdf, btnPrint, btnSendMail;
     private File cachedPdf;
     String productType;
     private List<EstimateLine> estimateLines;
-    private double discountRate = 0.1; // 10% Discount
 
     DBAdapter dbAdapter;
     Estimate estimate;
@@ -102,9 +100,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvVat = findViewById(R.id.tvVat);
         tvDiscount = findViewById(R.id.tvDiscount);
 
-        btnDownloadPdf = findViewById(R.id.btnDownloadPdf);
-        btnPrint = findViewById(R.id.btnPrint);
-        btnSendMail = findViewById(R.id.btnSendMail);
+        ImageView btnDownloadPdf = findViewById(R.id.btnDownloadPdf);
+        ImageView btnPrint = findViewById(R.id.btnPrint);
+        ImageView btnSendMail = findViewById(R.id.btnSendMail);
 
         // Example: Fill estimateLines dynamically from database or intent
         estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId)); // Replace with your data source
@@ -273,7 +271,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         }
 
         tvTotalBeforeVat.setText(String.format(java.util.Locale.getDefault(),"Total Before VAT: %.2f",estimate.getExcludingTaxTotal()));
-        discountRate = estimate.getDiscount();
+        // 10% Discount
+        double discountRate = estimate.getDiscount();
         double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
         double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() /100f;
 
