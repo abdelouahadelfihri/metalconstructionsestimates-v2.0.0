@@ -125,6 +125,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         btnSendMail.setOnClickListener(v -> {
 
+            assert customer != null;
             if (customer.getEmail() == null || customer.getEmail().isEmpty()) {
                 Toast.makeText(this, "Customer email missing", Toast.LENGTH_SHORT).show();
                 return;
@@ -203,8 +204,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
             canvas.drawText(productType, 100, y, paint);
 
-            canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 420, y, paint);
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 300, y, paint);
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 420, y, paint);
 
             y += 20;
         }
@@ -233,6 +234,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                     values
             );
 
+            assert uri != null;
             OutputStream out = getContentResolver().openOutputStream(uri);
             pdfDocument.writeTo(out);
 
@@ -258,8 +260,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
             productType = dbAdapter.getSteelById(line.getSteel()).getType();
             TextView productTextView = createCell(productType + "", 2); // Replace with product name if available
-            TextView unitPriceTextView = createCell(String.format("%.2f", line.getUnitPrice()), 1);
-            TextView totalTextView = createCell(String.format("%.2f", line.getTotalPrice()), 1);
+            TextView unitPriceTextView = createCell(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 1);
+            TextView totalTextView = createCell(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 1);
 
             row.addView(qtyTextView);
             row.addView(productTextView);
@@ -270,16 +272,15 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         }
 
-
-        tvTotalBeforeVat.setText(String.format("Total Before VAT: %.2f", estimate.getExcludingTaxTotal()));
+        tvTotalBeforeVat.setText(String.format(java.util.Locale.getDefault(),"Total Before VAT: %.2f",estimate.getExcludingTaxTotal()));
         discountRate = estimate.getDiscount();
         double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
         double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() /100f;
 
-        tvDiscount.setText(String.format("Discount: %.2f = %.2f", estimate.getDiscount(), discount));
-        tvVat.setText(String.format("VAT: %.2f = %.2f", estimate.getVat(), vat));
+        tvDiscount.setText(String.format(java.util.Locale.getDefault(),"Discount: %.2f = %.2f", estimate.getDiscount(), discount));
+        tvVat.setText(String.format(java.util.Locale.getDefault(),"VAT: %.2f = %.2f", estimate.getVat(), vat));
 
-        tvAllTotal.setText(String.format("Total After VAT: %.2f", estimate.getAllTaxIncludedTotal()));
+        tvAllTotal.setText(String.format(java.util.Locale.getDefault(),"Total After VAT: %.2f", estimate.getAllTaxIncludedTotal()));
     }
 
     private TextView createCell(String text, int weight) {
@@ -352,15 +353,17 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
             canvas.drawText(productType, 100, y, paint);
 
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f",line.getUnitPrice()),300,y,paint);
+
             canvas.drawText(
-                    String.format("%.2f", line.getUnitPrice()),
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()),
                     300,
                     y,
                     paint
             );
 
             canvas.drawText(
-                    String.format("%.2f", line.getTotalPrice()),
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()),
                     420,
                     y,
                     paint
@@ -388,6 +391,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // ================= SAVE FILE =================
         File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
+        assert downloadsDir != null;
         if (!downloadsDir.exists()) {
             downloadsDir.mkdirs();
         }
