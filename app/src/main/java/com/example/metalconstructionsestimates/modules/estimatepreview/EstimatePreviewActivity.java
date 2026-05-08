@@ -203,7 +203,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             canvas.drawText(productType, 100, y, paint);
 
             canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 420, y, paint);
+
+            String totalStr = String.format(java.util.Locale.getDefault(), "%.2f", line.getTotalPrice());
+
+            // right margin of the page (keep some padding)
+
+            float xRight = 560f;
+
+            // right-align the text so it never overflows
+
+            canvas.drawText(totalStr, xRight - paint.measureText(totalStr), y, paint);
 
             y += 20;
         }
