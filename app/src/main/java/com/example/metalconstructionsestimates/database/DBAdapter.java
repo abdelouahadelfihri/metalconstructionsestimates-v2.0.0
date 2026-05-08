@@ -77,58 +77,102 @@ public class DBAdapter {
     }
 
     public Float getCurrentDayEstimatesTotal() {
-        float currentDayEstimatesTotal = 0.0f;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
-        String date;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        date = year + "-" + month + "-" + day;
+        Float currentDayEstimatesTotal = 0.0f;
+
         try {
-            db = helper.getReadableDatabase();
-            String query = "SELECT sum(allTaxIncludedTotal) as 'currentDayEstimatesTotal' FROM estimate WHERE issueDate = '" + date + "'";
-            cursor = db.rawQuery(query, null);
-            while (cursor.moveToNext()) {
-                currentDayEstimatesTotal = cursor.getFloat(0);
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = today at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfDay = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfDay = cal.getTimeInMillis();
+
+            // SUM QUERY
+            String query = "SELECT SUM(allTaxIncludedTotal) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfDay),
+                    String.valueOf(endOfDay)
+            });
+
+            if (cursor.moveToFirst()) {
+                // Prevent null if no matching rows
+                if (!cursor.isNull(0)) {
+                    currentDayEstimatesTotal = cursor.getFloat(0);
+                }
             }
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
+
         return currentDayEstimatesTotal;
     }
+    // Done
 
     public int getCurrentDayEstimatesCount() {
-        int currentDayEstimatesCount = 0;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
-        String date;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        date = year + "-" + month + "-" + day;
+        int currentDayEstimatesCount = 0;
+
         try {
-            db = helper.getReadableDatabase();
-            String query = "SELECT * FROM estimate WHERE issueDate='" + date + "'";
-            cursor = db.rawQuery(query, null);
-            currentDayEstimatesCount = cursor.getCount();
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = today at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfDay = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfDay = cal.getTimeInMillis();
+
+            // COUNT QUERY
+            String query = "SELECT COUNT(*) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfDay),
+                    String.valueOf(endOfDay)
+            });
+
+            if (cursor.moveToFirst()) {
+                currentDayEstimatesCount = cursor.getInt(0);
+            }
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
+
         return currentDayEstimatesCount;
     }
+
+    // Done
 
     public ArrayList<Estimate> getCurrentDayEstimates() {
 
@@ -200,149 +244,62 @@ public class DBAdapter {
     }
 
     public Float getCurrentWeekEstimatesTotal() {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
-        Float getCurrentWeekEstimatesTotal = 0.0f;
-        Calendar calendar = Calendar.getInstance();
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        switch (dayOfWeek) {
-            case Calendar.MONDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String date = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate ='" + date + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal = cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
+        Float currentWeekEstimatesTotal = 0.0f;
+
+        try {
+
+            Calendar cal = Calendar.getInstance();
+
+            // END = now
+            long endOfWeek = cal.getTimeInMillis();
+
+            // START = Monday of current week
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+            // Fix Sunday edge case
+            if (startCal.after(cal)) {
+                startCal.add(Calendar.WEEK_OF_YEAR, -1);
+            }
+
+            // Normalize to midnight
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfWeek = startCal.getTimeInMillis();
+
+            // SUM QUERY
+            String query = "SELECT SUM(allTaxIncludedTotal) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfWeek),
+                    String.valueOf(endOfWeek)
+            });
+
+            if (cursor.moveToFirst()) {
+                // Prevent null if no rows found
+                if (!cursor.isNull(0)) {
+                    currentWeekEstimatesTotal = cursor.getFloat(0);
                 }
-                break;
-            case Calendar.TUESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 1;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.WEDNESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 2;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.THURSDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 3;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.FRIDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 4;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.SATURDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 5;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.SUNDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 6;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT sum(allTaxIncludedTotal) as 'getCurrentWeekEstimatesTotal' FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    while (cursor.moveToNext()) {
-                        getCurrentWeekEstimatesTotal += cursor.getFloat(0);
-                    }
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
+            }
+
+        } catch (SQLException e) {
+            Log.e(TAG, "Database error occurred", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
         }
-        return getCurrentWeekEstimatesTotal;
+
+        return currentWeekEstimatesTotal;
     }
+    // Done
 
     public ArrayList<Estimate> getCurrentWeekEstimates() {
 
@@ -417,171 +374,112 @@ public class DBAdapter {
 
 
     public int getCurrentWeekEstimatesCount() {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
         int currentWeekEstimatesCount = 0;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (dayOfWeek) {
-            case Calendar.MONDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String date = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate ='" + date + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.TUESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 1;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.WEDNESDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 2;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.THURSDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 3;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
 
-                break;
-            case Calendar.FRIDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 4;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.SATURDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 5;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-            case Calendar.SUNDAY:
-                try {
-                    db = helper.getReadableDatabase();
-                    String highDate = year + "-" + month + "-" + day;
-                    day = day - 6;
-                    String lowDate = year + "-" + month + "-" + day;
-                    String query = "SELECT * FROM estimate WHERE issueDate between '" + lowDate + "' and + '" + highDate + "'";
-                    cursor = db.rawQuery(query, null);
-                    currentWeekEstimatesCount = cursor.getCount();
-                } catch (SQLException e) {
-                    Log.e(TAG, "Database error occurred", e);
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-                break;
-        }
-        return currentWeekEstimatesCount;
-    }
-
-
-    public Float getCurrentMonthEstimatesTotal() {
-        Float currentMonthEstimatesTotal = 0.0f;
-        String query;
-        Cursor cursor = null;
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int year = calendar.get(Calendar.YEAR);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String startDate = year + "-" + month + "-1";
         try {
-            db = helper.getReadableDatabase();
-            if (day == 1) {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issueDate ='" + startDate + "'";
-            } else {
-                String highDate = year + "-" + month + "-" + day;
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentMonthEstimatesTotal' FROM estimate WHERE issueDate between '" + startDate + "' and '" + highDate + "'";
+
+            Calendar cal = Calendar.getInstance();
+
+            // END = now
+            long endOfWeek = cal.getTimeInMillis();
+
+            // START = Monday of current week
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+            // Fix Sunday edge case
+            if (startCal.after(cal)) {
+                startCal.add(Calendar.WEEK_OF_YEAR, -1);
             }
 
-            cursor = db.rawQuery(query, null);
-            while (cursor.moveToNext()) {
-                currentMonthEstimatesTotal += cursor.getFloat(0);
+            // Normalize to midnight
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfWeek = startCal.getTimeInMillis();
+
+            // COUNT QUERY
+            String query = "SELECT COUNT(*) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfWeek),
+                    String.valueOf(endOfWeek)
+            });
+
+            if (cursor.moveToFirst()) {
+                currentWeekEstimatesCount = cursor.getInt(0);
             }
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
+
+        return currentWeekEstimatesCount;
+    }
+    // Done
+
+
+    public Float getCurrentMonthEstimatesTotal() {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = null;
+        Float currentMonthEstimatesTotal = 0.0f;
+
+        try {
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = first day of current month at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.DAY_OF_MONTH, 1);
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfMonth = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfMonth = cal.getTimeInMillis();
+
+            // SUM QUERY
+            String query = "SELECT SUM(allTaxIncludedTotal) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfMonth),
+                    String.valueOf(endOfMonth)
+            });
+
+            if (cursor.moveToFirst()) {
+                // Prevent null if no matching rows
+                if (!cursor.isNull(0)) {
+                    currentMonthEstimatesTotal = cursor.getFloat(0);
+                }
+            }
+
+        } catch (SQLException e) {
+            Log.e(TAG, "Database error occurred", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
         return currentMonthEstimatesTotal;
     }
+
+    // Done
 
     public ArrayList<Estimate> getCurrentMonthEstimates() {
 
@@ -652,70 +550,105 @@ public class DBAdapter {
     }
 
     public int getCurrentMonthEstimatesCount() {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
         int currentMonthEstimatesCount = 0;
-        String query;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String startDate = year + "-" + month + "-1";
+
         try {
-            db = helper.getReadableDatabase();
-            if (day == 1) {
-                query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
-            } else {
-                String highDate = year + "-" + month + "-" + day;
-                query = "SELECT * FROM estimate WHERE issueDate between '" + startDate + "' and '" + highDate + "'";
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = first day of current month at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.DAY_OF_MONTH, 1);
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfMonth = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfMonth = cal.getTimeInMillis();
+
+            // COUNT QUERY
+            String query = "SELECT COUNT(*) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfMonth),
+                    String.valueOf(endOfMonth)
+            });
+
+            if (cursor.moveToFirst()) {
+                currentMonthEstimatesCount = cursor.getInt(0);
             }
-            cursor = db.rawQuery(query, null);
-            currentMonthEstimatesCount = cursor.getCount();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
+
         return currentMonthEstimatesCount;
     }
 
+    // Done
+
     public Float getCurrentYearEstimatesTotal() {
-        Float currentYearEstimatesTotal = 0.0f;
-        String query;
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String startDate = year + "-1-1";
-        String currentDate = year + "-" + month + "-" + day;
+        Float currentYearEstimatesTotal = 0.0f;
 
         try {
-            db = helper.getReadableDatabase();
-            if (month == 1 && day == 1) {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issueDate ='" + currentDate + "'";
-            } else {
-                query = "SELECT sum(allTaxIncludedTotal) as 'currentYearEstimatesTotal' FROM estimate WHERE issueDate between '" + startDate + "' and '" + currentDate + "'";
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = 1st January of current year at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.MONTH, Calendar.JANUARY);
+            startCal.set(Calendar.DAY_OF_MONTH, 1);
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfYear = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfYear = cal.getTimeInMillis();
+
+            // SUM QUERY
+            String query = "SELECT SUM(allTaxIncludedTotal) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfYear),
+                    String.valueOf(endOfYear)
+            });
+
+            if (cursor.moveToFirst()) {
+                if (!cursor.isNull(0)) {
+                    currentYearEstimatesTotal = cursor.getFloat(0);
+                }
             }
-            cursor = db.rawQuery(query, null);
-            while (cursor.moveToNext()) {
-                currentYearEstimatesTotal += cursor.getFloat(0);
-            }
-            cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
+
         return currentYearEstimatesTotal;
     }
+
+    // Done
 
     public ArrayList<Estimate> getCurrentYearEstimates() {
 
@@ -786,36 +719,54 @@ public class DBAdapter {
     }
 
     public int getCurrentYearEstimatesCount() {
+
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = null;
         int currentYearEstimatesCount = 0;
-        String query;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        month++;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String startDate = year + "-1-1";
-        String currentDate = year + "-" + month + "-" + day;
+
         try {
-            if (month == 1 && day == 1) {
-                query = "SELECT * FROM estimate WHERE issueDate ='" + startDate + "'";
-            } else {
-                query = "SELECT * FROM estimate WHERE issueDate between '" + startDate + "' and '" + currentDate + "'";
+
+            Calendar cal = Calendar.getInstance();
+
+            // START = 1st January of current year at midnight
+            Calendar startCal = (Calendar) cal.clone();
+            startCal.set(Calendar.MONTH, Calendar.JANUARY);
+            startCal.set(Calendar.DAY_OF_MONTH, 1);
+            startCal.set(Calendar.HOUR_OF_DAY, 0);
+            startCal.set(Calendar.MINUTE, 0);
+            startCal.set(Calendar.SECOND, 0);
+            startCal.set(Calendar.MILLISECOND, 0);
+
+            long startOfYear = startCal.getTimeInMillis();
+
+            // END = now
+            long endOfYear = cal.getTimeInMillis();
+
+            // COUNT QUERY
+            String query = "SELECT COUNT(*) FROM estimate WHERE issueDate BETWEEN ? AND ?";
+
+            cursor = db.rawQuery(query, new String[]{
+                    String.valueOf(startOfYear),
+                    String.valueOf(endOfYear)
+            });
+
+            if (cursor.moveToFirst()) {
+                currentYearEstimatesCount = cursor.getInt(0);
             }
-            db = helper.getReadableDatabase();
-            cursor = db.rawQuery(query, null);
-            currentYearEstimatesCount = cursor.getCount();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-            helper.close();
+            db.close();
         }
 
         return currentYearEstimatesCount;
     }
+
+    // Done
 
     public ArrayList<Customer> searchCustomers(String searchText) {
         ArrayList<Customer> customersList = new ArrayList<>();

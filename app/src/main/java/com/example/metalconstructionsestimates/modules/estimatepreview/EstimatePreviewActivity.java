@@ -270,7 +270,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         }
 
-        tvTotalBeforeVat.setText(String.format(java.util.Locale.getDefault(),"Total Before VAT: %.2f",estimate.getExcludingTaxTotal()));
+        tvTotalBeforeVat.setText(String.format(java.util.Locale.getDefault(),"Total Before VAT: %.2f",estimate.getExcludingTaxTotalAfterDiscount()));
         // 10% Discount
         double discountRate = estimate.getDiscount();
         double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
