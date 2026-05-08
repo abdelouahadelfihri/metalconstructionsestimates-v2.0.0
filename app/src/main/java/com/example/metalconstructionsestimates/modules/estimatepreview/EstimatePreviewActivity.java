@@ -391,8 +391,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
         assert downloadsDir != null;
-        if (!downloadsDir.exists()) {
-            downloadsDir.mkdirs();
+        if (!downloadsDir.exists() && !downloadsDir.mkdirs()) {
+            Toast.makeText(this, "Failed to create directory", Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         File file = new File(downloadsDir, "Estimate.pdf");
