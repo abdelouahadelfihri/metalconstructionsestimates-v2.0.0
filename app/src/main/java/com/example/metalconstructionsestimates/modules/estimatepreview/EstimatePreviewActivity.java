@@ -19,9 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 
@@ -256,31 +254,49 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
             productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            TextView productTextView = createCell(productType + "", 2); // Replace with product name if available
-            TextView unitPriceTextView = createCell(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 1);
-            TextView totalTextView = createCell(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 1);
 
-            row.addView(qtyTextView);
+            TextView productTextView = createCell(productType, 2);
+            TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
+            TextView unitPriceTextView = createCell(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 1);
+            TextView totalTextView = createCell(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 1);
+
+            // Product first
             row.addView(productTextView);
+            row.addView(qtyTextView);
             row.addView(unitPriceTextView);
             row.addView(totalTextView);
 
             linesContainer.addView(row);
-
         }
 
-        tvTotalBeforeVat.setText(String.format(java.util.Locale.getDefault(),"Total Before VAT: %.2f",estimate.getExcludingTaxTotalAfterDiscount()));
-        // 10% Discount
+        tvTotalBeforeVat.setText(
+                String.format(java.util.Locale.getDefault(),
+                        "Total Before VAT: %.2f",
+                        estimate.getExcludingTaxTotalAfterDiscount()));
+
         double discountRate = estimate.getDiscount();
-        double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
-        double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() /100f;
+        double discount = estimate.getExcludingTaxTotal() * discountRate / 100f;
+        double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() / 100f;
 
-        tvDiscount.setText(String.format(java.util.Locale.getDefault(),"Discount: %.2f = %.2f", estimate.getDiscount(), discount));
-        tvVat.setText(String.format(java.util.Locale.getDefault(),"VAT: %.2f = %.2f", estimate.getVat(), vat));
+        tvDiscount.setText(
+                String.format(java.util.Locale.getDefault(),
+                        "Discount: %.2f = %.2f",
+                        estimate.getDiscount(),
+                        discount));
 
-        tvAllTotal.setText(String.format(java.util.Locale.getDefault(),"Total After VAT: %.2f", estimate.getAllTaxIncludedTotal()));
+        tvVat.setText(
+                String.format(java.util.Locale.getDefault(),
+                        "VAT: %.2f = %.2f",
+                        estimate.getVat(),
+                        vat));
+
+        tvAllTotal.setText(
+                String.format(java.util.Locale.getDefault(),
+                        "Total After VAT: %.2f",
+                        estimate.getAllTaxIncludedTotal()));
     }
 
     private TextView createCell(String text, int weight) {
