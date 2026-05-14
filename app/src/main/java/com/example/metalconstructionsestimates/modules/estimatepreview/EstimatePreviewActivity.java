@@ -333,10 +333,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // ================= TABLE HEADER =================
         paint.setFakeBoldText(true);
 
-        canvas.drawText("Qty", 40, y, paint);
-        canvas.drawText("Product", 100, y, paint);
-        canvas.drawText("Unit Price", 300, y, paint);
-        canvas.drawText("Total", 420, y, paint);
+        canvas.drawText("Product", 40, y, paint);
+        canvas.drawText("Qty", 100, y, paint);
+        canvas.drawText("Unit Price", 260, y, paint);
+        canvas.drawText("Total", 380, y, paint);
 
         y += 20;
         paint.setFakeBoldText(false);
@@ -344,30 +344,18 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // ================= TABLE LINES =================
         for (EstimateLine line : estimateLines) {
 
-            canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-
             String productType = "";
             if (line.getSteel() != 0) {
                 productType = dbAdapter.getSteelById(line.getSteel()).getType();
             }
 
-            canvas.drawText(productType, 100, y, paint);
+            canvas.drawText(productType, 40, y, paint);
 
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f",line.getUnitPrice()),300,y,paint);
+            canvas.drawText(String.valueOf(line.getQuantity()), 100, y, paint);
 
-            canvas.drawText(
-                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()),
-                    300,
-                    y,
-                    paint
-            );
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 260, y, paint);
 
-            canvas.drawText(
-                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()),
-                    420,
-                    y,
-                    paint
-            );
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 380, y, paint);
 
             y += 20;
         }
