@@ -41,6 +41,13 @@ import java.util.List;
 public class EstimatePreviewActivity extends AppCompatActivity {
 
     private LinearLayout linesContainer;
+    // PDF fixed columns (single source of truth)
+    private static final float COL_PRODUCT = 40f;
+    private static final float COL_QTY = 120f;
+    private static final float COL_UNIT_PRICE = 260f;
+    private static final float COL_TOTAL = 420f;
+
+
     private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
 
     // New business & customer info TextViews
@@ -185,10 +192,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         y += 90;
 
         paint.setFakeBoldText(true);
-        canvas.drawText("Product", 40, y, paint);
-        canvas.drawText("Qty", 100, y, paint);
-        canvas.drawText("Unit Price", 260, y, paint);
-        canvas.drawText("Total", 380, y, paint);
+        canvas.drawText("Product", COL_PRODUCT, y, paint);
+        canvas.drawText("Qty", COL_QTY, y, paint);
+        canvas.drawText("Unit Price", COL_UNIT_PRICE, y, paint);
+        canvas.drawText("Total", COL_TOTAL, y, paint);
 
         y += 20;
         paint.setFakeBoldText(false);
@@ -200,23 +207,28 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 productType = dbAdapter.getSteelById(line.getSteel()).getType();
             }
 
-            tvEstimateLineProduct = findViewById(R.id.estimate_line_product);
-            tvEstimateLineQty = findViewById(R.id.estimate_line_qty);
-            tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
-            tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
+            canvas.drawText(productType, COL_PRODUCT, y, paint);
 
-            productX = 40;
-            qtyX = 100;
-            unitPriceX = 260;
-            totalX = 380;
+            canvas.drawText(
+                    String.valueOf(line.getQuantity()),
+                    COL_QTY,
+                    y,
+                    paint
+            );
 
-            canvas.drawText(productType,  productX, y, paint);
+            canvas.drawText(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()),
+                    COL_UNIT_PRICE,
+                    y,
+                    paint
+            );
 
-            canvas.drawText(String.valueOf(line.getQuantity()), qtyX, y, paint);
-
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), unitPriceX, y, paint);
-
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), totalX , y, paint);
+            canvas.drawText(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()),
+                    COL_TOTAL,
+                    y,
+                    paint
+            );
 
             y += 20;
         }
@@ -264,60 +276,146 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private void fillEstimateLines() {
         linesContainer.removeAllViews();
 
-        for (EstimateLine line : estimateLines) {
-            LinearLayout row = new LinearLayout(this);
-            row.setOrientation(LinearLayout.HORIZONTAL);
+        // Wait until header is measured so widths are correct
+        linesContainer.post(() -> {
 
-            productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            // Get EXACT widths from header columns
+            int productWidth = tvEstimateLineProduct.getWidth();
+            int qtyWidth = tvEstimateLineQty.getWidth();
+            int unitPriceWidth = tvEstimateLineUnitPrice.getWidth();
+            int totalWidth = tvEstimateLineTotal.getWidth();
 
-            TextView productTextView = createCell(productType, 2);
-            TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            TextView unitPriceTextView = createCell(
-                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 1);
-            TextView totalTextView = createCell(
-                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 1);
+            for (EstimateLine line : estimateLines) {
 
-            // Product first
-            row.addView(productTextView);
-            row.addView(qtyTextView);
-            row.addView(unitPriceTextView);
-            row.addView(totalTextView);
+                LinearLayout row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                row.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                ));
 
-            linesContainer.addView(row);
-        }
+                // Product type
+                String productType = "";
+                if (line.getSteel() != 0) {
+                    productType = dbAdapter.getSteelById(line.getSteel()).getType();
+                }
 
-        tvTotalBeforeVat.setText(
-                String.format(java.util.Locale.getDefault(),
-                        "Total Before VAT: %.2f",
-                        estimate.getExcludingTaxTotalAfterDiscount()));
+                // Create cells with EXACT SAME WIDTH as headers
+                TextView productTextView = createPdfAlignedCell(
+                        productType,
+                        productWidth,
+                        Paint.Align.LEFT
+                );
 
-        double discountRate = estimate.getDiscount();
-        double discount = estimate.getExcludingTaxTotal() * discountRate / 100f;
-        double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() / 100f;
+                TextView qtyTextView = createPdfAlignedCell(
+                        String.valueOf(line.getNetQuantityPlusMargin()),
+                        qtyWidth,
+                        Paint.Align.LEFT
+                );
 
-        tvDiscount.setText(
-                String.format(java.util.Locale.getDefault(),
-                        "Discount: %.2f = %.2f",
-                        estimate.getDiscount(),
-                        discount));
+                TextView unitPriceTextView = createPdfAlignedCell(
+                        String.format(java.util.Locale.getDefault(),
+                                "%.2f",
+                                line.getUnitPrice()),
+                        unitPriceWidth,
+                        Paint.Align.LEFT
+                );
 
-        tvVat.setText(
-                String.format(java.util.Locale.getDefault(),
-                        "VAT: %.2f = %.2f",
-                        estimate.getVat(),
-                        vat));
+                TextView totalTextView = createPdfAlignedCell(
+                        String.format(java.util.Locale.getDefault(),
+                                "%.2f",
+                                line.getTotalPrice()),
+                        totalWidth,
+                        Paint.Align.LEFT
+                );
 
-        tvAllTotal.setText(
-                String.format(java.util.Locale.getDefault(),
-                        "Total After VAT: %.2f",
-                        estimate.getAllTaxIncludedTotal()));
+                // Add in EXACT header order
+                row.addView(productTextView);
+                row.addView(qtyTextView);
+                row.addView(unitPriceTextView);
+                row.addView(totalTextView);
+
+                linesContainer.addView(row);
+            }
+
+            // ================= TOTALS =================
+            tvTotalBeforeVat.setText(
+                    String.format(
+                            java.util.Locale.getDefault(),
+                            "Total Before VAT: %.2f",
+                            estimate.getExcludingTaxTotalAfterDiscount()
+                    )
+            );
+
+            double discountRate = estimate.getDiscount();
+            double discount = estimate.getExcludingTaxTotal() * discountRate / 100f;
+            double vat = estimate.getExcludingTaxTotalAfterDiscount()
+                    * estimate.getVat() / 100f;
+
+            tvDiscount.setText(
+                    String.format(
+                            java.util.Locale.getDefault(),
+                            "Discount: %.2f%% = %.2f",
+                            estimate.getDiscount(),
+                            discount
+                    )
+            );
+
+            tvVat.setText(
+                    String.format(
+                            java.util.Locale.getDefault(),
+                            "VAT: %.2f%% = %.2f",
+                            estimate.getVat(),
+                            vat
+                    )
+            );
+
+            tvAllTotal.setText(
+                    String.format(
+                            java.util.Locale.getDefault(),
+                            "Total After VAT: %.2f",
+                            estimate.getAllTaxIncludedTotal()
+                    )
+            );
+        });
     }
 
-    private TextView createCell(String text, int weight) {
+    private TextView createPdfAlignedCell(String text, int exactWidth, Paint.Align align) {
         TextView tv = new TextView(this);
+
         tv.setText(text);
-        tv.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
+
+        // EXACT SAME WIDTH as header
+        tv.setLayoutParams(new LinearLayout.LayoutParams(
+                exactWidth,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        ));
+
+        // Same padding as header for visual consistency
         tv.setPadding(8, 8, 8, 8);
+
+        // Prevent wrapping
+        tv.setSingleLine(true);
+
+        // Optional ellipsis if too long
+        tv.setEllipsize(android.text.TextUtils.TruncateAt.END);
+
+        // Alignment
+        switch (align) {
+            case CENTER:
+                tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
+                break;
+
+            case RIGHT:
+                tv.setGravity(android.view.Gravity.END);
+                break;
+
+            case LEFT:
+            default:
+                tv.setGravity(android.view.Gravity.START);
+                break;
+        }
+
         return tv;
     }
 
@@ -363,10 +461,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // ================= TABLE HEADER =================
         paint.setFakeBoldText(true);
 
-        canvas.drawText("Product", 40, y, paint);
-        canvas.drawText("Qty", 100, y, paint);
-        canvas.drawText("Unit Price", 260, y, paint);
-        canvas.drawText("Total", 380, y, paint);
+        canvas.drawText("Product", COL_PRODUCT, y, paint);
+        canvas.drawText("Qty", COL_QTY, y, paint);
+        canvas.drawText("Unit Price", COL_UNIT_PRICE, y, paint);
+        canvas.drawText("Total", COL_TOTAL, y, paint);
 
         y += 20;
         paint.setFakeBoldText(false);
@@ -379,23 +477,28 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 productType = dbAdapter.getSteelById(line.getSteel()).getType();
             }
 
-            tvEstimateLineProduct = findViewById(R.id.estimate_line_product);
-            tvEstimateLineQty = findViewById(R.id.estimate_line_qty);
-            tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
-            tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
+            canvas.drawText(productType, COL_PRODUCT, y, paint);
 
-            productX = 40;
-            qtyX = 100;
-            unitPriceX = 260;
-            totalX = 380;
+            canvas.drawText(
+                    String.valueOf(line.getQuantity()),
+                    COL_QTY,
+                    y,
+                    paint
+            );
 
-            canvas.drawText(productType,  productX, y, paint);
+            canvas.drawText(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()),
+                    COL_UNIT_PRICE,
+                    y,
+                    paint
+            );
 
-            canvas.drawText(String.valueOf(line.getQuantity()), qtyX, y, paint);
-
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), unitPriceX, y, paint);
-
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), totalX , y, paint);
+            canvas.drawText(
+                    String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()),
+                    COL_TOTAL,
+                    y,
+                    paint
+            );
 
             y += 20;
         }
