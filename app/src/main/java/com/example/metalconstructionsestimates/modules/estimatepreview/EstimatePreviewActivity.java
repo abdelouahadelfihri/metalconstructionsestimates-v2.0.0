@@ -205,10 +205,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
             tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
 
-            productX = tvEstimateLineProduct.getX();
-            qtyX = tvEstimateLineQty.getX();
-            unitPriceX = tvEstimateLineUnitPrice.getX();
-            totalX = tvEstimateLineTotal.getX();
+            productX = 40;
+            qtyX = 100;
+            unitPriceX = 260;
+            totalX = 380;
 
             canvas.drawText(productType,  productX, y, paint);
 
@@ -384,10 +384,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
             tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
 
-            productX = tvEstimateLineProduct.getX();
-            qtyX = tvEstimateLineQty.getX();
-            unitPriceX = tvEstimateLineUnitPrice.getX();
-            totalX = tvEstimateLineTotal.getX();
+            productX = 40;
+            qtyX = 100;
+            unitPriceX = 260;
+            totalX = 380;
 
             canvas.drawText(productType,  productX, y, paint);
 
