@@ -46,9 +46,13 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     // New business & customer info TextViews
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
+    private TextView tvEstimateLineProduct, tvEstimateLineQty, tvEstimateLineUnitPrice,
+            tvEstimateLineTotal;
     private File cachedPdf;
     String productType;
     private List<EstimateLine> estimateLines;
+
+    float productX, qtyX, unitPriceX, totalX;
 
     DBAdapter dbAdapter;
     Estimate estimate;
@@ -196,13 +200,23 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 productType = dbAdapter.getSteelById(line.getSteel()).getType();
             }
 
-            canvas.drawText(productType, 40, y, paint);
+            tvEstimateLineProduct = findViewById(R.id.estimate_line_product);
+            tvEstimateLineQty = findViewById(R.id.estimate_line_qty);
+            tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
+            tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
 
-            canvas.drawText(String.valueOf(line.getQuantity()), 100, y, paint);
+            productX = tvEstimateLineProduct.getX();
+            qtyX = tvEstimateLineQty.getX();
+            unitPriceX = tvEstimateLineUnitPrice.getX();
+            totalX = tvEstimateLineTotal.getX();
 
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 260, y, paint);
+            canvas.drawText(productType,  productX, y, paint);
 
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 380, y, paint);
+            canvas.drawText(String.valueOf(line.getQuantity()), qtyX, y, paint);
+
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), unitPriceX, y, paint);
+
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), totalX , y, paint);
 
             y += 20;
         }
@@ -365,13 +379,23 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 productType = dbAdapter.getSteelById(line.getSteel()).getType();
             }
 
-            canvas.drawText(productType, 40, y, paint);
+            tvEstimateLineProduct = findViewById(R.id.estimate_line_product);
+            tvEstimateLineQty = findViewById(R.id.estimate_line_qty);
+            tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
+            tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
 
-            canvas.drawText(String.valueOf(line.getQuantity()), 100, y, paint);
+            productX = tvEstimateLineProduct.getX();
+            qtyX = tvEstimateLineQty.getX();
+            unitPriceX = tvEstimateLineUnitPrice.getX();
+            totalX = tvEstimateLineTotal.getX();
 
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), 260, y, paint);
+            canvas.drawText(productType,  productX, y, paint);
 
-            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), 380, y, paint);
+            canvas.drawText(String.valueOf(line.getQuantity()), qtyX, y, paint);
+
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getUnitPrice()), unitPriceX, y, paint);
+
+            canvas.drawText(String.format(java.util.Locale.getDefault(),"%.2f", line.getTotalPrice()), totalX , y, paint);
 
             y += 20;
         }
