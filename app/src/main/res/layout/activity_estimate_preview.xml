@@ -46,15 +46,18 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="16dp"
                 android:padding="8dp"
+                android:baselineAligned="false"
+                android:weightSum="2"
                 app:layout_constraintTop_toBottomOf="@id/tvEstimateLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <!-- Business Info -->
+                <!-- ================= BUSINESS INFO ================= -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical">
 
                     <!-- Section Title -->
@@ -70,27 +73,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Company Name: "
+                            android:text="Company Name:"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvBusinessName"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                     <!-- Business Address -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="6dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -103,37 +107,41 @@
                             android:id="@+id/tvBusinessAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                     <!-- Business Phone -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone: "
+                            android:text="Phone:"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvBusinessPhone"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <!-- Customer Info -->
+                <!-- ================= CUSTOMER INFO ================= -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     android:orientation="vertical">
 
                     <!-- Section Title -->
@@ -149,27 +157,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Customer Name: "
+                            android:text="Customer Name:"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvCustomerName"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                     <!-- Customer Address -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="6dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -182,31 +191,35 @@
                             android:id="@+id/tvCustomerAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="2"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                     <!-- Customer Phone -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone: "
+                            android:text="Phone:"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvCustomerPhone"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Not specified" />
+                            android:text="—"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
                     </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <!-- Table Header -->
