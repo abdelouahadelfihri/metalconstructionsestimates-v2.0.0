@@ -280,6 +280,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         linesContainer.post(() -> {
 
             // Get EXACT widths from header columns
+            tvEstimateLineProduct = findViewById(R.id.estimate_line_product);
+            tvEstimateLineQty = findViewById(R.id.estimate_line_qty);
+            tvEstimateLineUnitPrice = findViewById(R.id.estimate_line_unit_price);
+            tvEstimateLineTotal = findViewById(R.id.estimate_line_total);
             int productWidth = tvEstimateLineProduct.getWidth();
             int qtyWidth = tvEstimateLineQty.getWidth();
             int unitPriceWidth = tvEstimateLineUnitPrice.getWidth();
