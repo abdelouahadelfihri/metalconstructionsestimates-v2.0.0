@@ -101,9 +101,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             Toast.makeText(this, "No customer record found. Please add your business info first.", Toast.LENGTH_LONG).show();
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         linesContainer = findViewById(R.id.linesContainer);
         tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);
         tvAllTotal = findViewById(R.id.tvAllTotal);
