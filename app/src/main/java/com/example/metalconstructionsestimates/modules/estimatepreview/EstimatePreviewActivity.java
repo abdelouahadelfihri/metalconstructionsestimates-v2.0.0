@@ -3,6 +3,7 @@ package com.example.metalconstructionsestimates.modules.estimatepreview;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
@@ -13,6 +14,7 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +50,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private static final float COL_UNIT_PRICE = 260f;
     private static final float COL_TOTAL = 420f;
 
+    private static final String TAG = "EstimatePreview";
 
     private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
 
@@ -263,8 +266,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Saved to Downloads", Toast.LENGTH_LONG).show();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        catch (Exception e) {
+            Log.e(TAG, "Download failed", e);
             Toast.makeText(this, "Download failed", Toast.LENGTH_SHORT).show();
         }
 
@@ -536,9 +540,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             pdfDocument.writeTo(new FileOutputStream(file));
             Toast.makeText(this, "PDF created successfully", Toast.LENGTH_SHORT).show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error creating PDF", Toast.LENGTH_SHORT).show();
+        }
+        catch (IOException e) {
+            Log.e(TAG, "Error creating PDF", e);
+            Toast.makeText(this,"Error creating PDF", Toast.LENGTH_LONG).show();
         }
 
         pdfDocument.close();
