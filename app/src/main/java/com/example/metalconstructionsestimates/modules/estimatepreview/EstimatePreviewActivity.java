@@ -37,6 +37,7 @@ import com.example.metalconstructionsestimates.printings.PdfPrintAdapter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class EstimatePreviewActivity extends AppCompatActivity {
 
@@ -56,10 +57,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private TextView tvEstimateLineProduct, tvEstimateLineQty, tvEstimateLineUnitPrice,
             tvEstimateLineTotal;
     private File cachedPdf;
-    String productType;
-    private List<EstimateLine> estimateLines;
 
-    float productX, qtyX, unitPriceX, totalX;
+    private List<EstimateLine> estimateLines;
 
     DBAdapter dbAdapter;
     Estimate estimate;
@@ -67,7 +66,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_preview);
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         // Business Info
         tvBusinessName = findViewById(R.id.tvBusinessName);
         tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
