@@ -82,6 +82,7 @@ public class BackUpRestore extends GoogleDriveActivity {
         // Initialize database adapters
         dbAdapter = new DBAdapter(getApplicationContext());
         intermediateDBAdapter = new IntermediateDBAdapter(getApplicationContext());
+        intermediateHelper = new IntermediateDBHelper(getApplicationContext());
 
         // Set up button listeners
         googleDriveSignIn.setOnClickListener(v -> startGoogleDriveSignIn());
@@ -148,10 +149,10 @@ public class BackUpRestore extends GoogleDriveActivity {
         }
 
         googleDriveRepository.downloadFile(db, GOOGLE_DRIVE_DB_LOCATION)
-                .addOnSuccessListener(r -> {
+                .addOnSuccessListener(r -> executorService.execute(() -> {
                     updateActualDbFromIntermediateDb();
                     handler.post(() -> showMessage("Database restored from Google Drive"));
-                })
+                }))
                 .addOnFailureListener(e -> handler.post(() -> {
                     Log.e(LOG_TAG, "Error downloading file", e);
                     showMessage("Error during restore");
@@ -175,6 +176,9 @@ public class BackUpRestore extends GoogleDriveActivity {
         }
         if (intermediateDBAdapter != null) {
             intermediateDBAdapter.close();
+        }
+        if (intermediateHelper != null) {
+            intermediateHelper.close();
         }
     }
 
@@ -302,10 +306,10 @@ public class BackUpRestore extends GoogleDriveActivity {
     }
 
     private void updateActualDbFromIntermediateDb() {
-        executorService.execute(() -> {
-            try {
-                // === 1. Merge STEELS ===
-                Cursor cursor = intermediateHelper.getAllSteels();
+        try {
+            // === 1. Merge STEELS ===
+            Cursor cursor = intermediateHelper.getAllSteels();
+            if (cursor != null) {
                 while (cursor.moveToNext()) {
                     Steel backupSteel = intermediateHelper.buildSteelFromCursor(cursor);
 
@@ -324,10 +328,12 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
                 }
                 cursor.close();
+            }
 
-                // === 2. Merge CUSTOMERS ===
-                Cursor customersCursor = intermediateHelper.getAllCustomers();
-                while (cursor.moveToNext()) {
+            // === 2. Merge CUSTOMERS ===
+            Cursor customersCursor = intermediateHelper.getAllCustomers();
+            if (customersCursor != null) {
+                while (customersCursor.moveToNext()) {
                     Customer backupCustomer = intermediateHelper.buildCustomerFromCursor(customersCursor);
                     Customer existing = dbAdapter.findCustomerByContent(
                             backupCustomer.getName(),
@@ -342,10 +348,12 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
                 }
                 customersCursor.close();
+            }
 
 
-                // === 3. Merge ESTIMATES ===
-                Cursor estimateCursor = intermediateHelper.getAllEstimates();
+            // === 3. Merge ESTIMATES ===
+            Cursor estimateCursor = intermediateHelper.getAllEstimates();
+            if (estimateCursor != null) {
                 while (estimateCursor.moveToNext()) {
                     Estimate backupEstimate = intermediateHelper.buildEstimateFromCursor(estimateCursor);
 
@@ -362,10 +370,12 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
                 }
                 estimateCursor.close();
+            }
 
 
-                // === 4. Merge ESTIMATE LINES ===
-                Cursor estimateLineCursor = intermediateHelper.getAllEstimatesLines();
+            // === 4. Merge ESTIMATE LINES ===
+            Cursor estimateLineCursor = intermediateHelper.getAllEstimatesLines();
+            if (estimateLineCursor != null) {
                 while (estimateLineCursor.moveToNext()) {
                     EstimateLine backupLine = intermediateHelper.buildEstimateLineFromCursor(estimateLineCursor);
 
@@ -382,23 +392,24 @@ public class BackUpRestore extends GoogleDriveActivity {
                     }
                 }
                 estimateLineCursor.close();
-                // === Merge BUSINESS (single record) ===
-                Business backupBusiness = intermediateHelper.getBusiness();
-                if (backupBusiness != null) {
-                    Business existingBusiness = dbAdapter.getBusiness();
-
-                    if (existingBusiness == null) {
-                        dbAdapter.saveBusiness(backupBusiness);
-                    } else {
-                        dbAdapter.updateBusiness(backupBusiness);
-                    }
-                }
-                handler.post(() -> Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully"));
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
-                handler.post(() -> showToastMessage("Error updating database: " + e.getMessage()));
             }
-        });
+
+            // === Merge BUSINESS (single record) ===
+            Business backupBusiness = intermediateHelper.getBusiness();
+            if (backupBusiness != null) {
+                Business existingBusiness = dbAdapter.getBusiness();
+
+                if (existingBusiness == null) {
+                    dbAdapter.saveBusiness(backupBusiness);
+                } else {
+                    dbAdapter.updateBusiness(backupBusiness);
+                }
+            }
+            Log.d(LOG_TAG, "Database merge from intermediate DB completed successfully");
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error updating database from intermediate DB", e);
+            handler.post(() -> showToastMessage("Error updating database: " + e.getMessage()));
+        }
     }
 
 
