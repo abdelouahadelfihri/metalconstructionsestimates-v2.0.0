@@ -17,6 +17,8 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 
+import java.util.Objects;
+
 public class AddCustomer extends AppCompatActivity {
     Customer customer;
     DBAdapter dbAdapter;
@@ -28,7 +30,7 @@ public class AddCustomer extends AppCompatActivity {
         dbAdapter = new DBAdapter(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Button add_customer_button = (Button) findViewById(R.id.btnAdd_add_customer);
         Button clear_button = (Button) findViewById(R.id.btnClear_add_customer);
 
