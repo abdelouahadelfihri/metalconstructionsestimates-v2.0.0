@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
@@ -701,6 +702,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    private Business buildBusinessFromCursor(Cursor cursor) {
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+        String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+        String mobile = cursor.getString(cursor.getColumnIndexOrThrow("mobile"));
+        String fax = cursor.getString(cursor.getColumnIndexOrThrow("fax"));
+        String address = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+
+        return new Business(name, email, phone, mobile, fax, address);
     }
 
     public Customer buildCustomerFromCursor(Cursor cursor) {
