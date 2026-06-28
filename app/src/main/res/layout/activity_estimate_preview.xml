@@ -64,24 +64,48 @@
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
+                    <!-- Company Name -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Company Name"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvBusinessName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Company Name" />
+                        android:text="-"
+                        android:textSize="14sp" />
 
+                    <!-- Address -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Address"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvBusinessAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Address" />
 
+                    <!-- Phone -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Phone"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvBusinessPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone: +212 600 000 000" />
+                        android:text="-" />
                 </LinearLayout>
 
                 <!-- Customer Info -->
@@ -98,24 +122,48 @@
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
+                    <!-- Customer Name -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Customer Name"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvCustomerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Customer Name" />
+                        android:text="-"
+                        android:textSize="14sp" />
 
+                    <!-- Address -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Address"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvCustomerAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address" />
+                        android:text="-" />
 
+                    <!-- Phone -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Phone"
+                        android:textSize="11sp"
+                        android:textColor="#888888" />
                     <TextView
                         android:id="@+id/tvCustomerPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone: +212 611 111 111" />
+                        android:text="-" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -135,14 +183,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Qty"
+                    android:text="Product"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Product"
+                    android:layout_weight="1"
+                    android:text="Qty"
                     android:textStyle="bold" />
 
                 <TextView
@@ -186,7 +234,7 @@
                 <TextView android:id="@+id/tvDiscount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Discount: 10%" />
                 <TextView android:id="@+id/tvTotalBeforeVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Before VAT: 0.00" />
                 <TextView android:id="@+id/tvAllTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total After VAT: 0.00" />
-            </LinearLayout>
+            </LinearLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
         <!-- Buttons -->
