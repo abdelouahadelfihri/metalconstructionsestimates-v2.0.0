@@ -161,32 +161,55 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
-        Paint paint = new Paint();
+        Paint paint = new Paint();          // for values / headers
+        Paint labelPaint = new Paint();     // for small gray captions
+        labelPaint.setTextSize(9);
+        labelPaint.setColor(android.graphics.Color.GRAY);
+
         int y = 50;
 
         // Title
         paint.setTextSize(22);
         paint.setFakeBoldText(true);
         canvas.drawText("ESTIMATE", 40, y, paint);
-        y += 40;
+        y += 40; // y = 90
 
-        // Business & Customer info
+        // Section headers ("Business Information:" / "Customer Information:")
         paint.setTextSize(14);
         paint.setFakeBoldText(true);
-        // Business Info
         canvas.drawText("Business Information:", 40, y, paint);
-        paint.setFakeBoldText(false);
-        canvas.drawText(tvBusinessName.getText().toString(), 40, y + 20, paint);
-        canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 40, paint);
-        canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 60, paint);
-
-        // Customer Info
         canvas.drawText("Customer Information:", 300, y, paint);
-        canvas.drawText(tvCustomerName.getText().toString(), 300, y + 20, paint);
-        canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 40, paint);
-        canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 60, paint);
+        paint.setFakeBoldText(false);
+        paint.setTextSize(12);
 
-        y += 80;
+        y += 20; // y = 110 -> first label row starts here
+
+        // --- Company Name / Customer Name ---
+        canvas.drawText("Company Name", 40, y, labelPaint);
+        canvas.drawText(tvBusinessName.getText().toString(), 40, y + 14, paint);
+
+        canvas.drawText("Customer Name", 300, y, labelPaint);
+        canvas.drawText(tvCustomerName.getText().toString(), 300, y + 14, paint);
+
+        y += 30; // 14 (value offset) + 16 (gap to next field) = 130
+
+        // --- Address ---
+        canvas.drawText("Address", 40, y, labelPaint);
+        canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 14, paint);
+
+        canvas.drawText("Address", 300, y, labelPaint);
+        canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 14, paint);
+
+        y += 30; // y = 160
+
+        // --- Phone ---
+        canvas.drawText("Phone", 40, y, labelPaint);
+        canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 14, paint);
+
+        canvas.drawText("Phone", 300, y, labelPaint);
+        canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
+
+        y += 14 + 30; // value line height + extra gap before table = 204
 
         // Table header
         paint.setFakeBoldText(true);
@@ -200,7 +223,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         // Table rows
         for (EstimateLine line : estimateLines) {
             canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-            canvas.drawText(productType + "", 100, y, paint); // Replace with product name
+            canvas.drawText(productType + "", 100, y, paint);
             canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
             canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
             y += 20;
@@ -218,16 +241,12 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         generatedPdf = new File(downloadsDir, "Estimate.pdf");
 
         try {
             pdfDocument.writeTo(new FileOutputStream(generatedPdf));
-            Toast.makeText(this,
-                    "PDF saved to Downloads",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
