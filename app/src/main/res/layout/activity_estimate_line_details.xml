@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#0066cc"
+                    app:title="@string/estimateLineDetails"
+                    app:titleTextColor="@android:color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- Estimate Line ID -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_estimate_line_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/estimateLineId"
+                    android:background="@drawable/shape"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_estimate_line_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Estimate ID -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_estimate_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/estimateId"
+                    android:background="@drawable/shape"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/til_estimate_line_id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_estimate_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Steel ID + Button -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_steel_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/steel"
+                    android:background="@drawable/shape"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/til_estimate_id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_select_steel"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_steel_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_select_steel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#0066cc"
+                    android:text="@string/selectSteel"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/til_steel_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/til_steel_id"
+                    app:layout_constraintTop_toTopOf="@id/til_steel_id" />
+
+                <!-- Weight -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/weight"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toBottomOf="@id/til_steel_id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Quantity -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/quantity"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toBottomOf="@id/til_weight"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Length, Width, Height -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_length"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/length"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toBottomOf="@id/til_quantity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/til_width"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_length"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_width"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/width"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toTopOf="@id/til_length"
+                    app:layout_constraintBottom_toBottomOf="@id/til_length"
+                    app:layout_constraintStart_toEndOf="@id/til_length"
+                    app:layout_constraintEnd_toStartOf="@id/til_height"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_width"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_height"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/height"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toTopOf="@id/til_length"
+                    app:layout_constraintBottom_toBottomOf="@id/til_length"
+                    app:layout_constraintStart_toEndOf="@id/til_width"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_height"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Total -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/total"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toBottomOf="@id/til_length"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Margin -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_margin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/margin"
+                    android:background="@drawable/shape"
+                    app:layout_constraintTop_toBottomOf="@id/til_total"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Net Quantity -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_net_quantity"
+                    android:layout_width="0dp"
+                    android:background="@drawable/shape"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/netQuantityPlusMargin"
+                    app:layout_constraintTop_toBottomOf="@id/til_margin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_net_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Unit Price -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_unit_price"
+                    android:layout_width="0dp"
+                    android:background="@drawable/shape"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/unitPrice"
+                    app:layout_constraintTop_toBottomOf="@id/til_net_quantity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_unit_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:inputType="numberDecimal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Total Price -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_total_price"
+                    android:layout_width="0dp"
+                    android:background="@drawable/shape"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/totalPrice"
+                    app:layout_constraintTop_toBottomOf="@id/til_unit_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_total_price"
+                            android:layout_width="match_parent"
+                            android:textColor="#333333"
+                            android:textColorHint="#4A4A4A"
+                            android:background="@android:color/transparent"
+                            android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Update and Delete Buttons -->
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="#0066cc"
+                    android:text="@string/update"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toStartOf="@id/btn_delete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_total_price" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#0066cc"
+                    android:text="@string/delete"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_update"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_update"
+                    app:layout_constraintTop_toTopOf="@id/btn_update" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

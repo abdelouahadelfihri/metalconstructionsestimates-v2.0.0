@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="#0066cc"
+    android:gravity="center">  <!-- centers both vertically and horizontally -->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/headerImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/app_icon"
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginStart="8dp"/> <!-- small space from the image -->
+</LinearLayout>
