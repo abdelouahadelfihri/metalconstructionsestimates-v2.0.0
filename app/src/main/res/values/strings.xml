@@ -181,4 +181,39 @@
     <string name="business_fax">Fax</string>
     <string name="business_address">Address</string>
     <string name="preview">Preview</string>
+
+    <!-- Settings screen label (add to your drawer_menu.xml and nav too) -->
+    <string name="settings">Settings</string>
+
+    <!-- Section headers -->
+    <string name="section_currency">Currency</string>
+    <string name="section_estimates">Estimates</string>
+    <string name="section_display">Display</string>
+    <string name="section_data">Data</string>
+
+    <!-- Currency -->
+    <string name="auto_detect_currency">Auto-detect currency</string>
+    <string name="auto_detect_currency_sub">Detect from SIM card or device region</string>
+    <string name="select_currency">Currency</string>
+
+    <!-- Estimates defaults -->
+    <string name="default_vat">Default VAT rate (%)</string>
+    <string name="default_vat_sub">Pre-filled when creating a new estimate</string>
+    <string name="vat_hint">VAT %</string>
+    <string name="default_expiration">Estimate valid for (days)</string>
+    <string name="default_expiration_sub">Sets the expiration date automatically</string>
+    <string name="expiration_hint">Days</string>
+    <string name="default_due_terms">Default payment terms</string>
+    <string name="default_due_terms_sub">Pre-filled on every new estimate</string>
+
+    <!-- Display -->
+    <string name="date_format">Date format</string>
+
+    <!-- Data -->
+    <string name="backup_reminder">Backup reminder</string>
+    <string name="backup_reminder_sub">Remind me to back up data weekly</string>
+
+    <!-- Actions -->
+    <string name="save_settings">Save Settings</string>
+    <string name="settings_saved">Settings saved</string>
 </resources>
