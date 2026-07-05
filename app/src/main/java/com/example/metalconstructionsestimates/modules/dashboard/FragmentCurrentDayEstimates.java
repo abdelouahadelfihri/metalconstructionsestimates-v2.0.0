@@ -18,6 +18,7 @@ import com.example.metalconstructionsestimates.util.CurrencyManager;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class FragmentCurrentDayEstimates extends Fragment {
     private FragmentCurrentDayEstimatesBinding binding;
@@ -38,7 +39,7 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
         // Set Total
         float total = dbAdapter.getCurrentDayEstimatesTotal();
-        CurrencyManager cm = new CurrencyManager(getContext());
+        CurrencyManager cm = new CurrencyManager(requireContext());
         binding.tvEstimateTotalValue.setText(cm.formatAmount(total));
 
         // Set List
