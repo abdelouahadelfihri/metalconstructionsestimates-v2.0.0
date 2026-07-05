@@ -23,7 +23,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageViewCustomers, imageViewEstimates, imageViewSteels,
-              imageViewDashboard, imageViewBusiness, imageViewBackups;
+              imageViewDashboard, imageViewBusiness, imageViewBackups,
+              imageViewSettings, imageViewExit;
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         imageViewDashboard = findViewById(R.id.imageViewDashboard);
         imageViewBusiness = findViewById(R.id.imageViewBusiness);
         imageViewBackups = findViewById(R.id.imageViewBackups);
+        imageViewSettings = findViewById(R.id.imageViewSettings);
+        imageViewExit = findViewById(R.id.imageViewExit);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
@@ -125,6 +128,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, BackUpRestore.class);
                 startActivity(intent);
+            }
+        });
+        imageViewSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+        imageViewExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
