@@ -181,6 +181,7 @@
     <string name="business_fax">Fax</string>
     <string name="business_address">Address</string>
     <string name="preview">Preview</string>
+    <string name="exit">Exit</string>
 
     <!-- Settings screen label (add to your drawer_menu.xml and nav too) -->
     <string name="settings">Settings</string>

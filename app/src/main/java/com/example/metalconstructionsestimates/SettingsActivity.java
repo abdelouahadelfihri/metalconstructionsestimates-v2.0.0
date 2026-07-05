@@ -1,4 +1,4 @@
-package com.yourpackage.metalestimates; // adjust to your actual package
+package com.example.metalconstructionsestimates; // adjust to your actual package
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.metalconstructionsestimates.util.CurrencyManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
@@ -63,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
     private MaterialButton   btnSave;
 
     private SharedPreferences prefs;
-    private CurrencyManager  currencyManager;
+    private CurrencyManager currencyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
