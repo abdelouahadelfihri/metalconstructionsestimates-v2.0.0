@@ -14,6 +14,7 @@ import com.example.metalconstructionsestimates.recyclerviewadapters.EstimatesLis
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentDayEstimatesBinding;
+import com.example.metalconstructionsestimates.util.CurrencyManager;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -37,11 +38,8 @@ public class FragmentCurrentDayEstimates extends Fragment {
 
         // Set Total
         float total = dbAdapter.getCurrentDayEstimatesTotal();
-        if (total == 0.0f) {
-            binding.tvEstimateTotalValue.setText(R.string.zeroDH);
-        } else {
-            binding.tvEstimateTotalValue.setText(String.format(Locale.getDefault(), "%.2f DH", total));
-        }
+        CurrencyManager cm = new CurrencyManager(getContext());
+        binding.tvEstimateTotalValue.setText(cm.formatAmount(total));
 
         // Set List
         ArrayList<Estimate> estimates = dbAdapter.getCurrentDayEstimates();
