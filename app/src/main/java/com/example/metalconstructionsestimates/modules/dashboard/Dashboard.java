@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
+import com.example.metalconstructionsestimates.util.CurrencyManager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -32,11 +33,12 @@ public class Dashboard extends AppCompatActivity {
 
         DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
         if(dbAdapter.getEstimatesTotal() == 0f){
-            allEstimatesTotalTextView.setText(R.string.zeroDH);
+            CurrencyManager cm = new CurrencyManager(this);
+            allEstimatesTotalTextView.setText(cm.formatAmount(0));
         }
         else{
-            String allEstimatesTotal = dbAdapter.getEstimatesTotal() + " DH";
-            allEstimatesTotalTextView.setText(allEstimatesTotal);
+            CurrencyManager cm = new CurrencyManager(this);
+            allEstimatesTotalTextView.setText(cm.formatAmount(dbAdapter.getEstimatesTotal()));
         }
 
         // Set counts for each category
