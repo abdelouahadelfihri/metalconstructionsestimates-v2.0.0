@@ -13,6 +13,7 @@ import com.example.metalconstructionsestimates.recyclerviewadapters.EstimatesLis
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.databinding.FragmentCurrentWeekEstimatesBinding;
 import com.example.metalconstructionsestimates.models.Estimate;
+import com.example.metalconstructionsestimates.util.CurrencyManager;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,8 @@ public class FragmentCurrentWeekEstimates extends Fragment {
         binding.tvEstimateCountValue.setText(String.valueOf(count));
 
         float total = dbAdapter.getCurrentWeekEstimatesTotal();
-        binding.tvEstimateTotalValue.setText(
-                total == 0.0f ? getString(R.string.zeroDH) : String.format("%.2f DH", total)
-        );
+        CurrencyManager cm = new CurrencyManager(getContext());
+        binding.tvEstimateTotalValue.setText(cm.formatAmount(total));
 
         ArrayList<Estimate> list = dbAdapter.getCurrentWeekEstimates();
 
