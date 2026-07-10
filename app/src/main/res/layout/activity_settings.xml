@@ -23,7 +23,7 @@
                 android:background="#0066cc"
                 app:title="@string/settings"
                 app:titleTextColor="@android:color/white"
-                app:navigationIcon="@drawable/ic_arrow_back" />
+                app:navigationIcon="@drawable/abc_ic_ab_back_material" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
