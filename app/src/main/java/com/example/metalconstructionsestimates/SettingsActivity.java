@@ -3,7 +3,6 @@ package com.example.metalconstructionsestimates; // adjust to your actual packag
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,22 +15,9 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 
-/**
- * Single SettingsActivity driving all user preferences.
- * Uses SharedPreferences (PREFS_SETTINGS) for all keys.
- *
- * Reads / writes:
- *   KEY_CURRENCY_CODE      — active currency code, e.g. "MAD"
- *   KEY_CURRENCY_MANUAL    — boolean; true = user override
- *   KEY_DEFAULT_VAT        — float, e.g. 20.0
- *   KEY_EXPIRATION_DAYS    — int,   e.g. 30
- *   KEY_DUE_TERMS          — String, e.g. "Net 30"
- *   KEY_DATE_FORMAT        — String, e.g. "dd/MM/yyyy"
- *   KEY_BACKUP_REMINDER    — boolean
- */
 public class SettingsActivity extends AppCompatActivity {
 
-    // ── Shared preferences keys (use these everywhere in the app) ──────────
+    // ── SharedPreferences keys ─────────────────────────────────────────────
     public static final String PREFS_SETTINGS      = "app_settings";
     public static final String KEY_CURRENCY_CODE   = "currency_code";
     public static final String KEY_CURRENCY_MANUAL = "currency_is_manual";
@@ -41,28 +27,187 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_DATE_FORMAT     = "date_format";
     public static final String KEY_BACKUP_REMINDER = "backup_reminder";
 
-    // ── Spinner options ─────────────────────────────────────────────────────
+    // ── Currency codes (used for saving/reading) ───────────────────────────
     private static final String[] CURRENCY_CODES = {
-            "MAD", "USD", "EUR", "GBP", "SAR", "AED",
-            "EGP", "TND", "DZD", "QAR", "KWD"
+            // North Africa & Middle East
+            "MAD", "DZD", "TND", "LYD", "EGP", "SAR", "AED", "QAR",
+            "KWD", "BHD", "OMR", "JOD", "LBP", "SYP", "IQD", "YER",
+            "ILS", "SDG",
+            // Europe
+            "EUR", "GBP", "CHF", "NOK", "SEK", "DKK", "PLN", "CZK",
+            "HUF", "RON", "BGN", "HRK", "RSD", "UAH", "RUB", "TRY",
+            "ISK", "ALL", "MKD", "BAM", "MDL", "GEL", "AMD", "AZN",
+            // Americas
+            "USD", "CAD", "MXN", "BRL", "ARS", "CLP", "COP", "PEN",
+            "VES", "UYU", "BOB", "PYG", "GTQ", "CRC", "DOP", "CUP",
+            "JMD", "TTD", "BBD",
+            // Asia & Pacific
+            "JPY", "CNY", "HKD", "SGD", "KRW", "INR", "PKR", "BDT",
+            "LKR", "NPR", "MYR", "THB", "IDR", "PHP", "VND", "TWD",
+            "MMK", "KHR", "LAK", "BND", "AUD", "NZD", "FJD", "PGK",
+            "AFN", "IRR", "KZT", "UZS", "TMT", "TJS", "KGS", "MNT",
+            "MVR", "BTN",
+            // Sub-Saharan Africa
+            "ZAR", "NGN", "GHS", "KES", "ETB", "TZS", "UGX", "XOF",
+            "XAF", "AOA", "MZN", "ZMW", "BWP", "MUR", "MGA", "RWF",
+            "BIF", "DJF", "ERN", "SOS", "GMD", "GNF", "SLL", "LRD",
+            "CVE", "STN", "CDF", "SZL", "LSL", "NAD", "MWK", "ZWL",
     };
+
+    // ── Currency labels (shown in Spinner) ─────────────────────────────────
+    private static final String[] CURRENCY_LABELS = {
+            // North Africa & Middle East
+            "MAD - Moroccan Dirham",
+            "DZD - Algerian Dinar",
+            "TND - Tunisian Dinar",
+            "LYD - Libyan Dinar",
+            "EGP - Egyptian Pound",
+            "SAR - Saudi Riyal",
+            "AED - UAE Dirham",
+            "QAR - Qatari Riyal",
+            "KWD - Kuwaiti Dinar",
+            "BHD - Bahraini Dinar",
+            "OMR - Omani Rial",
+            "JOD - Jordanian Dinar",
+            "LBP - Lebanese Pound",
+            "SYP - Syrian Pound",
+            "IQD - Iraqi Dinar",
+            "YER - Yemeni Rial",
+            "ILS - Israeli Shekel",
+            "SDG - Sudanese Pound",
+            // Europe
+            "EUR - Euro",
+            "GBP - British Pound",
+            "CHF - Swiss Franc",
+            "NOK - Norwegian Krone",
+            "SEK - Swedish Krona",
+            "DKK - Danish Krone",
+            "PLN - Polish Zloty",
+            "CZK - Czech Koruna",
+            "HUF - Hungarian Forint",
+            "RON - Romanian Leu",
+            "BGN - Bulgarian Lev",
+            "HRK - Croatian Kuna",
+            "RSD - Serbian Dinar",
+            "UAH - Ukrainian Hryvnia",
+            "RUB - Russian Ruble",
+            "TRY - Turkish Lira",
+            "ISK - Icelandic Krona",
+            "ALL - Albanian Lek",
+            "MKD - Macedonian Denar",
+            "BAM - Bosnian Mark",
+            "MDL - Moldovan Leu",
+            "GEL - Georgian Lari",
+            "AMD - Armenian Dram",
+            "AZN - Azerbaijani Manat",
+            // Americas
+            "USD - US Dollar",
+            "CAD - Canadian Dollar",
+            "MXN - Mexican Peso",
+            "BRL - Brazilian Real",
+            "ARS - Argentine Peso",
+            "CLP - Chilean Peso",
+            "COP - Colombian Peso",
+            "PEN - Peruvian Sol",
+            "VES - Venezuelan Bolivar",
+            "UYU - Uruguayan Peso",
+            "BOB - Bolivian Boliviano",
+            "PYG - Paraguayan Guarani",
+            "GTQ - Guatemalan Quetzal",
+            "CRC - Costa Rican Colon",
+            "DOP - Dominican Peso",
+            "CUP - Cuban Peso",
+            "JMD - Jamaican Dollar",
+            "TTD - Trinidad Dollar",
+            "BBD - Barbadian Dollar",
+            // Asia & Pacific
+            "JPY - Japanese Yen",
+            "CNY - Chinese Yuan",
+            "HKD - Hong Kong Dollar",
+            "SGD - Singapore Dollar",
+            "KRW - South Korean Won",
+            "INR - Indian Rupee",
+            "PKR - Pakistani Rupee",
+            "BDT - Bangladeshi Taka",
+            "LKR - Sri Lankan Rupee",
+            "NPR - Nepalese Rupee",
+            "MYR - Malaysian Ringgit",
+            "THB - Thai Baht",
+            "IDR - Indonesian Rupiah",
+            "PHP - Philippine Peso",
+            "VND - Vietnamese Dong",
+            "TWD - Taiwan Dollar",
+            "MMK - Myanmar Kyat",
+            "KHR - Cambodian Riel",
+            "LAK - Lao Kip",
+            "BND - Brunei Dollar",
+            "AUD - Australian Dollar",
+            "NZD - New Zealand Dollar",
+            "FJD - Fijian Dollar",
+            "PGK - Papua New Guinea Kina",
+            "AFN - Afghan Afghani",
+            "IRR - Iranian Rial",
+            "KZT - Kazakhstani Tenge",
+            "UZS - Uzbekistani Som",
+            "TMT - Turkmenistani Manat",
+            "TJS - Tajikistani Somoni",
+            "KGS - Kyrgyzstani Som",
+            "MNT - Mongolian Tugrik",
+            "MVR - Maldivian Rufiyaa",
+            "BTN - Bhutanese Ngultrum",
+            // Sub-Saharan Africa
+            "ZAR - South African Rand",
+            "NGN - Nigerian Naira",
+            "GHS - Ghanaian Cedi",
+            "KES - Kenyan Shilling",
+            "ETB - Ethiopian Birr",
+            "TZS - Tanzanian Shilling",
+            "UGX - Ugandan Shilling",
+            "XOF - West African CFA Franc",
+            "XAF - Central African CFA Franc",
+            "AOA - Angolan Kwanza",
+            "MZN - Mozambican Metical",
+            "ZMW - Zambian Kwacha",
+            "BWP - Botswanan Pula",
+            "MUR - Mauritian Rupee",
+            "MGA - Malagasy Ariary",
+            "RWF - Rwandan Franc",
+            "BIF - Burundian Franc",
+            "DJF - Djiboutian Franc",
+            "ERN - Eritrean Nakfa",
+            "SOS - Somali Shilling",
+            "GMD - Gambian Dalasi",
+            "GNF - Guinean Franc",
+            "SLL - Sierra Leonean Leone",
+            "LRD - Liberian Dollar",
+            "CVE - Cape Verdean Escudo",
+            "STN - São Tomé Príncipe Dobra",
+            "CDF - Congolese Franc",
+            "SZL - Swazi Lilangeni",
+            "LSL - Lesotho Loti",
+            "NAD - Namibian Dollar",
+            "MWK - Malawian Kwacha",
+            "ZWL - Zimbabwean Dollar",
+    };
+
     private static final String[] DUE_TERMS_OPTIONS = {
             "Immediate", "Net 15", "Net 30", "Net 45", "Net 60", "On delivery"
     };
+
     private static final String[] DATE_FORMATS = {
             "dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "dd-MM-yyyy"
     };
 
-    // ── Views ───────────────────────────────────────────────────────────────
-    private SwitchMaterial   switchAutoDetect;
-    private View             rowCurrencyPicker;
-    private Spinner          spinnerCurrency;
+    // ── Views ──────────────────────────────────────────────────────────────
+    private SwitchMaterial    switchAutoDetect;
+    private View              rowCurrencyPicker;
+    private Spinner           spinnerCurrency;
     private TextInputEditText etVat;
     private TextInputEditText etExpirationDays;
-    private Spinner          spinnerDueTerms;
-    private Spinner          spinnerDateFormat;
-    private SwitchMaterial   switchBackupReminder;
-    private MaterialButton   btnSave;
+    private Spinner           spinnerDueTerms;
+    private Spinner           spinnerDateFormat;
+    private SwitchMaterial    switchBackupReminder;
+    private MaterialButton    btnSave;
 
     private SharedPreferences prefs;
     private CurrencyManager currencyManager;
@@ -75,7 +220,6 @@ public class SettingsActivity extends AppCompatActivity {
         prefs           = getSharedPreferences(PREFS_SETTINGS, MODE_PRIVATE);
         currencyManager = new CurrencyManager(this);
 
-        // Toolbar with back navigation
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,20 +232,21 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        switchAutoDetect    = findViewById(R.id.switch_auto_detect);
-        rowCurrencyPicker   = findViewById(R.id.row_currency_picker);
-        spinnerCurrency     = findViewById(R.id.spinner_currency);
-        etVat               = findViewById(R.id.et_vat);
-        etExpirationDays    = findViewById(R.id.et_expiration_days);
-        spinnerDueTerms     = findViewById(R.id.spinner_due_terms);
-        spinnerDateFormat   = findViewById(R.id.spinner_date_format);
+        switchAutoDetect     = findViewById(R.id.switch_auto_detect);
+        rowCurrencyPicker    = findViewById(R.id.row_currency_picker);
+        spinnerCurrency      = findViewById(R.id.spinner_currency);
+        etVat                = findViewById(R.id.et_vat);
+        etExpirationDays     = findViewById(R.id.et_expiration_days);
+        spinnerDueTerms      = findViewById(R.id.spinner_due_terms);
+        spinnerDateFormat    = findViewById(R.id.spinner_date_format);
         switchBackupReminder = findViewById(R.id.switch_backup_reminder);
-        btnSave             = findViewById(R.id.btn_save_settings);
+        btnSave              = findViewById(R.id.btn_save_settings);
     }
 
     private void populateSpinners() {
+        // Use CURRENCY_LABELS for display, CURRENCY_CODES for saving
         spinnerCurrency.setAdapter(new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_dropdown_item, CURRENCY_CODES));
+                this, android.R.layout.simple_spinner_dropdown_item, CURRENCY_LABELS));
         spinnerDueTerms.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, DUE_TERMS_OPTIONS));
         spinnerDateFormat.setAdapter(new ArrayAdapter<>(
@@ -139,11 +284,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void wireListeners() {
-        // Auto-detect switch enables / disables the currency picker
         switchAutoDetect.setOnCheckedChangeListener((btn, checked) ->
                 setCurrencyPickerEnabled(!checked));
-
-        // Save button persists everything at once
         btnSave.setOnClickListener(v -> saveAllSettings());
     }
 
@@ -155,7 +297,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void saveAllSettings() {
         SharedPreferences.Editor editor = prefs.edit();
 
-        // ── Currency ────────────────────────────────────────────────────────
+        // Currency — save the CODE not the label
         boolean isManual = !switchAutoDetect.isChecked();
         editor.putBoolean(KEY_CURRENCY_MANUAL, isManual);
         if (isManual) {
@@ -167,7 +309,7 @@ public class SettingsActivity extends AppCompatActivity {
             editor.putString(KEY_CURRENCY_CODE, currencyManager.getActiveCurrencyCode());
         }
 
-        // ── Estimates ───────────────────────────────────────────────────────
+        // Estimates
         String vatStr = etVat.getText() != null ? etVat.getText().toString().trim() : "";
         if (!vatStr.isEmpty()) {
             try { editor.putFloat(KEY_DEFAULT_VAT, Float.parseFloat(vatStr)); }
@@ -184,24 +326,24 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString(KEY_DUE_TERMS,
                 DUE_TERMS_OPTIONS[spinnerDueTerms.getSelectedItemPosition()]);
 
-        // ── Display ─────────────────────────────────────────────────────────
+        // Display
         editor.putString(KEY_DATE_FORMAT,
                 DATE_FORMATS[spinnerDateFormat.getSelectedItemPosition()]);
 
-        // ── Data ─────────────────────────────────────────────────────────────
+        // Data
         editor.putBoolean(KEY_BACKUP_REMINDER, switchBackupReminder.isChecked());
 
         editor.apply();
         Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_SHORT).show();
     }
 
-    // ── How to READ settings anywhere in the app ────────────────────────────
+    // ── Reading settings in other activities ───────────────────────────────
     // SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREFS_SETTINGS, MODE_PRIVATE);
-    // float vat            = prefs.getFloat(SettingsActivity.KEY_DEFAULT_VAT, 20f);
-    // int   expDays        = prefs.getInt(SettingsActivity.KEY_EXPIRATION_DAYS, 30);
-    // String dueTerm       = prefs.getString(SettingsActivity.KEY_DUE_TERMS, "Net 30");
-    // String dateFormat    = prefs.getString(SettingsActivity.KEY_DATE_FORMAT, "dd/MM/yyyy");
-    // boolean backupRem    = prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true);
-    // CurrencyManager cm   = new CurrencyManager(context);
-    // String formatted     = cm.formatAmount(15000.0);   // e.g. "MAD 15,000.00"
+    // float vat         = prefs.getFloat(SettingsActivity.KEY_DEFAULT_VAT, 20f);
+    // int   expDays     = prefs.getInt(SettingsActivity.KEY_EXPIRATION_DAYS, 30);
+    // String dueTerm    = prefs.getString(SettingsActivity.KEY_DUE_TERMS, "Net 30");
+    // String dateFormat = prefs.getString(SettingsActivity.KEY_DATE_FORMAT, "dd/MM/yyyy");
+    // boolean backupRem = prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true);
+    // CurrencyManager cm = new CurrencyManager(context);
+    // String formatted  = cm.formatAmount(15000.0);
 }
