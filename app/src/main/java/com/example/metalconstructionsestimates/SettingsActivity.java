@@ -191,7 +191,25 @@ public class SettingsActivity extends AppCompatActivity {
     };
 
     private static final String[] DUE_TERMS_OPTIONS = {
-            "Immediate", "Net 15", "Net 30", "Net 45", "Net 60", "On delivery"
+            "Due on receipt",
+            "Next day",
+            "2 days",
+            "3 days",
+            "4 days",
+            "5 days",
+            "6 days",
+            "7 days",
+            "10 days",
+            "14 days",
+            "15 days",
+            "21 days",
+            "28 days",
+            "30 days",
+            "45 days",
+            "60 days",
+            "90 days",
+            "120 days",
+            "180 days"
     };
 
     private static final String[] DATE_FORMATS = {
