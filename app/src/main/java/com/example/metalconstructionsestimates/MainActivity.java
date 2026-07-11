@@ -79,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, BackUpRestore.class);
                 startActivity(intent);
             }
+            else if (id == R.id.nav_settings) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.nav_exit) {
+                finish();
+            }
             drawerLayout.closeDrawers();
             return true;
         });
