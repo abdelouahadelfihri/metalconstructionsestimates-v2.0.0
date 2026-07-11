@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         imageViewEstimates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
