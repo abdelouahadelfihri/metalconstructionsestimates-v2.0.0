@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates; // adjust to your actual package
+package com.example.metalconstructionsestimates;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -228,7 +228,7 @@ public class SettingsActivity extends AppCompatActivity {
     private MaterialButton    btnSave;
 
     private SharedPreferences prefs;
-    private CurrencyManager currencyManager;
+    private CurrencyManager   currencyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,7 +262,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void populateSpinners() {
-        // Use CURRENCY_LABELS for display, CURRENCY_CODES for saving
         spinnerCurrency.setAdapter(new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_dropdown_item, CURRENCY_LABELS));
         spinnerDueTerms.setAdapter(new ArrayAdapter<>(
@@ -277,6 +276,7 @@ public class SettingsActivity extends AppCompatActivity {
         switchAutoDetect.setChecked(!isManual);
         setCurrencyPickerEnabled(isManual);
 
+        // Always show the active currency in the spinner (detected or manual)
         String savedCode = prefs.getString(KEY_CURRENCY_CODE, currencyManager.getActiveCurrencyCode());
         int currPos = Arrays.asList(CURRENCY_CODES).indexOf(savedCode);
         if (currPos >= 0) spinnerCurrency.setSelection(currPos);
@@ -302,14 +302,24 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void wireListeners() {
-        switchAutoDetect.setOnCheckedChangeListener((btn, checked) ->
-                setCurrencyPickerEnabled(!checked));
+        switchAutoDetect.setOnCheckedChangeListener((btn, checked) -> {
+            setCurrencyPickerEnabled(!checked);
+            if (checked) {
+                // Auto-detect ON: detect currency and reflect it in the spinner
+                currencyManager.resetToAutoDetect();
+                String detectedCode = currencyManager.getActiveCurrencyCode();
+                int pos = Arrays.asList(CURRENCY_CODES).indexOf(detectedCode);
+                if (pos >= 0) spinnerCurrency.setSelection(pos);
+            }
+        });
         btnSave.setOnClickListener(v -> saveAllSettings());
     }
 
     private void setCurrencyPickerEnabled(boolean enabled) {
+        // Spinner is always visible so user can see the detected currency
+        // Only editable when auto-detect is OFF
         spinnerCurrency.setEnabled(enabled);
-        rowCurrencyPicker.setAlpha(enabled ? 1.0f : 0.4f);
+        rowCurrencyPicker.setAlpha(1.0f);
     }
 
     private void saveAllSettings() {
@@ -359,7 +369,7 @@ public class SettingsActivity extends AppCompatActivity {
     // SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREFS_SETTINGS, MODE_PRIVATE);
     // float vat         = prefs.getFloat(SettingsActivity.KEY_DEFAULT_VAT, 20f);
     // int   expDays     = prefs.getInt(SettingsActivity.KEY_EXPIRATION_DAYS, 30);
-    // String dueTerm    = prefs.getString(SettingsActivity.KEY_DUE_TERMS, "Net 30");
+    // String dueTerm    = prefs.getString(SettingsActivity.KEY_DUE_TERMS, "Due on receipt");
     // String dateFormat = prefs.getString(SettingsActivity.KEY_DATE_FORMAT, "dd/MM/yyyy");
     // boolean backupRem = prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true);
     // CurrencyManager cm = new CurrencyManager(context);
