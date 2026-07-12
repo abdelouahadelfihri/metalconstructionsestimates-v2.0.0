@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +44,6 @@ import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimat
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,8 +85,14 @@ public class EstimateDetails extends AppCompatActivity {
     ActivityEstimateDetailsBinding activityEstimateDetailsBinding;
 
     // ── Settings values ────────────────────────────────────────────────────
-    private String          dateFormat;      // e.g. "dd/MM/yyyy"
+    private String          dateFormat;
     private CurrencyManager currencyManager;
+
+    // ── Spinners kept as fields so issueDateSetListener can access them ────
+    private Spinner              dueTermsSpinner;
+    private ArrayAdapter<String> dueTermsSpinnerAdapter;
+    private List<String>         termsList;
+    private Spinner              estimateStatusSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,17 +117,17 @@ public class EstimateDetails extends AppCompatActivity {
         estimate   = dbAdapter.getEstimateById(estimateId);
 
         // ── Status spinner ─────────────────────────────────────────────────
-        Spinner estimateStatusSpinner = findViewById(R.id.estimateStatusSpinner);
+        estimateStatusSpinner = findViewById(R.id.estimateStatusSpinner);
         ArrayAdapter<CharSequence> estimateStatusSpinnerAdapter = ArrayAdapter.createFromResource(
                 this, R.array.estimate_status, android.R.layout.simple_spinner_item);
         estimateStatusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estimateStatusSpinner.setAdapter(estimateStatusSpinnerAdapter);
 
         // ── Due terms spinner ──────────────────────────────────────────────
-        Spinner dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
+        dueTermsSpinner = findViewById(R.id.dueTermsSpinner);
         String[] termsArray = getResources().getStringArray(R.array.due_terms);
-        List<String> termsList = new ArrayList<>(Arrays.asList(termsArray));
-        ArrayAdapter<String> dueTermsSpinnerAdapter = new ArrayAdapter<>(
+        termsList = new ArrayList<>(Arrays.asList(termsArray));
+        dueTermsSpinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, termsList);
         dueTermsSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dueTermsSpinner.setAdapter(dueTermsSpinnerAdapter);
@@ -170,8 +174,8 @@ public class EstimateDetails extends AppCompatActivity {
             noEstimateLinesTextView.setVisibility(View.GONE);
             activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
             activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            EstimateLinesListAdapter adapter = new EstimateLinesListAdapter(this, estimateLinesList);
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(adapter);
+            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(
+                    new EstimateLinesListAdapter(this, estimateLinesList));
             recyclerParams.topToBottom = R.id.vatLayout;
             activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutParams(recyclerParams);
             buttonParams.topToBottom = R.id.estimateLinesRecyclerView;
@@ -256,7 +260,6 @@ public class EstimateDetails extends AppCompatActivity {
             customerIdEditText.get().setText(dbAdapter.getCustomerById(estimate.getCustomer()).getName());
         }
 
-        // ── Totals — raw values for editable fields, currency for display ──
         if (estimate.getExcludingTaxTotal() == null) {
             totalExclTaxEditText.setText("");
         } else {
@@ -316,14 +319,13 @@ public class EstimateDetails extends AppCompatActivity {
                 }
         );
 
-        // ── Due terms spinner listener ──────────────────────────────────────
+        // ── Due terms spinner listener ─────────────────────────────────────
         dueTermsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String dueTerms = parent.getItemAtPosition(position).toString();
                 if (dueTerms.equals("Select due terms") || dueTerms.isEmpty()) return;
 
-                // Use settings date format for parsing and displaying
                 SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
                 if (dueTerms.equals("Custom")) {
@@ -398,15 +400,15 @@ public class EstimateDetails extends AppCompatActivity {
                     .setMessage("Do you really want to update the estimate ?")
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         estimate = new Estimate();
-                        Spinner statusSpinner   = findViewById(R.id.estimateStatusSpinner);
-                        Spinner termsSpinner    = findViewById(R.id.dueTermsSpinner);
-                        TextInputEditText discField    = findViewById(R.id.discountEditText);
-                        TextInputEditText estIdField   = findViewById(R.id.estimateIdEditText_estimate_details);
-                        TextInputEditText afterDiscField = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
-                        TextInputEditText locField     = findViewById(R.id.locationEditText_estimate_details);
-                        TextInputEditText custField    = findViewById(R.id.customerIdEditText);
-                        TextInputEditText vatField     = findViewById(R.id.vatEditText);
-                        TextInputEditText totalInclField = findViewById(R.id.totalInclTaxEditText);
+                        Spinner statusSpinner    = findViewById(R.id.estimateStatusSpinner);
+                        Spinner termsSpinner     = findViewById(R.id.dueTermsSpinner);
+                        TextInputEditText discField     = findViewById(R.id.discountEditText);
+                        TextInputEditText estIdField    = findViewById(R.id.estimateIdEditText_estimate_details);
+                        TextInputEditText afterDiscField= findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+                        TextInputEditText locField      = findViewById(R.id.locationEditText_estimate_details);
+                        TextInputEditText custField     = findViewById(R.id.customerIdEditText);
+                        TextInputEditText vatField      = findViewById(R.id.vatEditText);
+                        TextInputEditText totalInclField= findViewById(R.id.totalInclTaxEditText);
 
                         if (customerId != null) {
                             estimate.setCustomer(customerId);
@@ -466,29 +468,26 @@ public class EstimateDetails extends AppCompatActivity {
         });
 
         refreshEstimateLinesListButton.setOnClickListener(view -> {
-            TextInputEditText estIdField      = findViewById(R.id.estimateIdEditText_estimate_details);
-            TextInputEditText totalExclField  = findViewById(R.id.totalExclTaxEditText);
-            TextInputEditText discField       = findViewById(R.id.discountEditText);
-            TextInputEditText afterDiscField  = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
-            TextInputEditText locField        = findViewById(R.id.locationEditText_estimate_details);
-            TextInputEditText vatField        = findViewById(R.id.vatEditText);
-            TextInputEditText totalInclField  = findViewById(R.id.totalInclTaxEditText);
+            TextInputEditText estIdField     = findViewById(R.id.estimateIdEditText_estimate_details);
+            TextInputEditText totalExclField = findViewById(R.id.totalExclTaxEditText);
+            TextInputEditText discField      = findViewById(R.id.discountEditText);
+            TextInputEditText afterDiscField = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
+            TextInputEditText locField       = findViewById(R.id.locationEditText_estimate_details);
+            TextInputEditText vatField       = findViewById(R.id.vatEditText);
+            TextInputEditText totalInclField = findViewById(R.id.totalInclTaxEditText);
 
             estimate = dbAdapter.getEstimateById(Integer.parseInt(
                     Objects.requireNonNull(estIdField.getText()).toString()));
             locField.setText(estimate.getDoneIn());
 
-            // Use settings date format for refresh display
             SimpleDateFormat sdfRefresh = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
             issueDateTextView.setText(estimate.getIssueDate() != 0
                     ? sdfRefresh.format(new Date(estimate.getIssueDate()))
                     : getString(R.string.issueDate));
-
             dueDateTextView.setText(estimate.getDueDate() != 0
                     ? sdfRefresh.format(new Date(estimate.getDueDate()))
                     : getString(R.string.dueDate));
-
             expirationDateTextView.setText(estimate.getExpirationDate() != 0
                     ? sdfRefresh.format(new Date(estimate.getExpirationDate()))
                     : getString(R.string.expirationDate));
@@ -568,23 +567,17 @@ public class EstimateDetails extends AppCompatActivity {
                 TextInputEditText afterDiscField = findViewById(R.id.totalAfterDiscountEditText_estimate_details);
                 TextInputEditText vatField       = findViewById(R.id.vatEditText);
                 TextInputEditText totalInclField = findViewById(R.id.totalInclTaxEditText);
-
                 String discount = s.toString();
                 try {
                     float totalExcl = Float.parseFloat(
                             Objects.requireNonNull(totalExclField.getText()).toString());
                     float vat = Float.parseFloat(
                             Objects.requireNonNull(vatField.getText()).toString());
-                    float totalAfterDisc, totalIncl;
-
-                    if (!discount.isEmpty()) {
-                        totalAfterDisc = totalExcl - totalExcl * Float.parseFloat(discount) / 100;
-                    } else {
-                        totalAfterDisc = totalExcl;
-                    }
-                    totalIncl = totalAfterDisc + totalAfterDisc * vat / 100;
-
-                    formattedTotalAfterDiscount = new BigDecimal(totalAfterDisc).toPlainString();
+                    float totalAfterDisc = !discount.isEmpty()
+                            ? totalExcl - totalExcl * Float.parseFloat(discount) / 100
+                            : totalExcl;
+                    float totalIncl = totalAfterDisc + totalAfterDisc * vat / 100;
+                    formattedTotalAfterDiscount  = new BigDecimal(totalAfterDisc).toPlainString();
                     formattedTotalAllTaxIncluded = new BigDecimal(totalIncl).toPlainString();
                     afterDiscField.setText(formattedTotalAfterDiscount);
                     totalInclField.setText(formattedTotalAllTaxIncluded);
@@ -641,7 +634,7 @@ public class EstimateDetails extends AppCompatActivity {
             dialog.show();
         });
 
-        // ── Date set listeners — all use settings date format ──────────────
+        // ── Date set listeners ─────────────────────────────────────────────
         expirationDateSetListener = (picker, year, month, day) -> {
             String currentValue = expirationDateTextView.getText().toString();
             previousExpirationDateTimestamp = expirationDateTimestamp;
@@ -689,6 +682,7 @@ public class EstimateDetails extends AppCompatActivity {
             issueDateValue = sdfPick.format(issueCal.getTime());
             issueDateTextView.setText(issueDateValue);
 
+            // Validate against expiration
             if (expirationDateTimestamp > 0) {
                 long daysBetween = (expirationDateTimestamp - issueTimestamp) / (1000 * 60 * 60 * 24);
                 if (daysBetween <= 0) {
@@ -706,6 +700,7 @@ public class EstimateDetails extends AppCompatActivity {
                 }
             }
 
+            // Validate against due date
             if (dueDateTimestamp > 0) {
                 long daysBetween = (dueDateTimestamp - issueTimestamp) / (1000 * 60 * 60 * 24);
                 if (daysBetween < 0) {
@@ -737,6 +732,43 @@ public class EstimateDetails extends AppCompatActivity {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         dueTermsSpinner.setAdapter(adapter);
                         dueTermsSpinner.setSelection(termsList.size() - 1);
+                    }
+                }
+            }
+
+            // ── Auto-calculate due date from currently selected due terms ──
+            // Only runs when there is no existing due date set
+            if (dueDateTimestamp == 0) {
+                String currentDueTerms = dueTermsSpinner.getSelectedItem() != null
+                        ? dueTermsSpinner.getSelectedItem().toString() : "";
+
+                if (!currentDueTerms.isEmpty()
+                        && !currentDueTerms.equals("Select due terms")
+                        && !currentDueTerms.equals("Custom")) {
+
+                    Calendar dueCal = Calendar.getInstance();
+                    dueCal.setTimeInMillis(issueTimestamp);
+                    long autoDueTimestamp = 0;
+
+                    if (currentDueTerms.equals("Due on receipt")) {
+                        autoDueTimestamp = issueTimestamp;
+                    } else if (currentDueTerms.equals("Next day")) {
+                        dueCal.add(Calendar.DAY_OF_MONTH, 1);
+                        autoDueTimestamp = dueCal.getTimeInMillis();
+                    } else {
+                        try {
+                            int days = Integer.parseInt(
+                                    currentDueTerms.replace(" days", "").trim());
+                            dueCal.add(Calendar.DAY_OF_MONTH, days);
+                            autoDueTimestamp = dueCal.getTimeInMillis();
+                        } catch (NumberFormatException ignored) {}
+                    }
+
+                    if (autoDueTimestamp != 0) {
+                        dueDateTimestamp = autoDueTimestamp;
+                        estimate.setDueDate(dueDateTimestamp);
+                        dueDateValue = sdfPick.format(new Date(dueDateTimestamp));
+                        dueDateTextView.setText(dueDateValue);
                     }
                 }
             }

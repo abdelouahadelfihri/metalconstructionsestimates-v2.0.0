@@ -485,6 +485,37 @@ public class AddEstimate extends AppCompatActivity {
                 estimate.setExpirationDate(expirationDateTimestamp);
             }
 
+            // ── ADD THIS: Auto-calculate due date from default due terms ───
+            if (dueDateTimestamp == 0 && !defaultDueTerms.isEmpty()) {
+                Calendar dueCal = Calendar.getInstance();
+                dueCal.setTimeInMillis(issueTimestamp);
+                long autoDueTimestamp = 0;
+
+                if (defaultDueTerms.equals("Due on receipt")) {
+                    autoDueTimestamp = issueTimestamp;
+                } else if (defaultDueTerms.equals("Next day")) {
+                    dueCal.add(Calendar.DAY_OF_MONTH, 1);
+                    autoDueTimestamp = dueCal.getTimeInMillis();
+                } else if (!defaultDueTerms.equals("Custom")
+                        && !defaultDueTerms.equals("Select due terms")) {
+                    try {
+                        int days = Integer.parseInt(defaultDueTerms.replace(" days", "").trim());
+                        dueCal.add(Calendar.DAY_OF_MONTH, days);
+                        autoDueTimestamp = dueCal.getTimeInMillis();
+                    } catch (NumberFormatException ignored) {}
+                }
+
+                if (autoDueTimestamp != 0) {
+                    dueDateTimestamp = autoDueTimestamp;
+                    estimate.setDueDate(dueDateTimestamp);
+                    dueDateValue = sdf.format(new Date(dueDateTimestamp));
+                    dueDateTextView.setText(dueDateValue);
+                    // Reflect in spinner
+                    int pos = dueTermsSpinnerAdapter.getPosition(defaultDueTerms);
+                    if (pos >= 0) dueTermsSpinner.setSelection(pos);
+                }
+            }
+
             issueDateTimestamp = issueTimestamp;
         };
 
