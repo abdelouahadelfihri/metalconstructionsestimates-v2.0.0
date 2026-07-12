@@ -22,7 +22,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
@@ -34,35 +33,47 @@ import com.example.metalconstructionsestimates.models.Customer;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.printings.PdfPrintAdapter;
+import com.example.metalconstructionsestimates.util.CurrencyManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class EstimatePreviewActivity extends AppCompatActivity {
 
     private LinearLayout linesContainer;
     private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
 
-    // New business & customer info TextViews
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private ImageView btnDownloadPdf, btnPrint, btnSendMail;
+
     String productType;
     private List<EstimateLine> estimateLines;
-    private double discountRate = 0.1; // 10% Discount
+    private double discountRate = 0.1;
 
     private File generatedPdf;
     DBAdapter dbAdapter;
     Estimate estimate;
+
+    // ── Settings ───────────────────────────────────────────────────────────
+    private CurrencyManager currencyManager;
+    private String          currencyCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_preview);
 
-        // Business Info
-        tvBusinessName = findViewById(R.id.tvBusinessName);
+        // ── Load settings ──────────────────────────────────────────────────
+        currencyManager = new CurrencyManager(this);
+        currencyCode    = currencyManager.getActiveCurrencyCode();
+
+        // ── Business info ──────────────────────────────────────────────────
+        tvBusinessName    = findViewById(R.id.tvBusinessName);
         tvBusinessAddress = findViewById(R.id.tvBusinessAddress);
-        tvBusinessPhone = findViewById(R.id.tvBusinessPhone);
+        tvBusinessPhone   = findViewById(R.id.tvBusinessPhone);
+
         dbAdapter = new DBAdapter(getApplicationContext());
         Business business = dbAdapter.getBusiness();
         if (business != null) {
@@ -70,16 +81,18 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvBusinessAddress.setText(business.getAddress());
             tvBusinessPhone.setText(business.getPhone());
         } else {
-            Toast.makeText(this, "No business record found. Please add your business info first.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,
+                    "No business record found. Please add your business info first.",
+                    Toast.LENGTH_LONG).show();
         }
 
         String estimateId = getIntent().getStringExtra("estimateId");
         assert estimateId != null;
 
-        // Customer Info
-        tvCustomerName = findViewById(R.id.tvCustomerName);
+        // ── Customer info ──────────────────────────────────────────────────
+        tvCustomerName    = findViewById(R.id.tvCustomerName);
         tvCustomerAddress = findViewById(R.id.tvCustomerAddress);
-        tvCustomerPhone = findViewById(R.id.tvCustomerPhone);
+        tvCustomerPhone   = findViewById(R.id.tvCustomerPhone);
 
         estimate = dbAdapter.getEstimateById(Integer.parseInt(estimateId));
         Customer customer = dbAdapter.getCustomerById(estimate.getCustomer());
@@ -88,29 +101,30 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvCustomerAddress.setText(customer.getAddress());
             tvCustomerPhone.setText(customer.getTelephone());
         } else {
-            Toast.makeText(this, "No customer record found. Please add your business info first.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,
+                    "No customer record found. Please add your business info first.",
+                    Toast.LENGTH_LONG).show();
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        linesContainer = findViewById(R.id.linesContainer);
+        linesContainer   = findViewById(R.id.linesContainer);
         tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);
-        tvAllTotal = findViewById(R.id.tvAllTotal);
-        tvVat = findViewById(R.id.tvVat);
-        tvDiscount = findViewById(R.id.tvDiscount);
+        tvAllTotal       = findViewById(R.id.tvAllTotal);
+        tvVat            = findViewById(R.id.tvVat);
+        tvDiscount       = findViewById(R.id.tvDiscount);
 
         btnDownloadPdf = findViewById(R.id.btnDownloadPdf);
-        btnPrint = findViewById(R.id.btnPrint);
-        btnSendMail = findViewById(R.id.btnSendMail);
+        btnPrint       = findViewById(R.id.btnPrint);
+        btnSendMail    = findViewById(R.id.btnSendMail);
 
-        // Example: Fill estimateLines dynamically from database or intent
-        estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId)); // Replace with your data source
+        estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId));
         fillEstimateLines();
 
         btnDownloadPdf.setOnClickListener(v -> createPdf());
         btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
-        btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(),generatedPdf));
+        btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(), generatedPdf));
     }
 
     private void fillEstimateLines() {
@@ -120,11 +134,15 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView qtyTextView = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            TextView productTextView = createCell(productType + "", 2); // Replace with product name if available
-            TextView unitPriceTextView = createCell(String.format("%.2f", line.getUnitPrice()), 1);
-            TextView totalTextView = createCell(String.format("%.2f", line.getTotalPrice()), 1);
+            TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
+            productType                = dbAdapter.getSteelById(line.getSteel()).getType();
+            TextView productTextView   = createCell(productType, 2);
+
+            // ── Unit price and total with currency ─────────────────────────
+            TextView unitPriceTextView = createCell(
+                    currencyManager.formatAmount(line.getUnitPrice()), 1);
+            TextView totalTextView     = createCell(
+                    currencyManager.formatAmount(line.getTotalPrice()), 1);
 
             row.addView(qtyTextView);
             row.addView(productTextView);
@@ -132,25 +150,34 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             row.addView(totalTextView);
 
             linesContainer.addView(row);
-
         }
 
+        // ── Totals with currency ───────────────────────────────────────────
+        tvTotalBeforeVat.setText("Total Before VAT: "
+                + currencyManager.formatAmount(estimate.getExcludingTaxTotal()));
 
-        tvTotalBeforeVat.setText(String.format("Total Before VAT: %.2f", estimate.getExcludingTaxTotal()));
-        discountRate = estimate.getDiscount();
-        double discount = estimate.getExcludingTaxTotal() * discountRate /100f;
-        double vat = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() /100f;
+        discountRate  = estimate.getDiscount();
+        double discount = estimate.getExcludingTaxTotal() * discountRate / 100f;
+        double vat      = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() / 100f;
 
-        tvDiscount.setText(String.format("Discount: %.2f = %.2f", estimate.getDiscount(), discount));
-        tvVat.setText(String.format("VAT: %.2f = %.2f", estimate.getVat(), vat));
+        // Discount and VAT show the % rate + the computed monetary value
+        tvDiscount.setText(String.format(Locale.getDefault(),
+                "Discount: %.2f%% = %s", estimate.getDiscount(),
+                currencyManager.formatAmount((float) discount)));
 
-        tvAllTotal.setText(String.format("Total After VAT: %.2f", estimate.getAllTaxIncludedTotal()));
+        tvVat.setText(String.format(Locale.getDefault(),
+                "VAT: %.2f%% = %s", estimate.getVat(),
+                currencyManager.formatAmount((float) vat)));
+
+        tvAllTotal.setText("Total After VAT: "
+                + currencyManager.formatAmount(estimate.getAllTaxIncludedTotal()));
     }
 
     private TextView createCell(String text, int weight) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        tv.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
+        tv.setLayoutParams(new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
         tv.setPadding(8, 8, 8, 8);
         return tv;
     }
@@ -161,8 +188,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
-        Paint paint = new Paint();          // for values / headers
-        Paint labelPaint = new Paint();     // for small gray captions
+        Paint paint      = new Paint();
+        Paint labelPaint = new Paint();
         labelPaint.setTextSize(9);
         labelPaint.setColor(android.graphics.Color.GRAY);
 
@@ -172,76 +199,74 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(22);
         paint.setFakeBoldText(true);
         canvas.drawText("ESTIMATE", 40, y, paint);
-        y += 40; // y = 90
+        y += 40;
 
-        // Section headers ("Business Information:" / "Customer Information:")
+        // Section headers
         paint.setTextSize(14);
-        paint.setFakeBoldText(true);
         canvas.drawText("Business Information:", 40, y, paint);
         canvas.drawText("Customer Information:", 300, y, paint);
         paint.setFakeBoldText(false);
         paint.setTextSize(12);
+        y += 20;
 
-        y += 20; // y = 110 -> first label row starts here
-
-        // --- Company Name / Customer Name ---
+        // Company / Customer names
         canvas.drawText("Company Name", 40, y, labelPaint);
         canvas.drawText(tvBusinessName.getText().toString(), 40, y + 14, paint);
-
         canvas.drawText("Customer Name", 300, y, labelPaint);
         canvas.drawText(tvCustomerName.getText().toString(), 300, y + 14, paint);
+        y += 30;
 
-        y += 30; // 14 (value offset) + 16 (gap to next field) = 130
-
-        // --- Address ---
+        // Addresses
         canvas.drawText("Address", 40, y, labelPaint);
         canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 14, paint);
-
         canvas.drawText("Address", 300, y, labelPaint);
         canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 14, paint);
+        y += 30;
 
-        y += 30; // y = 160
-
-        // --- Phone ---
+        // Phones
         canvas.drawText("Phone", 40, y, labelPaint);
         canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 14, paint);
-
         canvas.drawText("Phone", 300, y, labelPaint);
         canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
+        y += 44;
 
-        y += 14 + 30; // value line height + extra gap before table = 204
+        // Currency note on PDF
+        paint.setTextSize(10);
+        paint.setColor(android.graphics.Color.GRAY);
+        canvas.drawText("Currency: " + currencyCode, 40, y, paint);
+        paint.setColor(android.graphics.Color.BLACK);
+        paint.setTextSize(12);
+        y += 20;
 
         // Table header
         paint.setFakeBoldText(true);
-        canvas.drawText("Qty", 40, y, paint);
-        canvas.drawText("Product", 100, y, paint);
+        canvas.drawText("Qty",        40,  y, paint);
+        canvas.drawText("Product",   100,  y, paint);
         canvas.drawText("Unit Price", 300, y, paint);
-        canvas.drawText("Total", 400, y, paint);
+        canvas.drawText("Total",      400, y, paint);
         y += 20;
         paint.setFakeBoldText(false);
 
-        // Table rows
+        // Table rows — amounts with currency
         for (EstimateLine line : estimateLines) {
-            canvas.drawText(String.valueOf(line.getQuantity()), 40, y, paint);
-            canvas.drawText(productType + "", 100, y, paint);
-            canvas.drawText(String.format("%.2f", line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(String.format("%.2f", line.getTotalPrice()), 400, y, paint);
+            canvas.drawText(String.valueOf(line.getQuantity()),              40,  y, paint);
+            canvas.drawText(productType + "",                               100,  y, paint);
+            canvas.drawText(currencyManager.formatAmount(line.getUnitPrice()), 300, y, paint);
+            canvas.drawText(currencyManager.formatAmount(line.getTotalPrice()), 400, y, paint);
             y += 20;
         }
 
         // Totals
         y += 20;
-        canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint);
-        y += 20;
-        canvas.drawText(tvDiscount.getText().toString(), 300, y, paint);
-        y += 20;
-        canvas.drawText(tvVat.getText().toString(), 300, y, paint);
-        y += 20;
-        canvas.drawText(tvAllTotal.getText().toString(), 300, y, paint);
+        canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint); y += 20;
+        canvas.drawText(tvDiscount.getText().toString(),       300, y, paint); y += 20;
+        canvas.drawText(tvVat.getText().toString(),            300, y, paint); y += 20;
+        canvas.drawText(tvAllTotal.getText().toString(),       300, y, paint);
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS);
         generatedPdf = new File(downloadsDir, "Estimate.pdf");
 
         try {
@@ -256,60 +281,43 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private void printPdf(File pdfFile) {
-        PrintManager printManager =
-                (PrintManager) getSystemService(Context.PRINT_SERVICE);
-
-        PrintDocumentAdapter adapter =
-                new PdfPrintAdapter(this, pdfFile.getAbsolutePath());
-
-        printManager.print(
-                "Estimate Print",
-                adapter,
-                new PrintAttributes.Builder().build()
-        );
+        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+        PrintDocumentAdapter adapter = new PdfPrintAdapter(this, pdfFile.getAbsolutePath());
+        printManager.print("Estimate Print", adapter,
+                new PrintAttributes.Builder().build());
     }
 
     private void sendPdfByEmail(String email, File pdfFile) {
         Uri uri = FileProvider.getUriForFile(
-                this,
-                getPackageName() + ".provider",
-                pdfFile
-        );
-
+                this, getPackageName() + ".provider", pdfFile);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("application/pdf");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+        intent.putExtra(Intent.EXTRA_EMAIL,   new String[]{email});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Estimate");
-        intent.putExtra(Intent.EXTRA_TEXT, "Please find the estimate attached.");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.putExtra(Intent.EXTRA_TEXT,    "Please find the estimate attached.");
+        intent.putExtra(Intent.EXTRA_STREAM,  uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
         startActivity(Intent.createChooser(intent, "Send estimate"));
     }
 
     private void copyToDownloads(File sourceFile) {
-        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloads = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOWNLOADS);
         File destFile = new File(downloads, "Estimate.pdf");
-
         try {
-            InputStream in = new FileInputStream(sourceFile);
+            InputStream  in  = new FileInputStream(sourceFile);
             OutputStream out = new FileOutputStream(destFile);
-
             byte[] buffer = new byte[1024];
             int length;
-
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
-            }
-
+            while ((length = in.read(buffer)) > 0) out.write(buffer, 0, length);
             in.close();
             out.close();
-
-            Toast.makeText(this, "PDF saved: " + destFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "PDF saved: " + destFile.getAbsolutePath(),
+                    Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Copy failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Copy failed: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
         }
     }
-
 }
