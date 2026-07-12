@@ -118,6 +118,7 @@
     <string name="customersList">Customers List</string>
     <string name="estimatesList">Estimates List</string>
     <string name="customerDetails">Customer Details</string>
+    <string name="businessDetails">Business Details</string>
     <string name="steelDetails">Steel Details</string>
     <string name="estimateDetails">Estimate Details</string>
     <string name="steelsCount"># Steels :</string>
