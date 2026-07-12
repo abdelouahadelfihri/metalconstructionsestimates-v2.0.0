@@ -24,6 +24,8 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE customer(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name TEXT,email TEXT,tel TEXT,mobile TEXT,fax TEXT,address TEXT)");
 
+            db.execSQL("CREATE TABLE business(name TEXT,email TEXT,tel TEXT,mobile TEXT,fax TEXT,address TEXT)");
+
             db.execSQL("CREATE TABLE steel(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "type TEXT,geometricShape TEXT,unit TEXT,weight FLOAT)");
 
