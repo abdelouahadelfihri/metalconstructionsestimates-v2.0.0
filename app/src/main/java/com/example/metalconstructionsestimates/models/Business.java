@@ -3,7 +3,7 @@ package com.example.metalconstructionsestimates.models;
 public class Business {
     private String name;
     private String email;
-    private String phone;
+    private String telephone;
     private String mobile;
     private String fax;
     private String address;
@@ -16,7 +16,7 @@ public class Business {
     public Business(String name, String email, String phone, String mobile, String fax, String address) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
+        this.telephone = phone;
         this.mobile = mobile;
         this.fax = fax;
         this.address = address;
@@ -29,8 +29,8 @@ public class Business {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getPhone() { return telephone; }
+    public void setPhone(String phone) { this.telephone = phone; }
 
     public String getMobile() { return mobile; }
     public void setMobile(String mobile) { this.mobile = mobile; }

@@ -2394,14 +2394,14 @@ public class DBAdapter {
     // Save business
     public void saveBusiness(Business business) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", business.getName());
-        values.put("email", business.getEmail());
-        values.put("phone", business.getPhone());
-        values.put("mobile", business.getMobile());
-        values.put("fax", business.getFax());
-        values.put("address", business.getAddress());
-        db.insert("business", null, values);
+        ContentValues cv = new ContentValues();
+        cv.put("name", business.getName());
+        cv.put("email", business.getEmail());
+        cv.put("tel", business.getPhone());
+        cv.put("mobile", business.getMobile());
+        cv.put("fax", business.getFax());
+        cv.put("address", business.getAddress());
+        db.insert("business", null, cv);
     }
 
     public void updateBusiness(Business business) {
