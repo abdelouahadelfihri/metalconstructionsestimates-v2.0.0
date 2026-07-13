@@ -18,7 +18,7 @@ import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class BusinessActivity extends AppCompatActivity {
+public class AddBusiness extends AppCompatActivity {
     Business business;
     DBAdapter dbAdapter;
     Intent intent;
@@ -71,7 +71,7 @@ public class BusinessActivity extends AppCompatActivity {
                     Toast emptyFields = Toast.makeText(getApplicationContext(), "Empty Fields !", Toast.LENGTH_LONG);
                     emptyFields.show();
                 } else {
-                    AlertDialog.Builder alertAdd = new AlertDialog.Builder(BusinessActivity.this);
+                    AlertDialog.Builder alertAdd = new AlertDialog.Builder(AddBusiness.this);
                     alertAdd.setTitle("Confirm Add");
                     alertAdd.setMessage("Do you really want to add the new business ?");
                     alertAdd.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -123,7 +123,7 @@ public class BusinessActivity extends AppCompatActivity {
                             dbAdapter.saveBusiness(business);
                             Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Business has been successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
-                            intent = new Intent(BusinessActivity.this, MainActivity.class);
+                            intent = new Intent(AddBusiness.this, MainActivity.class);
                             startActivity(intent);
                         }
                     });

@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
-import com.example.metalconstructionsestimates.modules.business.BusinessActivity;
+import com.example.metalconstructionsestimates.modules.business.AddBusiness;
 import com.example.metalconstructionsestimates.modules.business.BusinessDetails;
 import com.example.metalconstructionsestimates.modules.dashboard.Dashboard;
 import com.example.metalconstructionsestimates.dbbackuprestore.BackUpRestore;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent;
 
                 if(business == null){
-                    intent = new Intent(MainActivity.this, BusinessActivity.class);
+                    intent = new Intent(MainActivity.this, AddBusiness.class);
                 }
                 else{
                     intent = new Intent(MainActivity.this, BusinessDetails.class);
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 dbAdapter.close();
                 Intent intent;
                 if(business == null){
-                    intent = new Intent(MainActivity.this, BusinessActivity.class);
+                    intent = new Intent(MainActivity.this, AddBusiness.class);
                 }
                 else{
                     intent = new Intent(MainActivity.this, BusinessDetails.class);
