@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.metalconstructionsestimates.database.DBAdapter;
+import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.modules.business.BusinessActivity;
+import com.example.metalconstructionsestimates.modules.business.BusinessDetails;
 import com.example.metalconstructionsestimates.modules.dashboard.Dashboard;
 import com.example.metalconstructionsestimates.dbbackuprestore.BackUpRestore;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
@@ -73,8 +76,24 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Dashboard.class);
                 startActivity(intent);
             } else if (id == R.id.nav_business) {
-                Intent intent = new Intent(MainActivity.this, BusinessActivity.class);
+
+                DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+
+                Business business = dbAdapter.getBusiness();
+
+                dbAdapter.close();
+
+                Intent intent;
+
+                if(business == null){
+                    intent = new Intent(MainActivity.this, BusinessActivity.class);
+                }
+                else{
+                    intent = new Intent(MainActivity.this, BusinessDetails.class);
+                }
+
                 startActivity(intent);
+
             } else if (id == R.id.nav_backup) {
                 Intent intent = new Intent(MainActivity.this, BackUpRestore.class);
                 startActivity(intent);
@@ -126,7 +145,16 @@ public class MainActivity extends AppCompatActivity {
         imageViewBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BusinessActivity.class);
+                DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+                Business business = dbAdapter.getBusiness();
+                dbAdapter.close();
+                Intent intent;
+                if(business == null){
+                    intent = new Intent(MainActivity.this, BusinessActivity.class);
+                }
+                else{
+                    intent = new Intent(MainActivity.this, BusinessDetails.class);
+                }
                 startActivity(intent);
             }
         });
