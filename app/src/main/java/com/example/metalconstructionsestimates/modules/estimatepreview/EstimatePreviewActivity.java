@@ -134,18 +134,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
+            // Same order and weight as XML header:
+            // Product(w1) → Qty(w1) → Unit Price(w1) → Total(w1)
+            productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            TextView productTextView   = createCell(productType, 1);
             TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            productType                = dbAdapter.getSteelById(line.getSteel()).getType();
-            TextView productTextView   = createCell(productType, 2);
+            TextView unitPriceTextView = createCell(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()), 1);
+            TextView totalTextView     = createCell(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 1);
 
-            // ── Unit price and total with currency ─────────────────────────
-            TextView unitPriceTextView = createCell(
-                    currencyManager.formatAmount(line.getUnitPrice()), 1);
-            TextView totalTextView     = createCell(
-                    currencyManager.formatAmount(line.getTotalPrice()), 1);
-
-            row.addView(qtyTextView);
             row.addView(productTextView);
+            row.addView(qtyTextView);
             row.addView(unitPriceTextView);
             row.addView(totalTextView);
 
@@ -156,11 +154,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tvTotalBeforeVat.setText("Total Before VAT: "
                 + currencyManager.formatAmount(estimate.getExcludingTaxTotal()));
 
-        discountRate  = estimate.getDiscount();
+        discountRate    = estimate.getDiscount();
         double discount = estimate.getExcludingTaxTotal() * discountRate / 100f;
         double vat      = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() / 100f;
 
-        // Discount and VAT show the % rate + the computed monetary value
         tvDiscount.setText(String.format(Locale.getDefault(),
                 "Discount: %.2f%% = %s", estimate.getDiscount(),
                 currencyManager.formatAmount((float) discount)));
@@ -230,7 +227,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
         y += 44;
 
-        // Currency note on PDF
+        // Currency note
         paint.setTextSize(10);
         paint.setColor(android.graphics.Color.GRAY);
         canvas.drawText("Currency: " + currencyCode, 40, y, paint);
@@ -238,21 +235,22 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(12);
         y += 20;
 
-        // Table header
+        // Table header — same order as XML: Product | Qty | Unit Price | Total
         paint.setFakeBoldText(true);
-        canvas.drawText("Qty",        40,  y, paint);
-        canvas.drawText("Product",   100,  y, paint);
-        canvas.drawText("Unit Price", 300, y, paint);
-        canvas.drawText("Total",      400, y, paint);
+        canvas.drawText("Product",    40,  y, paint);
+        canvas.drawText("Qty",        150, y, paint);
+        canvas.drawText("Unit Price", 280, y, paint);
+        canvas.drawText("Total",      420, y, paint);
         y += 20;
         paint.setFakeBoldText(false);
 
-        // Table rows — amounts with currency
+        // Table rows — same order as header
         for (EstimateLine line : estimateLines) {
-            canvas.drawText(String.valueOf(line.getQuantity()),              40,  y, paint);
-            canvas.drawText(productType + "",                               100,  y, paint);
-            canvas.drawText(currencyManager.formatAmount(line.getUnitPrice()), 300, y, paint);
-            canvas.drawText(currencyManager.formatAmount(line.getTotalPrice()), 400, y, paint);
+            productType = dbAdapter.getSteelById(line.getSteel()).getType();
+            canvas.drawText(productType,                                         40,  y, paint);
+            canvas.drawText(String.valueOf(line.getQuantity()),                  150, y, paint);
+            canvas.drawText(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()),  280, y, paint);
+            canvas.drawText(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 420, y, paint);
             y += 20;
         }
 
