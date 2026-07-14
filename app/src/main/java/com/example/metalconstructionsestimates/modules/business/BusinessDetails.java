@@ -14,6 +14,7 @@ import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BusinessDetails extends AppCompatActivity {
@@ -27,11 +28,10 @@ public class BusinessDetails extends AppCompatActivity {
         setContentView(R.layout.activity_customer_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String customerIdExtra = getIntent().getStringExtra("customerIdExtra");
-        Integer customerId = Integer.parseInt(customerIdExtra);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         dbAdapter = new DBAdapter(getApplicationContext());
-        customer = dbAdapter.getCustomerById(customerId);
+        customer = dbAdapter.getBusi(customerId);
 
         AtomicReference<TextInputEditText> customerIdTextInputEditText = new AtomicReference<>(findViewById(R.id.customerIdEditText_customer_details));
         TextInputEditText customerNameTextInputEditText = findViewById(R.id.nameEditText_customer_details);
