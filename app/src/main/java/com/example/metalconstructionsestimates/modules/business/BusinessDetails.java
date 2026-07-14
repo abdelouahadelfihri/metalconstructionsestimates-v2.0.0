@@ -49,18 +49,17 @@ public class BusinessDetails extends AppCompatActivity {
         businessFaxTextInputEditText.setText(business.getFax());
         businessAddressTextInputEditText.setText(business.getAddress());
 
-        Button deleteCustomer = findViewById(R.id.buttonDelete_business_details);
-        Button updateCustomer = findViewById(R.id.buttonEdit_business_details);
+        Button deleteBusiness = findViewById(R.id.buttonDelete_business_details);
+        Button updateBusiness = findViewById(R.id.buttonEdit_business_details);
 
 
-        deleteCustomer.setOnClickListener(view -> {
+        deleteBusiness.setOnClickListener(view -> {
             AlertDialog.Builder alertDelete = new AlertDialog.Builder(BusinessDetails.this);
             alertDelete.setTitle("Delete Confirmation");
             alertDelete.setMessage("Do you really want to delete the business ?");
             alertDelete.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
-                business = new Customer();
-                dbAdapter.deleteCustomer(Integer.parseInt(businessIdTextInputEditText.get().getText().toString()));
+                dbAdapter.deleteBusiness();
                 Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
                 deletesuccess.show();
                 if(dbAdapter.retrieveCustomers().isEmpty()){
@@ -76,19 +75,13 @@ public class BusinessDetails extends AppCompatActivity {
             alertDelete.show();
         });
 
-        updateCustomer.setOnClickListener(view -> {
+        updateBusiness.setOnClickListener(view -> {
             AlertDialog.Builder alertUpdate = new AlertDialog.Builder(BusinessDetails.this);
             alertUpdate.setTitle("Confirm Update");
             alertUpdate.setMessage("Do you really want to update business ?");
             alertUpdate.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
-                business = new Customer();
-
-                if (!businessIdTextInputEditText.get().getText().toString().isEmpty()) {
-                    business.setId(Integer.parseInt(businessIdTextInputEditText.get().getText().toString()));
-                } else {
-                    business.setId(Integer.valueOf(""));
-                }
+                business = new Business();
 
                 if (!businessNameTextInputEditText.getText().toString().isEmpty()) {
                     business.setName(businessNameTextInputEditText.getText().toString());
@@ -103,9 +96,9 @@ public class BusinessDetails extends AppCompatActivity {
                 }
 
                 if (!businessPhoneTextInputEditText.getText().toString().isEmpty()) {
-                    business.setTelephone(businessPhoneTextInputEditText.getText().toString());
+                    business.setPhone(businessPhoneTextInputEditText.getText().toString());
                 } else {
-                    business.setTelephone("");
+                    business.setPhone("");
                 }
 
                 if (!businessMobileTextInputEditText.getText().toString().isEmpty()) {
@@ -126,7 +119,7 @@ public class BusinessDetails extends AppCompatActivity {
                     business.setAddress("");
                 }
 
-                dbAdapter.updateCustomer(business);
+                dbAdapter.updateBusiness(business);
                 Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Modification du client a été effectué avec succés", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
             });

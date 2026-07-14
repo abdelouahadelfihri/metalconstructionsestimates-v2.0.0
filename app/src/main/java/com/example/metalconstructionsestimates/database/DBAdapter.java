@@ -1818,6 +1818,33 @@ public class DBAdapter {
         
     }
 
+    public void deleteBusiness(){
+        try{
+            db = helper.getWritableDatabase();
+            db.delete("business", null, null); // null whereClause = deletes all rows
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
+    public void updateBusiness(Business business){
+        try{
+            db = helper.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("name", business.getName());
+            cv.put("email", business.getEmail());
+            cv.put("tel", business.getPhone());
+            cv.put("mobile", business.getMobile());
+            cv.put("fax", business.getFax());
+            cv.put("address", business.getAddress());
+            db.update("business", cv, null, null); // no id, so update the whole (single) row
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
     public void updateCustomer(Customer customer){
         try{
             db = helper.getWritableDatabase();
@@ -2402,20 +2429,6 @@ public class DBAdapter {
         cv.put("fax", business.getFax());
         cv.put("address", business.getAddress());
         db.insert("business", null, cv);
-    }
-
-    public void updateBusiness(Business business) {
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", business.getName());
-        values.put("email", business.getEmail());
-        values.put("phone", business.getPhone());
-        values.put("mobile", business.getMobile());
-        values.put("fax", business.getFax());
-        values.put("address", business.getAddress());
-
-        // Update all rows (there should only be one)
-        db.update("business", values, null, null);
     }
 
 }
