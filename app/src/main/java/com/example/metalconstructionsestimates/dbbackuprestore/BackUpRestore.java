@@ -43,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -65,6 +66,7 @@ public class BackUpRestore extends GoogleDriveActivity {
         setContentView(R.layout.activity_back_up_restore);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // Initialize UI components
         Button googleDriveSignIn = findViewById(R.id.btnSignIn);

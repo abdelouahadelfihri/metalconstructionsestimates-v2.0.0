@@ -38,6 +38,7 @@ import com.example.metalconstructionsestimates.util.CurrencyManager;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class EstimatePreviewActivity extends AppCompatActivity {
 
@@ -64,6 +65,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estimate_preview);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // ── Load settings ──────────────────────────────────────────────────
         currencyManager = new CurrencyManager(this);
@@ -105,9 +109,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                     "No customer record found. Please add your business info first.",
                     Toast.LENGTH_LONG).show();
         }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         linesContainer   = findViewById(R.id.linesContainer);
         tvTotalBeforeVat = findViewById(R.id.tvTotalBeforeVat);

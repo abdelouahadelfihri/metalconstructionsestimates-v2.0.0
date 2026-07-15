@@ -108,6 +108,15 @@
                 android:value=".modules.customers.Customers" />
         </activity>
         <activity
+            android:name=".modules.business.BusinessDetails"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".modules.customers.CustomerDetails"
             android:exported="false"
             android:screenOrientation="portrait"
