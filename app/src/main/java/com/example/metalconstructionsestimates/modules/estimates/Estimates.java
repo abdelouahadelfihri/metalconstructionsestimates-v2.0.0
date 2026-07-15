@@ -395,7 +395,7 @@ public class Estimates extends AppCompatActivity {
                 DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
 
                 if(!searchText.isEmpty()){
-                    ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(searchText);
+                    ArrayList<Estimate> estimatesSearchList = dbAdapter.searchCancelledEstimates(searchText);
                     if(estimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                         activityEstimatesBinding.emptyView.setText(R.string.noResult);
