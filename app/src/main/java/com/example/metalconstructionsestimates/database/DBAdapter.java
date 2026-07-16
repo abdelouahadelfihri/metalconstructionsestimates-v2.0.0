@@ -1335,9 +1335,11 @@ public class DBAdapter {
 
             db = helper.getReadableDatabase();
 
+            long startOfTodayMillis = getStartOfTodayMillis();
+
             String query = SELECTQuery + WHEREQuery;
-            query = query + " AND status = 'Pending' AND dueDate >= strftime('%s','now','start of day') * 1000";
-            Cursor cursor = db.rawQuery(query, null);
+            query = query + " AND status = 'Pending' AND dueDate >= ?";
+            Cursor cursor = db.rawQuery(query, new String[]{ String.valueOf(startOfTodayMillis) });
 
             Estimate estimate;
 
@@ -1431,8 +1433,12 @@ public class DBAdapter {
 
             String query = SELECTQuery + WHEREQuery;
 
-            query = query + " dueDate < strftime('%s','now','start of day') * 1000 AND status = 'Pending'";
-            Cursor cursor = db.rawQuery(query, null);
+            db = helper.getReadableDatabase();
+
+            long startOfTodayMillis = getStartOfTodayMillis();
+
+            query = query + " dueDate < ? AND status = 'Pending'";
+            Cursor cursor = db.rawQuery(query,new String[]{ String.valueOf(startOfTodayMillis) });
 
             Estimate estimate;
 
@@ -2043,9 +2049,12 @@ public class DBAdapter {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
+
+            long startOfTodayMillis = getStartOfTodayMillis();
+
             Cursor cursor = db.rawQuery(
-                    "SELECT * FROM estimate WHERE dueDate < strftime('%s','now','start of day') * 1000 AND status = 'Pending'",
-                    null
+                    "SELECT * FROM estimate WHERE dueDate < ? AND status = 'Pending'",
+                    new String[]{ String.valueOf(startOfTodayMillis) }
             );
             Estimate estimate;
             while(cursor.moveToNext()){
@@ -2138,13 +2147,23 @@ public class DBAdapter {
         return estimatesList;
     }
 
+    private long getStartOfTodayMillis() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
     public ArrayList<Estimate> retrievePendingEstimates(){
         ArrayList<Estimate> estimatesList = new ArrayList<>();
         try{
             db = helper.getReadableDatabase();
+            long startOfTodayMillis = getStartOfTodayMillis();
             Cursor cursor = db.rawQuery(
-                    "SELECT * FROM estimate WHERE status = 'Pending' AND dueDate >= strftime('%s','now','start of day') * 1000",
-                    null
+                    "SELECT * FROM estimate WHERE status = 'Pending' AND dueDate >= ?",
+                    new String[]{ String.valueOf(startOfTodayMillis) }
             );
             Estimate estimate;
             while(cursor.moveToNext()){
