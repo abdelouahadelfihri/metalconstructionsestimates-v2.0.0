@@ -211,7 +211,7 @@ public class Estimates extends AppCompatActivity {
                 }
                 else{
                     ArrayList<Estimate> estimatesPendingList = dbAdapter.retrievePendingEstimates();
-                    if(estimatesList.isEmpty()){
+                    if(estimatesPendingList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
                         activityEstimatesBinding.emptyView.setText(R.string.noResult);
                         findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
