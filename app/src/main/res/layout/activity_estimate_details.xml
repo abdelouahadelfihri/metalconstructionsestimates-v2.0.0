@@ -310,6 +310,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/totalExcludingTaxAfterDiscount"
                 android:textColor="#333333"
+                android:enabled="false"
                 android:textColorHint="#4A4A4A"
                 android:background="@android:color/transparent" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -355,6 +356,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/totalAllTaxIncluded"
+                android:enabled="false"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A"
                 android:background="@android:color/transparent" />
