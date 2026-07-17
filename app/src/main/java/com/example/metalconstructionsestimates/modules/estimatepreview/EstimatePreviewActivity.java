@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -280,6 +281,11 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private void printPdf(File pdfFile) {
+        if (pdfFile == null || !pdfFile.exists()) {
+            Log.e("PDF_PRINT", "pdfFile is null or missing before printing: " + pdfFile);
+            Toast.makeText(this, "Could not generate the PDF file.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
         PrintDocumentAdapter adapter = new PdfPrintAdapter(this, pdfFile.getAbsolutePath());
         printManager.print("Estimate Print", adapter,
@@ -287,6 +293,12 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private void sendPdfByEmail(String email, File pdfFile) {
+        if (pdfFile == null || !pdfFile.exists()) {
+            Log.e("PDF_EMAIL", "pdfFile is null or missing before sending: " + pdfFile);
+            Toast.makeText(this, "Could not generate the PDF file.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Uri uri = FileProvider.getUriForFile(
                 this, getPackageName() + ".provider", pdfFile);
         Intent intent = new Intent(Intent.ACTION_SEND);
