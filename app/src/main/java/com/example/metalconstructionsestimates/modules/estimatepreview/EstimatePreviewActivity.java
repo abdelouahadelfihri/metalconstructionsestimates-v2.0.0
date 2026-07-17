@@ -131,7 +131,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             }
         });
         btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
-        btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(), generatedPdf));
+        btnSendMail.setOnClickListener(v -> {
+            assert customer != null;
+            sendPdfByEmail(customer.getEmail(), generatedPdf);
+        });
     }
 
     private void fillEstimateLines() {
@@ -261,8 +264,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS);
+        File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        if (downloadsDir != null && !downloadsDir.exists()) {
+            downloadsDir.mkdirs();
+        }
         File pdfFile = new File(downloadsDir, "Estimate.pdf");
 
         try {
