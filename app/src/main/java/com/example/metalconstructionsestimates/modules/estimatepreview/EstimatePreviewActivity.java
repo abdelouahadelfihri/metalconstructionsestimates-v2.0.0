@@ -124,7 +124,12 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId));
         fillEstimateLines();
 
-        btnDownloadPdf.setOnClickListener(v -> createPdf());
+        btnDownloadPdf.setOnClickListener(v -> {
+            File f = createPdf();
+            if (f != null) {
+                Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
+            }
+        });
         btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
         btnSendMail.setOnClickListener(v -> sendPdfByEmail(customer.getEmail(), generatedPdf));
     }
@@ -181,7 +186,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         return tv;
     }
 
-    private void createPdf() {
+    private File createPdf() {
         PdfDocument pdfDocument = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
@@ -194,13 +199,11 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         int y = 50;
 
-        // Title
         paint.setTextSize(22);
         paint.setFakeBoldText(true);
         canvas.drawText("ESTIMATE", 40, y, paint);
         y += 40;
 
-        // Section headers
         paint.setTextSize(14);
         canvas.drawText("Business Information:", 40, y, paint);
         canvas.drawText("Customer Information:", 300, y, paint);
@@ -208,28 +211,24 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(12);
         y += 20;
 
-        // Company / Customer names
         canvas.drawText("Company Name", 40, y, labelPaint);
         canvas.drawText(tvBusinessName.getText().toString(), 40, y + 14, paint);
         canvas.drawText("Customer Name", 300, y, labelPaint);
         canvas.drawText(tvCustomerName.getText().toString(), 300, y + 14, paint);
         y += 30;
 
-        // Addresses
         canvas.drawText("Address", 40, y, labelPaint);
         canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 14, paint);
         canvas.drawText("Address", 300, y, labelPaint);
         canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 14, paint);
         y += 30;
 
-        // Phones
         canvas.drawText("Phone", 40, y, labelPaint);
         canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 14, paint);
         canvas.drawText("Phone", 300, y, labelPaint);
         canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
         y += 44;
 
-        // Currency note
         paint.setTextSize(10);
         paint.setColor(android.graphics.Color.GRAY);
         canvas.drawText("Currency: " + currencyCode, 40, y, paint);
@@ -237,7 +236,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(12);
         y += 20;
 
-        // Table header — same order as XML: Product | Qty | Unit Price | Total
         paint.setFakeBoldText(true);
         canvas.drawText("Product",    40,  y, paint);
         canvas.drawText("Qty",        150, y, paint);
@@ -246,7 +244,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         y += 20;
         paint.setFakeBoldText(false);
 
-        // Table rows — same order as header
         for (EstimateLine line : estimateLines) {
             productType = dbAdapter.getSteelById(line.getSteel()).getType();
             canvas.drawText(productType,                                         40,  y, paint);
@@ -256,7 +253,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             y += 20;
         }
 
-        // Totals
         y += 20;
         canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint); y += 20;
         canvas.drawText(tvDiscount.getText().toString(),       300, y, paint); y += 20;
@@ -267,22 +263,25 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         File downloadsDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOWNLOADS);
-        generatedPdf = new File(downloadsDir, "Estimate.pdf");
+        File pdfFile = new File(downloadsDir, "Estimate.pdf");
 
         try {
-            pdfDocument.writeTo(new FileOutputStream(generatedPdf));
-            Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
+            pdfDocument.writeTo(new FileOutputStream(pdfFile));
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
+            pdfDocument.close();
+            return null;
         }
 
         pdfDocument.close();
+        generatedPdf = pdfFile;
+        return pdfFile;
     }
 
     private void printPdf(File pdfFile) {
-        if (pdfFile == null || !pdfFile.exists()) {
-            Log.e("PDF_PRINT", "pdfFile is null or missing before printing: " + pdfFile);
+        pdfFile = ensurePdfExists();
+        if (pdfFile == null) {
             Toast.makeText(this, "Could not generate the PDF file.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -293,8 +292,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private void sendPdfByEmail(String email, File pdfFile) {
-        if (pdfFile == null || !pdfFile.exists()) {
-            Log.e("PDF_EMAIL", "pdfFile is null or missing before sending: " + pdfFile);
+        pdfFile = ensurePdfExists();
+        if (pdfFile == null) {
             Toast.makeText(this, "Could not generate the PDF file.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -309,6 +308,13 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_STREAM,  uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(intent, "Send estimate"));
+    }
+
+    private File ensurePdfExists() {
+        if (generatedPdf != null && generatedPdf.exists()) {
+            return generatedPdf;
+        }
+        return createPdf();
     }
 
     private void copyToDownloads(File sourceFile) {
