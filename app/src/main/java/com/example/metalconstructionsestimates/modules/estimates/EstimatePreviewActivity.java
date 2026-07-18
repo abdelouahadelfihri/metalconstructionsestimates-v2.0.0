@@ -17,10 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +33,8 @@ import com.example.metalconstructionsestimates.printings.PdfPrintAdapter;
 import com.example.metalconstructionsestimates.util.CurrencyManager;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -267,7 +266,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         if (downloadsDir != null && !downloadsDir.exists()) {
             downloadsDir.mkdirs();
         }
-        File pdfFile = new File(downloadsDir, "Estimate.pdf");
+        long now = System.currentTimeMillis();
+        String dateStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(now));
+        File pdfFile = new File(downloadsDir, "Estimate_" + dateStamp + "_" + now + ".pdf");
 
         try {
             pdfDocument.writeTo(new FileOutputStream(pdfFile));
