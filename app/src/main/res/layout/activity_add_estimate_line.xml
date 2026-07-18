@@ -84,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
+                android:enabled="false"
                 android:inputType="numberDecimal"
                 android:textColorHint="#4A4A4A"
                 android:background="@android:color/transparent" />
