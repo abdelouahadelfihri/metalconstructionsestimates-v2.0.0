@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +41,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class EstimatePreviewActivity extends AppCompatActivity {
+
+    private static final String TAG = "EstimatePreviewActivity";
 
     private LinearLayout linesContainer;
     private TextView tvTotalBeforeVat, tvAllTotal, tvVat, tvDiscount;
@@ -273,7 +276,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         try {
             pdfDocument.writeTo(new FileOutputStream(pdfFile));
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error saving PDF", e);
             Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
             pdfDocument.close();
             return null;
