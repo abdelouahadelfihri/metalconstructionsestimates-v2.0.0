@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.modules.estimates.estimatepreview;
+package com.example.metalconstructionsestimates.modules.estimates;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;

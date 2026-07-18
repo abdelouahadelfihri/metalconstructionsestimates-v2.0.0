@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.SettingsActivity;
 import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.modules.estimates.estimatepreview.EstimatePreviewActivity;
 import com.example.metalconstructionsestimates.util.CurrencyManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
