@@ -1,4 +1,4 @@
-package com.example.metalconstructionsestimates.modules.estimatepreview;
+package com.example.metalconstructionsestimates.modules.estimates.estimatepreview;
 
 import android.content.Context;
 import android.content.Intent;

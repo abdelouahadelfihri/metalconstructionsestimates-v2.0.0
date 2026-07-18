@@ -3,7 +3,6 @@ package com.example.metalconstructionsestimates.modules.estimates;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,7 +22,7 @@ import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.SettingsActivity;
 import com.example.metalconstructionsestimates.models.Customer;
-import com.example.metalconstructionsestimates.modules.estimatepreview.EstimatePreviewActivity;
+import com.example.metalconstructionsestimates.modules.estimates.estimatepreview.EstimatePreviewActivity;
 import com.example.metalconstructionsestimates.util.CurrencyManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;

@@ -63,7 +63,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".modules.estimatepreview.EstimatePreviewActivity"
+            android:name=".modules.estimates.estimatepreview.EstimatePreviewActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
