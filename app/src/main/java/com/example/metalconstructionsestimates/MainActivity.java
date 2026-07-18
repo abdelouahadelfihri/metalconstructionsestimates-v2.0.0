@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageViewCustomers, imageViewEstimates, imageViewSteels,
               imageViewDashboard, imageViewBusiness, imageViewBackups,
               imageViewSettings, imageViewExit;
+
+    private static final long EXIT_TIME_INTERVAL = 2000; // 2 seconds
+    private long lastExitPressTime = 0;
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else if (id == R.id.nav_exit) {
-                finish();
+                handleExitClick();
             }
             drawerLayout.closeDrawers();
             return true;
@@ -176,8 +180,17 @@ public class MainActivity extends AppCompatActivity {
         imageViewExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                handleExitClick();
             }
         });
+    }
+
+    private void handleExitClick() {
+        if (System.currentTimeMillis() - lastExitPressTime < EXIT_TIME_INTERVAL) {
+            finish();
+        } else {
+            lastExitPressTime = System.currentTimeMillis();
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+        }
     }
 }
