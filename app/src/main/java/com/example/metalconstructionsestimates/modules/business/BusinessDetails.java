@@ -2,6 +2,7 @@ package com.example.metalconstructionsestimates.modules.business;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -9,10 +10,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.metalconstructionsestimates.MainActivity;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
 import com.example.metalconstructionsestimates.models.Customer;
+import com.example.metalconstructionsestimates.modules.estimates.EstimateDetails;
+import com.example.metalconstructionsestimates.modules.estimates.Estimates;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
@@ -120,8 +124,9 @@ public class BusinessDetails extends AppCompatActivity {
                 }
 
                 dbAdapter.updateBusiness(business);
-                Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Modification du client a été effectué avec succés", Toast.LENGTH_LONG);
-                updateSuccessToast.show();
+                Toast.makeText(getApplicationContext(),
+                        "The company profile has been successfully updated", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(BusinessDetails.this, MainActivity.class));
             });
             alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
