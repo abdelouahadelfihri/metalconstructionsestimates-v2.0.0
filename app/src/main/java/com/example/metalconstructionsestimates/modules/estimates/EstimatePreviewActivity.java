@@ -272,7 +272,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         try {
 
-            String fileName = "Estimate_" + System.currentTimeMillis() + ".pdf";
+            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                    .format(new Date());
+
+            String fileName = "Estimate_" + date + "_" + System.currentTimeMillis() + ".pdf";
 
             // File used for printing/email
             File pdfFile = new File(getCacheDir(), fileName);
