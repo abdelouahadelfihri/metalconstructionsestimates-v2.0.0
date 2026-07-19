@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
-
+import android.content.ContentValues;
+import android.provider.MediaStore;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -125,19 +127,8 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         estimateLines = dbAdapter.searchEstimateLines(Integer.parseInt(estimateId));
         fillEstimateLines();
 
-        btnDownloadPdf.setOnClickListener(v -> {
-            if (androidx.core.content.ContextCompat.checkSelfPermission(this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                androidx.core.app.ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
-                return;
-            }
-            File f = createPdf();
-            if (f != null) {
-                Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
-            }
-        });
+        btnDownloadPdf.setOnClickListener(v -> createPdf());
+
         btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
         btnSendMail.setOnClickListener(v -> {
             assert customer != null;
@@ -198,12 +189,15 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private File createPdf() {
+
         PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.PageInfo pageInfo =
+                new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
-        Paint paint      = new Paint();
+        Paint paint = new Paint();
         Paint labelPaint = new Paint();
         labelPaint.setTextSize(9);
         labelPaint.setColor(android.graphics.Color.GRAY);
@@ -218,81 +212,121 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         paint.setTextSize(14);
         canvas.drawText("Business Information:", 40, y, paint);
         canvas.drawText("Customer Information:", 300, y, paint);
+
         paint.setFakeBoldText(false);
         paint.setTextSize(12);
         y += 20;
 
         canvas.drawText("Company Name", 40, y, labelPaint);
         canvas.drawText(tvBusinessName.getText().toString(), 40, y + 14, paint);
+
         canvas.drawText("Customer Name", 300, y, labelPaint);
         canvas.drawText(tvCustomerName.getText().toString(), 300, y + 14, paint);
         y += 30;
 
         canvas.drawText("Address", 40, y, labelPaint);
         canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 14, paint);
+
         canvas.drawText("Address", 300, y, labelPaint);
         canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 14, paint);
         y += 30;
 
         canvas.drawText("Phone", 40, y, labelPaint);
         canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 14, paint);
+
         canvas.drawText("Phone", 300, y, labelPaint);
         canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
-        y += 44;
-
-        paint.setTextSize(10);
-        paint.setColor(android.graphics.Color.GRAY);
-        canvas.drawText("Currency: " + currencyCode, 40, y, paint);
-        paint.setColor(android.graphics.Color.BLACK);
-        paint.setTextSize(12);
-        y += 20;
+        y += 40;
 
         paint.setFakeBoldText(true);
-        canvas.drawText("Product",    40,  y, paint);
-        canvas.drawText("Qty",        150, y, paint);
-        canvas.drawText("Unit Price", 280, y, paint);
-        canvas.drawText("Total",      420, y, paint);
-        y += 20;
+        canvas.drawText("Product", 40, y, paint);
+        canvas.drawText("Qty", 160, y, paint);
+        canvas.drawText("Unit Price", 260, y, paint);
+        canvas.drawText("Total", 430, y, paint);
+
         paint.setFakeBoldText(false);
+        y += 20;
 
         for (EstimateLine line : estimateLines) {
-            productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            canvas.drawText(productType,                                         40,  y, paint);
-            canvas.drawText(String.valueOf(line.getQuantity()),                  150, y, paint);
-            canvas.drawText(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()),  280, y, paint);
-            canvas.drawText(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 420, y, paint);
+
+            String product = dbAdapter.getSteelById(line.getSteel()).getType();
+
+            canvas.drawText(product, 40, y, paint);
+            canvas.drawText(String.valueOf(line.getQuantity()), 160, y, paint);
+            canvas.drawText(String.format(Locale.getDefault(),"%.2f",line.getUnitPrice()),260,y,paint);
+            canvas.drawText(String.format(Locale.getDefault(),"%.2f",line.getTotalPrice()),430,y,paint);
+
             y += 20;
         }
 
         y += 20;
-        canvas.drawText(tvTotalBeforeVat.getText().toString(), 300, y, paint); y += 20;
-        canvas.drawText(tvDiscount.getText().toString(),       300, y, paint); y += 20;
-        canvas.drawText(tvVat.getText().toString(),            300, y, paint); y += 20;
-        canvas.drawText(tvAllTotal.getText().toString(),       300, y, paint);
+        canvas.drawText(tvTotalBeforeVat.getText().toString(),300,y,paint);
+        y += 20;
+        canvas.drawText(tvDiscount.getText().toString(),300,y,paint);
+        y += 20;
+        canvas.drawText(tvVat.getText().toString(),300,y,paint);
+        y += 20;
+        canvas.drawText(tvAllTotal.getText().toString(),300,y,paint);
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        if (!downloadsDir.exists()) {
-            downloadsDir.mkdirs();
-        }
-
-        long now = System.currentTimeMillis();
-        String dateStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(now));
-        File pdfFile = new File(downloadsDir, "Estimate_" + dateStamp + "_" + now + ".pdf");
-
         try {
-            pdfDocument.writeTo(new FileOutputStream(pdfFile));
-        } catch (IOException e) {
-            Log.e(TAG, "Error saving PDF", e);
-            Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
+
+            String fileName = "Estimate_" + System.currentTimeMillis() + ".pdf";
+
+            // File used for printing/email
+            File pdfFile = new File(getCacheDir(), fileName);
+
+            FileOutputStream fos = new FileOutputStream(pdfFile);
+            pdfDocument.writeTo(fos);
+            fos.close();
+
+            // Copy to Downloads
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = getContentResolver().insert(
+                    MediaStore.Files.getContentUri("external"),
+                    values);
+
+            OutputStream out = getContentResolver().openOutputStream(uri);
+
+            FileInputStream in = new FileInputStream(pdfFile);
+
+            byte[] buffer = new byte[4096];
+            int len;
+
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+
+            in.close();
+            out.close();
+
             pdfDocument.close();
+
+            generatedPdf = pdfFile;
+
+            Toast.makeText(this,
+                    "PDF saved to Downloads",
+                    Toast.LENGTH_LONG).show();
+
+            return pdfFile;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            Toast.makeText(this,
+                    "Error saving PDF",
+                    Toast.LENGTH_SHORT).show();
+
+            pdfDocument.close();
+
             return null;
         }
-
-        pdfDocument.close();
-        generatedPdf = pdfFile;
-        return pdfFile;
     }
 
     private void printPdf(File pdfFile) {
