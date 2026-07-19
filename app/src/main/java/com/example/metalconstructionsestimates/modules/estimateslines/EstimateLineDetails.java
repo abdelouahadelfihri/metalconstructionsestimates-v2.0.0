@@ -75,7 +75,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             weightEditText.setText("");
         }
         else{
-            weightEditText.setText(BigDecimal.valueOf(estimateLine.getWeight()).toPlainString());
+            weightEditText.setText(new BigDecimal(estimateLine.getWeight().toString()).toPlainString());
         }
 
         geometricShape = dbAdapter.getSteelById(estimateLine.getSteel()).getGeometricShape();
