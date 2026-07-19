@@ -64,11 +64,15 @@ public class BusinessDetails extends AppCompatActivity {
             alertDelete.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 // continue with delete
                 dbAdapter.deleteBusiness();
-                Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
-                deletesuccess.show();
+
+                Toast.makeText(getApplicationContext(),
+                        "The company profile has been successfully deleted", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(BusinessDetails.this, MainActivity.class));
+
                 if(dbAdapter.retrieveCustomers().isEmpty()){
                     dbAdapter.setSeqCustomers();
                 }
+
             });
             alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
