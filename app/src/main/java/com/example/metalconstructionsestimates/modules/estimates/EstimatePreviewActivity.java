@@ -126,6 +126,13 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         fillEstimateLines();
 
         btnDownloadPdf.setOnClickListener(v -> {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                androidx.core.app.ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1001);
+                return;
+            }
             File f = createPdf();
             if (f != null) {
                 Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
@@ -265,10 +272,11 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         pdfDocument.finishPage(page);
 
-        File downloadsDir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        if (downloadsDir != null && !downloadsDir.exists()) {
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        if (!downloadsDir.exists()) {
             downloadsDir.mkdirs();
         }
+
         long now = System.currentTimeMillis();
         String dateStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(now));
         File pdfFile = new File(downloadsDir, "Estimate_" + dateStamp + "_" + now + ".pdf");
