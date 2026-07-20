@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="@string/estimateId"
+                android:enabled="false"
                 android:textColor="#333333"
                 android:textColorHint="#4A4A4A" />
         </com.google.android.material.textfield.TextInputLayout>
