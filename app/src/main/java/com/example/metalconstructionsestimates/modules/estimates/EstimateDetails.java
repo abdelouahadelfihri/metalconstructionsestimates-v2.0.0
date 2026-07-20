@@ -383,8 +383,9 @@ public class EstimateDetails extends AppCompatActivity {
                         TextInputEditText estimateIdTI = findViewById(R.id.estimateIdEditText_estimate_details);
                         dbAdapter.deleteEstimate(Integer.parseInt(
                                 Objects.requireNonNull(estimateIdTI.getText()).toString()));
+
                         Toast.makeText(getApplicationContext(),
-                                "Suppression du devis a été effectuée avec succés", Toast.LENGTH_LONG).show();
+                                "Estimate has been successfully deleted", Toast.LENGTH_LONG).show();
                         if (dbAdapter.retrieveEstimates().isEmpty()) dbAdapter.setSeqEstimates();
                         startActivity(new Intent(EstimateDetails.this, Estimates.class));
                     })

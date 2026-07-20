@@ -2,6 +2,8 @@ package com.example.metalconstructionsestimates.modules.customers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
+import com.example.metalconstructionsestimates.models.Estimate;
 import com.google.android.material.textfield.TextInputEditText;
 
 import android.os.Bundle;
@@ -63,7 +65,7 @@ public class CustomerDetails extends AppCompatActivity {
                 customer = new Customer();
                 customerIdTextInputEditText.set(findViewById(R.id.customerIdEditText_customer_details));
                 dbAdapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
-                Toast deletesuccess = Toast.makeText(getApplicationContext(), "Suppression du pièce métallique a été effectuée avec succés", Toast.LENGTH_LONG);
+                Toast deletesuccess = Toast.makeText(getApplicationContext(), "Customer has been successfully deleted", Toast.LENGTH_LONG);
                 deletesuccess.show();
                 if(dbAdapter.retrieveCustomers().isEmpty()){
                     dbAdapter.setSeqCustomers();

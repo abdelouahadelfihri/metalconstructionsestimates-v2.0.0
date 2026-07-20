@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+
+import com.example.metalconstructionsestimates.models.Customer;
 import com.google.android.material.textfield.TextInputEditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -167,7 +169,7 @@ public class SteelDetails extends AppCompatActivity {
                         steel = new Steel();
                         TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.steelIdEditText);
                         dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
-                        Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "La suppression de l\'acier a été effectuée avec succés", Toast.LENGTH_LONG);
+                        Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully deleted", Toast.LENGTH_LONG);
                         deleteSuccessToast.show();
 
                         if(dbAdapter.retrieveSteels().isEmpty()){
