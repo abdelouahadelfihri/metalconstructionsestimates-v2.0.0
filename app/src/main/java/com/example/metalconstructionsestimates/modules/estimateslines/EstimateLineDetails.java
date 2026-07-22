@@ -404,7 +404,7 @@ public class EstimateLineDetails extends AppCompatActivity {
                 }
 
                 dbAdapter.updateEstimateLine(estimateLine);
-                Toast updateResult = Toast.makeText(getApplicationContext(), "Modification du ligne de devis a été éffectué avec succés ", Toast.LENGTH_LONG);
+                Toast updateResult = Toast.makeText(getApplicationContext(), "Estimate line has been successfully updated", Toast.LENGTH_LONG);
                 updateResult.show();
                 Float estimateExcludingTaxTotal = dbAdapter.getEstimateExcludingTaxTotal(estimateLine.getEstimate());
                 Float excludingTaxTotalAfterDiscount;
