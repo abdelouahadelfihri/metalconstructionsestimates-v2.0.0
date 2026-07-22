@@ -113,7 +113,7 @@ public class SteelDetails extends AppCompatActivity {
                         Spinner steelGeometricShapeSpinner = findViewById(R.id.shapeSpinner);
                         TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText);
                         Spinner steelUnitSpinner = findViewById(R.id.unitSpinner);
-                        steel.setId(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
+                        steel.setId(Integer.parseInt(Objects.requireNonNull(steelIdTextInputEditText.getText()).toString()));
 
                         if (!Objects.requireNonNull(steelTypeTextInputEditText.getText()).toString().isEmpty()) {
                             steel.setType(steelTypeTextInputEditText.getText().toString());
