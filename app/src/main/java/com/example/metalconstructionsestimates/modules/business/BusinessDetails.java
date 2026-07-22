@@ -66,7 +66,7 @@ public class BusinessDetails extends AppCompatActivity {
                 dbAdapter.deleteBusiness();
 
                 Toast.makeText(getApplicationContext(),
-                        "The company profile has been successfully deleted", Toast.LENGTH_LONG).show();
+                        "Company profile has been successfully deleted", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(BusinessDetails.this, MainActivity.class));
 
                 if(dbAdapter.retrieveCustomers().isEmpty()){
