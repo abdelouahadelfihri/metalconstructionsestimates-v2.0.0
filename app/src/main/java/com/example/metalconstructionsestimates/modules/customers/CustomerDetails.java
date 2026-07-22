@@ -17,6 +17,7 @@ import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Customer;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CustomerDetails extends AppCompatActivity {
@@ -30,8 +31,9 @@ public class CustomerDetails extends AppCompatActivity {
         setContentView(R.layout.activity_customer_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         String customerIdExtra = getIntent().getStringExtra("customerIdExtra");
+        assert customerIdExtra != null;
         Integer customerId = Integer.parseInt(customerIdExtra);
         dbAdapter = new DBAdapter(getApplicationContext());
         customer = dbAdapter.getCustomerById(customerId);
@@ -88,50 +90,51 @@ public class CustomerDetails extends AppCompatActivity {
                 // continue with delete
                 customer = new Customer();
 
-                if (!customerIdTextInputEditText.get().getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerIdTextInputEditText.get().getText()).toString().isEmpty()) {
                     customer.setId(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
                 } else {
                     customer.setId(Integer.valueOf(""));
                 }
 
-                if (!customerNameTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerNameTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setName(customerNameTextInputEditText.getText().toString());
                 } else {
                     customer.setName("");
                 }
 
-                if (!customerEmailTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerEmailTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setEmail(customerEmailTextInputEditText.getText().toString());
                 } else {
                     customer.setEmail("");
                 }
 
-                if (!customerPhoneTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerPhoneTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setTelephone(customerPhoneTextInputEditText.getText().toString());
                 } else {
                     customer.setTelephone("");
                 }
 
-                if (!customerMobileTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerMobileTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setMobile(customerMobileTextInputEditText.getText().toString());
                 } else {
                     customer.setMobile("");
                 }
 
-                if (!customerFaxTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerFaxTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setFax(customerFaxTextInputEditText.getText().toString());
                 } else {
                     customer.setFax("");
                 }
 
-                if (!customerAddressTextInputEditText.getText().toString().isEmpty()) {
+                if (!Objects.requireNonNull(customerAddressTextInputEditText.getText()).toString().isEmpty()) {
                     customer.setAddress(customerAddressTextInputEditText.getText().toString());
                 } else {
                     customer.setAddress("");
                 }
 
                 dbAdapter.updateCustomer(customer);
-                Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Modification du client a été effectué avec succés", Toast.LENGTH_LONG);
+
+                Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Customer has been successfully updated", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
             });
             alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
