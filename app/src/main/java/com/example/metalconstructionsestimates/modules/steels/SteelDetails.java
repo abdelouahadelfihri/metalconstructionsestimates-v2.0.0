@@ -108,14 +108,14 @@ public class SteelDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // continue with delete
                         steel = new Steel();
-                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.steelIdEditText);
-                        TextInputEditText steelTypeTextInputEditText = (TextInputEditText) findViewById(R.id.steelTypeEditText);
+                        TextInputEditText steelIdTextInputEditText = findViewById(R.id.steelIdEditText);
+                        TextInputEditText steelTypeTextInputEditText = findViewById(R.id.steelTypeEditText);
                         Spinner steelGeometricShapeSpinner = findViewById(R.id.shapeSpinner);
                         TextInputEditText weightTextInputEditText = findViewById(R.id.weightEditText);
                         Spinner steelUnitSpinner = findViewById(R.id.unitSpinner);
                         steel.setId(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
 
-                        if (!steelTypeTextInputEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(steelTypeTextInputEditText.getText()).toString().isEmpty()) {
                             steel.setType(steelTypeTextInputEditText.getText().toString());
                         } else {
                             steel.setType("");
@@ -127,7 +127,7 @@ public class SteelDetails extends AppCompatActivity {
                             steel.setGeometricShape("");
                         }
 
-                        if (!weightTextInputEditText.getText().toString().isEmpty()) {
+                        if (!Objects.requireNonNull(weightTextInputEditText.getText()).toString().isEmpty()) {
                             steel.setWeight(Float.parseFloat(weightTextInputEditText.getText().toString()));
                         } else {
                             steel.setWeight(null);
@@ -140,7 +140,7 @@ public class SteelDetails extends AppCompatActivity {
                         }
 
                         dbAdapter.updateSteel(steel);
-                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "La modification de l\'acier a été effectué avec succés", Toast.LENGTH_LONG);
+                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
                         intent = new Intent(SteelDetails.this, Steels.class);
                         startActivity(intent);
@@ -157,37 +157,32 @@ public class SteelDetails extends AppCompatActivity {
         });
 
         Button deleteSteel = findViewById(R.id.deleteButton);
-        deleteSteel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertDelete = new AlertDialog.Builder(SteelDetails.this);
-                alertDelete.setTitle("Confirmation de suppression");
-                alertDelete.setMessage("Voulez-vous vraiment supprimer la pièce métallique?");
-                alertDelete.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        steel = new Steel();
-                        TextInputEditText steelIdTextInputEditText = (TextInputEditText) findViewById(R.id.steelIdEditText);
-                        dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText.getText().toString()));
-                        Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully deleted", Toast.LENGTH_LONG);
-                        deleteSuccessToast.show();
+        deleteSteel.setOnClickListener(view -> {
+            AlertDialog.Builder alertDelete = new AlertDialog.Builder(SteelDetails.this);
+            alertDelete.setTitle("Delete Confirmation");
+            alertDelete.setMessage("Do you really want to delete the steel ?");
+            alertDelete.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // continue with delete
+                    steel = new Steel();
+                    TextInputEditText steelIdTextInputEditText1 = findViewById(R.id.steelIdEditText);
+                    dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText1.getText().toString()));
+                    Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully deleted", Toast.LENGTH_LONG);
+                    deleteSuccessToast.show();
 
-                        if(dbAdapter.retrieveSteels().isEmpty()){
-                            dbAdapter.setSeqSteels();
-                        }
+                    if(dbAdapter.retrieveSteels().isEmpty()){
+                        dbAdapter.setSeqSteels();
+                    }
 
-                        intent = new Intent(SteelDetails.this, Steels.class);
-                        startActivity(intent);
-                    }
-                });
-                alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // close dialog
-                        dialog.cancel();
-                    }
-                });
-                alertDelete.show();
-            }
+                    intent = new Intent(SteelDetails.this, Steels.class);
+                    startActivity(intent);
+                }
+            });
+            alertDelete.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                // close dialog
+                dialog.cancel();
+            });
+            alertDelete.show();
         });
     }
 
