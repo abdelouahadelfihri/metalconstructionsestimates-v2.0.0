@@ -376,6 +376,88 @@ public class DBAdapter {
         return getEstimatesCountBetween(startCal.getTimeInMillis(), System.currentTimeMillis());
     }
 
+    public void saveSteelWithId(Steel steel){
+        try{
+            db = helper.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("id", steel.getId());
+            cv.put("type", steel.getType());
+            cv.put("geometricShape", steel.getGeometricShape());
+            cv.put("unit", steel.getUnit());
+            cv.put("weight", steel.getWeight());
+            db.insertWithOnConflict("steel", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
+    public void saveCustomerWithId(Customer customer){
+        try{
+            db = helper.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("id", customer.getId());
+            cv.put("name", customer.getName());
+            cv.put("email", customer.getEmail());
+            cv.put("tel", customer.getTelephone());
+            cv.put("mobile", customer.getMobile());
+            cv.put("fax", customer.getFax());
+            cv.put("address", customer.getAddress());
+            db.insertWithOnConflict("customer", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
+    public void saveEstimateWithId(Estimate estimate){
+        try{
+            db = helper.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("id", estimate.getId());
+            cv.put("doneIn", estimate.getDoneIn());
+            cv.put("issueDate", estimate.getIssueDate());
+            cv.put("dueDate", estimate.getDueDate());
+            cv.put("dueTerms", estimate.getDueTerms());
+            cv.put("status", estimate.getStatus());
+            cv.put("expirationDate", estimate.getExpirationDate());
+            cv.put("customer", estimate.getCustomer());
+            cv.put("excludingTaxTotal", estimate.getExcludingTaxTotal());
+            cv.put("discount", estimate.getDiscount());
+            cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
+            cv.put("vat", estimate.getVat());
+            cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
+            db.insertWithOnConflict("estimate", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
+    public void saveEstimateLineWithId(EstimateLine estimateLine){
+        try{
+            db = helper.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("id", estimateLine.getId());
+            cv.put("estimate", estimateLine.getEstimate());
+            cv.put("steel", estimateLine.getSteel());
+            cv.put("weight", estimateLine.getWeight());
+            cv.put("length", estimateLine.getLength());
+            cv.put("width", estimateLine.getWidth());
+            cv.put("height", estimateLine.getHeight());
+            cv.put("quantity", estimateLine.getQuantity());
+            cv.put("total", estimateLine.getTotal());
+            cv.put("margin", estimateLine.getMargin());
+            cv.put("quantityPlusMargin", estimateLine.getNetQuantityPlusMargin());
+            cv.put("unitPrice", estimateLine.getUnitPrice());
+            cv.put("totalPrice", estimateLine.getTotalPrice());
+            db.insertWithOnConflict("estimateline", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+        catch(SQLException e){
+            Log.e(TAG, "Database error occurred", e);
+        }
+    }
+
     public ArrayList<Customer> searchCustomers(String searchText) {
         ArrayList<Customer> customersList = new ArrayList<>();
         String SELECTQuery = "SELECT * FROM customer WHERE ";
