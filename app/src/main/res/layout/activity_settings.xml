@@ -411,6 +411,7 @@
                     android:layout_height="52dp"
                     android:text="@string/save_settings"
                     android:textSize="15sp"
+                    android:textColor="@android:color/white"
                     android:backgroundTint="#0066cc"
                     app:cornerRadius="12dp" />
 
