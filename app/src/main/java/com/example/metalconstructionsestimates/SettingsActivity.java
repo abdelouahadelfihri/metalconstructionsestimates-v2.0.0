@@ -14,6 +14,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import java.util.concurrent.TimeUnit;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -358,11 +362,34 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString(KEY_DATE_FORMAT,
                 DATE_FORMATS[spinnerDateFormat.getSelectedItemPosition()]);
 
-        // Data
-        editor.putBoolean(KEY_BACKUP_REMINDER, switchBackupReminder.isChecked());
+        // Data — backup reminder
+        boolean backupEnabled = switchBackupReminder.isChecked();
+        editor.putBoolean(KEY_BACKUP_REMINDER, backupEnabled);
 
         editor.apply();
+
+        // Schedule or cancel backup reminder based on switch
+        if (backupEnabled) {
+            scheduleBackupReminder();
+        } else {
+            cancelBackupReminder();
+        }
+
         Toast.makeText(this, getString(R.string.settings_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    private void scheduleBackupReminder() {
+        PeriodicWorkRequest reminderRequest =
+                new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
+                        .build();
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "backup_reminder",
+                ExistingPeriodicWorkPolicy.KEEP,
+                reminderRequest);
+    }
+
+    private void cancelBackupReminder() {
+        WorkManager.getInstance(this).cancelUniqueWork("backup_reminder");
     }
 
     // ── Reading settings in other activities ───────────────────────────────

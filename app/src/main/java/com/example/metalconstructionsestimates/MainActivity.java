@@ -1,6 +1,9 @@
 package com.example.metalconstructionsestimates;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,8 +24,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -183,7 +190,29 @@ public class MainActivity extends AppCompatActivity {
                 handleExitClick();
             }
         });
-    }
+
+        // ── Request notification permission for Android 13+ ────────────────
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                        new String[]{android.Manifest.permission.POST_NOTIFICATIONS},
+                        1001);
+            }
+        }
+
+        // ── Schedule backup reminder if enabled ────────────────────────────
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREFS_SETTINGS, MODE_PRIVATE);
+        if (prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true)) {
+            PeriodicWorkRequest reminderRequest =
+                    new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
+                            .build();
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "backup_reminder",
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    reminderRequest);
+        }
+    } // end of onCreate
 
     private void handleExitClick() {
         if (System.currentTimeMillis() - lastExitPressTime < EXIT_TIME_INTERVAL) {
