@@ -46,10 +46,12 @@ import java.io.OutputStream;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class BackUpRestore extends GoogleDriveActivity {
 
     private static final String LOG_TAG = "BackUpRestore";
+    private Button googleDriveSignIn;
     private static final String GOOGLE_DRIVE_DB_LOCATION = "db";
     private static final String INTERMEDIATE_DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/intermediateestimatesdb";
     private static final String DB_LOCATION = "/data/data/com.example.metalconstructionsestimates/databases/estimatesdb";
@@ -60,6 +62,7 @@ public class BackUpRestore extends GoogleDriveActivity {
     private IntermediateDBAdapter intermediateDBAdapter;
     private IntermediateDBHelper intermediateHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class BackUpRestore extends GoogleDriveActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // Initialize UI components
-        Button googleDriveSignIn = findViewById(R.id.btnSignIn);
+        googleDriveSignIn = findViewById(R.id.btnSignIn);
         Button localBackup = findViewById(R.id.btnLocalBackup);
         Button localRestore = findViewById(R.id.btnLocalRestore);
         Button googleDriveBackup = findViewById(R.id.btnDriveBackup);
@@ -85,7 +88,17 @@ public class BackUpRestore extends GoogleDriveActivity {
         intermediateHelper = new IntermediateDBHelper(getApplicationContext());
 
         // Set up button listeners
-        googleDriveSignIn.setOnClickListener(v -> startGoogleDriveSignIn());
+        googleDriveSignIn.setOnClickListener(v -> {
+            if (getExistingSignedInAccount() != null) {
+                signOutOfGoogleDrive(() -> handler.post(() -> {
+                    googleDriveRepository = null;
+                    updateSignInButtonState();
+                    showMessage("Signed out");
+                }));
+            } else {
+                startGoogleDriveSignIn();
+            }
+        });
 
         localBackup.setOnClickListener(v -> pickDirectory());
 
@@ -100,7 +113,19 @@ public class BackUpRestore extends GoogleDriveActivity {
             showMessage("Starting restore...");
             performGoogleDriveRestore();
         });
+        if (tryRestoreGoogleDriveSession()) {
+            updateSignInButtonState();
+        }
 
+    }
+
+    private void updateSignInButtonState() {
+        GoogleSignInAccount account = getExistingSignedInAccount();
+        if (account != null && account.getEmail() != null) {
+            googleDriveSignIn.setText("Sign out from " + account.getEmail());
+        } else {
+            googleDriveSignIn.setText("Sign in with Google");
+        }
     }
 
     private void showProgressDialogAndExecuteTask(String loadingMessage, Runnable task) {
@@ -132,13 +157,34 @@ public class BackUpRestore extends GoogleDriveActivity {
             return;
         }
 
-        File db = new File(DB_LOCATION);
-        googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
-                .addOnSuccessListener(r -> handler.post(() -> showMessage("Backup to Google Drive successful")))
-                .addOnFailureListener(e -> handler.post(() -> {
-                    Log.e(LOG_TAG, "Error uploading file", e);
-                    showMessage("Error during backup");
-                }));
+        executorService.execute(() -> {
+            try {
+                // Open a fresh, guaranteed-open connection just for the checkpoint,
+                // instead of relying on dbAdapter's internal state which may not be open yet.
+                try (DBHelper dbHelper = new DBHelper(getApplicationContext());
+                     SQLiteDatabase db = dbHelper.getReadableDatabase();
+                     Cursor c = db.rawQuery("PRAGMA wal_checkpoint(FULL)", null)) {
+
+                    if (c.moveToFirst()) {
+                        Log.d(LOG_TAG, "wal_checkpoint result: " + c.getString(0) + "," + c.getString(1) + "," + c.getString(2));
+                    }
+                }
+                // dbHelper/db are fully closed here via try-with-resources
+
+                File db = new File(DB_LOCATION);
+
+                googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
+                        .addOnSuccessListener(r -> handler.post(() -> showMessage("Backup to Google Drive successful")))
+                        .addOnFailureListener(e -> handler.post(() -> {
+                            Log.e(LOG_TAG, "Error uploading file", e);
+                            showMessage("Error during backup: " + e.getMessage());
+                        }));
+
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error preparing database for Google Drive backup", e);
+                handler.post(() -> showMessage("Error during backup: " + e.getMessage()));
+            }
+        });
     }
 
     private void performGoogleDriveRestore() {
@@ -197,7 +243,10 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     @Override
     protected void onGoogleDriveSignedInSuccess(Drive driveApi) {
-        handler.post(() -> showMessage("Google Drive Client is ready"));
+        handler.post(() -> {
+            showMessage("Google Drive Client is ready");
+            updateSignInButtonState();
+        });
         googleDriveRepository = new GoogleDriveApiDataRepository(driveApi);
     }
 

@@ -543,73 +543,72 @@ public class DBAdapter {
 
     public ArrayList<Steel> searchSteels(String searchText) {
         ArrayList<Steel> steelsList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM steel WHERE ";
-        String WHEREQuery = "";
-        try {
-            String[] steelsTableColumns = {"id", "type", "geometricShape", "unit", "weight"};
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < steelsTableColumns.length; i++) {
-                        if (WHEREQuery.isEmpty()) {
-                            WHEREQuery = WHEREQuery + " " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
-                        } else {
-                            WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[i] + " LIKE '%" + searchTextArray[0] + "%'";
-                        }
-                    }
-                }
-                else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < steelsTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.isEmpty()) {
-                                        WHEREQuery = WHEREQuery + "(" + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                    } else {
-                                        WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery = WHEREQuery + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
+        String[] steelsTableColumns = {"id", "type", "geometricShape", "unit"};
+        // weight is handled separately below since it needs rounding to avoid float noise
 
-                                    } else {
-                                        WHEREQuery = WHEREQuery + " OR " + steelsTableColumns[j] + " LIKE '%" + searchTextArray[i] + "%'";
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery = WHEREQuery + ") AND (";
-                        } else {
-                            WHEREQuery = WHEREQuery + ")";
-                        }
-                    }
-                }
+        try {
+            searchText = searchText.trim();
+            if (searchText.isEmpty()) {
+                return steelsList;
             }
 
-            db = helper.getReadableDatabase();
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
 
-            String query = SELECTQuery + WHEREQuery;
-            Cursor cursor = db.rawQuery(query, null);
-            Steel steel;
+            for (int i = 0; i < searchTextArray.length; i++) {
+                String term = searchTextArray[i].trim();
+                // Normalize comma to dot consistently, for BOTH single and multi-term cases
+                term = term.replace(",", ".");
+
+                if (term.isEmpty()) {
+                    continue;
+                }
+
+                if (whereBuilder.length() > 0) {
+                    whereBuilder.append(" AND ");
+                }
+                whereBuilder.append("(");
+
+                boolean firstColumn = true;
+                for (String column : steelsTableColumns) {
+                    if (!firstColumn) {
+                        whereBuilder.append(" OR ");
+                    }
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    firstColumn = false;
+                }
+
+                // Compare weight against a rounded, fixed-decimal text form instead of
+                // the raw float-to-double text (which has trailing precision noise,
+                // e.g. 7.99 -> "7.989999771118164"), otherwise LIKE can match garbage digits.
+                whereBuilder.append(" OR CAST(ROUND(weight, 3) AS TEXT) LIKE ?");
+                args.add("%" + term + "%");
+
+                whereBuilder.append(")");
+            }
+
+            if (whereBuilder.length() == 0) {
+                return steelsList;
+            }
+
+            String query = "SELECT * FROM steel WHERE " + whereBuilder;
+
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
+
             while (cursor.moveToNext()) {
-                Integer steelId = cursor.getInt(0);
-                String type = cursor.getString(1);
-                String geometricShape = cursor.getString(2);
-                String unit = cursor.getString(3);
-                Float weight = cursor.getFloat(4);
-                steel = new Steel();
-                steel.setId(steelId);
-                steel.setType(type);
-                steel.setGeometricShape(geometricShape);
-                steel.setUnit(unit);
-                steel.setWeight(weight);
+                Steel steel = new Steel();
+                steel.setId(cursor.getInt(0));
+                steel.setType(cursor.getString(1));
+                steel.setGeometricShape(cursor.getString(2));
+                steel.setUnit(cursor.getString(3));
+                steel.setWeight(cursor.getFloat(4));
                 steelsList.add(steel);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
@@ -619,186 +618,175 @@ public class DBAdapter {
 
     public ArrayList<Estimate> searchEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        StringBuilder WHEREQuery = new StringBuilder();
+        String[] textColumns = {"doneIn", "dueTerms", "status"};
+        String[] intColumns = {"id", "customer"};
+        String[] floatColumns = {"excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
+        // Note: issueDate, expirationDate, dueDate (epoch Longs) intentionally excluded for now -
+        // raw LIKE on epoch millis isn't meaningful; ask if date search should be added separately.
 
         try {
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        } else {
-                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        }
-                    }
-                    WHEREQuery.append(")");
-                } else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < estimateTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.length() == 0) {
-                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery.append(") AND (");
-                        } else {
-                            WHEREQuery.append(")");
-                        }
-                    }
-                }
+            searchText = searchText.trim();
+            if (searchText.isEmpty()) {
+                return estimatesList;
             }
 
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
+
+            for (String rawTerm : searchTextArray) {
+                String term = rawTerm.trim().replace(",", ".");
+                if (term.isEmpty()) {
+                    continue;
+                }
+
+                if (whereBuilder.length() > 0) {
+                    whereBuilder.append(" AND ");
+                }
+                whereBuilder.append("(");
+
+                boolean first = true;
+                for (String column : textColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : intColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : floatColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    // Round before comparing as text, same fix as steel weight -
+                    // avoids float-to-double precision noise causing false matches.
+                    whereBuilder.append("CAST(ROUND(").append(column).append(", 3) AS TEXT) LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+
+                whereBuilder.append(")");
+            }
+
+            if (whereBuilder.length() == 0) {
+                return estimatesList;
+            }
+
+            String query = "SELECT * FROM estimate WHERE " + whereBuilder
+                    + " AND (status = 'Cancelled' OR status = 'Pending' OR status = 'Approved')";
+
             db = helper.getReadableDatabase();
-
-            String query = SELECTQuery + WHEREQuery;
-            query = query + " AND (status = 'Cancelled' OR status = 'Pending' OR status = 'Approved')";
-            Cursor cursor = db.rawQuery(query, null);
-
-            Estimate estimate;
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
 
             while (cursor.moveToNext()) {
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                Long issueDate = cursor.getLong(2);
-                Long expirationDate = cursor.getLong(3);
-                Long dueDate = cursor.getLong(4);
-                String dueTerms = cursor.getString(5);
-                String status = cursor.getString(6);
-                Integer customer = cursor.getInt(7);
-                Float excludingTaxTotal = cursor.getFloat(8);
-                Float discount = cursor.getFloat(9);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
-                Float vat = cursor.getFloat(11);
-                Float allTaxIncludedTotal = cursor.getFloat(12);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setDueDate(dueDate);
-                estimate.setDueTerms(dueTerms);
-                estimate.setStatus(status);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                Estimate estimate = new Estimate();
+                estimate.setId(cursor.getInt(0));
+                estimate.setDoneIn(cursor.getString(1));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
                 estimatesList.add(estimate);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
+
         return estimatesList;
     }
 
     public ArrayList<Estimate> searchCancelledEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        StringBuilder WHEREQuery = new StringBuilder();
-        try {
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        } else {
-                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        }
-                    }
-                    WHEREQuery.append(")");
-                } else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < estimateTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.length() == 0) {
-                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
+        String[] textColumns = {"doneIn", "dueTerms", "status"};
+        String[] intColumns = {"id", "customer"};
+        String[] floatColumns = {"excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
+        // Note: issueDate, expirationDate, dueDate (epoch Longs) intentionally excluded -
+        // same as searchEstimates(), pending your answer on date-search behavior.
 
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery.append(") AND (");
-                        } else {
-                            WHEREQuery.append(")");
-                        }
-                    }
-                }
+        try {
+            searchText = searchText.trim();
+            if (searchText.isEmpty()) {
+                return estimatesList;
             }
 
-            db = helper.getReadableDatabase();
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
 
-            String query = SELECTQuery + WHEREQuery;
-            query = query + " AND (status = 'Cancelled')";
-            Log.i(TAG, query);
-            Cursor cursor = db.rawQuery(query, null);
-            Estimate estimate;
+            for (String rawTerm : searchTextArray) {
+                String term = rawTerm.trim().replace(",", ".");
+                if (term.isEmpty()) {
+                    continue;
+                }
+
+                if (whereBuilder.length() > 0) {
+                    whereBuilder.append(" AND ");
+                }
+                whereBuilder.append("(");
+
+                boolean first = true;
+                for (String column : textColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : intColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : floatColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append("CAST(ROUND(").append(column).append(", 3) AS TEXT) LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+
+                whereBuilder.append(")");
+            }
+
+            if (whereBuilder.length() == 0) {
+                return estimatesList;
+            }
+
+            String query = "SELECT * FROM estimate WHERE " + whereBuilder
+                    + " AND (status = 'Cancelled')";
+
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
+
             while (cursor.moveToNext()) {
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                Long issueDate = cursor.getLong(2);
-                Long expirationDate = cursor.getLong(3);
-                Long dueDate = cursor.getLong(4);
-                String dueTerms = cursor.getString(5);
-                String status = cursor.getString(6);
-                Integer customer = cursor.getInt(7);
-                Float excludingTaxTotal = cursor.getFloat(8);
-                Float discount = cursor.getFloat(9);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
-                Float vat = cursor.getFloat(11);
-                Float allTaxIncludedTotal = cursor.getFloat(12);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setDueDate(dueDate);
-                estimate.setDueTerms(dueTerms);
-                estimate.setStatus(status);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                Estimate estimate = new Estimate();
+                estimate.setId(cursor.getInt(0));
+                estimate.setDoneIn(cursor.getString(1));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
                 estimatesList.add(estimate);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
@@ -808,92 +796,83 @@ public class DBAdapter {
 
     public ArrayList<Estimate> searchApprovedEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        StringBuilder WHEREQuery = new StringBuilder();
-        try {
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        } else {
-                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        }
-                    }
-                    WHEREQuery.append(")");
-                } else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < estimateTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.length() == 0) {
-                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
+        String[] textColumns = {"doneIn", "dueTerms", "status"};
+        String[] intColumns = {"id", "customer"};
+        String[] floatColumns = {"excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
 
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery.append(") AND (");
-                        } else {
-                            WHEREQuery.append(")");
-                        }
-                    }
-                }
+        try {
+            searchText = searchText.trim();
+            if (searchText.isEmpty()) {
+                return estimatesList;
             }
 
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
+
+            for (String rawTerm : searchTextArray) {
+                String term = rawTerm.trim().replace(",", ".");
+                if (term.isEmpty()) {
+                    continue;
+                }
+
+                if (whereBuilder.length() > 0) {
+                    whereBuilder.append(" AND ");
+                }
+                whereBuilder.append("(");
+
+                boolean first = true;
+                for (String column : textColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : intColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append(column).append(" LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+                for (String column : floatColumns) {
+                    if (!first) whereBuilder.append(" OR ");
+                    whereBuilder.append("CAST(ROUND(").append(column).append(", 3) AS TEXT) LIKE ?");
+                    args.add("%" + term + "%");
+                    first = false;
+                }
+
+                whereBuilder.append(")");
+            }
+
+            if (whereBuilder.length() == 0) {
+                return estimatesList;
+            }
+
+            String query = "SELECT * FROM estimate WHERE " + whereBuilder
+                    + " AND (status = 'Approved')";
+
             db = helper.getReadableDatabase();
-
-            String query = SELECTQuery + WHEREQuery;
-            query = query + " AND (status = 'Approved')";
-            Cursor cursor = db.rawQuery(query, null);
-
-            Estimate estimate;
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
 
             while (cursor.moveToNext()) {
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                Long issueDate = cursor.getLong(2);
-                Long expirationDate = cursor.getLong(3);
-                Long dueDate = cursor.getLong(4);
-                String dueTerms = cursor.getString(5);
-                String status = cursor.getString(6);
-                Integer customer = cursor.getInt(7);
-                Float excludingTaxTotal = cursor.getFloat(8);
-                Float discount = cursor.getFloat(9);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
-                Float vat = cursor.getFloat(11);
-                Float allTaxIncludedTotal = cursor.getFloat(12);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setDueDate(dueDate);
-                estimate.setDueTerms(dueTerms);
-                estimate.setStatus(status);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                Estimate estimate = new Estimate();
+                estimate.setId(cursor.getInt(0));
+                estimate.setDoneIn(cursor.getString(1));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
                 estimatesList.add(estimate);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
@@ -903,51 +882,50 @@ public class DBAdapter {
 
     public ArrayList<Estimate> searchPendingEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        StringBuilder WHEREQuery = new StringBuilder();
+        String[] textColumns = {"doneIn", "dueTerms", "status"};
+        String[] intColumns = {"id", "customer"};
+        String[] floatColumns = {"excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
 
         try {
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        } else {
-                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        }
-                    }
-                    WHEREQuery.append(")");
-                } else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < estimateTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.length() == 0) {
-                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
+            searchText = searchText.trim();
 
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery.append(") AND (");
-                        } else {
-                            WHEREQuery.append(")");
-                        }
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
+
+            if (!searchText.isEmpty()) {
+                for (String rawTerm : searchTextArray) {
+                    String term = rawTerm.trim().replace(",", ".");
+                    if (term.isEmpty()) {
+                        continue;
                     }
+
+                    if (whereBuilder.length() > 0) {
+                        whereBuilder.append(" AND ");
+                    }
+                    whereBuilder.append("(");
+
+                    boolean first = true;
+                    for (String column : textColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append(column).append(" LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+                    for (String column : intColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append(column).append(" LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+                    for (String column : floatColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append("CAST(ROUND(").append(column).append(", 3) AS TEXT) LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+
+                    whereBuilder.append(")");
                 }
             }
 
@@ -955,145 +933,126 @@ public class DBAdapter {
 
             long startOfTodayMillis = getStartOfTodayMillis();
 
-            String query = SELECTQuery + WHEREQuery;
-            query = query + " AND status = 'Pending' AND dueDate >= ?";
-            Cursor cursor = db.rawQuery(query, new String[]{ String.valueOf(startOfTodayMillis) });
+            String query = "SELECT * FROM estimate WHERE ";
+            if (whereBuilder.length() > 0) {
+                query += whereBuilder + " AND ";
+            }
+            query += "status = 'Pending' AND dueDate >= ?";
+            args.add(String.valueOf(startOfTodayMillis));
 
-            Estimate estimate;
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
 
             while (cursor.moveToNext()) {
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                Long issueDate = cursor.getLong(2);
-                Long expirationDate = cursor.getLong(3);
-                Long dueDate = cursor.getLong(4);
-                String dueTerms = cursor.getString(5);
-                String status = cursor.getString(6);
-                Integer customer = cursor.getInt(7);
-                Float excludingTaxTotal = cursor.getFloat(8);
-                Float discount = cursor.getFloat(9);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
-                Float vat = cursor.getFloat(11);
-                Float allTaxIncludedTotal = cursor.getFloat(12);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setDueDate(dueDate);
-                estimate.setDueTerms(dueTerms);
-                estimate.setStatus(status);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                Estimate estimate = new Estimate();
+                estimate.setId(cursor.getInt(0));
+                estimate.setDoneIn(cursor.getString(1));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
                 estimatesList.add(estimate);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
+
         return estimatesList;
     }
 
     public ArrayList<Estimate> searchOverdueEstimates(String searchText) {
         ArrayList<Estimate> estimatesList = new ArrayList<>();
-        String SELECTQuery = "SELECT * FROM estimate WHERE ";
-        StringBuilder WHEREQuery = new StringBuilder();
-        try {
-            searchText = searchText.replaceAll("^\\s+|\\s+$", "");
-            String[] estimateTableColumns = {"id", "doneIn", "issueDate", "expirationDate","dueDate","dueTerms","status", "customer", "excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
-            if (!searchText.isEmpty()) {
-                String[] searchTextArray = searchText.split(";");
-                if (searchTextArray.length == 1) {
-                    for (int i = 0; i < estimateTableColumns.length; i++) {
-                        if (WHEREQuery.toString().isEmpty()) {
-                            WHEREQuery.append("(").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        } else {
-                            WHEREQuery.append(" OR ").append(estimateTableColumns[i]).append(" LIKE '%").append(searchTextArray[0]).append("%'");
-                        }
-                    }
-                    WHEREQuery.append(")");
-                } else {
-                    for (int i = 0; i < searchTextArray.length; i++) {
-                        searchTextArray[i] = searchTextArray[i].replaceAll("^\\s+|\\s+$", "");
-                        searchTextArray[i] = searchTextArray[i].replace(",", ".");
-                        if(!searchTextArray[i].isEmpty()){
-                            for (int j = 0; j < estimateTableColumns.length; j++) {
-                                if (i == 0) {
-                                    if (WHEREQuery.length() == 0) {
-                                        WHEREQuery.append("(").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                } else {
-                                    if (WHEREQuery.charAt(WHEREQuery.length() - 1) == '(') {
-                                        WHEREQuery.append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
+        String[] textColumns = {"doneIn", "dueTerms", "status"};
+        String[] intColumns = {"id", "customer"};
+        String[] floatColumns = {"excludingTaxTotal", "discount", "excludingTaxTotalAfterDiscount", "vat", "allTaxIncludedTotal"};
 
-                                    } else {
-                                        WHEREQuery.append(" OR ").append(estimateTableColumns[j]).append(" LIKE '%").append(searchTextArray[i]).append("%'");
-                                    }
-                                }
-                            }
-                        }
-                        if (i < searchTextArray.length - 1) {
-                            WHEREQuery.append(") AND (");
-                        } else {
-                            WHEREQuery.append(")");
-                        }
+        try {
+            searchText = searchText.trim();
+
+            String[] searchTextArray = searchText.split(";");
+            StringBuilder whereBuilder = new StringBuilder();
+            ArrayList<String> args = new ArrayList<>();
+
+            if (!searchText.isEmpty()) {
+                for (String rawTerm : searchTextArray) {
+                    String term = rawTerm.trim().replace(",", ".");
+                    if (term.isEmpty()) {
+                        continue;
                     }
+
+                    if (whereBuilder.length() > 0) {
+                        whereBuilder.append(" AND ");
+                    }
+                    whereBuilder.append("(");
+
+                    boolean first = true;
+                    for (String column : textColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append(column).append(" LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+                    for (String column : intColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append(column).append(" LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+                    for (String column : floatColumns) {
+                        if (!first) whereBuilder.append(" OR ");
+                        whereBuilder.append("CAST(ROUND(").append(column).append(", 3) AS TEXT) LIKE ?");
+                        args.add("%" + term + "%");
+                        first = false;
+                    }
+
+                    whereBuilder.append(")");
                 }
             }
 
             db = helper.getReadableDatabase();
 
-            String query = SELECTQuery + WHEREQuery;
-
-            db = helper.getReadableDatabase();
-
             long startOfTodayMillis = getStartOfTodayMillis();
 
-            query = query + " dueDate < ? AND status = 'Pending'";
-            Cursor cursor = db.rawQuery(query,new String[]{ String.valueOf(startOfTodayMillis) });
+            String query = "SELECT * FROM estimate WHERE ";
+            if (whereBuilder.length() > 0) {
+                query += whereBuilder + " AND ";
+            }
+            query += "dueDate < ? AND status = 'Pending'";
+            args.add(String.valueOf(startOfTodayMillis));
 
-            Estimate estimate;
+            Cursor cursor = db.rawQuery(query, args.toArray(new String[0]));
 
             while (cursor.moveToNext()) {
-                Integer estimateId = cursor.getInt(0);
-                String doneIn = cursor.getString(1);
-                Long issueDate = cursor.getLong(2);
-                Long expirationDate = cursor.getLong(3);
-                Long dueDate = cursor.getLong(4);
-                String dueTerms = cursor.getString(5);
-                String status = cursor.getString(6);
-                Integer customer = cursor.getInt(7);
-                Float excludingTaxTotal = cursor.getFloat(8);
-                Float discount = cursor.getFloat(9);
-                Float excludingTaxTotalAfterDiscount = cursor.getFloat(10);
-                Float vat = cursor.getFloat(11);
-                Float allTaxIncludedTotal = cursor.getFloat(12);
-                estimate = new Estimate();
-                estimate.setId(estimateId);
-                estimate.setDoneIn(doneIn);
-                estimate.setIssueDate(issueDate);
-                estimate.setExpirationDate(expirationDate);
-                estimate.setDueDate(dueDate);
-                estimate.setDueTerms(dueTerms);
-                estimate.setStatus(status);
-                estimate.setCustomer(customer);
-                estimate.setExcludingTaxTotal(excludingTaxTotal);
-                estimate.setDiscount(discount);
-                estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
-                estimate.setVat(vat);
-                estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                Estimate estimate = new Estimate();
+                estimate.setId(cursor.getInt(0));
+                estimate.setDoneIn(cursor.getString(1));
+                estimate.setIssueDate(cursor.getLong(2));
+                estimate.setExpirationDate(cursor.getLong(3));
+                estimate.setDueDate(cursor.getLong(4));
+                estimate.setDueTerms(cursor.getString(5));
+                estimate.setStatus(cursor.getString(6));
+                estimate.setCustomer(cursor.getInt(7));
+                estimate.setExcludingTaxTotal(cursor.getFloat(8));
+                estimate.setDiscount(cursor.getFloat(9));
+                estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
+                estimate.setVat(cursor.getFloat(11));
+                estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
                 estimatesList.add(estimate);
             }
             cursor.close();
+
         } catch (SQLException e) {
             Log.e(TAG, "Database error occurred", e);
         }
+
         return estimatesList;
     }
 
@@ -2072,6 +2031,11 @@ public class DBAdapter {
         cv.put("fax", business.getFax());
         cv.put("address", business.getAddress());
         db.insert("business", null, cv);
+    }
+
+    // in DBAdapter.java
+    public SQLiteDatabase getReadableDatabaseForCheckpoint() {
+        return db; // or however your internal SQLiteDatabase field is named
     }
 
 }
