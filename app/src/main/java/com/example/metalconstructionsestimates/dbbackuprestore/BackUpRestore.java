@@ -329,7 +329,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         return;
                     }
 
-                    DocumentFile backupFile = documentFile.createFile("application/octet-stream", "estimatesdb_backup_" + System.currentTimeMillis());
+                    DocumentFile backupFile = documentFile.createFile("application/octet-stream", buildBackupFileName());
                     if (backupFile == null) {
                         handler.post(() -> showMessage("Failed to create backup file"));
                         return;
@@ -459,8 +459,10 @@ public class BackUpRestore extends GoogleDriveActivity {
         });
     }
 
-
-    private void showToastMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private String buildBackupFileName() {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", java.util.Locale.getDefault());
+        String formattedDate = sdf.format(new java.util.Date());
+        return "estimatesdb_backup_" + formattedDate + "_" + System.currentTimeMillis();
     }
+
 }
