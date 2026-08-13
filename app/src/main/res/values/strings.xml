@@ -218,4 +218,6 @@
     <!-- Actions -->
     <string name="save_settings">Save Settings</string>
     <string name="settings_saved">Settings saved</string>
+    <string name="googleDriveSection">Google Drive</string>
+    <string name="localSection">Local storage</string>
 </resources>
