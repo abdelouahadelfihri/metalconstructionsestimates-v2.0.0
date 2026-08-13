@@ -4,8 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import com.example.metalconstructionsestimates.models.Estimate;
+import com.example.metalconstructionsestimates.modules.steels.SteelDetails;
+import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.google.android.material.textfield.TextInputEditText;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -136,6 +139,8 @@ public class CustomerDetails extends AppCompatActivity {
 
                 Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Customer has been successfully updated", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
+                Intent intent = new Intent(CustomerDetails.this, Customers.class);
+                startActivity(intent);
             });
             alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
