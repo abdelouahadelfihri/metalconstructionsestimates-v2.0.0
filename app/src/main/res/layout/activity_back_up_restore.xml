@@ -21,56 +21,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Sign In Button -->
+        <!-- Google Drive section label -->
+        <TextView
+            android:id="@+id/googleDriveSectionLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/googleDriveSection"
+            android:textColor="#4A4A4A"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <!-- Sign In / Sign Out Button -->
         <Button
             android:id="@+id/btnSignIn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#0066cc"
-            android:drawablePadding="8dp"
-            android:minHeight="72dp"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical|start"
+            app:drawableStartCompat="@drawable/ic_google"
+            android:drawablePadding="12dp"
             android:text="@string/google_drive_sign_in"
             android:textColor="@android:color/white"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMaxTextSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <!-- Local Backup Button -->
-        <Button
-            android:id="@+id/btnLocalBackup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="#0066cc"
-            android:drawablePadding="8dp"
-            android:minHeight="72dp"
-            android:text="@string/localBackup"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSignIn" />
-
-        <!-- Local Restore Button -->
-        <Button
-            android:id="@+id/btnLocalRestore"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="#0066cc"
-            android:drawablePadding="8dp"
-            android:minHeight="72dp"
-            android:text="@string/localRestore"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLocalBackup" />
+            app:layout_constraintTop_toBottomOf="@id/googleDriveSectionLabel" />
 
         <!-- Google Drive Backup Button -->
         <Button
@@ -81,13 +74,19 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#0066cc"
-            android:drawablePadding="8dp"
-            android:minHeight="72dp"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical|start"
+            app:drawableStartCompat="@drawable/ic_backup"
+            android:drawablePadding="12dp"
             android:text="@string/googleDriveBackup"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLocalRestore" />
+            app:layout_constraintTop_toBottomOf="@id/btnSignIn" />
 
         <!-- Google Drive Restore Button -->
         <Button
@@ -98,13 +97,95 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#0066cc"
-            android:drawablePadding="8dp"
-            android:minHeight="72dp"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical|start"
+            app:drawableStartCompat="@drawable/ic_restore"
+            android:drawablePadding="12dp"
             android:text="@string/googleDriveRestore"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnDriveBackup" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/sectionDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:background="#E0E0E0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnDriveRestore" />
+
+        <!-- Local section label -->
+        <TextView
+            android:id="@+id/localSectionLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/localSection"
+            android:textColor="#4A4A4A"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sectionDivider" />
+
+        <!-- Local Backup Button -->
+        <Button
+            android:id="@+id/btnLocalBackup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#0066cc"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical|start"
+            app:drawableStartCompat="@drawable/ic_folder"
+            android:drawablePadding="12dp"
+            android:text="@string/localBackup"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/localSectionLabel" />
+
+        <!-- Local Restore Button -->
+        <Button
+            android:id="@+id/btnLocalRestore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#0066cc"
+            android:minHeight="56dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical|start"
+            app:drawableStartCompat="@drawable/ic_file_open"
+            android:drawablePadding="12dp"
+            android:text="@string/localRestore"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLocalBackup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
