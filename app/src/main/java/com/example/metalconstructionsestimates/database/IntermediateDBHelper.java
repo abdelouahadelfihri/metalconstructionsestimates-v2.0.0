@@ -112,7 +112,7 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
 
         business.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
         business.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
-        business.setPhone(cursor.getString(cursor.getColumnIndexOrThrow("phone")));
+        business.setPhone(cursor.getString(cursor.getColumnIndexOrThrow("telephone")));
         business.setMobile(cursor.getString(cursor.getColumnIndexOrThrow("mobile")));
         business.setFax(cursor.getString(cursor.getColumnIndexOrThrow("fax")));
         business.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
