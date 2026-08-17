@@ -148,4 +148,10 @@ public class IntermediateDBAdapter {
         return customerId;
     }
 
+    public void close() {
+        if (helper != null) {
+            helper.close();
+        }
+    }
+
 }
