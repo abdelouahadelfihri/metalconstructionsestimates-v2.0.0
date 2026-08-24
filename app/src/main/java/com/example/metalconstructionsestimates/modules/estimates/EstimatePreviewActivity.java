@@ -370,4 +370,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         return createPdf();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
 }
