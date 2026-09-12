@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true)) {
             PeriodicWorkRequest reminderRequest =
                     new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
+                            .setInitialDelay(7, TimeUnit.DAYS)   // ← added this line
                             .build();
             WorkManager.getInstance(this).enqueueUniquePeriodicWork(
                     "backup_reminder",
