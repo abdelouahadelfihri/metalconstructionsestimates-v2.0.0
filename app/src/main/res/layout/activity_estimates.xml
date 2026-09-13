@@ -125,29 +125,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Guideline placed just before the FAB column so the empty state never sits under the buttons,
-         on any screen width -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_before_fabs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.82" />
-
-    <!-- Empty state: icon + headline + subtext, centered in the space left of the FABs -->
+    <!-- Empty state: icon + headline + subtext, centered on the true horizontal center of the screen -->
     <LinearLayout
         android:id="@+id/emptyStateLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:paddingHorizontal="16dp"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline_before_fabs"
-        app:layout_constraintVertical_bias="0.35">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3">
 
         <ImageView
             android:id="@+id/emptyStateIcon"
@@ -160,7 +151,7 @@
 
         <TextView
             android:id="@+id/emptyStateTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/noEstimatesTitle"
             android:textSize="20sp"
@@ -170,7 +161,7 @@
 
         <TextView
             android:id="@+id/emptyStateSubtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="@string/noEstimatesSubtitle"
