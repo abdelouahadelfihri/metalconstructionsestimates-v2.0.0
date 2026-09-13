@@ -220,4 +220,10 @@
     <string name="settings_saved">Settings saved</string>
     <string name="googleDriveSection">Google Drive</string>
     <string name="localSection">Local storage</string>
+    <string name="noCustomersTitle">No customers yet</string>
+    <string name="noCustomersSubtitle">Tap \"+\" to create a new customer</string>
+    <string name="noSteelsTitle">No steels yet</string>
+    <string name="noSteelsSubtitle">Tap \"+\" to create a new steel</string>
+    <string name="noEstimatesTitle">No estimates yet</string>
+    <string name="noEstimatesSubtitle">Tap \"+\" to create a new estimate</string>
 </resources>
