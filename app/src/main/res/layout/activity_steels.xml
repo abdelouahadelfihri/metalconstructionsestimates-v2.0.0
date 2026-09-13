@@ -44,21 +44,6 @@
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/noSteelsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/noSteels"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:visibility="gone"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/searchInputLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.3"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/steelsRecyclerView"
         android:layout_width="0dp"
@@ -71,6 +56,61 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Guideline placed just before the FAB column so the empty state never sits under the buttons,
+         on any screen width -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_before_fabs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <!-- Empty state: icon + headline + subtext, centered in the space left of the FABs -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/searchInputLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_before_fabs"
+        app:layout_constraintVertical_bias="0.35">
+
+        <ImageView
+            android:id="@+id/emptyStateIcon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_manage"
+            app:tint="#B0B0B0"
+            android:contentDescription="@string/noSteels" />
+
+        <TextView
+            android:id="@+id/emptyStateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noSteelsTitle"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/emptyStateSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/noSteelsSubtitle"
+            android:textSize="14sp"
+            android:textColor="#8A8A8A"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"

@@ -125,19 +125,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/emptyView"
+    <!-- Guideline placed just before the FAB column so the empty state never sits under the buttons,
+         on any screen width -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_before_fabs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/noEstimates"
-        android:textSize="16sp"
-        android:textColor="@color/black"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <!-- Empty state: icon + headline + subtext, centered in the space left of the FABs -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center"
+        android:paddingHorizontal="16dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/estimatesRecyclerView"
-        app:layout_constraintBottom_toBottomOf="@id/estimatesRecyclerView"
+        app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/guideline_before_fabs"
+        app:layout_constraintVertical_bias="0.35">
+
+        <ImageView
+            android:id="@+id/emptyStateIcon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_agenda"
+            app:tint="#B0B0B0"
+            android:contentDescription="@string/noEstimates" />
+
+        <TextView
+            android:id="@+id/emptyStateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noEstimatesTitle"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/emptyStateSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/noEstimatesSubtitle"
+            android:textSize="14sp"
+            android:textColor="#8A8A8A"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <!-- Floating Action Buttons (FABs) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

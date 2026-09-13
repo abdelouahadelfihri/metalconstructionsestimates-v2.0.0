@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/customer_list_layout"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customer_list_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -44,20 +44,60 @@ android:layout_height="match_parent">
             android:background="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/noCustomersTextView"
+    <!-- Guideline placed just before the FAB column so the empty state never sits under the buttons,
+         on any screen width -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_before_fabs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/noCustomers"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:visibility="gone"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <!-- Empty state: icon + headline + subtext, centered in the space left of the FABs -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/searchInputLayout_customers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.3"/>
+        app:layout_constraintEnd_toStartOf="@id/guideline_before_fabs"
+        app:layout_constraintVertical_bias="0.35">
+
+        <ImageView
+            android:id="@+id/noCustomersIcon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="16dp"
+            android:src="@android:drawable/ic_menu_myplaces"
+            app:tint="#B0B0B0"
+            android:contentDescription="@string/noCustomers" />
+
+        <TextView
+            android:id="@+id/noCustomersTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noCustomersTitle"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/noCustomersSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/noCustomersSubtitle"
+            android:textSize="14sp"
+            android:textColor="#8A8A8A"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customerRecyclerView"

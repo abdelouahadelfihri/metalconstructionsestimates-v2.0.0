@@ -8,6 +8,7 @@ import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
 
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import com.example.metalconstructionsestimates.recyclerviewadapters.EstimatesListAdapter;
@@ -79,12 +80,11 @@ public class Estimates extends AppCompatActivity {
 
         if(estimatesList.isEmpty()){
             activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-            activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-            activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+            showEmptyState(R.string.noEstimatesTitle, R.string.noEstimatesSubtitle);
         }
         else{
             activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-            activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+            hideEmptyState();
             estimateListAdapter.updateEstimates(estimatesList);
         }
 
@@ -129,14 +129,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(searchText);
                     if(estimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesSearchList);
@@ -146,14 +145,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesList = dbAdapter.retrieveEstimates();
                     if(estimatesList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesList);
@@ -196,14 +194,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesSearchList = dbAdapter.searchPendingEstimates(searchText);
                     if(estimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesSearchList);
@@ -213,14 +210,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesPendingList = dbAdapter.retrievePendingEstimates();
                     if(estimatesPendingList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesPendingList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesPendingList);
@@ -263,14 +259,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesSearchList = dbAdapter.searchEstimates(searchText);
                     if(estimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesSearchList);
@@ -280,14 +275,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> approvedEstimatesList = dbAdapter.retrieveApprovedEstimates();
                     if(estimatesList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, approvedEstimatesList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(approvedEstimatesList);
@@ -330,14 +324,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> overdueEstimatesSearchList = dbAdapter.searchOverdueEstimates(searchText);
                     if(overdueEstimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesSearchList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(overdueEstimatesSearchList);
@@ -347,14 +340,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> overdueEstimatesList = dbAdapter.retrieveOverdueEstimates();
                     if(estimatesList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(overdueEstimatesList);
@@ -398,14 +390,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> estimatesSearchList = dbAdapter.searchCancelledEstimates(searchText);
                     if(estimatesSearchList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, estimatesSearchList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(estimatesSearchList);
@@ -415,14 +406,13 @@ public class Estimates extends AppCompatActivity {
                     ArrayList<Estimate> cancelledEstimatesList = dbAdapter.retrieveCancelledEstimates();
                     if(estimatesList.isEmpty()){
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                        activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                        findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                     else{
                         EstimatesListAdapter estimates_list_adapter = new EstimatesListAdapter(Estimates.this, cancelledEstimatesList);
-                        findViewById(R.id.emptyView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                         activityEstimatesBinding.estimatesRecyclerView.setAdapter(estimates_list_adapter);
                         estimateListAdapter.updateEstimates(cancelledEstimatesList);
@@ -454,14 +444,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> allEstimatesList = dbAdapter.searchEstimates(searchText);
                             if (!allEstimatesList.isEmpty()) {
                                 EstimatesListAdapter all_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, allEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(all_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -470,15 +459,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> pendingEstimatesList = dbAdapter.searchPendingEstimates(searchText);
                             if (!pendingEstimatesList.isEmpty()) {
                                 EstimatesListAdapter pending_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, pendingEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
-
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(pending_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -487,14 +474,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> approvedEstimatesList = dbAdapter.searchApprovedEstimates(searchText);
                             if (!approvedEstimatesList.isEmpty()) {
                                 EstimatesListAdapter approved_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, approvedEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(approved_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -503,14 +489,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> cancelledEstimatesList = dbAdapter.searchCancelledEstimates(searchText);
                             if (!cancelledEstimatesList.isEmpty()) {
                                 EstimatesListAdapter cancelled_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, cancelledEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(cancelled_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -519,14 +504,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> overdueEstimatesList = dbAdapter.searchOverdueEstimates(searchText);
                             if (!overdueEstimatesList.isEmpty()) {
                                 EstimatesListAdapter overdue_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(overdue_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -539,14 +523,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> allEstimatesList = dbAdapter.retrieveEstimates();
                             if (!allEstimatesList.isEmpty()) {
                                 EstimatesListAdapter all_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, allEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(all_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -555,15 +538,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> pendingEstimatesList = dbAdapter.retrievePendingEstimates();
                             if (!pendingEstimatesList.isEmpty()) {
                                 EstimatesListAdapter pending_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, pendingEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
-
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(pending_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -572,14 +553,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> approvedEstimatesList = dbAdapter.retrieveApprovedEstimates();
                             if (!approvedEstimatesList.isEmpty()) {
                                 EstimatesListAdapter approved_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, approvedEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(approved_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -588,14 +568,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> cancelledEstimatesList = dbAdapter.retrieveCancelledEstimates();
                             if (!cancelledEstimatesList.isEmpty()) {
                                 EstimatesListAdapter cancelled_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, cancelledEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(cancelled_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -604,14 +583,13 @@ public class Estimates extends AppCompatActivity {
                             ArrayList<Estimate> overdueEstimatesList = dbAdapter.retrieveOverdueEstimates();
                             if (!overdueEstimatesList.isEmpty()) {
                                 EstimatesListAdapter overdue_estimates_list_adapter = new EstimatesListAdapter(Estimates.this, overdueEstimatesList);
-                                findViewById(R.id.emptyView).setVisibility(View.GONE);
+                                hideEmptyState();
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
                                 activityEstimatesBinding.estimatesRecyclerView.setAdapter(overdue_estimates_list_adapter);
                             }
                             else{
                                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                                findViewById(R.id.emptyView).setVisibility(View.VISIBLE);
-                                activityEstimatesBinding.emptyView.setText(R.string.noResult);
+                                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                                 Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                                 searchResultToast.show();
                             }
@@ -631,14 +609,13 @@ public class Estimates extends AppCompatActivity {
 
             if(estimatesSearchList.isEmpty()){
                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                showEmptyState(R.string.noEstimatesTitle, R.string.noEstimatesSubtitle);
                 Toast reloadResultToast = Toast.makeText(getApplicationContext(), "Estimates list is empty", Toast.LENGTH_LONG);
                 reloadResultToast.show();
             }
             else{
                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                hideEmptyState();
                 estimateListAdapter.updateEstimates(estimatesSearchList);
             }
 
@@ -658,18 +635,29 @@ public class Estimates extends AppCompatActivity {
 
             if(estimatesSearchList.isEmpty()){
                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
-                activityEstimatesBinding.emptyView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.emptyView.setText(R.string.noEstimates);
+                showEmptyState(R.string.noEstimatesTitle, R.string.noEstimatesSubtitle);
                 Toast reloadResultToast = Toast.makeText(getApplicationContext(), "Estimates list is empty", Toast.LENGTH_LONG);
                 reloadResultToast.show();
             }
             else{
                 activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
-                activityEstimatesBinding.emptyView.setVisibility(View.GONE);
+                hideEmptyState();
                 estimateListAdapter.updateEstimates(estimatesSearchList);
             }
 
         });
+    }
+
+    private void showEmptyState(int titleResId, int subtitleResId) {
+        activityEstimatesBinding.emptyStateLayout.setVisibility(View.VISIBLE);
+        TextView title = activityEstimatesBinding.emptyStateLayout.findViewById(R.id.emptyStateTitle);
+        TextView subtitle = activityEstimatesBinding.emptyStateLayout.findViewById(R.id.emptyStateSubtitle);
+        title.setText(titleResId);
+        subtitle.setText(subtitleResId);
+    }
+
+    private void hideEmptyState() {
+        activityEstimatesBinding.emptyStateLayout.setVisibility(View.GONE);
     }
 
     @Override

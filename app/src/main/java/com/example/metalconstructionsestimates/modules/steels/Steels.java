@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,11 +49,10 @@ public class Steels extends AppCompatActivity {
 
         if (steelsList.isEmpty()) {
             activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-            activitySteelsBinding.noSteelsTextView.setVisibility(View.VISIBLE);
-            activitySteelsBinding.noSteelsTextView.setText(R.string.noSteels);
+            showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
         } else {
             activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-            activitySteelsBinding.noSteelsTextView.setVisibility(View.GONE);
+            hideEmptyState();
             steelsListAdapter = new SteelsListAdapter(this, steelsList);
             recyclerViewSteels.get().setHasFixedSize(true);
             recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -77,14 +77,13 @@ public class Steels extends AppCompatActivity {
                     ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
                     if (!steelsSearchList.isEmpty()) {
                         SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
-                        findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
+                        hideEmptyState();
                         activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
                         activitySteelsBinding.steelsRecyclerView.setAdapter(steels_list_adapter);
                     }
                     else{
                         activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-                        findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
-                        activitySteelsBinding.noSteelsTextView.setText(R.string.noResult);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
@@ -95,11 +94,10 @@ public class Steels extends AppCompatActivity {
 
                     if (steelsList.isEmpty()) {
                         activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-                        activitySteelsBinding.noSteelsTextView.setVisibility(View.VISIBLE);
-                        activitySteelsBinding.noSteelsTextView.setText(R.string.noSteels);
+                        showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
                     } else {
                         activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-                        activitySteelsBinding.noSteelsTextView.setVisibility(View.GONE);
+                        hideEmptyState();
                         steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList);
                         recyclerViewSteels.get().setHasFixedSize(true);
                         recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -117,9 +115,9 @@ public class Steels extends AppCompatActivity {
             steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
             if (steels_list.isEmpty()) {
                 recyclerViewSteels.get().setVisibility(View.GONE);
-                findViewById(R.id.noSteelsTextView).setVisibility(View.VISIBLE);
+                showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
             } else {
-                findViewById(R.id.noSteelsTextView).setVisibility(View.GONE);
+                hideEmptyState();
                 recyclerViewSteels.get().setVisibility(View.VISIBLE);
                 recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerViewSteels.get().setAdapter(steelsListAdapter);
@@ -140,6 +138,18 @@ public class Steels extends AppCompatActivity {
             steelsSearchEditText.getText().clear();
 
         });
+    }
+
+    private void showEmptyState(int titleResId, int subtitleResId) {
+        activitySteelsBinding.emptyStateLayout.setVisibility(View.VISIBLE);
+        TextView title = activitySteelsBinding.emptyStateLayout.findViewById(R.id.emptyStateTitle);
+        TextView subtitle = activitySteelsBinding.emptyStateLayout.findViewById(R.id.emptyStateSubtitle);
+        title.setText(titleResId);
+        subtitle.setText(subtitleResId);
+    }
+
+    private void hideEmptyState() {
+        activitySteelsBinding.emptyStateLayout.setVisibility(View.GONE);
     }
 
     @Override

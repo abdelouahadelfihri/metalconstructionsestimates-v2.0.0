@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,15 +42,14 @@ public class Customers extends AppCompatActivity {
         Context c = getApplicationContext();
         dbAdapter = new DBAdapter(c);
         ArrayList<Customer> listCustomers = dbAdapter.retrieveCustomers();
-        TextView noCustomersTextView = findViewById(R.id.noCustomersTextView);
         CustomersListAdapter customersListAdapter = new CustomersListAdapter(this, listCustomers);
 
         if(listCustomers.isEmpty()){
             binding.customerRecyclerView.setVisibility(View.GONE);
-            noCustomersTextView.setVisibility(View.VISIBLE);
+            showEmptyState(R.string.noCustomersTitle, R.string.noCustomersSubtitle);
         }
         else{
-            noCustomersTextView.setVisibility(View.GONE);
+            hideEmptyState();
             binding.customerRecyclerView.setVisibility(View.VISIBLE);
             binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             binding.customerRecyclerView.setAdapter(customersListAdapter);
@@ -82,29 +82,27 @@ public class Customers extends AppCompatActivity {
                     ArrayList<Customer> customersSearchList = dbAdapter.searchCustomers(searchText);
                     if (!customersSearchList.isEmpty()) {
                         CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersSearchList);
-                        findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                        hideEmptyState();
                         binding.customerRecyclerView.setVisibility(View.VISIBLE);
                         binding.customerRecyclerView.setAdapter(customers_list_adapter);
                     }
                     else{
                         binding.customerRecyclerView.setVisibility(View.GONE);
-                        findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                        binding.noCustomersTextView.setText(R.string.noResult);
+                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
                         Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
                         searchResultToast.show();
                     }
                 }
                 else{
                     ArrayList<Customer> listCustomers = dbAdapter.retrieveCustomers();
-                    TextView noCustomersTextView = findViewById(R.id.noCustomersTextView);
                     CustomersListAdapter customersListAdapter = new CustomersListAdapter(Customers.this, listCustomers);
 
                     if(listCustomers.isEmpty()){
                         binding.customerRecyclerView.setVisibility(View.GONE);
-                        noCustomersTextView.setVisibility(View.VISIBLE);
+                        showEmptyState(R.string.noCustomersTitle, R.string.noCustomersSubtitle);
                     }
                     else{
-                        noCustomersTextView.setVisibility(View.GONE);
+                        hideEmptyState();
                         binding.customerRecyclerView.setVisibility(View.VISIBLE);
                         binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         binding.customerRecyclerView.setAdapter(customersListAdapter);
@@ -121,12 +119,11 @@ public class Customers extends AppCompatActivity {
             CustomersListAdapter customers_list_adapter = new CustomersListAdapter(Customers.this, customersList);
             if (customersList.isEmpty()) {
                 binding.customerRecyclerView.setVisibility(View.GONE);
-                findViewById(R.id.noCustomersTextView).setVisibility(View.VISIBLE);
-                binding.noCustomersTextView.setText(R.string.noCustomers);
+                showEmptyState(R.string.noCustomersTitle, R.string.noCustomersSubtitle);
                 Toast reloatResultToast = Toast.makeText(getApplicationContext(), "Customers List is empty", Toast.LENGTH_LONG);
                 reloatResultToast.show();
             } else {
-                findViewById(R.id.noCustomersTextView).setVisibility(View.GONE);
+                hideEmptyState();
                 binding.customerRecyclerView.setVisibility(View.VISIBLE);
                 binding.customerRecyclerView.setAdapter(customers_list_adapter);
             }
@@ -137,6 +134,18 @@ public class Customers extends AppCompatActivity {
             customerSearchEditText = findViewById(R.id.searchEditText_customers);
             customerSearchEditText.getText().clear();
         });
+    }
+
+    private void showEmptyState(int titleResId, int subtitleResId) {
+        binding.emptyStateLayout.setVisibility(View.VISIBLE);
+        TextView title = binding.emptyStateLayout.findViewById(R.id.noCustomersTitle);
+        TextView subtitle = binding.emptyStateLayout.findViewById(R.id.noCustomersSubtitle);
+        title.setText(titleResId);
+        subtitle.setText(subtitleResId);
+    }
+
+    private void hideEmptyState() {
+        binding.emptyStateLayout.setVisibility(View.GONE);
     }
 
     @Override

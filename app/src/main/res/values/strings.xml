@@ -226,4 +226,6 @@
     <string name="noSteelsSubtitle">Tap \"+\" to create a new steel</string>
     <string name="noEstimatesTitle">No estimates yet</string>
     <string name="noEstimatesSubtitle">Tap \"+\" to create a new estimate</string>
+    <string name="noResultTitle">No results found</string>
+    <string name="noResultSubtitle">Try a different search term</string>
 </resources>
