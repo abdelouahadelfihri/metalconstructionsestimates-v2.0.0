@@ -163,6 +163,11 @@ public class EstimateLineDetails extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Estimate line has been successfully updated", Toast.LENGTH_LONG).show();
 
             recalculateEstimateTotals(updated.getEstimate());
+
+            Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
+            intent.putExtra("estimateIdExtra", updated.getEstimate().toString());
+            startActivity(intent);
+            finish();
         });
 
         deleteEstimateLine.setOnClickListener(view -> {
