@@ -252,10 +252,12 @@ public class EstimateDetails extends AppCompatActivity {
         locationEditText.setText(estimate.getDoneIn());
         customerId = estimate.getCustomer();
 
-        if (estimate.getCustomer() == null) {
+        if (customerId == null) {
             customerIdEditText.get().setText("");
         } else {
-            customerIdEditText.get().setText(dbAdapter.getCustomerById(estimate.getCustomer()).getName());
+            Customer c = dbAdapter.getCustomerById(customerId);
+            customerIdEditText.get().setText(c != null ? c.getName() : "");
+            if (c == null) customerId = null; // customer was deleted
         }
 
         if (estimate.getExcludingTaxTotal() == null) {

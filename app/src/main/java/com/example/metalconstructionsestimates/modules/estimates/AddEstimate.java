@@ -41,7 +41,7 @@ import java.util.Objects;
 
 public class AddEstimate extends AppCompatActivity {
 
-    Integer customerId;
+    Integer customerId = null;
     DBAdapter dbAdapter;
     TextView expirationDateTextView, issueDateTextView, dueDateTextView;
 

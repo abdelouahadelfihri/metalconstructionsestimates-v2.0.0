@@ -1166,7 +1166,7 @@ public class DBAdapter {
                 estimate.setDueDate(cursor.getLong(4));
                 estimate.setDueTerms(cursor.getString(5));
                 estimate.setStatus(cursor.getString(6));
-                estimate.setCustomer(cursor.getInt(7));
+                estimate.setCustomer(cursor.isNull(7) ? null : cursor.getInt(7));
                 estimate.setExcludingTaxTotal(cursor.getFloat(8));
                 estimate.setDiscount(cursor.getFloat(9));
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
