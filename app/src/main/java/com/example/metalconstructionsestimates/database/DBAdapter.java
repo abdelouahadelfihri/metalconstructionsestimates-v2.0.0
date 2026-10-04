@@ -981,6 +981,7 @@ public class DBAdapter {
         return customerId;
     }
     public Customer getCustomerById(Integer customerId){
+        if (customerId == null) return null;
         Customer customer = new Customer();
         try{
             db = helper.getReadableDatabase();
@@ -1734,13 +1735,12 @@ public class DBAdapter {
     public void deleteCustomer(Integer customerId){
         try{
             db = helper.getWritableDatabase();
-            db.delete("customer", "id=?",new String[] {customerId.toString()});
-        }
-        catch(SQLException e){
+            db.execSQL("UPDATE estimate SET customer = NULL WHERE customer = ?",
+                    new Object[]{customerId});
+            db.delete("customer", "id=?", new String[]{customerId.toString()});
+        } catch(SQLException e){
             Log.e(TAG, "Database error occurred", e);
         }
-        
-
     }
 
     public void deleteSteel(Integer steelId){

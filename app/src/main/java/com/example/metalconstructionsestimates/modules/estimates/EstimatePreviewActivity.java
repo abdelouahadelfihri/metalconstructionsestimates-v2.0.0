@@ -131,8 +131,9 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         btnPrint.setOnClickListener(v -> printPdf(generatedPdf));
         btnSendMail.setOnClickListener(v -> {
-            assert customer != null;
-            sendPdfByEmail(customer.getEmail(), generatedPdf);
+            String email = (customer != null && customer.getEmail() != null)
+                    ? customer.getEmail() : "";
+            sendPdfByEmail(email, generatedPdf);
         });
     }
 
@@ -353,9 +354,15 @@ public class EstimatePreviewActivity extends AppCompatActivity {
 
         Uri uri = FileProvider.getUriForFile(
                 this, getPackageName() + ".provider", pdfFile);
+
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("application/pdf");
-        intent.putExtra(Intent.EXTRA_EMAIL,   new String[]{email});
+
+        // Only pre-fill the recipient when the customer has an email
+        if (email != null && !email.trim().isEmpty()) {
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email.trim()});
+        }
+
         intent.putExtra(Intent.EXTRA_SUBJECT, "Estimate");
         intent.putExtra(Intent.EXTRA_TEXT,    "Please find the estimate attached.");
         intent.putExtra(Intent.EXTRA_STREAM,  uri);
