@@ -21,6 +21,8 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import android.graphics.Color;
+import android.graphics.Typeface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -52,6 +54,20 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private TextView tvBusinessName, tvBusinessAddress, tvBusinessPhone;
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private ImageView btnDownloadPdf, btnPrint, btnSendMail;
+
+    private static final int PAGE_W = 595, PAGE_H = 842;
+    private static final int MARGIN = 40;
+    private static final int ROW_H = 24;
+    private static final int BOTTOM_LIMIT = 790;
+    // Column edges: Product | Qty | Unit Price | Total
+    private static final int[] COL_X = {40, 250, 330, 435, 555};
+    private static final int BRAND = Color.parseColor("#0066CC");
+
+    private PdfDocument pdfDocument;
+    private PdfDocument.Page currentPage;
+    private Canvas canvas;
+    private int pageNumber;
+    private Paint textPaint, boldPaint, labelPaint, borderPaint, fillPaint, brandPaint, whitePaint;
 
     String productType;
     private List<EstimateLine> estimateLines;
@@ -190,145 +206,147 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     }
 
     private File createPdf() {
+        pdfDocument = new PdfDocument();
+        pageNumber = 0;
+        initPaints();
 
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo =
-                new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        int y = startNewPage();
 
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
+        // ── Title + number/date ───────────────────────────────────────────
+        brandPaint.setTextSize(26);
+        canvas.drawText("ESTIMATE", MARGIN, y + 10, brandPaint);
 
-        Paint paint = new Paint();
-        Paint labelPaint = new Paint();
-        labelPaint.setTextSize(9);
-        labelPaint.setColor(android.graphics.Color.GRAY);
+        String estimateId = getIntent().getStringExtra("estimateId");
+        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        textPaint.setTextAlign(Paint.Align.RIGHT);
+        canvas.drawText("Estimate No: " + estimateId, PAGE_W - MARGIN, y - 4, textPaint);
+        canvas.drawText("Date: " + date, PAGE_W - MARGIN, y + 12, textPaint);
+        textPaint.setTextAlign(Paint.Align.LEFT);
 
-        int y = 50;
+        // accent line under the title
+        borderPaint.setStrokeWidth(2f);
+        borderPaint.setColor(BRAND);
+        canvas.drawLine(MARGIN, y + 22, PAGE_W - MARGIN, y + 22, borderPaint);
+        borderPaint.setStrokeWidth(0.8f);
+        borderPaint.setColor(Color.DKGRAY);
+        y += 45;
 
-        paint.setTextSize(22);
-        paint.setFakeBoldText(true);
-        canvas.drawText("ESTIMATE", 40, y, paint);
-        y += 40;
+        // ── Business / Customer boxes ─────────────────────────────────────
+        drawInfoBox(MARGIN, y, 250, "Business Information",
+                new String[]{"Company Name", "Address", "Phone"},
+                new String[]{tvBusinessName.getText().toString(),
+                        tvBusinessAddress.getText().toString(),
+                        tvBusinessPhone.getText().toString()});
+        drawInfoBox(305, y, 250, "Customer Information",
+                new String[]{"Customer Name", "Address", "Phone"},
+                new String[]{tvCustomerName.getText().toString(),
+                        tvCustomerAddress.getText().toString(),
+                        tvCustomerPhone.getText().toString()});
+        y += 110;
 
-        paint.setTextSize(14);
-        canvas.drawText("Business Information:", 40, y, paint);
-        canvas.drawText("Customer Information:", 300, y, paint);
+        // ── Table header ──────────────────────────────────────────────────
+        drawTableHeader(y);
+        y += ROW_H;
 
-        paint.setFakeBoldText(false);
-        paint.setTextSize(12);
-        y += 20;
-
-        canvas.drawText("Company Name", 40, y, labelPaint);
-        canvas.drawText(tvBusinessName.getText().toString(), 40, y + 14, paint);
-
-        canvas.drawText("Customer Name", 300, y, labelPaint);
-        canvas.drawText(tvCustomerName.getText().toString(), 300, y + 14, paint);
-        y += 30;
-
-        canvas.drawText("Address", 40, y, labelPaint);
-        canvas.drawText(tvBusinessAddress.getText().toString(), 40, y + 14, paint);
-
-        canvas.drawText("Address", 300, y, labelPaint);
-        canvas.drawText(tvCustomerAddress.getText().toString(), 300, y + 14, paint);
-        y += 30;
-
-        canvas.drawText("Phone", 40, y, labelPaint);
-        canvas.drawText(tvBusinessPhone.getText().toString(), 40, y + 14, paint);
-
-        canvas.drawText("Phone", 300, y, labelPaint);
-        canvas.drawText(tvCustomerPhone.getText().toString(), 300, y + 14, paint);
-        y += 40;
-
-        paint.setFakeBoldText(true);
-        canvas.drawText("Product", 40, y, paint);
-        canvas.drawText("Qty", 160, y, paint);
-        canvas.drawText("Unit Price", 260, y, paint);
-        canvas.drawText("Total", 430, y, paint);
-
-        paint.setFakeBoldText(false);
-        y += 20;
-
+        // ── Table rows (each cell bordered) ───────────────────────────────
         for (EstimateLine line : estimateLines) {
-
+            if (y + ROW_H > BOTTOM_LIMIT) {
+                y = startNewPage();
+                drawTableHeader(y);
+                y += ROW_H;
+            }
             String product = dbAdapter.getSteelById(line.getSteel()).getType();
+            drawRow(y, new String[]{
+                    product,
+                    String.valueOf(line.getNetQuantityPlusMargin()),
+                    String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()),
+                    String.format(Locale.getDefault(), "%.2f", line.getTotalPrice())
+            }, false);
+            y += ROW_H;
+        }
 
-            canvas.drawText(product, 40, y, paint);
-            canvas.drawText(String.valueOf(line.getQuantity()), 160, y, paint);
-            canvas.drawText(String.format(Locale.getDefault(),"%.2f",line.getUnitPrice()),260,y,paint);
-            canvas.drawText(String.format(Locale.getDefault(),"%.2f",line.getTotalPrice()),430,y,paint);
-
+        // ── Totals box ────────────────────────────────────────────────────
+        int totalsHeight = ROW_H * 4;
+        if (y + 20 + totalsHeight > BOTTOM_LIMIT) {
+            y = startNewPage();
+        } else {
             y += 20;
         }
 
-        y += 20;
-        canvas.drawText(tvTotalBeforeVat.getText().toString(),300,y,paint);
-        y += 20;
-        canvas.drawText(tvDiscount.getText().toString(),300,y,paint);
-        y += 20;
-        canvas.drawText(tvVat.getText().toString(),300,y,paint);
-        y += 20;
-        canvas.drawText(tvAllTotal.getText().toString(),300,y,paint);
+        double discountValue = estimate.getExcludingTaxTotal() * estimate.getDiscount() / 100.0;
+        double vatValue = estimate.getExcludingTaxTotalAfterDiscount() * estimate.getVat() / 100.0;
 
-        pdfDocument.finishPage(page);
+        String[] labels = {
+                "Total Before VAT",
+                String.format(Locale.getDefault(), "Discount (%.2f%%)", estimate.getDiscount()),
+                String.format(Locale.getDefault(), "VAT (%.2f%%)", estimate.getVat()),
+                "Total After VAT"
+        };
+        String[] values = {
+                currencyManager.formatAmount(estimate.getExcludingTaxTotal()),
+                currencyManager.formatAmount((float) discountValue),
+                currencyManager.formatAmount((float) vatValue),
+                currencyManager.formatAmount(estimate.getAllTaxIncludedTotal())
+        };
+
+        int left = COL_X[2] - 20;   // box starts a bit left of "Unit Price" column
+        int right = COL_X[4];
+        int mid = left + 105;
+        for (int i = 0; i < 4; i++) {
+            boolean last = (i == 3);
+            float top = y + i * ROW_H;
+            if (last) {
+                canvas.drawRect(left, top, right, top + ROW_H, brandPaint2());
+            }
+            canvas.drawRect(left, top, right, top + ROW_H, borderPaint);
+            canvas.drawLine(mid, top, mid, top + ROW_H, borderPaint);
+
+            Paint p = last ? whitePaint : (i == 0 ? textPaint : textPaint);
+            p.setTextAlign(Paint.Align.LEFT);
+            canvas.drawText(labels[i], left + 6, baseline(top, p), p);
+            p.setTextAlign(Paint.Align.RIGHT);
+            canvas.drawText(values[i], right - 6, baseline(top, p), p);
+            p.setTextAlign(Paint.Align.LEFT);
+        }
+
+        finishCurrentPage();
 
         try {
+            String fileDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+            String fileName = "Estimate_" + fileDate + "_" + System.currentTimeMillis() + ".pdf";
 
-            String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                    .format(new Date());
-
-            String fileName = "Estimate_" + date + "_" + System.currentTimeMillis() + ".pdf";
-
-            // File used for printing/email
             File pdfFile = new File(getCacheDir(), fileName);
-
-            FileOutputStream fos = new FileOutputStream(pdfFile);
-            pdfDocument.writeTo(fos);
-            fos.close();
-
-            // Copy to Downloads
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
-            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
-
-            Uri uri = getContentResolver().insert(
-                    MediaStore.Files.getContentUri("external"),
-                    values);
-
-            OutputStream out = getContentResolver().openOutputStream(uri);
-
-            FileInputStream in = new FileInputStream(pdfFile);
-
-            byte[] buffer = new byte[4096];
-            int len;
-
-            while ((len = in.read(buffer)) > 0) {
-                out.write(buffer, 0, len);
+            try (FileOutputStream fos = new FileOutputStream(pdfFile)) {
+                pdfDocument.writeTo(fos);
             }
 
-            in.close();
-            out.close();
+            // Copy to Downloads
+            ContentValues values2 = new ContentValues();
+            values2.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+            values2.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values2.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = getContentResolver().insert(MediaStore.Files.getContentUri("external"), values2);
+            if (uri != null) {
+                try (OutputStream out = getContentResolver().openOutputStream(uri);
+                     FileInputStream in = new FileInputStream(pdfFile)) {
+                    byte[] buffer = new byte[4096];
+                    int len;
+                    while ((len = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, len);
+                    }
+                }
+            }
 
             pdfDocument.close();
-
             generatedPdf = pdfFile;
-
-            Toast.makeText(this,
-                    "PDF saved to Downloads",
-                    Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this, "PDF saved to Downloads", Toast.LENGTH_LONG).show();
             return pdfFile;
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
-            Toast.makeText(this,
-                    "Error saving PDF",
-                    Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
             pdfDocument.close();
-
             return null;
         }
     }
@@ -375,6 +393,112 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             return generatedPdf;
         }
         return createPdf();
+    }
+
+    private void initPaints() {
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setTextSize(11);
+        textPaint.setColor(Color.BLACK);
+
+        boldPaint = new Paint(textPaint);
+        boldPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        labelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        labelPaint.setTextSize(8);
+        labelPaint.setColor(Color.GRAY);
+
+        borderPaint = new Paint();
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(0.8f);
+        borderPaint.setColor(Color.DKGRAY);
+
+        fillPaint = new Paint();
+        fillPaint.setStyle(Paint.Style.FILL);
+        fillPaint.setColor(Color.parseColor("#E8F0FA"));
+
+        brandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        brandPaint.setColor(BRAND);
+        brandPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        whitePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        whitePaint.setColor(Color.WHITE);
+        whitePaint.setTextSize(11);
+        whitePaint.setTypeface(Typeface.DEFAULT_BOLD);
+    }
+
+    private Paint brandPaint2() {
+        Paint p = new Paint();
+        p.setStyle(Paint.Style.FILL);
+        p.setColor(BRAND);
+        return p;
+    }
+
+    /** Finishes the current page (if any), starts a new one, returns the starting y. */
+    private int startNewPage() {
+        if (currentPage != null) finishCurrentPage();
+        pageNumber++;
+        PdfDocument.PageInfo info = new PdfDocument.PageInfo.Builder(PAGE_W, PAGE_H, pageNumber).create();
+        currentPage = pdfDocument.startPage(info);
+        canvas = currentPage.getCanvas();
+        return 60;
+    }
+
+    private void finishCurrentPage() {
+        labelPaint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("Page " + pageNumber, PAGE_W / 2f, PAGE_H - 25, labelPaint);
+        labelPaint.setTextAlign(Paint.Align.LEFT);
+        pdfDocument.finishPage(currentPage);
+        currentPage = null;
+    }
+
+    private float baseline(float top, Paint p) {
+        return top + ROW_H / 2f + p.getTextSize() / 3f;
+    }
+
+    /** Cuts the text so it fits inside maxWidth (adds "..." if shortened). */
+    private String fit(String text, Paint p, float maxWidth) {
+        if (text == null) return "";
+        if (p.measureText(text) <= maxWidth) return text;
+        int count = p.breakText(text, true, maxWidth - p.measureText("..."), null);
+        return text.substring(0, Math.max(0, count)) + "...";
+    }
+
+    private void drawInfoBox(int x, int y, int width, String title, String[] labels, String[] values) {
+        canvas.drawRect(x, y, x + width, y + 95, borderPaint);
+        canvas.drawRect(x, y, x + width, y + 20, fillPaint);
+        canvas.drawRect(x, y, x + width, y + 20, borderPaint);
+        canvas.drawText(title, x + 8, y + 14, boldPaint);
+
+        int cy = y + 32;
+        for (int i = 0; i < labels.length; i++) {
+            canvas.drawText(labels[i], x + 8, cy, labelPaint);
+            canvas.drawText(fit(values[i], textPaint, width - 16), x + 8, cy + 11, textPaint);
+            cy += 21;
+        }
+    }
+
+    private void drawTableHeader(int y) {
+        drawRow(y, new String[]{"Product", "Qty", "Unit Price (" + currencyCode + ")",
+                "Total (" + currencyCode + ")"}, true);
+    }
+
+    private void drawRow(int y, String[] cells, boolean header) {
+        for (int i = 0; i < 4; i++) {
+            float l = COL_X[i], r = COL_X[i + 1];
+            if (header) canvas.drawRect(l, y, r, y + ROW_H, fillPaint);
+            canvas.drawRect(l, y, r, y + ROW_H, borderPaint);
+
+            Paint p = header ? boldPaint : textPaint;
+            String text = fit(cells[i], p, (r - l) - 12);
+            if (i == 0) {                       // product: left aligned
+                p.setTextAlign(Paint.Align.LEFT);
+                canvas.drawText(text, l + 6, baseline(y, p), p);
+            } else {                            // numbers: right aligned
+                p.setTextAlign(Paint.Align.RIGHT);
+                canvas.drawText(text, r - 6, baseline(y, p), p);
+                p.setTextAlign(Paint.Align.LEFT);
+            }
+        }
     }
 
     @Override
