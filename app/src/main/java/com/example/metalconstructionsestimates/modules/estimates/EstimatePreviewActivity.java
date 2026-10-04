@@ -202,6 +202,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         tv.setLayoutParams(new LinearLayout.LayoutParams(
                 0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
         tv.setPadding(8, 8, 8, 8);
+        tv.setBackgroundResource(R.drawable.cell_border);
         return tv;
     }
 
