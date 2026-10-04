@@ -186,6 +186,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Product"
+                    android:background="@drawable/cell_header_border"
+                    android:padding="8dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -193,6 +195,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Qty"
+                    android:background="@drawable/cell_header_border"
+                    android:padding="8dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -200,6 +204,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Unit Price"
+                    android:background="@drawable/cell_header_border"
+                    android:padding="8dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -207,6 +213,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total"
+                    android:background="@drawable/cell_header_border"
+                    android:padding="8dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
