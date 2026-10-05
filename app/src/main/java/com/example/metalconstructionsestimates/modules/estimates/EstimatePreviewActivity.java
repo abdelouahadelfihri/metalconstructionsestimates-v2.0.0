@@ -1,9 +1,12 @@
 package com.example.metalconstructionsestimates.modules.estimates;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,18 +14,13 @@ import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
+import android.provider.MediaStore;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.ContentValues;
-import android.provider.MediaStore;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import android.graphics.Color;
-import android.graphics.Typeface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,7 +35,10 @@ import com.example.metalconstructionsestimates.models.EstimateLine;
 import com.example.metalconstructionsestimates.printings.PdfPrintAdapter;
 import com.example.metalconstructionsestimates.util.CurrencyManager;
 
-import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -55,12 +56,18 @@ public class EstimatePreviewActivity extends AppCompatActivity {
     private TextView tvCustomerName, tvCustomerAddress, tvCustomerPhone;
     private ImageView btnDownloadPdf, btnPrint, btnSendMail;
 
+    // ── Screen table: weights MUST match the header in activity_estimate_preview.xml
+    // Product | Qty | Unit Price | Total
+    private static final float[] WEIGHTS = {1.3f, 0.9f, 1.5f, 1.5f};
+    private static final float CELL_TEXT_SP = 13f;
+
+    // ── PDF layout ─────────────────────────────────────────────────────────
     private static final int PAGE_W = 595, PAGE_H = 842;
     private static final int MARGIN = 40;
     private static final int ROW_H = 24;
     private static final int BOTTOM_LIMIT = 790;
-    // Column edges: Product | Qty | Unit Price | Total
-    private static final int[] COL_X = {40, 250, 330, 435, 555};
+    // Column edges: Product (195) | Qty (70) | Unit Price (125) | Total (125)
+    private static final int[] COL_X = {40, 235, 305, 430, 555};
     private static final int BRAND = Color.parseColor("#0066CC");
 
     private PdfDocument pdfDocument;
@@ -126,7 +133,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvCustomerPhone.setText(customer.getTelephone());
         } else {
             Toast.makeText(this,
-                    "No customer record found. Please add your business info first.",
+                    "No customer record found. Please add your customer info first.",
                     Toast.LENGTH_LONG).show();
         }
 
@@ -159,21 +166,22 @@ public class EstimatePreviewActivity extends AppCompatActivity {
         for (EstimateLine line : estimateLines) {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setBaselineAligned(false);   // cells must not be shifted by text baselines
 
-            // Same order and weight as XML header:
-            // Product(w1) → Qty(w1) → Unit Price(w1) → Total(w1)
             productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            TextView productTextView   = createCell(productType, 2f, true);
-            TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1f, false);
-            TextView unitPriceTextView = createCell(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()), 1.4f, false);
-            TextView totalTextView     = createCell(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 1.4f, false);
+            TextView productTextView   = createCell(productType, WEIGHTS[0], true);
+            TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), WEIGHTS[1], false);
+            TextView unitPriceTextView = createCell(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()), WEIGHTS[2], false);
+            TextView totalTextView     = createCell(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), WEIGHTS[3], false);
 
             row.addView(productTextView);
             row.addView(qtyTextView);
             row.addView(unitPriceTextView);
             row.addView(totalTextView);
 
-            linesContainer.addView(row);
+            linesContainer.addView(row, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         // ── Totals with currency ───────────────────────────────────────────
@@ -196,17 +204,24 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 + currencyManager.formatAmount(estimate.getAllTaxIncludedTotal()));
     }
 
+    /**
+     * Creates one bordered cell. Same weights, 1dp overlap and text size as the
+     * header in the XML, so the borders line up on the same x axis.
+     */
     private TextView createCell(String text, float weight, boolean firstColumn) {
         TextView tv = new TextView(this);
         tv.setText(text);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, CELL_TEXT_SP);
+        tv.setGravity(Gravity.CENTER_VERTICAL);
 
-        int overlap = (int) getResources().getDisplayMetrics().density; // 1dp in px
+        int overlap = Math.max(1, (int) getResources().getDisplayMetrics().density); // 1dp in px
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.WRAP_CONTENT, weight);
+                0, LinearLayout.LayoutParams.MATCH_PARENT, weight);
         lp.setMargins(firstColumn ? 0 : -overlap, -overlap, 0, 0);
         tv.setLayoutParams(lp);
 
-        tv.setPadding(8, 8, 8, 8);
+        int pad = (int) (8 * getResources().getDisplayMetrics().density); // 8dp, same as header
+        tv.setPadding(pad, pad, pad, pad);
         tv.setBackgroundResource(R.drawable.cell_border);
         return tv;
     }
@@ -307,7 +322,7 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             canvas.drawRect(left, top, right, top + ROW_H, borderPaint);
             canvas.drawLine(mid, top, mid, top + ROW_H, borderPaint);
 
-            Paint p = last ? whitePaint : (i == 0 ? textPaint : textPaint);
+            Paint p = last ? whitePaint : textPaint;
             p.setTextAlign(Paint.Align.LEFT);
             canvas.drawText(labels[i], left + 6, baseline(top, p), p);
             p.setTextAlign(Paint.Align.RIGHT);

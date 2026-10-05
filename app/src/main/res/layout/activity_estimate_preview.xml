@@ -2,12 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
+
+    <!-- The ScrollView stops above the buttons row (height 0dp + constraints) -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonsRow">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,7 +39,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -151,7 +156,8 @@
                         android:id="@+id/tvCustomerAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-" />
+                        android:text="-"
+                        android:textSize="14sp" />
 
                     <!-- Phone -->
                     <TextView
@@ -165,16 +171,22 @@
                         android:id="@+id/tvCustomerPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-" />
+                        android:text="-"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Table Header -->
+            <!-- Table Header
+                 Weights MUST match WEIGHTS in EstimatePreviewActivity.java:
+                 Product 1.3 | Qty 0.9 | Unit Price 1.5 | Total 1.5
+                 No autosize: every header uses the same 13sp size, so all cells
+                 have the same height and the same top border line. -->
             <LinearLayout
                 android:id="@+id/tableHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:baselineAligned="false"
                 android:layout_marginTop="16dp"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
@@ -186,46 +198,57 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
                     android:text="Product"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:background="@drawable/cell_header_border"
-                    android:padding="8dp"
-                    android:textStyle="bold" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:layout_marginStart="-1dp"
                     android:text="Qty"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:background="@drawable/cell_header_border"
-                    android:padding="8dp"
-                    android:textStyle="bold" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:layout_marginStart="-1dp"
                     android:text="Unit Price"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:ellipsize="end"
                     android:background="@drawable/cell_header_border"
-                    android:autoSizeTextType="uniform"
-                    android:padding="8dp"
-                    android:textStyle="bold" />
+                    android:padding="8dp" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:layout_marginStart="-1dp"
                     android:text="Total"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
                     android:maxLines="1"
                     android:background="@drawable/cell_header_border"
-                    android:padding="8dp"
-                    android:textStyle="bold" />
+                    android:padding="8dp" />
             </LinearLayout>
 
-            <!-- Lines -->
+            <!-- Lines (same horizontal padding as the header, no top padding) -->
             <LinearLayout
                 android:id="@+id/linesContainer"
                 android:layout_width="0dp"
@@ -246,18 +269,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:padding="8dp"
                 app:layout_constraintTop_toBottomOf="@id/linesContainer"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView android:id="@+id/tvVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VAT: 20%" />
                 <TextView android:id="@+id/tvDiscount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Discount: 10%" />
                 <TextView android:id="@+id/tvTotalBeforeVat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Before VAT: 0.00" />
                 <TextView android:id="@+id/tvAllTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total After VAT: 0.00" />
-            </LinearLayout>-->
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-        <!-- Buttons -->
+
+    <!-- Buttons -->
     <LinearLayout
         android:id="@+id/buttonsRow"
         android:layout_width="0dp"
@@ -266,12 +292,12 @@
         android:gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Download -->
         <LinearLayout
             android:id="@+id/btnDownloadSection"
             android:layout_width="0dp"
