@@ -111,10 +111,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvBusinessName.setText(business.getName());
             tvBusinessAddress.setText(business.getAddress());
             tvBusinessPhone.setText(business.getPhone());
-        } else {
-            Toast.makeText(this,
-                    "No business record found. Please add your business info first.",
-                    Toast.LENGTH_LONG).show();
         }
 
         String estimateId = getIntent().getStringExtra("estimateId");
@@ -131,10 +127,6 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             tvCustomerName.setText(customer.getName());
             tvCustomerAddress.setText(customer.getAddress());
             tvCustomerPhone.setText(customer.getTelephone());
-        } else {
-            Toast.makeText(this,
-                    "No customer record found. Please add your customer info first.",
-                    Toast.LENGTH_LONG).show();
         }
 
         linesContainer   = findViewById(R.id.linesContainer);
