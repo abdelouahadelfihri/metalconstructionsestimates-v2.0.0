@@ -163,10 +163,10 @@ public class EstimatePreviewActivity extends AppCompatActivity {
             // Same order and weight as XML header:
             // Product(w1) → Qty(w1) → Unit Price(w1) → Total(w1)
             productType = dbAdapter.getSteelById(line.getSteel()).getType();
-            TextView productTextView   = createCell(productType, 1);
-            TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1);
-            TextView unitPriceTextView = createCell(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()), 1);
-            TextView totalTextView     = createCell(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 1);
+            TextView productTextView   = createCell(productType, 2f, true);
+            TextView qtyTextView       = createCell(String.valueOf(line.getNetQuantityPlusMargin()), 1f, false);
+            TextView unitPriceTextView = createCell(String.format(Locale.getDefault(), "%.2f", line.getUnitPrice()), 1.4f, false);
+            TextView totalTextView     = createCell(String.format(Locale.getDefault(), "%.2f", line.getTotalPrice()), 1.4f, false);
 
             row.addView(productTextView);
             row.addView(qtyTextView);
@@ -196,11 +196,16 @@ public class EstimatePreviewActivity extends AppCompatActivity {
                 + currencyManager.formatAmount(estimate.getAllTaxIncludedTotal()));
     }
 
-    private TextView createCell(String text, int weight) {
+    private TextView createCell(String text, float weight, boolean firstColumn) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        tv.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.WRAP_CONTENT, weight));
+
+        int overlap = (int) getResources().getDisplayMetrics().density; // 1dp in px
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, weight);
+        lp.setMargins(firstColumn ? 0 : -overlap, -overlap, 0, 0);
+        tv.setLayoutParams(lp);
+
         tv.setPadding(8, 8, 8, 8);
         tv.setBackgroundResource(R.drawable.cell_border);
         return tv;
