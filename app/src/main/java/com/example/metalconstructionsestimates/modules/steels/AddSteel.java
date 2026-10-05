@@ -109,7 +109,7 @@ public class AddSteel extends AppCompatActivity {
                             }
 
                             dbAdapter.saveSteel(steel);
-                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully added", Toast.LENGTH_LONG);
+                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Steel was successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
                             intent = new Intent(AddSteel.this, Steels.class);
                             startActivity(intent);

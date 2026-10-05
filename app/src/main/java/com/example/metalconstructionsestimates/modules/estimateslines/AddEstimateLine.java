@@ -350,7 +350,7 @@ public class AddEstimateLine extends AppCompatActivity {
                         dbAdapter.saveEstimateLine(estimateLine);
                         Toast saveResultToast;
                         saveResultToast = Toast.makeText(getApplicationContext(),
-                                "Estimate line has been successfully added", Toast.LENGTH_LONG);
+                                "Estimate line was successfully added", Toast.LENGTH_LONG);
                         saveResultToast.show();
                         Float estimateExcludingTaxTotal = dbAdapter.getEstimateExcludingTaxTotal(estimateId);
                         Float excludingTaxTotalAfterDiscount;

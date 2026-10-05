@@ -121,7 +121,7 @@ public class AddBusiness extends AppCompatActivity {
                             }
 
                             dbAdapter.saveBusiness(business);
-                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Business has been successfully added", Toast.LENGTH_LONG);
+                            Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Business was successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
                             intent = new Intent(AddBusiness.this, MainActivity.class);
                             startActivity(intent);

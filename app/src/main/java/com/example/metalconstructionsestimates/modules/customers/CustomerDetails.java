@@ -70,7 +70,7 @@ public class CustomerDetails extends AppCompatActivity {
                 customer = new Customer();
                 customerIdTextInputEditText.set(findViewById(R.id.customerIdEditText_customer_details));
                 dbAdapter.deleteCustomer(Integer.parseInt(customerIdTextInputEditText.get().getText().toString()));
-                Toast deletesuccess = Toast.makeText(getApplicationContext(), "Customer has been successfully deleted", Toast.LENGTH_LONG);
+                Toast deletesuccess = Toast.makeText(getApplicationContext(), "Customer was successfully deleted", Toast.LENGTH_LONG);
                 deletesuccess.show();
                 if(dbAdapter.retrieveCustomers().isEmpty()){
                     dbAdapter.setSeqCustomers();
@@ -137,7 +137,7 @@ public class CustomerDetails extends AppCompatActivity {
 
                 dbAdapter.updateCustomer(customer);
 
-                Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Customer has been successfully updated", Toast.LENGTH_LONG);
+                Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Customer was successfully updated", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
                 Intent intent = new Intent(CustomerDetails.this, Customers.class);
                 startActivity(intent);

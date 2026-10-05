@@ -66,7 +66,7 @@ public class BusinessDetails extends AppCompatActivity {
                 dbAdapter.deleteBusiness();
 
                 Toast.makeText(getApplicationContext(),
-                        "Company profile has been successfully deleted", Toast.LENGTH_LONG).show();
+                        "Company profile was successfully deleted", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(BusinessDetails.this, MainActivity.class));
 
                 if(dbAdapter.retrieveCustomers().isEmpty()){
@@ -129,7 +129,7 @@ public class BusinessDetails extends AppCompatActivity {
 
                 dbAdapter.updateBusiness(business);
                 Toast.makeText(getApplicationContext(),
-                        "The company profile has been successfully updated", Toast.LENGTH_LONG).show();
+                        "The company profile was successfully updated", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(BusinessDetails.this, MainActivity.class));
             });
             alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

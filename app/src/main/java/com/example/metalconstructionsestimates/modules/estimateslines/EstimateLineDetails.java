@@ -160,7 +160,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             updated.setTotalPrice(parseFloatOrNull(totalPriceEditText));
 
             dbAdapter.updateEstimateLine(updated);
-            Toast.makeText(getApplicationContext(), "Estimate line has been successfully updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Estimate line was successfully updated", Toast.LENGTH_LONG).show();
 
             recalculateEstimateTotals(updated.getEstimate());
 
@@ -172,7 +172,7 @@ public class EstimateLineDetails extends AppCompatActivity {
 
         deleteEstimateLine.setOnClickListener(view -> {
             dbAdapter.deleteEstimateLine(Integer.parseInt(estimateLineIdEditText.getText().toString()));
-            Toast.makeText(getApplicationContext(), "The estimate line has been successfully deleted.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "The estimate line was successfully deleted.", Toast.LENGTH_LONG).show();
             if (dbAdapter.retrieveEstimatesLinesCount() == 0) {
                 dbAdapter.setSeqEstimateLines();
             }

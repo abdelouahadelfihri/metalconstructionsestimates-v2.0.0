@@ -140,7 +140,7 @@ public class SteelDetails extends AppCompatActivity {
                         }
 
                         dbAdapter.updateSteel(steel);
-                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully updated", Toast.LENGTH_LONG);
+                        Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Steel was successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
                         intent = new Intent(SteelDetails.this, Steels.class);
                         startActivity(intent);
@@ -167,7 +167,7 @@ public class SteelDetails extends AppCompatActivity {
                     steel = new Steel();
                     TextInputEditText steelIdTextInputEditText1 = findViewById(R.id.steelIdEditText);
                     dbAdapter.deleteSteel(Integer.parseInt(steelIdTextInputEditText1.getText().toString()));
-                    Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Steel has been successfully deleted", Toast.LENGTH_LONG);
+                    Toast deleteSuccessToast = Toast.makeText(getApplicationContext(), "Steel was successfully deleted", Toast.LENGTH_LONG);
                     deleteSuccessToast.show();
 
                     if(dbAdapter.retrieveSteels().isEmpty()){

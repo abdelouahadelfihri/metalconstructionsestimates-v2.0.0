@@ -387,7 +387,7 @@ public class EstimateDetails extends AppCompatActivity {
                                 Objects.requireNonNull(estimateIdTI.getText()).toString()));
 
                         Toast.makeText(getApplicationContext(),
-                                "Estimate has been successfully deleted", Toast.LENGTH_LONG).show();
+                                "Estimate was successfully deleted", Toast.LENGTH_LONG).show();
                         if (dbAdapter.retrieveEstimates().isEmpty()) dbAdapter.setSeqEstimates();
                         startActivity(new Intent(EstimateDetails.this, Estimates.class));
                     })
@@ -461,7 +461,7 @@ public class EstimateDetails extends AppCompatActivity {
 
                         dbAdapter.updateEstimate(estimate);
                         Toast.makeText(getApplicationContext(),
-                                "Estimate has been successfully updated", Toast.LENGTH_LONG).show();
+                                "Estimate was successfully updated", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(EstimateDetails.this, Estimates.class));
                     })
                     .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
