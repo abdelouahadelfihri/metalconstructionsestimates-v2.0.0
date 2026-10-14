@@ -153,6 +153,36 @@ public class Steels extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Reload when coming back from AddSteel / SteelDetails so changes show up
+        String searchText = Objects.requireNonNull(steelsSearchEditText.getText()).toString();
+        ArrayList<Steel> steelsList = searchText.isEmpty()
+                ? dbAdapter.retrieveSteels()
+                : dbAdapter.searchSteels(searchText);
+        if (steelsList.isEmpty()) {
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
+            if (searchText.isEmpty()) {
+                showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
+            } else {
+                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
+            }
+        } else {
+            hideEmptyState();
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
+            steelsListAdapter = new SteelsListAdapter(this, steelsList);
+            activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            activitySteelsBinding.steelsRecyclerView.setAdapter(steelsListAdapter);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources

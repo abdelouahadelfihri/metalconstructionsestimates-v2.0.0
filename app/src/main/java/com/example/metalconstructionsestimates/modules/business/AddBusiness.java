@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.metalconstructionsestimates.MainActivity;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Business;
@@ -123,8 +122,7 @@ public class AddBusiness extends AppCompatActivity {
                             dbAdapter.saveBusiness(business);
                             Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Business was successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
-                            intent = new Intent(AddBusiness.this, MainActivity.class);
-                            startActivity(intent);
+                            finish();
                         }
                     });
 
@@ -138,6 +136,12 @@ public class AddBusiness extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

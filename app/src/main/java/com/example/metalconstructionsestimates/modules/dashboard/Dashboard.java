@@ -85,4 +85,10 @@ public class Dashboard extends AppCompatActivity {
                 return null;
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }

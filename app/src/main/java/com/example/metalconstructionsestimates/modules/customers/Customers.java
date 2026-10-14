@@ -149,6 +149,35 @@ public class Customers extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Reload when coming back from AddCustomer / CustomerDetails so changes show up
+        String searchText = Objects.requireNonNull(customerSearchEditText.getText()).toString();
+        ArrayList<Customer> customersList = searchText.isEmpty()
+                ? dbAdapter.retrieveCustomers()
+                : dbAdapter.searchCustomers(searchText);
+        if (customersList.isEmpty()) {
+            binding.customerRecyclerView.setVisibility(View.GONE);
+            if (searchText.isEmpty()) {
+                showEmptyState(R.string.noCustomersTitle, R.string.noCustomersSubtitle);
+            } else {
+                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
+            }
+        } else {
+            hideEmptyState();
+            binding.customerRecyclerView.setVisibility(View.VISIBLE);
+            binding.customerRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            binding.customerRecyclerView.setAdapter(new CustomersListAdapter(this, customersList));
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources

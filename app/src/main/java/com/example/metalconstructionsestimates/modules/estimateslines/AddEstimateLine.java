@@ -380,7 +380,10 @@ public class AddEstimateLine extends AppCompatActivity {
                         dbAdapter.updateEstimate(estimate);
                         intent = new Intent(AddEstimateLine.this, EstimateDetails.class);
                         intent.putExtra("estimateIdExtra", estimateId.toString());
+                        // Replace the EstimateDetails below us so it shows the new line and totals
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finish();
                     }
                 }
             }
@@ -1057,6 +1060,14 @@ public class AddEstimateLine extends AppCompatActivity {
 
         // Start the target activity for result using the ActivityResultLauncher
         activityResultLauncher.launch(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // EstimateDetails is still below us in the back stack; navigating "up" to it
+        // would recreate it without "estimateIdExtra" and crash on Integer.parseInt(null).
+        finish();
+        return true;
     }
 
     @Override

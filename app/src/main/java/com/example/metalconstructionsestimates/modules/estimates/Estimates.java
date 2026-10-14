@@ -661,6 +661,51 @@ public class Estimates extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Reload when coming back from AddEstimate / EstimateDetails so changes show up,
+        // keeping the selected status filter and search text
+        String searchText = Objects.requireNonNull(estimatesSearchEditText.getText()).toString();
+        boolean searching = !searchText.isEmpty();
+        ArrayList<Estimate> estimatesList;
+        switch (selectedEstimateStatus) {
+            case "Pending":
+                estimatesList = searching ? dbAdapter.searchPendingEstimates(searchText) : dbAdapter.retrievePendingEstimates();
+                break;
+            case "Approved":
+                estimatesList = searching ? dbAdapter.searchApprovedEstimates(searchText) : dbAdapter.retrieveApprovedEstimates();
+                break;
+            case "Overdue":
+                estimatesList = searching ? dbAdapter.searchOverdueEstimates(searchText) : dbAdapter.retrieveOverdueEstimates();
+                break;
+            case "Cancelled":
+                estimatesList = searching ? dbAdapter.searchCancelledEstimates(searchText) : dbAdapter.retrieveCancelledEstimates();
+                break;
+            default:
+                estimatesList = searching ? dbAdapter.searchEstimates(searchText) : dbAdapter.retrieveEstimates();
+                break;
+        }
+        if (estimatesList.isEmpty()) {
+            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.GONE);
+            if (searching) {
+                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
+            } else {
+                showEmptyState(R.string.noEstimatesTitle, R.string.noEstimatesSubtitle);
+            }
+        } else {
+            hideEmptyState();
+            activityEstimatesBinding.estimatesRecyclerView.setVisibility(View.VISIBLE);
+            activityEstimatesBinding.estimatesRecyclerView.setAdapter(new EstimatesListAdapter(this, estimatesList));
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Close DBAdapter to release database resources

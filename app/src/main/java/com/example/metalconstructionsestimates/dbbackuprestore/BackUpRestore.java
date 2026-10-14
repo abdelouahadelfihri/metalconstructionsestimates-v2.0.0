@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import com.example.metalconstructionsestimates.MainActivity;
 import com.example.metalconstructionsestimates.SettingsActivity;
 import com.example.metalconstructionsestimates.BackupReminderWorker;
 import java.util.concurrent.TimeUnit;
@@ -242,6 +243,17 @@ public class BackUpRestore extends GoogleDriveActivity {
                     Log.e(LOG_TAG, "Error downloading file", e);
                     showMessage("Error during restore");
                 }));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        // When opened from the backup reminder notification this is the only activity
+        // in the task, so open MainActivity instead of just closing the app.
+        if (isTaskRoot()) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        finish();
+        return true;
     }
 
     @Override

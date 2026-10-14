@@ -142,8 +142,7 @@ public class SteelDetails extends AppCompatActivity {
                         dbAdapter.updateSteel(steel);
                         Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Steel was successfully updated", Toast.LENGTH_LONG);
                         updateSuccessToast.show();
-                        intent = new Intent(SteelDetails.this, Steels.class);
-                        startActivity(intent);
+                        finish();
                     }
                 });
                 alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -174,8 +173,7 @@ public class SteelDetails extends AppCompatActivity {
                         dbAdapter.setSeqSteels();
                     }
 
-                    intent = new Intent(SteelDetails.this, Steels.class);
-                    startActivity(intent);
+                    finish();
                 }
             });
             alertDelete.setNegativeButton(android.R.string.cancel, (dialog, which) -> {

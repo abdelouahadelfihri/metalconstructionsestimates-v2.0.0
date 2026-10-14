@@ -111,8 +111,7 @@ public class AddSteel extends AppCompatActivity {
                             dbAdapter.saveSteel(steel);
                             Toast addSuccessToast = Toast.makeText(getApplicationContext(), "Steel was successfully added", Toast.LENGTH_LONG);
                             addSuccessToast.show();
-                            intent = new Intent(AddSteel.this, Steels.class);
-                            startActivity(intent);
+                            finish();
                         }
                     });
                     alertAdd.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -167,6 +166,12 @@ public class AddSteel extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     @Override
     protected void onDestroy() {

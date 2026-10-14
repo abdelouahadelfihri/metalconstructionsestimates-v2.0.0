@@ -302,8 +302,7 @@ public class AddEstimate extends AppCompatActivity {
                     dbAdapter.saveEstimate(estimate);
                     Toast.makeText(getApplicationContext(),
                             "Estimate was successfully added", Toast.LENGTH_LONG).show();
-                    intent = new Intent(AddEstimate.this, Estimates.class);
-                    startActivity(intent);
+                    finish();
                 });
                 alertAdd.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
                 alertAdd.show();

@@ -166,6 +166,8 @@ public class EstimateLineDetails extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
             intent.putExtra("estimateIdExtra", updated.getEstimate().toString());
+            // Replace the EstimateDetails below us so it shows the updated line and totals
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         });
@@ -179,7 +181,9 @@ public class EstimateLineDetails extends AppCompatActivity {
             String estimateId = estimateLine.getEstimate().toString();
             Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
             intent.putExtra("estimateIdExtra", estimateId);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         });
 
         TextWatcher recalcWatcher = new TextWatcher() {

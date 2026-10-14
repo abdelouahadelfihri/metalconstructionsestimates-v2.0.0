@@ -389,7 +389,7 @@ public class EstimateDetails extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "Estimate was successfully deleted", Toast.LENGTH_LONG).show();
                         if (dbAdapter.retrieveEstimates().isEmpty()) dbAdapter.setSeqEstimates();
-                        startActivity(new Intent(EstimateDetails.this, Estimates.class));
+                        finish();
                     })
                     .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
                     .show();
@@ -462,7 +462,7 @@ public class EstimateDetails extends AppCompatActivity {
                         dbAdapter.updateEstimate(estimate);
                         Toast.makeText(getApplicationContext(),
                                 "Estimate was successfully updated", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(EstimateDetails.this, Estimates.class));
+                        finish();
                     })
                     .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel())
                     .show();
@@ -851,6 +851,12 @@ public class EstimateDetails extends AppCompatActivity {
         for (int i = 0; i < s.length(); i++) {
             if (!Character.isDigit(s.charAt(i))) return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
         return true;
     }
 

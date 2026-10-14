@@ -122,8 +122,7 @@ public class AddCustomer extends AppCompatActivity {
                             dbAdapter.saveCustomer(customer);
                             Toast addsuccess = Toast.makeText(getApplicationContext(), "Customer was successfully added", Toast.LENGTH_LONG);
                             addsuccess.show();
-                            intent = new Intent(AddCustomer.this, Customers.class);
-                            startActivity(intent);
+                            finish();
                         }
                     });
 
@@ -137,6 +136,12 @@ public class AddCustomer extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

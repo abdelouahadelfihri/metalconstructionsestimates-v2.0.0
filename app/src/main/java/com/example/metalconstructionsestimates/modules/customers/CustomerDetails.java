@@ -8,7 +8,6 @@ import com.example.metalconstructionsestimates.modules.steels.SteelDetails;
 import com.example.metalconstructionsestimates.modules.steels.Steels;
 import com.google.android.material.textfield.TextInputEditText;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -75,6 +74,7 @@ public class CustomerDetails extends AppCompatActivity {
                 if(dbAdapter.retrieveCustomers().isEmpty()){
                     dbAdapter.setSeqCustomers();
                 }
+                finish();
             });
             alertDelete.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -139,8 +139,7 @@ public class CustomerDetails extends AppCompatActivity {
 
                 Toast updateSuccessToast = Toast.makeText(getApplicationContext(), "Customer was successfully updated", Toast.LENGTH_LONG);
                 updateSuccessToast.show();
-                Intent intent = new Intent(CustomerDetails.this, Customers.class);
-                startActivity(intent);
+                finish();
             });
             alertUpdate.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
