@@ -178,6 +178,7 @@ public class EstimateLineDetails extends AppCompatActivity {
             if (dbAdapter.retrieveEstimatesLinesCount() == 0) {
                 dbAdapter.setSeqEstimateLines();
             }
+            recalculateEstimateTotals(estimateLine.getEstimate());
             String estimateId = estimateLine.getEstimate().toString();
             Intent intent = new Intent(getApplicationContext(), EstimateDetails.class);
             intent.putExtra("estimateIdExtra", estimateId);
