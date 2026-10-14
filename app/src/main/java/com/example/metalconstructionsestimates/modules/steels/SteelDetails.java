@@ -123,6 +123,32 @@ public class SteelDetails extends AppCompatActivity {
             }
         });
 
+        // Picking a unit selects its matching shape, like on the Add Steel screen.
+        // Skip the initial selection event so a steel's saved shape isn't overwritten on open.
+        final int[] lastUnitPosition = {steelUnitSpinner.getSelectedItemPosition()};
+        steelUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if (pos == lastUnitPosition[0]) return;
+                lastUnitPosition[0] = pos;
+                switch (parent.getItemAtPosition(pos).toString()) {
+                    case "Meter":
+                        steelGeometricShapeSpinner.setSelection(1);
+                        break;
+                    case "Square Meter":
+                        steelGeometricShapeSpinner.setSelection(2);
+                        break;
+                    case "Cubic Meter":
+                        steelGeometricShapeSpinner.setSelection(3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         Button updateButton = findViewById(R.id.updateButton);
 
         updateButton.setOnClickListener(new View.OnClickListener() {
