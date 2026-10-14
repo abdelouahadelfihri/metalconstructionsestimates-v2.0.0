@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -96,6 +97,32 @@ public class SteelDetails extends AppCompatActivity {
             }
         }
 
+        // Picking a shape fills in its matching unit, like on the Add Steel screen.
+        // Skip the initial selection event so a steel's saved unit isn't overwritten on open.
+        final int[] lastShapePosition = {steelGeometricShapeSpinner.getSelectedItemPosition()};
+        steelGeometricShapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if (pos == lastShapePosition[0]) return;
+                lastShapePosition[0] = pos;
+                switch (parent.getItemAtPosition(pos).toString()) {
+                    case "Profile":
+                        steelUnitSpinner.setSelection(1);
+                        break;
+                    case "Surface":
+                        steelUnitSpinner.setSelection(2);
+                        break;
+                    case "Volume":
+                        steelUnitSpinner.setSelection(3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         Button updateButton = findViewById(R.id.updateButton);
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +148,8 @@ public class SteelDetails extends AppCompatActivity {
                             steel.setType("");
                         }
 
-                        if (!steelGeometricShapeSpinner.getSelectedItem().toString().isEmpty()) {
+                        // Position 0 is the "Geometric Shape" hint, not a real choice
+                        if (steelGeometricShapeSpinner.getSelectedItemPosition() != 0) {
                             steel.setGeometricShape(steelGeometricShapeSpinner.getSelectedItem().toString());
                         } else {
                             steel.setGeometricShape("");
@@ -133,7 +161,8 @@ public class SteelDetails extends AppCompatActivity {
                             steel.setWeight(null);
                         }
 
-                        if (!steelUnitSpinner.getSelectedItem().toString().isEmpty()) {
+                        // Position 0 is the "Unit" hint, not a real choice
+                        if (steelUnitSpinner.getSelectedItemPosition() != 0) {
                             steel.setUnit(steelUnitSpinner.getSelectedItem().toString());
                         } else {
                             steel.setUnit("");

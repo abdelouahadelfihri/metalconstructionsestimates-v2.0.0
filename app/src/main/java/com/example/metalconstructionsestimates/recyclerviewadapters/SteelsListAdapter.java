@@ -20,6 +20,8 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
     private ArrayList<Steel> steelsList;
     private Activity activity;
 
+    private static final String NOT_SPECIFIED = "Not specified";
+
     // Constructor to accept an Activity and a list of Steel objects
     public SteelsListAdapter(Activity activity, ArrayList<Steel> steelList) {
         this.steelsList = steelList;
@@ -55,8 +57,8 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
         Steel steel = steelsList.get(position);
         String steelId = "Steel Id : " + steel.getId().toString();
         String steelType = "Steel Type : " + steel.getType();
-        String geometricShape = "Geometric Shape : " + steel.getGeometricShape();
-        String steelWeight = "Weight : " + steel.getWeight().toString();
+        String geometricShape = "Geometric Shape : " + displayGeometricShape(steel.getGeometricShape());
+        String steelWeight = "Weight : " + (steel.getWeight() == null ? NOT_SPECIFIED : steel.getWeight().toString());
         holder.textViewSteelId.setText(steelId);
         holder.textViewSteelType.setText(steelType);
         holder.textViewGeometricShape.setText(geometricShape);
@@ -88,5 +90,13 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
     @Override
     public int getItemCount() {
         return steelsList.size();
+    }
+
+    // Steels saved before the fix stored the spinner hint "Geometric Shape" as their shape
+    private static String displayGeometricShape(String shape) {
+        if (shape == null || shape.isEmpty() || shape.equals("Geometric Shape")) {
+            return NOT_SPECIFIED;
+        }
+        return shape;
     }
 }

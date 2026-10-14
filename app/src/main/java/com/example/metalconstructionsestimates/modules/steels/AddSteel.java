@@ -90,7 +90,8 @@ public class AddSteel extends AppCompatActivity {
                                 steel.setType(steelTypeTextInputEditText.getText().toString());
                             }
 
-                            if (steelGeometricShapeSpinner.getSelectedItem().toString().isEmpty()) {
+                            // Position 0 is the "Geometric Shape" hint, not a real choice
+                            if (steelGeometricShapeSpinner.getSelectedItemPosition() == 0) {
                                 steel.setGeometricShape("");
                             } else {
                                 steel.setGeometricShape(steelGeometricShapeSpinner.getSelectedItem().toString());
@@ -102,7 +103,8 @@ public class AddSteel extends AppCompatActivity {
                                 steel.setWeight(Float.parseFloat(weightTextInputEditText.getText().toString()));
                             }
 
-                            if (steelUnitSpinner.getSelectedItem().toString().isEmpty()) {
+                            // Position 0 is the "Unit" hint, not a real choice
+                            if (steelUnitSpinner.getSelectedItemPosition() == 0) {
                                 steel.setUnit("");
                             } else {
                                 steel.setUnit(steelUnitSpinner.getSelectedItem().toString());
