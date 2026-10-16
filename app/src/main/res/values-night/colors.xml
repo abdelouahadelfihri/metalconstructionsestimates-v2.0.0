@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard (dark) -->
+    <color name="dashboard_bg">#0F1216</color>
+    <color name="dashboard_card">#1A1F26</color>
+    <color name="dashboard_brand">#4D9BFF</color>
+    <color name="dashboard_brand_dark">#0A3F7A</color>
+    <color name="dashboard_brand_soft">#1C2C42</color>
+    <color name="dashboard_track">#2A313B</color>
+    <color name="dashboard_text_primary">#F3F4F6</color>
+    <color name="dashboard_text_secondary">#9CA3AF</color>
+    <color name="dashboard_positive">#4ADE80</color>
+    <color name="dashboard_negative">#F87171</color>
+    <color name="status_approved">#22C55E</color>
+    <color name="status_pending">#FBBF24</color>
+    <color name="status_overdue">#F87171</color>
+    <color name="status_cancelled">#6B7280</color>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <View
+        android:id="@+id/legend_dot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_legend_dot" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/legend_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dashboard_text_primary"
+            android:textSize="14sp"
+            tools:text="Approved" />
+
+        <TextView
+            android:id="@+id/legend_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/dashboard_text_secondary"
+            android:textSize="12sp"
+            tools:text="120,000.00 DH" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/legend_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/dashboard_text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="12" />
+</LinearLayout>

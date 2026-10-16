@@ -228,4 +228,33 @@
     <string name="noEstimatesSubtitle">Tap \"+\" to create a new estimate</string>
     <string name="noResultTitle">No results found</string>
     <string name="noResultSubtitle">Try a different search term</string>
+    <!-- Dashboard -->
+    <string name="dashboardTotalLabel">Total estimated value</string>
+    <string name="dashboardTotalCaption">All estimates, tax included</string>
+    <string name="dashboardAverage">Avg. estimate</string>
+    <string name="dashboardApprovalRate">Approval rate</string>
+    <string name="dashboardCustomers">Customers</string>
+    <string name="dashboardSteels">Steels</string>
+    <string name="dashboardEstimates">Estimates</string>
+    <string name="dashboardRevenueTitle">Monthly estimates value</string>
+    <string name="dashboardRevenueSubtitle">Tap a bar to see its total</string>
+    <string name="dashboardVsLastMonth">%1$s vs last month</string>
+    <string name="dashboardNewThisMonth">First activity this month</string>
+    <string name="dashboardStatusTitle">Estimates by status</string>
+    <string name="dashboardTopCustomersTitle">Top customers</string>
+    <string name="dashboardTopCustomersSubtitle">By total estimated value</string>
+    <string name="dashboardNoCustomerData">No customer activity yet</string>
+    <string name="dashboardPeriodTitle">Activity by period</string>
+    <string name="dashboardUnknownCustomer">Unknown customer</string>
+    <string name="dashboardEstimatesShort">estimates</string>
+    <string name="statusApproved">Approved</string>
+    <string name="statusPending">Pending</string>
+    <string name="statusOverdue">Overdue</string>
+    <string name="statusCancelled">Cancelled</string>
+    <string name="tabDay">Today</string>
+    <string name="tabWeek">Week</string>
+    <string name="tabMonth">Month</string>
+    <string name="tabYear">Year</string>
+    <string name="periodCount">Estimates</string>
+    <string name="periodAmount">Amount</string>
 </resources>

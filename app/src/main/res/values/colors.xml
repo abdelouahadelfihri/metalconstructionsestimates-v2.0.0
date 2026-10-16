@@ -23,4 +23,20 @@
     <color name="drawer_icon_color_checked">#004c99</color> <!-- optional for selected item -->
     <color name="drawer_text_color">#0066cc</color>
     <color name="drawer_text_color_checked">#004c99</color>
+
+    <!-- Dashboard -->
+    <color name="dashboard_bg">#F3F5F9</color>
+    <color name="dashboard_card">#FFFFFF</color>
+    <color name="dashboard_brand">#0066CC</color>
+    <color name="dashboard_brand_dark">#0A3F7A</color>
+    <color name="dashboard_brand_soft">#E5F0FB</color>
+    <color name="dashboard_track">#E6EAF0</color>
+    <color name="dashboard_text_primary">#111827</color>
+    <color name="dashboard_text_secondary">#6B7280</color>
+    <color name="dashboard_positive">#16A34A</color>
+    <color name="dashboard_negative">#DC2626</color>
+    <color name="status_approved">#16A34A</color>
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_overdue">#DC2626</color>
+    <color name="status_cancelled">#9CA3AF</color>
 </resources>
