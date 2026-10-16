@@ -16,9 +16,9 @@ import com.example.metalconstructionsestimates.R;
 import java.util.Locale;
 
 /**
- * Lightweight vertical bar chart. Shows the last 6 bars on narrow screens and
- * all bars (up to 12) when there is enough room. Tapping a bar selects it and
- * shows its formatted value above it.
+ * Lightweight vertical bar chart. Tapping a bar selects it and shows its
+ * formatted value above it. When the bars get too narrow for every label,
+ * only every n-th label is drawn.
  */
 public class BarChartView extends View {
 
@@ -26,14 +26,10 @@ public class BarChartView extends View {
         String format(float value);
     }
 
-    private static final int NARROW_BAR_COUNT = 6;
-    private static final float WIDE_THRESHOLD_DP = 480f;
-
     private float[] values = new float[0];
     private String[] labels = new String[0];
     private ValueFormatter formatter = v -> String.valueOf(v);
 
-    private int firstVisible;
     private int selected = -1;
 
     private final Paint barPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -72,11 +68,11 @@ public class BarChartView extends View {
         valueTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
-    public void setData(float[] values, String[] labels) {
+    /** @param selectedIndex bar highlighted initially (e.g. the current day/month), or -1 */
+    public void setData(float[] values, String[] labels, int selectedIndex) {
         this.values = values;
         this.labels = labels;
-        selected = values.length - 1;
-        requestLayout();
+        selected = selectedIndex;
         invalidate();
     }
 
@@ -85,26 +81,18 @@ public class BarChartView extends View {
         invalidate();
     }
 
-    private int visibleCount() {
-        boolean wide = getWidth() / density >= WIDE_THRESHOLD_DP;
-        return wide ? values.length : Math.min(NARROW_BAR_COUNT, values.length);
+    private float chartLeft(float niceMax) {
+        return getPaddingLeft() + axisTextPaint.measureText(compact(niceMax)) + 8 * density;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (values.length == 0) return;
+        int count = values.length;
+        if (count == 0) return;
 
-        int count = visibleCount();
-        firstVisible = values.length - count;
-        if (selected < firstVisible) selected = values.length - 1;
-
-        float max = 0f;
-        for (int i = firstVisible; i < values.length; i++) max = Math.max(max, values[i]);
-        float niceMax = niceCeiling(max);
-
-        float axisWidth = axisTextPaint.measureText(compact(niceMax)) + 8 * density;
-        float left = getPaddingLeft() + axisWidth;
+        float niceMax = niceCeiling(max());
+        float left = chartLeft(niceMax);
         float right = getWidth() - getPaddingRight();
         float top = getPaddingTop() + valueTextPaint.getTextSize() + 10 * density;
         float labelHeight = axisTextPaint.getTextSize() + 8 * density;
@@ -127,14 +115,18 @@ public class BarChartView extends View {
         float barWidth = Math.min(slot * 0.6f, 36 * density);
         float radius = Math.min(6 * density, barWidth / 2);
 
+        // Only draw every n-th label when they would collide (long custom ranges)
+        float widestLabel = 0f;
+        for (String l : labels) widestLabel = Math.max(widestLabel, axisTextPaint.measureText(l));
+        int labelStep = Math.max(1, (int) Math.ceil((widestLabel + 6 * density) / slot));
+
         axisTextPaint.setTextAlign(Paint.Align.CENTER);
         for (int i = 0; i < count; i++) {
-            int index = firstVisible + i;
             float cx = left + slot * i + slot / 2;
-            float h = niceMax == 0 ? 0 : chartHeight * values[index] / niceMax;
-            boolean isSelected = index == selected;
+            float h = niceMax == 0 ? 0 : chartHeight * values[i] / niceMax;
+            boolean isSelected = i == selected;
 
-            // Background track so empty months still read as a slot
+            // Background track so empty buckets still read as a slot
             barPaint.setColor(trackColor);
             barPaint.setAlpha(110);
             rect.set(cx - barWidth / 2, top, cx + barWidth / 2, bottom);
@@ -142,7 +134,7 @@ public class BarChartView extends View {
 
             if (h > 0) {
                 barPaint.setColor(brandColor);
-                barPaint.setAlpha(isSelected ? 255 : 150);
+                barPaint.setAlpha(isSelected || selected < 0 ? 255 : 150);
                 float barTop = bottom - Math.max(h, 2 * density);
                 rect.set(cx - barWidth / 2, barTop, cx + barWidth / 2, bottom);
                 canvas.drawRoundRect(rect, radius, radius, barPaint);
@@ -151,11 +143,13 @@ public class BarChartView extends View {
                 canvas.drawRect(rect, barPaint);
             }
 
-            axisTextPaint.setFakeBoldText(isSelected);
-            canvas.drawText(labels[index], cx, getHeight() - getPaddingBottom() - 2 * density, axisTextPaint);
+            if (isSelected || (count - 1 - i) % labelStep == 0) {
+                axisTextPaint.setFakeBoldText(isSelected);
+                canvas.drawText(labels[i], cx, getHeight() - getPaddingBottom() - 2 * density, axisTextPaint);
+            }
 
-            if (isSelected && values[index] > 0) {
-                String text = formatter.format(values[index]);
+            if (isSelected && values[i] > 0) {
+                String text = formatter.format(values[i]);
                 float textWidth = valueTextPaint.measureText(text);
                 // Keep the value label inside the chart bounds
                 float tx = Math.max(left + textWidth / 2, Math.min(right - textWidth / 2, cx));
@@ -171,15 +165,12 @@ public class BarChartView extends View {
         if (values.length == 0) return false;
         if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            int count = visibleCount();
-            float niceMax = niceCeiling(maxVisible(count));
-            float axisWidth = axisTextPaint.measureText(compact(niceMax)) + 8 * density;
-            float left = getPaddingLeft() + axisWidth;
+            float left = chartLeft(niceCeiling(max()));
             float right = getWidth() - getPaddingRight();
-            float slot = (right - left) / count;
+            float slot = (right - left) / values.length;
             int i = (int) ((event.getX() - left) / slot);
-            if (i >= 0 && i < count) {
-                selected = values.length - count + i;
+            if (i >= 0 && i < values.length) {
+                selected = i;
                 invalidate();
                 performClick();
             }
@@ -193,9 +184,9 @@ public class BarChartView extends View {
         return super.performClick();
     }
 
-    private float maxVisible(int count) {
+    private float max() {
         float max = 0f;
-        for (int i = values.length - count; i < values.length; i++) max = Math.max(max, values[i]);
+        for (float v : values) max = Math.max(max, v);
         return max;
     }
 

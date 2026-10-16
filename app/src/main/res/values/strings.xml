@@ -231,20 +231,34 @@
     <!-- Dashboard -->
     <string name="dashboardTotalLabel">Total estimated value</string>
     <string name="dashboardTotalCaption">All estimates, tax included</string>
+    <string name="dashboardPeriodCaption">%1$s · tax included</string>
     <string name="dashboardAverage">Avg. estimate</string>
     <string name="dashboardApprovalRate">Approval rate</string>
     <string name="dashboardCustomers">Customers</string>
     <string name="dashboardSteels">Steels</string>
     <string name="dashboardEstimates">Estimates</string>
     <string name="dashboardRevenueTitle">Monthly estimates value</string>
+    <string name="dashboardTrendByHour">Value by hour</string>
+    <string name="dashboardTrendByDay">Value by day</string>
+    <string name="dashboardTrendByWeek">Value by week</string>
+    <string name="dashboardTrendByMonth">Value by month</string>
+    <string name="dashboardTrendByYear">Value by year</string>
     <string name="dashboardRevenueSubtitle">Tap a bar to see its total</string>
+    <string name="dashboardVsYesterday">%1$s vs yesterday</string>
+    <string name="dashboardVsLastWeek">%1$s vs last week</string>
     <string name="dashboardVsLastMonth">%1$s vs last month</string>
-    <string name="dashboardNewThisMonth">First activity this month</string>
+    <string name="dashboardVsLastYear">%1$s vs last year</string>
+    <string name="dashboardNewThisPeriod">New activity</string>
+    <string name="dashboardAllTime">All time</string>
+    <string name="dashboardVsPreviousDay">%1$s vs previous day</string>
+    <string name="dashboardVsPreviousPeriod">%1$s vs previous period</string>
+    <string name="dashboardSelectDay">Select a day</string>
+    <string name="dashboardSelectPeriod">Select a period</string>
     <string name="dashboardStatusTitle">Estimates by status</string>
     <string name="dashboardTopCustomersTitle">Top customers</string>
     <string name="dashboardTopCustomersSubtitle">By total estimated value</string>
     <string name="dashboardNoCustomerData">No customer activity yet</string>
-    <string name="dashboardPeriodTitle">Activity by period</string>
+    <string name="dashboardPeriodTitle">Estimates in this period</string>
     <string name="dashboardUnknownCustomer">Unknown customer</string>
     <string name="dashboardEstimatesShort">estimates</string>
     <string name="statusApproved">Approved</string>
@@ -255,6 +269,5 @@
     <string name="tabWeek">Week</string>
     <string name="tabMonth">Month</string>
     <string name="tabYear">Year</string>
-    <string name="periodCount">Estimates</string>
-    <string name="periodAmount">Amount</string>
+    <string name="tabAll">All</string>
 </resources>
