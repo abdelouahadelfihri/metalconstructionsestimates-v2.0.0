@@ -2,4 +2,6 @@
 <resources>
     <!-- Number of chart columns on the dashboard; 2 on wide screens / landscape -->
     <integer name="dashboard_columns">1</integer>
+    <!-- Columns in the steels / customers / estimates lists: 1 on phones, more on wide screens -->
+    <integer name="list_columns">1</integer>
 </resources>

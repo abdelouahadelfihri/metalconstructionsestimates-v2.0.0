@@ -29,15 +29,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.recyclerviewadapters.EstimateLinesListAdapter;
+import com.example.metalconstructionsestimates.recyclerviewadapters.EstimatesListAdapter;
 import com.example.metalconstructionsestimates.databinding.ActivityEstimateDetailsBinding;
 import com.example.metalconstructionsestimates.modules.customers.Customers;
 import com.example.metalconstructionsestimates.database.DBAdapter;
 import com.example.metalconstructionsestimates.models.Estimate;
 import com.example.metalconstructionsestimates.models.EstimateLine;
+import com.example.metalconstructionsestimates.models.Steel;
 import com.example.metalconstructionsestimates.modules.estimateslines.AddEstimateLine;
 
 import java.math.BigDecimal;
@@ -46,14 +48,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class EstimateDetails extends AppCompatActivity {
+
+    private static final String PREFS_LISTS = "list_prefs";
+    private static final String KEY_LINES_SORT = "estimate_lines_sort";
+
+    // Estimate lines sort options, in the order shown in the sort dialog
+    private static final int LINES_SORT_ID_ASC = 0;
+    private static final int LINES_SORT_ID_DESC = 1;
+    private static final int LINES_SORT_TOTAL_DESC = 2;
+    private static final int LINES_SORT_TOTAL_ASC = 3;
+    private static final int LINES_SORT_QUANTITY_DESC = 4;
+    private static final int LINES_SORT_STEEL_ASC = 5;
+
+    private EstimateLinesListAdapter estimateLinesAdapter;
+    private RecyclerView estimateLinesRecyclerView;
+    private int linesSortOption;
 
     Integer estimateId;
     Integer customerId = null;
@@ -115,6 +135,9 @@ public class EstimateDetails extends AppCompatActivity {
         dbAdapter  = new DBAdapter(getApplicationContext());
         estimate   = dbAdapter.getEstimateById(estimateId);
 
+        TextView toolbarTitle = findViewById(R.id.toolbarTitle);
+        toolbarTitle.setText(getString(R.string.estimateTitle, estimateId));
+
         // ── Status spinner ─────────────────────────────────────────────────
         estimateStatusSpinner = findViewById(R.id.estimateStatusSpinner);
         ArrayAdapter<CharSequence> estimateStatusSpinnerAdapter = ArrayAdapter.createFromResource(
@@ -155,38 +178,18 @@ public class EstimateDetails extends AppCompatActivity {
 
         Button newEstimateLineButton          = findViewById(R.id.newEstimateLineButton);
         Button updateEstimateButton           = findViewById(R.id.updateButton_estimate_details);
-        Button refreshEstimateLinesListButton = findViewById(R.id.refreshEstimateLinesListButton);
+        View refreshEstimateLinesListButton   = findViewById(R.id.refreshEstimateLinesListButton);
+        View sortEstimateLinesButton          = findViewById(R.id.sortEstimateLinesButton);
         Button deleteEstimateButton           = findViewById(R.id.deleteEstimateButton);
 
-        DBAdapter db = new DBAdapter(getApplicationContext());
-        ArrayList<EstimateLine> estimateLinesList = db.searchEstimateLines(estimateId);
-        TextView noEstimateLinesTextView = findViewById(R.id.noEstimateLinesTextView);
-
-        ConstraintLayout.LayoutParams recyclerParams = (ConstraintLayout.LayoutParams)
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.getLayoutParams();
-        ConstraintLayout.LayoutParams noLinesParams = (ConstraintLayout.LayoutParams)
-                noEstimateLinesTextView.getLayoutParams();
-        ConstraintLayout.LayoutParams buttonParams = (ConstraintLayout.LayoutParams)
-                activityEstimateDetailsBinding.newEstimateLineButton.getLayoutParams();
-
-        if (!estimateLinesList.isEmpty()) {
-            noEstimateLinesTextView.setVisibility(View.GONE);
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(
-                    new EstimateLinesListAdapter(this, estimateLinesList));
-            recyclerParams.topToBottom = R.id.vatLayout;
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutParams(recyclerParams);
-            buttonParams.topToBottom = R.id.estimateLinesRecyclerView;
-            activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
-        } else {
-            noEstimateLinesTextView.setVisibility(View.VISIBLE);
-            activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
-            noLinesParams.topToBottom = R.id.vatLayout;
-            noEstimateLinesTextView.setLayoutParams(noLinesParams);
-            buttonParams.topToBottom = R.id.noEstimateLinesTextView;
-            activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(buttonParams);
-        }
+        // ── Estimate lines list ────────────────────────────────────────────
+        estimateLinesRecyclerView = findViewById(R.id.estimateLinesRecyclerView);
+        linesSortOption = getSharedPreferences(PREFS_LISTS, MODE_PRIVATE).getInt(KEY_LINES_SORT, LINES_SORT_ID_ASC);
+        estimateLinesAdapter = new EstimateLinesListAdapter(this, new ArrayList<>());
+        estimateLinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        estimateLinesRecyclerView.setAdapter(estimateLinesAdapter);
+        loadEstimateLines();
+        sortEstimateLinesButton.setOnClickListener(view -> showLinesSortDialog());
 
         // ── Populate fields from DB using settings date format ─────────────
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
@@ -265,7 +268,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (estimate.getExcludingTaxTotal() == null) {
             totalExclTaxEditText.setText("");
         } else {
-            formattedTotalExcludingTax = BigDecimal.valueOf(estimate.getExcludingTaxTotal()).toPlainString();
+            formattedTotalExcludingTax = formatAmount(estimate.getExcludingTaxTotal());
             totalExclTaxEditText.setText(formattedTotalExcludingTax);
         }
         totalExclTaxEditText.setEnabled(false);
@@ -279,8 +282,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (estimate.getExcludingTaxTotalAfterDiscount() == null) {
             totalAfterDiscountEditText.setText("");
         } else {
-            formattedTotalAfterDiscount = BigDecimal.valueOf(
-                    estimate.getExcludingTaxTotalAfterDiscount()).setScale(0, RoundingMode.DOWN).toPlainString();
+            formattedTotalAfterDiscount = formatAmount(estimate.getExcludingTaxTotalAfterDiscount());
             totalAfterDiscountEditText.setText(formattedTotalAfterDiscount);
         }
         totalAfterDiscountEditText.setEnabled(false);
@@ -294,8 +296,7 @@ public class EstimateDetails extends AppCompatActivity {
         if (estimate.getAllTaxIncludedTotal() == null) {
             totalAllTaxIncludedEditText.setText("");
         } else {
-            formattedTotalAllTaxIncluded = BigDecimal.valueOf(
-                    estimate.getAllTaxIncludedTotal()).setScale(0, RoundingMode.DOWN).toPlainString();
+            formattedTotalAllTaxIncluded = formatAmount(estimate.getAllTaxIncludedTotal());
             totalAllTaxIncludedEditText.setText(formattedTotalAllTaxIncluded);
         }
         totalAllTaxIncludedEditText.setEnabled(false);
@@ -519,46 +520,16 @@ public class EstimateDetails extends AppCompatActivity {
                 }
             }
 
-            formattedTotalExcludingTax = BigDecimal.valueOf(estimate.getExcludingTaxTotal()).toPlainString();
+            formattedTotalExcludingTax = formatAmount(estimate.getExcludingTaxTotal());
             totalExclField.setText(formattedTotalExcludingTax);
             discField.setText(estimate.getDiscount().toString());
-            formattedTotalAfterDiscount = BigDecimal.valueOf(
-                    estimate.getExcludingTaxTotalAfterDiscount()).toPlainString();
+            formattedTotalAfterDiscount = formatAmount(estimate.getExcludingTaxTotalAfterDiscount());
             afterDiscField.setText(formattedTotalAfterDiscount);
             vatField.setText(estimate.getVat().toString());
-            formattedTotalAllTaxIncluded = BigDecimal.valueOf(
-                    estimate.getAllTaxIncludedTotal()).toPlainString();
+            formattedTotalAllTaxIncluded = formatAmount(estimate.getAllTaxIncludedTotal());
             totalInclField.setText(formattedTotalAllTaxIncluded);
 
-            ArrayList<EstimateLine> refreshedLines = db.searchEstimateLines(
-                    Integer.parseInt(estIdField.getText().toString()));
-
-            ConstraintLayout.LayoutParams rp = (ConstraintLayout.LayoutParams)
-                    activityEstimateDetailsBinding.estimateLinesRecyclerView.getLayoutParams();
-            ConstraintLayout.LayoutParams nlp = (ConstraintLayout.LayoutParams)
-                    noEstimateLinesTextView.getLayoutParams();
-            ConstraintLayout.LayoutParams bp = (ConstraintLayout.LayoutParams)
-                    activityEstimateDetailsBinding.newEstimateLineButton.getLayoutParams();
-
-            if (!refreshedLines.isEmpty()) {
-                noEstimateLinesTextView.setVisibility(View.GONE);
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.VISIBLE);
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutManager(
-                        new LinearLayoutManager(getApplicationContext()));
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.setAdapter(
-                        new EstimateLinesListAdapter(EstimateDetails.this, refreshedLines));
-                rp.topToBottom = R.id.vatLayout;
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.setLayoutParams(rp);
-                bp.topToBottom = R.id.estimateLinesRecyclerView;
-                activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(bp);
-            } else {
-                noEstimateLinesTextView.setVisibility(View.VISIBLE);
-                activityEstimateDetailsBinding.estimateLinesRecyclerView.setVisibility(View.GONE);
-                nlp.topToBottom = R.id.vatLayout;
-                noEstimateLinesTextView.setLayoutParams(nlp);
-                bp.topToBottom = R.id.noEstimateLinesTextView;
-                activityEstimateDetailsBinding.newEstimateLineButton.setLayoutParams(bp);
-            }
+            loadEstimateLines();
         });
 
         // ── Discount TextWatcher ───────────────────────────────────────────
@@ -581,8 +552,8 @@ public class EstimateDetails extends AppCompatActivity {
                             ? totalExcl - totalExcl * Float.parseFloat(discount) / 100
                             : totalExcl;
                     float totalIncl = totalAfterDisc + totalAfterDisc * vat / 100;
-                    formattedTotalAfterDiscount  = new BigDecimal(totalAfterDisc).toPlainString();
-                    formattedTotalAllTaxIncluded = new BigDecimal(totalIncl).toPlainString();
+                    formattedTotalAfterDiscount  = formatAmount(totalAfterDisc);
+                    formattedTotalAllTaxIncluded = formatAmount(totalIncl);
                     afterDiscField.setText(formattedTotalAfterDiscount);
                     totalInclField.setText(formattedTotalAllTaxIncluded);
                 } catch (NumberFormatException ignored) {}
@@ -604,7 +575,7 @@ public class EstimateDetails extends AppCompatActivity {
                     float totalIncl = vat.isEmpty()
                             ? totalAfterDisc
                             : totalAfterDisc + totalAfterDisc * Float.parseFloat(vat) / 100;
-                    formattedTotalAllTaxIncluded = new BigDecimal(totalIncl).toPlainString();
+                    formattedTotalAllTaxIncluded = formatAmount(totalIncl);
                     totalInclField.setText(formattedTotalAllTaxIncluded);
                 } catch (NumberFormatException ignored) {}
             }
@@ -834,6 +805,85 @@ public class EstimateDetails extends AppCompatActivity {
         };
     }
 
+    /** Reloads this estimate's lines, sorts them and updates the count / total summary. */
+    private void loadEstimateLines() {
+        ArrayList<EstimateLine> lines = dbAdapter.searchEstimateLines(estimateId);
+
+        Map<Integer, String> steelNames = new HashMap<>();
+        for (Steel steel : dbAdapter.retrieveSteels()) {
+            steelNames.put(steel.getId(), steel.getType());
+        }
+        lines.sort(linesComparatorFor(linesSortOption, steelNames));
+        estimateLinesAdapter.updateEstimateLines(lines, steelNames);
+
+        boolean empty = lines.isEmpty();
+        estimateLinesRecyclerView.setVisibility(empty ? View.GONE : View.VISIBLE);
+        findViewById(R.id.noEstimateLinesLayout).setVisibility(empty ? View.VISIBLE : View.GONE);
+
+        float total = 0f;
+        for (EstimateLine line : lines) {
+            if (line.getTotalPrice() != null) total += line.getTotalPrice();
+        }
+        String count = getResources().getQuantityString(R.plurals.estimateLinesCount, lines.size(), lines.size());
+        TextView summary = findViewById(R.id.estimateLinesSummary);
+        summary.setText(empty ? count : count + "  \u00B7  "
+                + EstimatesListAdapter.formatLargeNumber(total) + " " + currencyManager.getActiveCurrencyCode());
+    }
+
+    private static Comparator<EstimateLine> linesComparatorFor(int option, Map<Integer, String> steelNames) {
+        Comparator<EstimateLine> byId = Comparator.comparing(EstimateLine::getId, Comparator.nullsLast(Comparator.naturalOrder()));
+        switch (option) {
+            case LINES_SORT_ID_DESC:
+                return byId.reversed();
+            case LINES_SORT_TOTAL_DESC:
+                return Comparator.comparing(EstimateLine::getTotalPrice, Comparator.nullsLast(Comparator.<Float>reverseOrder()))
+                        .thenComparing(byId);
+            case LINES_SORT_TOTAL_ASC:
+                return Comparator.comparing(EstimateLine::getTotalPrice, Comparator.nullsLast(Comparator.<Float>naturalOrder()))
+                        .thenComparing(byId);
+            case LINES_SORT_QUANTITY_DESC:
+                return Comparator.comparing(EstimateLine::getQuantity, Comparator.nullsLast(Comparator.<Long>reverseOrder()))
+                        .thenComparing(byId);
+            case LINES_SORT_STEEL_ASC:
+                return Comparator.comparing((EstimateLine line) -> {
+                    String name = line.getSteel() == null ? null : steelNames.get(line.getSteel());
+                    return name == null ? "" : name;
+                }, String.CASE_INSENSITIVE_ORDER).thenComparing(byId);
+            case LINES_SORT_ID_ASC:
+            default:
+                return byId;
+        }
+    }
+
+    private void showLinesSortDialog() {
+        String[] options = {
+                getString(R.string.sortIdAsc),
+                getString(R.string.sortIdDesc),
+                getString(R.string.sortTotalDesc),
+                getString(R.string.sortTotalAsc),
+                getString(R.string.sortQuantityDesc),
+                getString(R.string.sortSteelTypeAsc)
+        };
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.sortBy)
+                .setSingleChoiceItems(options, linesSortOption, (dialog, which) -> {
+                    linesSortOption = which;
+                    getSharedPreferences(PREFS_LISTS, MODE_PRIVATE).edit().putInt(KEY_LINES_SORT, which).apply();
+                    loadEstimateLines();
+                    dialog.dismiss();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Show lines added / edited / deleted in AddEstimateLine or EstimateLineDetails.
+        // Only the list is reloaded so unsaved edits in the form are kept.
+        loadEstimateLines();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { return false; }
 
@@ -848,6 +898,12 @@ public class EstimateDetails extends AppCompatActivity {
 
     public void startActivityForResult() {
         activityResultLauncher.launch(new Intent(EstimateDetails.this, Customers.class));
+    }
+
+    // Money shown in the totals fields: 2 decimals. Float.toString avoids printing
+    // float rounding noise such as 1234.56005859375.
+    private static String formatAmount(float value) {
+        return new BigDecimal(Float.toString(value)).setScale(2, RoundingMode.HALF_UP).toPlainString();
     }
 
     public boolean allDigitString(String s) {

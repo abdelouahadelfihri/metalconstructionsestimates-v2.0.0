@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estimate details: id, location, status, due terms, dates and customer -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/DashboardCard"
+    android:layout_width="match_parent"
+    app:strokeColor="@color/dashboard_track"
+    app:strokeWidth="1dp">
+
+    <LinearLayout style="@style/DashboardCardContent">
+
+        <TextView
+            style="@style/DashboardCardTitle"
+            android:text="@string/sectionDetails" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/estimateIdLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/estimateId">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/estimateIdEditText_estimate_details"
+                    style="@style/DetailsFieldInput"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/locationLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:hint="@string/location">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/locationEditText_estimate_details"
+                    style="@style/DetailsFieldInput"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailsRow">
+
+            <TextView
+                android:id="@+id/estimate_status_label"
+                style="@style/DetailsLabel"
+                android:text="@string/status" />
+
+            <Spinner
+                android:id="@+id/estimateStatusSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="160dp" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailsRow">
+
+            <TextView
+                android:id="@+id/dueTermsLabel"
+                style="@style/DetailsLabel"
+                android:text="@string/dueTerms" />
+
+            <Spinner
+                android:id="@+id/dueTermsSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="160dp" />
+        </LinearLayout>
+
+        <View style="@style/DetailsDivider" />
+
+        <TextView
+            style="@style/DashboardCardSubtitle"
+            android:text="@string/sectionDates" />
+
+        <LinearLayout style="@style/DetailsRow">
+
+            <TextView
+                android:id="@+id/issueDateLabel"
+                style="@style/DetailsLabel"
+                android:text="@string/issueDateLabel" />
+
+            <TextView
+                android:id="@+id/issueDateValue"
+                style="@style/DetailsDateValue"
+                android:text="@string/issueDate" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailsRow">
+
+            <TextView
+                android:id="@+id/dueDateLabel"
+                style="@style/DetailsLabel"
+                android:text="@string/dueDateLabel" />
+
+            <TextView
+                android:id="@+id/dueDateValue"
+                style="@style/DetailsDateValue"
+                android:text="@string/dueDate" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailsRow">
+
+            <TextView
+                android:id="@+id/expirationDateLabel"
+                style="@style/DetailsLabel"
+                android:text="@string/expirationDateLabel" />
+
+            <TextView
+                android:id="@+id/expirationDateValue"
+                style="@style/DetailsDateValue"
+                android:text="@string/expirationDate" />
+        </LinearLayout>
+
+        <View style="@style/DetailsDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/customerIdLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/customer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customerIdEditText"
+                    style="@style/DetailsFieldInput"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/selectCustomerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/selectCustomer"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:backgroundTint="@color/dashboard_brand"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

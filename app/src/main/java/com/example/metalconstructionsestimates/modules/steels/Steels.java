@@ -1,9 +1,12 @@
 package com.example.metalconstructionsestimates.modules.steels;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -11,10 +14,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.metalconstructionsestimates.R;
 import com.example.metalconstructionsestimates.recyclerviewadapters.SteelsListAdapter;
@@ -24,17 +28,32 @@ import com.example.metalconstructionsestimates.models.Steel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Steels extends AppCompatActivity {
+    private static final String PREFS_LISTS = "list_prefs";
+    private static final String KEY_SORT = "steels_sort";
+
+    // Sort options, in the order shown in the sort dialog
+    private static final int SORT_ID_DESC = 0;
+    private static final int SORT_ID_ASC = 1;
+    private static final int SORT_TYPE_ASC = 2;
+    private static final int SORT_TYPE_DESC = 3;
+    private static final int SORT_SHAPE = 4;
+    private static final int SORT_WEIGHT_ASC = 5;
+    private static final int SORT_WEIGHT_DESC = 6;
+
     Intent intent;
     SteelsListAdapter steelsListAdapter;
     TextInputEditText steelsSearchEditText;
     FloatingActionButton addSteel, clearSearchSteelForm, reloadSteelsList;
     ActivitySteelsBinding activitySteelsBinding;
     DBAdapter dbAdapter;
+    private int sortOption;
+    private ArrayList<Steel> displayedSteels = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,23 +63,22 @@ public class Steels extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        ArrayList<Steel> steelsList = dbAdapter.retrieveSteels();
-        AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.steelsRecyclerView));
 
-        if (steelsList.isEmpty()) {
-            activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-            showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
-        } else {
-            activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-            hideEmptyState();
-            steelsListAdapter = new SteelsListAdapter(this, steelsList);
-            recyclerViewSteels.get().setHasFixedSize(true);
-            recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerViewSteels.get().setAdapter(steelsListAdapter);
-        }
+        sortOption = getSharedPreferences(PREFS_LISTS, MODE_PRIVATE).getInt(KEY_SORT, SORT_ID_ASC);
+
+        // One column on phones, more on tablets / landscape (res/values-w600dp, values-w900dp)
+        int columns = getResources().getInteger(R.integer.list_columns);
+        activitySteelsBinding.steelsRecyclerView.setLayoutManager(new GridLayoutManager(this, columns));
+        steelsListAdapter = new SteelsListAdapter(this, displayedSteels);
+        activitySteelsBinding.steelsRecyclerView.setAdapter(steelsListAdapter);
+
+        activitySteelsBinding.swipeRefresh.setColorSchemeResources(R.color.dashboard_brand);
+        activitySteelsBinding.swipeRefresh.setOnRefreshListener(() -> {
+            refreshList();
+            activitySteelsBinding.swipeRefresh.setRefreshing(false);
+        });
 
         steelsSearchEditText = findViewById(R.id.searchEditText);
-
         steelsSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,74 +88,133 @@ public class Steels extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                if(!s.toString().isEmpty()){
-                    String searchText = s.toString();
-                    activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(Steels.this.getApplicationContext()));
-                    DBAdapter db = new DBAdapter(getApplicationContext());
-                    ArrayList<Steel> steelsSearchList = db.searchSteels(searchText);
-                    if (!steelsSearchList.isEmpty()) {
-                        SteelsListAdapter steels_list_adapter = new SteelsListAdapter(Steels.this, steelsSearchList);
-                        hideEmptyState();
-                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-                        activitySteelsBinding.steelsRecyclerView.setAdapter(steels_list_adapter);
-                    }
-                    else{
-                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-                        showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
-                        Toast searchResultToast = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_LONG);
-                        searchResultToast.show();
-                    }
-                }
-                else{
-                    ArrayList<Steel> steelsList = dbAdapter.retrieveSteels();
-                    AtomicReference<RecyclerView> recyclerViewSteels = new AtomicReference<>(findViewById(R.id.steelsRecyclerView));
-
-                    if (steelsList.isEmpty()) {
-                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-                        showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
-                    } else {
-                        activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-                        hideEmptyState();
-                        steelsListAdapter = new SteelsListAdapter(Steels.this, steelsList);
-                        recyclerViewSteels.get().setHasFixedSize(true);
-                        recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        recyclerViewSteels.get().setAdapter(steelsListAdapter);
-                    }
-                }
+                refreshList();
             }
         });
 
         reloadSteelsList = findViewById(R.id.fab_refresh);
-        reloadSteelsList.setOnClickListener(view -> {
-
-            recyclerViewSteels.set(findViewById(R.id.steelsRecyclerView));
-            ArrayList<Steel> steels_list = dbAdapter.retrieveSteels();
-            steelsListAdapter = new SteelsListAdapter(Steels.this, steels_list);
-            if (steels_list.isEmpty()) {
-                recyclerViewSteels.get().setVisibility(View.GONE);
-                showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
-            } else {
-                hideEmptyState();
-                recyclerViewSteels.get().setVisibility(View.VISIBLE);
-                recyclerViewSteels.get().setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerViewSteels.get().setAdapter(steelsListAdapter);
-            }
-        });
+        reloadSteelsList.setOnClickListener(view -> refreshList());
 
         addSteel = findViewById(R.id.fab_add);
-
         addSteel.setOnClickListener(view -> {
             intent = new Intent(Steels.this, AddSteel.class);
             startActivity(intent);
         });
 
         clearSearchSteelForm = findViewById(R.id.fab_clear);
+        clearSearchSteelForm.setOnClickListener(view -> steelsSearchEditText.getText().clear());
 
-        clearSearchSteelForm.setOnClickListener(view -> {
+        refreshList();
+    }
 
-            steelsSearchEditText.getText().clear();
+    /** Reloads steels from the database, applying the current search text and sort option. */
+    private void refreshList() {
+        String searchText = steelsSearchEditText == null ? "" : Objects.requireNonNull(steelsSearchEditText.getText()).toString().trim();
+        boolean searching = !searchText.isEmpty();
+        ArrayList<Steel> steels = searching ? dbAdapter.searchSteels(searchText) : dbAdapter.retrieveSteels();
+        steels.sort(comparatorFor(sortOption));
+        displayedSteels = steels;
+        steelsListAdapter.updateSteels(steels);
 
-        });
+        if (steels.isEmpty()) {
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
+            if (searching) {
+                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
+            } else {
+                showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
+            }
+        } else {
+            hideEmptyState();
+            activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
+        }
+        Objects.requireNonNull(getSupportActionBar()).setSubtitle(
+                getResources().getQuantityString(R.plurals.steelsCount, steels.size(), steels.size()));
+    }
+
+    private static Comparator<Steel> comparatorFor(int option) {
+        Comparator<Steel> byId = Comparator.comparing(Steel::getId, Comparator.nullsLast(Comparator.naturalOrder()));
+        Comparator<Steel> byType = Comparator.comparing(s -> s.getType() == null ? "" : s.getType(), String.CASE_INSENSITIVE_ORDER);
+        Comparator<Steel> byWeight = Comparator.comparing(Steel::getWeight, Comparator.nullsLast(Comparator.naturalOrder()));
+        switch (option) {
+            case SORT_ID_ASC:      return byId;
+            case SORT_TYPE_ASC:    return byType.thenComparing(byId);
+            case SORT_TYPE_DESC:   return byType.reversed().thenComparing(byId);
+            case SORT_SHAPE:       return Comparator.comparing((Steel s) -> s.getGeometricShape() == null ? "" : s.getGeometricShape(),
+                                           String.CASE_INSENSITIVE_ORDER).thenComparing(byType);
+            case SORT_WEIGHT_ASC:  return byWeight.thenComparing(byId);
+            case SORT_WEIGHT_DESC: return Comparator.comparing(Steel::getWeight, Comparator.nullsLast(Comparator.<Float>reverseOrder()))
+                                           .thenComparing(byId);
+            case SORT_ID_DESC:
+            default:               return byId.reversed();
+        }
+    }
+
+    private void showSortDialog() {
+        String[] options = {
+                getString(R.string.sortIdDesc),
+                getString(R.string.sortIdAsc),
+                getString(R.string.sortTypeAsc),
+                getString(R.string.sortTypeDesc),
+                getString(R.string.sortShape),
+                getString(R.string.sortWeightAsc),
+                getString(R.string.sortWeightDesc)
+        };
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.sortBy)
+                .setSingleChoiceItems(options, sortOption, (dialog, which) -> {
+                    sortOption = which;
+                    getSharedPreferences(PREFS_LISTS, MODE_PRIVATE).edit().putInt(KEY_SORT, which).apply();
+                    refreshList();
+                    dialog.dismiss();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    /** Shares the steels currently shown (after search and sort) as plain text. */
+    private void shareList() {
+        if (displayedSteels.isEmpty()) {
+            Toast.makeText(this, R.string.listEmptyNothingToShare, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        StringBuilder text = new StringBuilder(getString(R.string.steelsList)).append('\n');
+        for (Steel steel : displayedSteels) {
+            text.append("\n#").append(steel.getId()).append("  ").append(steel.getType() == null ? "" : steel.getType());
+            if (steel.getGeometricShape() != null && !steel.getGeometricShape().isEmpty()
+                    && !steel.getGeometricShape().equals("Geometric Shape")) {
+                text.append("  |  ").append(steel.getGeometricShape());
+            }
+            if (steel.getWeight() != null) {
+                text.append("  |  ").append(steel.getWeight());
+            }
+        }
+        Intent share = new Intent(Intent.ACTION_SEND)
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.steelsList))
+                .putExtra(Intent.EXTRA_TEXT, text.toString());
+        startActivity(Intent.createChooser(share, getString(R.string.shareListChooser)));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sort) {
+            showSortDialog();
+            return true;
+        } else if (id == R.id.action_share_list) {
+            shareList();
+            return true;
+        } else if (id == R.id.action_refresh_list) {
+            refreshList();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showEmptyState(int titleResId, int subtitleResId) {
@@ -162,24 +239,7 @@ public class Steels extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         // Reload when coming back from AddSteel / SteelDetails so changes show up
-        String searchText = Objects.requireNonNull(steelsSearchEditText.getText()).toString();
-        ArrayList<Steel> steelsList = searchText.isEmpty()
-                ? dbAdapter.retrieveSteels()
-                : dbAdapter.searchSteels(searchText);
-        if (steelsList.isEmpty()) {
-            activitySteelsBinding.steelsRecyclerView.setVisibility(View.GONE);
-            if (searchText.isEmpty()) {
-                showEmptyState(R.string.noSteelsTitle, R.string.noSteelsSubtitle);
-            } else {
-                showEmptyState(R.string.noResultTitle, R.string.noResultSubtitle);
-            }
-        } else {
-            hideEmptyState();
-            activitySteelsBinding.steelsRecyclerView.setVisibility(View.VISIBLE);
-            steelsListAdapter = new SteelsListAdapter(this, steelsList);
-            activitySteelsBinding.steelsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            activitySteelsBinding.steelsRecyclerView.setAdapter(steelsListAdapter);
-        }
+        refreshList();
     }
 
     @Override

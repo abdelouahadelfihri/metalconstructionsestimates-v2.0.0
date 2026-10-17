@@ -18,6 +18,8 @@ import com.example.metalconstructionsestimates.util.CurrencyManager;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 
 public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLinesListAdapter.ViewHolder> {
 
@@ -27,23 +29,36 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
     // ── Settings ───────────────────────────────────────────────────────────
     private CurrencyManager currencyManager;
 
+    // Steel id -> steel type, so each line shows what it is made of
+    private Map<Integer, String> steelNames = Collections.emptyMap();
+
     public EstimateLinesListAdapter(Activity activity, ArrayList<EstimateLine> estimateLinesList) {
         this.estimateLinesList = estimateLinesList;
         this.activity          = activity;
         this.currencyManager   = new CurrencyManager(activity);
     }
 
+    public void updateEstimateLines(ArrayList<EstimateLine> estimateLines, Map<Integer, String> steelNames) {
+        this.estimateLinesList = estimateLines;
+        this.steelNames        = steelNames;
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewEstimateLineId;
-        public TextView textViewEstimateId;
-        public TextView textViewSteelId;
+        public TextView textViewSteel;
+        public TextView textViewQuantity;
+        public TextView textViewDimensions;
+        public TextView textViewUnitPrice;
         public TextView textViewTotalPrice;
 
         public ViewHolder(View view) {
             super(view);
             textViewEstimateLineId = view.findViewById(R.id.recycler_view_estimate_line_id_estimate_line);
-            textViewEstimateId     = view.findViewById(R.id.recycler_view_estimate_id_estimate_line);
-            textViewSteelId        = view.findViewById(R.id.recycler_view_steel_id_estimate_line);
+            textViewSteel          = view.findViewById(R.id.recycler_view_steel_id_estimate_line);
+            textViewQuantity       = view.findViewById(R.id.recycler_view_quantity_estimate_line);
+            textViewDimensions     = view.findViewById(R.id.recycler_view_dimensions_estimate_line);
+            textViewUnitPrice      = view.findViewById(R.id.recycler_view_unit_price_estimate_line);
             textViewTotalPrice     = view.findViewById(R.id.recycler_view_total_price_estimate_line);
         }
     }
@@ -59,16 +74,43 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EstimateLine estimateLine = estimateLinesList.get(position);
-
-        holder.textViewEstimateLineId.setText("Estimate Line Id : " + estimateLine.getId().toString());
-        holder.textViewEstimateId.setText("Estimate Id : " + estimateLine.getEstimate());
-        holder.textViewSteelId.setText("Steel Id : " + estimateLine.getSteel());
-
-        // ── Total with currency ────────────────────────────────────────────
-        Float totalPrice = estimateLine.getTotalPrice();
-        String formattedTotal = formatLargeNumber(totalPrice);
         String currencyCode = currencyManager.getActiveCurrencyCode();
-        holder.textViewTotalPrice.setText("Estimate Line Total : " + formattedTotal + " " + currencyCode);
+
+        holder.textViewEstimateLineId.setText("#" + estimateLine.getId());
+
+        // ── Steel: type name, falling back to its id ──────────────────────
+        String steelName = estimateLine.getSteel() == null ? null : steelNames.get(estimateLine.getSteel());
+        if (steelName != null && !steelName.isEmpty()) {
+            holder.textViewSteel.setText(steelName);
+        } else {
+            holder.textViewSteel.setText("Steel #" + estimateLine.getSteel());
+        }
+
+        // ── Quantity and margin ────────────────────────────────────────────
+        StringBuilder quantity = new StringBuilder("Qty : ")
+                .append(estimateLine.getQuantity() == null ? "-" : estimateLine.getQuantity());
+        if (estimateLine.getMargin() != null && estimateLine.getMargin() != 0) {
+            quantity.append("  ·  Margin : ").append(estimateLine.getMargin()).append('%');
+        }
+        if (estimateLine.getWeight() != null && estimateLine.getWeight() != 0) {
+            quantity.append("  ·  Weight : ").append(plain(estimateLine.getWeight()));
+        }
+        holder.textViewQuantity.setText(quantity);
+
+        // ── Dimensions: only the ones that are set ─────────────────────────
+        StringBuilder dimensions = new StringBuilder();
+        appendDimension(dimensions, "L", estimateLine.getLength());
+        appendDimension(dimensions, "W", estimateLine.getWidth());
+        appendDimension(dimensions, "H", estimateLine.getHeight());
+        holder.textViewDimensions.setVisibility(dimensions.length() == 0 ? View.GONE : View.VISIBLE);
+        holder.textViewDimensions.setText(dimensions);
+
+        // ── Unit price and total with currency ────────────────────────────
+        holder.textViewUnitPrice.setText(estimateLine.getUnitPrice() == null
+                ? ""
+                : "Unit price : " + EstimatesListAdapter.formatLargeNumber(estimateLine.getUnitPrice()) + " " + currencyCode);
+        holder.textViewTotalPrice.setText(
+                EstimatesListAdapter.formatLargeNumber(estimateLine.getTotalPrice()) + " " + currencyCode);
 
         holder.itemView.setOnClickListener(v -> {
             EstimateLine clicked = estimateLinesList.get(holder.getLayoutPosition());
@@ -78,20 +120,15 @@ public class EstimateLinesListAdapter extends RecyclerView.Adapter<EstimateLines
         });
     }
 
-    private String formatLargeNumber(Float value) {
-        if (value == null) return "";
-        BigDecimal number = new BigDecimal(value.toString());
-        if (number.compareTo(new BigDecimal("1000000")) >= 0) {
-            return number.divide(new BigDecimal("1000000"))
-                    .setScale(2, RoundingMode.HALF_UP)
-                    .toPlainString() + "M";
-        } else if (number.compareTo(new BigDecimal("1000")) >= 0) {
-            return number.divide(new BigDecimal("1000"))
-                    .setScale(2, RoundingMode.HALF_UP)
-                    .toPlainString() + "K";
-        } else {
-            return number.setScale(2, RoundingMode.HALF_UP).toPlainString();
-        }
+    private static void appendDimension(StringBuilder text, String label, Float value) {
+        if (value == null || value == 0) return;
+        if (text.length() > 0) text.append("  ×  ");
+        text.append(label).append(' ').append(plain(value));
+    }
+
+    // 6.0 -> "6", 0.25 -> "0.25"
+    private static String plain(Float value) {
+        return new BigDecimal(value.toString()).setScale(3, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
     }
 
     @Override

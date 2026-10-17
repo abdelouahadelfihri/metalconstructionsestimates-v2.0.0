@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estimate totals: excl. tax, discount, VAT and total incl. VAT -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/DashboardCard"
+    android:layout_width="match_parent"
+    app:strokeColor="@color/dashboard_track"
+    app:strokeWidth="1dp">
+
+    <LinearLayout style="@style/DashboardCardContent">
+
+        <TextView
+            style="@style/DashboardCardTitle"
+            android:text="@string/sectionTotals" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/totalExclTaxLayout"
+            style="@style/DetailsField"
+            android:layout_width="match_parent"
+            android:hint="@string/totalExcludingTax">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/totalExclTaxEditText"
+                style="@style/DetailsFieldInput"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/discountLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/discount"
+                app:suffixText="%">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/discountEditText"
+                    style="@style/DetailsFieldInput"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/afterDiscountLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/totalExcludingTaxAfterDiscount">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/totalAfterDiscountEditText_estimate_details"
+                    style="@style/DetailsFieldInput"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/vatLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/vat"
+                app:suffixText="%">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vatEditText"
+                    style="@style/DetailsFieldInput"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/totalInclTaxLayout"
+                style="@style/DetailsField"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/totalAllTaxIncluded">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/totalInclTaxEditText"
+                    style="@style/DetailsFieldInput"
+                    android:enabled="false"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

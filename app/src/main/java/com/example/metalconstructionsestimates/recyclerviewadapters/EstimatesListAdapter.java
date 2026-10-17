@@ -3,11 +3,13 @@ package com.example.metalconstructionsestimates.recyclerviewadapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.metalconstructionsestimates.R;
@@ -20,8 +22,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdapter.EstimateViewHolder> {
 
@@ -32,6 +37,8 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
     // ── Settings values ────────────────────────────────────────────────────
     private String          dateFormat;
     private CurrencyManager currencyManager;
+
+    private Map<Integer, String> customerNames = Collections.emptyMap();
 
     public EstimatesListAdapter(Context context, ArrayList<Estimate> estimates) {
         this.context   = context;
@@ -50,6 +57,43 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
         notifyDataSetChanged();
     }
 
+    /** Customer id -> name, used to show who each estimate is for. */
+    public void setCustomerNames(Map<Integer, String> customerNames) {
+        this.customerNames = customerNames;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Status as the user sees it: a pending estimate whose due date has passed is "Overdue"
+     * (same rule as DBAdapter.retrieveOverdueEstimates()).
+     */
+    public static String displayStatus(Estimate estimate) {
+        String status = estimate.getStatus();
+        if ("Pending".equals(status) && estimate.getDueDate() != null && estimate.getDueDate() < startOfToday()) {
+            return "Overdue";
+        }
+        return status == null ? "" : status;
+    }
+
+    private static long startOfToday() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    private static int statusColorRes(String status) {
+        switch (status) {
+            case "Approved":  return R.color.status_approved;
+            case "Pending":   return R.color.status_pending;
+            case "Overdue":   return R.color.status_overdue;
+            case "Cancelled": return R.color.status_cancelled;
+            default:          return R.color.dashboard_text_secondary;
+        }
+    }
+
     @Override
     public EstimateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mItemView = mInflater.inflate(R.layout.estimate_item, parent, false);
@@ -64,17 +108,29 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
         Float total = estimate.getAllTaxIncludedTotal();
         String formattedTotal = formatLargeNumber(total);
         String currencyCode = currencyManager.getActiveCurrencyCode();
-        holder.estimateTotalAllTaxIncludedTextView.setText("Incl. VAT : " + formattedTotal + " " + currencyCode);
+        holder.estimateTotalAllTaxIncludedTextView.setText(formattedTotal + " " + currencyCode);
 
         // ── Estimate ID ─────────────────────────────────────────────────────
-        holder.estimateIdTextView.setText("Estimate Id : " + estimate.getId().toString());
+        holder.estimateIdTextView.setText("Estimate #" + estimate.getId());
+
+        // ── Status chip ─────────────────────────────────────────────────────
+        String status = displayStatus(estimate);
+        holder.estimateStatusTextView.setVisibility(status.isEmpty() ? View.GONE : View.VISIBLE);
+        holder.estimateStatusTextView.setText(status);
+        holder.estimateStatusTextView.setBackgroundTintList(
+                ColorStateList.valueOf(ContextCompat.getColor(context, statusColorRes(status))));
+
+        // ── Customer ────────────────────────────────────────────────────────
+        String customerName = estimate.getCustomer() == null ? null : customerNames.get(estimate.getCustomer());
+        holder.estimateCustomerTextView.setVisibility(customerName == null || customerName.isEmpty() ? View.GONE : View.VISIBLE);
+        holder.estimateCustomerTextView.setText(customerName);
 
         // ── Issue date using settings date format ──────────────────────────
         Long issueDateMillis = estimate.getIssueDate();
         String formattedIssueDate = (issueDateMillis != null && issueDateMillis != 0)
                 ? new SimpleDateFormat(dateFormat, Locale.getDefault()).format(new Date(issueDateMillis))
                 : "";
-        holder.estimateCreationDateTextView.setText("Issue Date : " + formattedIssueDate);
+        holder.estimateCreationDateTextView.setText("Issued : " + formattedIssueDate);
 
         // ── Location ────────────────────────────────────────────────────────
         holder.estimateDoneInTextView.setText("Location : " + estimate.getDoneIn());
@@ -86,6 +142,8 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
         public final TextView estimateCreationDateTextView;
         public final TextView estimateDoneInTextView;
         public final TextView estimateTotalAllTaxIncludedTextView;
+        public final TextView estimateStatusTextView;
+        public final TextView estimateCustomerTextView;
         final EstimatesListAdapter estimateListAdapter;
 
         public EstimateViewHolder(View itemView, EstimatesListAdapter estimateListAdapter) {
@@ -94,6 +152,8 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
             estimateCreationDateTextView        = itemView.findViewById(R.id.recycler_view_estimate_date);
             estimateDoneInTextView              = itemView.findViewById(R.id.recycler_view_done_in);
             estimateTotalAllTaxIncludedTextView = itemView.findViewById(R.id.recycler_view_total_all_tax_included);
+            estimateStatusTextView              = itemView.findViewById(R.id.recycler_view_estimate_status);
+            estimateCustomerTextView            = itemView.findViewById(R.id.recycler_view_estimate_customer);
             this.estimateListAdapter            = estimateListAdapter;
             itemView.setOnClickListener(this);
         }
@@ -110,7 +170,7 @@ public class EstimatesListAdapter extends RecyclerView.Adapter<EstimatesListAdap
     }
 
     // ── Formats large numbers as 1.5K / 2.3M with currency code appended ──
-    private String formatLargeNumber(Float value) {
+    public static String formatLargeNumber(Float value) {
         if (value == null) return "";
         BigDecimal number = new BigDecimal(value.toString());
         if (number.compareTo(new BigDecimal("1000000")) >= 0) {

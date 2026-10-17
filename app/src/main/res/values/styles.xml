@@ -117,4 +117,65 @@
         <item name="android:padding">12dp</item>
     </style>
 
+    <!-- ══ Estimate details form ══ -->
+    <style name="DetailsField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxStrokeColor">@color/dashboard_brand</item>
+        <item name="hintTextColor">@color/dashboard_brand</item>
+    </style>
+
+    <style name="DetailsFieldInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/dashboard_text_primary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="DetailsLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/dashboard_text_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Tappable date value: brand colour with a calendar icon -->
+    <style name="DetailsDateValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:drawableStart">@drawable/ic_calendar</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:drawableTint">@color/dashboard_brand</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+        <item name="android:textColor">@color/dashboard_brand</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DetailsRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="DetailsDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">@color/dashboard_track</item>
+    </style>
+
 </resources>

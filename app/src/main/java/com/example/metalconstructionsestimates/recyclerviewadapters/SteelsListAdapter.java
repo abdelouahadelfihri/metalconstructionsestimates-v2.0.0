@@ -55,10 +55,10 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Steel steel = steelsList.get(position);
-        String steelId = "Steel Id : " + steel.getId().toString();
-        String steelType = "Steel Type : " + steel.getType();
-        String geometricShape = "Geometric Shape : " + displayGeometricShape(steel.getGeometricShape());
-        String steelWeight = "Weight : " + (steel.getWeight() == null ? NOT_SPECIFIED : steel.getWeight().toString());
+        String steelId = "#" + steel.getId();
+        String steelType = steel.getType();
+        String geometricShape = "Shape : " + displayGeometricShape(steel.getGeometricShape());
+        String steelWeight = "Weight : " + displayWeight(steel);
         holder.textViewSteelId.setText(steelId);
         holder.textViewSteelType.setText(steelType);
         holder.textViewGeometricShape.setText(geometricShape);
@@ -87,9 +87,24 @@ public class SteelsListAdapter extends RecyclerView.Adapter<SteelsListAdapter.Vi
         });
     }
 
+    public void updateSteels(ArrayList<Steel> steels) {
+        this.steelsList = steels;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return steelsList.size();
+    }
+
+    private static String displayWeight(Steel steel) {
+        if (steel.getWeight() == null) {
+            return NOT_SPECIFIED;
+        }
+        String unit = steel.getUnit();
+        // "Unit" is the spinner hint that older steels stored as their unit
+        boolean hasUnit = unit != null && !unit.isEmpty() && !unit.equals("Unit");
+        return hasUnit ? steel.getWeight() + "  ·  Unit : " + unit : steel.getWeight().toString();
     }
 
     // Steels saved before the fix stored the spinner hint "Geometric Shape" as their shape

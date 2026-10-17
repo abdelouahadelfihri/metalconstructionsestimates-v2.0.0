@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estimate lines: header with count/total, sort and refresh, the list, and "Add line" -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/DashboardCard"
+    android:layout_width="match_parent"
+    app:strokeColor="@color/dashboard_track"
+    app:strokeWidth="1dp">
+
+    <LinearLayout style="@style/DashboardCardContent">
+
+        <LinearLayout
+            android:id="@+id/estimateLinesHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/DashboardCardTitle"
+                    android:text="@string/estimateLinesTitle" />
+
+                <TextView
+                    android:id="@+id/estimateLinesSummary"
+                    style="@style/DashboardCardSubtitle" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/sortEstimateLinesButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/sortBy"
+                android:src="@drawable/ic_sort"
+                app:tint="@color/dashboard_brand" />
+
+            <ImageButton
+                android:id="@+id/refreshEstimateLinesListButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/refresh"
+                android:src="@android:drawable/ic_popup_sync"
+                app:tint="@color/dashboard_brand" />
+        </LinearLayout>
+
+        <!-- Shows every line and scrolls with the page instead of inside a fixed-height box -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estimateLinesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/estimateLinesRecyclerView"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+
+        <LinearLayout
+            android:id="@+id/noEstimateLinesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="12dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:importantForAccessibility="no"
+                android:src="@android:drawable/ic_menu_agenda"
+                app:tint="#B0B0B0" />
+
+            <TextView
+                android:id="@+id/noEstimateLinesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/noEstimatesLines"
+                android:textColor="@color/dashboard_text_secondary"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/newEstimateLineButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/addLineButton"
+            android:textAllCaps="false"
+            android:textColor="@color/dashboard_brand"
+            app:cornerRadius="10dp"
+            app:icon="@android:drawable/ic_menu_add"
+            app:iconGravity="textStart"
+            app:iconTint="@color/dashboard_brand"
+            app:strokeColor="@color/dashboard_brand" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

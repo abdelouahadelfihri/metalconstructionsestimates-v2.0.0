@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom action bar, always visible: delete the estimate or save the edits -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dashboard_card"
+    android:elevation="8dp"
+    android:gravity="center_vertical|end"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="8dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteEstimateButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:maxWidth="240dp"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textColor="@color/dashboard_negative"
+        app:cornerRadius="10dp"
+        app:strokeColor="@color/dashboard_negative" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/updateButton_estimate_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxWidth="240dp"
+        android:text="@string/update"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@color/dashboard_brand"
+        app:cornerRadius="10dp" />
+</LinearLayout>

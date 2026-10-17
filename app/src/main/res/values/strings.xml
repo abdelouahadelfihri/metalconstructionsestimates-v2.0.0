@@ -281,4 +281,57 @@
     <string name="tabMonth">Month</string>
     <string name="tabYear">Year</string>
     <string name="tabAll">All</string>
+    <!-- List screens: sort, share, counts -->
+    <string name="sortBy">Sort by</string>
+    <string name="shareList">Share list</string>
+    <string name="shareListChooser">Share list via</string>
+    <string name="listEmptyNothingToShare">Nothing to share</string>
+    <string name="sortIdAsc">ID (oldest first)</string>
+    <string name="sortIdDesc">ID (newest first)</string>
+    <string name="sortNameAsc">Name (A to Z)</string>
+    <string name="sortNameDesc">Name (Z to A)</string>
+    <string name="sortTypeAsc">Type (A to Z)</string>
+    <string name="sortTypeDesc">Type (Z to A)</string>
+    <string name="sortShape">Geometric shape</string>
+    <string name="sortWeightAsc">Weight (lightest first)</string>
+    <string name="sortWeightDesc">Weight (heaviest first)</string>
+    <string name="sortDateDesc">Issue date (newest first)</string>
+    <string name="sortDateAsc">Issue date (oldest first)</string>
+    <string name="sortTotalDesc">Total (highest first)</string>
+    <string name="sortTotalAsc">Total (lowest first)</string>
+    <string name="sortLocation">Location (A to Z)</string>
+    <string name="sortStatus">Status</string>
+    <string name="customerActionCall">Call</string>
+    <string name="customerActionSms">Send SMS</string>
+    <string name="customerActionEmail">Send email</string>
+    <string name="customerActionCopy">Copy phone number</string>
+    <string name="phoneCopied">Phone number copied</string>
+    <string name="noPhoneNumber">No phone number for this customer</string>
+    <string name="noEmail">No email for this customer</string>
+    <string name="noAppToHandle">No app available for this action</string>
+    <plurals name="steelsCount">
+        <item quantity="one">%d steel</item>
+        <item quantity="other">%d steels</item>
+    </plurals>
+    <plurals name="customersCount">
+        <item quantity="one">%d customer</item>
+        <item quantity="other">%d customers</item>
+    </plurals>
+    <plurals name="estimatesCount">
+        <item quantity="one">%d estimate</item>
+        <item quantity="other">%d estimates</item>
+    </plurals>
+    <!-- Estimate details sections and lines list -->
+    <string name="sectionDetails">Details</string>
+    <string name="sectionDates">Dates</string>
+    <string name="sectionTotals">Totals</string>
+    <string name="estimateLinesTitle">Estimate lines</string>
+    <string name="addLineButton">Add line</string>
+    <string name="sortQuantityDesc">Quantity (highest first)</string>
+    <string name="sortSteelTypeAsc">Steel type (A to Z)</string>
+    <string name="estimateTitle">Estimate #%1$d</string>
+    <plurals name="estimateLinesCount">
+        <item quantity="one">%d line</item>
+        <item quantity="other">%d lines</item>
+    </plurals>
 </resources>
