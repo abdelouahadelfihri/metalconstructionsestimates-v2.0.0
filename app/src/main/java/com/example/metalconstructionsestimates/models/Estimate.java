@@ -16,6 +16,8 @@ public class Estimate implements Serializable {
     private Float excludingTaxTotalAfterDiscount;
     private Float vat;
     private Float allTaxIncludedTotal;
+    /** Moment the estimate was first saved (millis); null for estimates created before it was recorded. */
+    private Long createdAt;
 
     public Estimate(){
 
@@ -81,5 +83,8 @@ public class Estimate implements Serializable {
 
     public Float getAllTaxIncludedTotal(){ return allTaxIncludedTotal; }
     public void setAllTaxIncludedTotal(Float allTaxIncludedTotal){ this.allTaxIncludedTotal = allTaxIncludedTotal; }
+
+    public Long getCreatedAt(){ return createdAt; }
+    public void setCreatedAt(Long createdAt){ this.createdAt = createdAt; }
 
 }

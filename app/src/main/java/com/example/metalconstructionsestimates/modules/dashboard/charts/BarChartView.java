@@ -143,13 +143,17 @@ public class BarChartView extends View {
                 canvas.drawRect(rect, barPaint);
             }
 
-            if (isSelected || (count - 1 - i) % labelStep == 0) {
+            if ((count - 1 - i) % labelStep == 0) {
                 axisTextPaint.setFakeBoldText(isSelected);
-                canvas.drawText(labels[i], cx, getHeight() - getPaddingBottom() - 2 * density, axisTextPaint);
+                // Keep edge labels (e.g. "23h") inside the view
+                float half = axisTextPaint.measureText(labels[i]) / 2;
+                float lx = Math.max(left + half, Math.min(right - half, cx));
+                canvas.drawText(labels[i], lx, getHeight() - getPaddingBottom() - 2 * density, axisTextPaint);
             }
 
             if (isSelected && values[i] > 0) {
-                String text = formatter.format(values[i]);
+                // Name the bar too: its axis label may be skipped when bars are narrow
+                String text = labels[i] + " · " + formatter.format(values[i]);
                 float textWidth = valueTextPaint.measureText(text);
                 // Keep the value label inside the chart bounds
                 float tx = Math.max(left + textWidth / 2, Math.min(right - textWidth / 2, cx));

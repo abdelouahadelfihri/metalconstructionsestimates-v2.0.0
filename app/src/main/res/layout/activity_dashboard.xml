@@ -304,6 +304,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="210dp"
                             android:layout_marginTop="12dp" />
+
+                        <!-- Hourly view: estimates whose creation time is unknown -->
+                        <TextView
+                            android:id="@+id/note_trend"
+                            style="@style/DashboardCardSubtitle"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone"
+                            tools:text="2 estimates (MAD 4,000.00) have no recorded time"
+                            tools:visibility="visible" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

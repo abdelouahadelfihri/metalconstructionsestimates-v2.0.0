@@ -76,6 +76,12 @@ public class DBAdapter {
         return estimatesTotal;
     }
 
+    /** createdAt column; null for estimates saved before it was added. */
+    private static Long readCreatedAt(Cursor cursor) {
+        int index = cursor.getColumnIndex("createdAt");
+        return index >= 0 && !cursor.isNull(index) ? cursor.getLong(index) : null;
+    }
+
     private float getEstimatesTotalBetween(long startMillis, long endMillis) {
         Cursor cursor = null;
         float total = 0.0f;
@@ -154,6 +160,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -220,6 +227,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -294,6 +302,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -427,6 +436,7 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
+            cv.put("createdAt", estimate.getCreatedAt());
             db.insertWithOnConflict("estimate", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
         }
         catch(SQLException e){
@@ -617,6 +627,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -687,6 +698,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -756,6 +768,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -829,6 +842,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -902,6 +916,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         } catch (SQLException e) {
@@ -1028,6 +1043,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(10));
                 estimate.setVat(cursor.getFloat(11));
                 estimate.setAllTaxIncludedTotal(cursor.getFloat(12));
+                estimate.setCreatedAt(readCreatedAt(cursor));
             }
             else{
                 estimate = null;
@@ -1160,6 +1176,11 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
+            // Exact creation time; the issue date only holds the day
+            long createdAt = estimate.getCreatedAt() != null && estimate.getCreatedAt() > 0
+                    ? estimate.getCreatedAt() : System.currentTimeMillis();
+            estimate.setCreatedAt(createdAt);
+            cv.put("createdAt", createdAt);
             db.insert("estimate",null,cv);
         }
         catch(SQLException e){
@@ -1303,6 +1324,14 @@ public class DBAdapter {
     }
 
     public void updateEstimate(Estimate estimate){
+        updateEstimate(estimate, false);
+    }
+
+    /**
+     * @param fromBackup true when restoring: the backup's createdAt replaces the stored one,
+     *                   even when the backup has none (older backups). An edit keeps it.
+     */
+    public void updateEstimate(Estimate estimate, boolean fromBackup){
         try{
             db = helper.getWritableDatabase();
             ContentValues cv = new ContentValues();
@@ -1318,6 +1347,12 @@ public class DBAdapter {
             cv.put("excludingTaxTotalAfterDiscount", estimate.getExcludingTaxTotalAfterDiscount());
             cv.put("vat", estimate.getVat());
             cv.put("allTaxIncludedTotal", estimate.getAllTaxIncludedTotal());
+            if (fromBackup) {
+                cv.put("createdAt", estimate.getCreatedAt());
+            } else if (estimate.getCreatedAt() != null && estimate.getCreatedAt() > 0) {
+                // Editing keeps the original creation time
+                cv.put("createdAt", estimate.getCreatedAt());
+            }
             db.update("estimate",cv,"id="+ estimate.getId(),null);
         }
         catch(SQLException e){
@@ -1401,6 +1436,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         }
@@ -1468,6 +1504,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         }
@@ -1518,6 +1555,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         }
@@ -1564,6 +1602,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         }
@@ -1627,6 +1666,7 @@ public class DBAdapter {
                 estimate.setExcludingTaxTotalAfterDiscount(excludingTaxTotalAfterDiscount);
                 estimate.setVat(vat);
                 estimate.setAllTaxIncludedTotal(allTaxIncludedTotal);
+                estimate.setCreatedAt(readCreatedAt(cursor));
                 estimatesList.add(estimate);
             }
         }

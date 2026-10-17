@@ -70,6 +70,7 @@ public class EstimateDetails extends AppCompatActivity {
     String expirationDateValue = "", issueDateValue = "", dueDateValue = "";
 
     long issueDateTimestamp              = 0;
+    Long createdAtTimestamp              = null;
     long previousIssueDateTimestamp      = 0;
     long dueDateTimestamp                = 0;
     long previousDueDateTimestamp        = 0;
@@ -190,6 +191,7 @@ public class EstimateDetails extends AppCompatActivity {
         // ── Populate fields from DB using settings date format ─────────────
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
+        createdAtTimestamp = estimate.getCreatedAt();
         if (estimate.getIssueDate() == 0) {
             issueDateTextView.setText(R.string.issueDate);
             issueDateValue = "";
@@ -459,6 +461,7 @@ public class EstimateDetails extends AppCompatActivity {
                                 !Objects.requireNonNull(totalInclField.getText()).toString().isEmpty()
                                         ? Float.parseFloat(totalInclField.getText().toString()) : null);
 
+                        estimate.setCreatedAt(createdAtTimestamp);
                         dbAdapter.updateEstimate(estimate);
                         Toast.makeText(getApplicationContext(),
                                 "Estimate was successfully updated", Toast.LENGTH_LONG).show();

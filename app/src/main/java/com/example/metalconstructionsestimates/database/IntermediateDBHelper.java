@@ -31,7 +31,7 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE estimate(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "doneIn TEXT,issueDate TEXT,expirationDate TEXT,dueDate TEXT,dueTerms TEXT,status TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
-                    "vat integer,allTaxIncludedTotal FLOAT,isPaid TEXT,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
+                    "vat integer,allTaxIncludedTotal FLOAT,isPaid TEXT,createdAt INTEGER,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
 
             db.execSQL("CREATE TABLE estimateline(id INTEGER PRIMARY KEY AUTOINCREMENT,estimate INTEGER, steel INTEGER," +
                     "weight float,length float,width float,height float,quantity INTEGER,total Float,margin INTEGER," +
@@ -46,6 +46,18 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Backups from development builds are marked version 2; same schema, so accept them
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        // Older backups have no createdAt column; add it so restore reads it as NULL
+        DBHelper.ensureEstimateColumns(db);
     }
 
     public Customer buildCustomerFromCursor(Cursor cursor) {
@@ -85,6 +97,11 @@ public class IntermediateDBHelper extends SQLiteOpenHelper {
         estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(cursor.getColumnIndexOrThrow("excludingTaxTotalAfterDiscount")));
         estimate.setVat(cursor.getFloat(cursor.getColumnIndexOrThrow("vat")));
         estimate.setAllTaxIncludedTotal(cursor.getFloat(cursor.getColumnIndexOrThrow("allTaxIncludedTotal")));
+        // Absent in databases/backups made before createdAt was added
+        int createdAtIndex = cursor.getColumnIndex("createdAt");
+        if (createdAtIndex >= 0 && !cursor.isNull(createdAtIndex)) {
+            estimate.setCreatedAt(cursor.getLong(createdAtIndex));
+        }
         return estimate;
     }
 

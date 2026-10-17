@@ -230,6 +230,11 @@ public class Dashboard extends AppCompatActivity {
         if (selectedTab == CUSTOM) {
             tabLayout.selectTab(null);
             tabLayout.setSelectedTabIndicatorColor(android.graphics.Color.TRANSPARENT);
+            // selectTab(null) leaves the old tab's text highlighted; clear it ourselves
+            for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                if (tab != null) tab.view.setSelected(false);
+            }
         } else {
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.dashboard_brand));
             TabLayout.Tab tab = tabLayout.getTabAt(selectedTab);
@@ -323,16 +328,44 @@ public class Dashboard extends AppCompatActivity {
 
     private void bindTrendChart(Period period, List<Estimate> estimates, float total, float previousTotal) {
         float[] values = new float[period.labels.length];
+        int noTimeCount = 0;
+        float noTimeAmount = 0f;
         for (Estimate e : estimates) {
-            int index = period.bucketOf(e.getIssueDate() != null ? e.getIssueDate() : 0L);
+            int index;
+            if (period.bucket == Period.Bucket.HOUR) {
+                // The issue date only holds the day: place the estimate by its creation time,
+                // but only when it was created on that same day (not back- or post-dated)
+                Long created = e.getCreatedAt();
+                index = created != null && created > 0 ? period.bucketOf(created) : -1;
+                if (index < 0) {
+                    noTimeCount++;
+                    noTimeAmount += amountOf(e);
+                    continue;
+                }
+            } else {
+                index = period.bucketOf(e.getIssueDate() != null ? e.getIssueDate() : 0L);
+            }
             if (index >= 0 && index < values.length) values[index] += amountOf(e);
+        }
+
+        TextView note = findViewById(R.id.note_trend);
+        note.setVisibility(noTimeCount > 0 ? View.VISIBLE : View.GONE);
+        if (noTimeCount > 0) {
+            note.setText(getResources().getQuantityString(R.plurals.dashboardNoRecordedTime,
+                    noTimeCount, noTimeCount, cm.formatAmount(noTimeAmount)));
         }
 
         ((TextView) findViewById(R.id.title_trend)).setText(period.trendTitleRes);
         BarChartView chart = findViewById(R.id.chart_trend);
         // Highlight "now" when it is in range, otherwise the last bar
-        int now = period.bucketOf(System.currentTimeMillis());
-        chart.setData(values, period.labels, now >= 0 ? now : values.length - 1);
+        // Highlight "now" when it is in range, otherwise the biggest bar (none if all empty)
+        int highlight = period.bucketOf(System.currentTimeMillis());
+        if (highlight < 0) {
+            for (int i = 0; i < values.length; i++) {
+                if (values[i] > 0 && (highlight < 0 || values[i] > values[highlight])) highlight = i;
+            }
+        }
+        chart.setData(values, period.labels, highlight);
 
         TextView delta = findViewById(R.id.value_delta);
         delta.setVisibility(View.VISIBLE);
@@ -392,7 +425,7 @@ public class Dashboard extends AppCompatActivity {
 
         DonutChartView donut = findViewById(R.id.chart_status);
         donut.setData(values, colors, String.valueOf(estimates.size()),
-                getString(R.string.dashboardEstimatesShort));
+                getResources().getQuantityString(R.plurals.dashboardEstimatesShort, estimates.size()));
 
         LinearLayout legend = findViewById(R.id.legend_status);
         legend.removeAllViews();
@@ -447,7 +480,7 @@ public class Dashboard extends AppCompatActivity {
                     name != null ? name : getString(R.string.dashboardUnknownCustomer));
             ((TextView) row.findViewById(R.id.customer_amount)).setText(cm.formatAmount(entry.getValue()[0]));
             ((TextView) row.findViewById(R.id.customer_count)).setText(
-                    count + " " + getString(R.string.dashboardEstimatesShort));
+                    getResources().getQuantityString(R.plurals.dashboardEstimatesCount, count, count));
             LinearProgressIndicator bar = row.findViewById(R.id.customer_bar);
             bar.setProgress(Math.round(1000f * entry.getValue()[0] / max));
             list.addView(row);
@@ -495,7 +528,7 @@ public class Dashboard extends AppCompatActivity {
 
     private static class Period {
         /** How the trend chart splits the range into bars. */
-        enum Bucket { HOURS_3, DAY, WEEK, MONTH, YEAR }
+        enum Bucket { HOUR, DAY, WEEK, MONTH, YEAR }
 
         Bucket bucket;
         boolean allTime;
@@ -592,7 +625,7 @@ public class Dashboard extends AppCompatActivity {
         static Period custom(AppCompatActivity context, long start, long end) {
             Locale locale = Locale.getDefault();
             int days = (int) Math.round((end - start) / (double) DAY_MS);
-            Bucket bucket = days <= 1 ? Bucket.HOURS_3
+            Bucket bucket = days <= 1 ? Bucket.HOUR
                     : days <= 31 ? Bucket.DAY
                     : days <= 182 ? Bucket.WEEK
                     : days <= 731 ? Bucket.MONTH
@@ -617,9 +650,9 @@ public class Dashboard extends AppCompatActivity {
             boolean sameYear = first.get(Calendar.YEAR) == last.get(Calendar.YEAR);
 
             switch (bucket) {
-                case HOURS_3:
-                    p.labels = new String[8];
-                    for (int i = 0; i < 8; i++) p.labels[i] = (i * 3) + "h";
+                case HOUR:
+                    p.labels = new String[24];
+                    for (int i = 0; i < 24; i++) p.labels[i] = i + "h";
                     p.trendTitleRes = R.string.dashboardTrendByHour;
                     break;
                 case DAY:
@@ -706,9 +739,9 @@ public class Dashboard extends AppCompatActivity {
             if (!contains(millis)) return -1;
             int index;
             switch (bucket) {
-                case HOURS_3:
+                case HOUR:
                     scratch.setTimeInMillis(millis);
-                    index = scratch.get(Calendar.HOUR_OF_DAY) / 3;
+                    index = scratch.get(Calendar.HOUR_OF_DAY);
                     break;
                 case DAY:
                     index = daysFromStart(millis);

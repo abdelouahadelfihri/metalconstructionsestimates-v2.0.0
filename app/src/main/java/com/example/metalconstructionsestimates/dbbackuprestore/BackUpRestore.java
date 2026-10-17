@@ -453,7 +453,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         dbAdapter.saveEstimateWithId(backupEstimate);
                     } else {
                         backupEstimate.setId(existingEstimate.getId());
-                        dbAdapter.updateEstimate(backupEstimate);
+                        dbAdapter.updateEstimate(backupEstimate, true);
                     }
                 }
                 estimateCursor.close();

@@ -680,7 +680,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             db.execSQL("CREATE TABLE estimate(id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "doneIn TEXT,issueDate INTEGER,expirationDate INTEGER,dueDate INTEGER,dueTerms TEXT,status TEXT,customer INTEGER,excludingTaxTotal Float,discount float,excludingTaxTotalAfterDiscount float," +
-                    "vat FLOAT,allTaxIncludedTotal FLOAT,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
+                    "vat FLOAT,allTaxIncludedTotal FLOAT,createdAt INTEGER,FOREIGN KEY (customer) REFERENCES customer(id) ON DELETE CASCADE)");
 
             db.execSQL("CREATE TABLE estimateline(id INTEGER PRIMARY KEY AUTOINCREMENT,estimate INTEGER, steel INTEGER," +
                     "weight float,length float,width float,height float,quantity INTEGER,total Float,margin INTEGER," +
@@ -695,6 +695,40 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Development builds marked the database as version 2; the schema is the same,
+        // so accept it instead of crashing (Android's default)
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        // The database stays at version 1, so new columns are added here instead of onUpgrade.
+        // createdAt: exact creation time of each estimate (used by the dashboard's hourly chart)
+        ensureEstimateColumns(db);
+    }
+
+    /** Adds columns missing from databases (or backups) created by older app versions. */
+    static void ensureEstimateColumns(SQLiteDatabase db) {
+        if (db.isReadOnly()) return;
+        addColumnIfMissing(db, "estimate", "createdAt", "INTEGER");
+    }
+
+    static void addColumnIfMissing(SQLiteDatabase db, String table, String column, String type) {
+        boolean tableExists = false;
+        try (Cursor c = db.rawQuery("PRAGMA table_info(" + table + ")", null)) {
+            int nameIndex = c.getColumnIndexOrThrow("name");
+            while (c.moveToNext()) {
+                tableExists = true;
+                if (column.equals(c.getString(nameIndex))) return;
+            }
+        }
+        if (tableExists) {
+            db.execSQL("ALTER TABLE " + table + " ADD COLUMN " + column + " " + type);
+        }
     }
 
     public Customer buildCustomerFromCursor(Cursor cursor) {
@@ -734,6 +768,11 @@ public class DBHelper extends SQLiteOpenHelper {
         estimate.setExcludingTaxTotalAfterDiscount(cursor.getFloat(cursor.getColumnIndexOrThrow("excludingTaxTotalAfterDiscount")));
         estimate.setVat(cursor.getFloat(cursor.getColumnIndexOrThrow("vat")));
         estimate.setAllTaxIncludedTotal(cursor.getFloat(cursor.getColumnIndexOrThrow("allTaxIncludedTotal")));
+        // Absent in databases/backups made before createdAt was added
+        int createdAtIndex = cursor.getColumnIndex("createdAt");
+        if (createdAtIndex >= 0 && !cursor.isNull(createdAtIndex)) {
+            estimate.setCreatedAt(cursor.getLong(createdAtIndex));
+        }
         return estimate;
     }
 

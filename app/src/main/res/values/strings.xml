@@ -252,6 +252,10 @@
     <string name="dashboardAllTime">All time</string>
     <string name="dashboardVsPreviousDay">%1$s vs previous day</string>
     <string name="dashboardVsPreviousPeriod">%1$s vs previous period</string>
+    <plurals name="dashboardNoRecordedTime">
+        <item quantity="one">%1$d estimate (%2$s) has no recorded time and is not shown by hour</item>
+        <item quantity="other">%1$d estimates (%2$s) have no recorded time and are not shown by hour</item>
+    </plurals>
     <string name="dashboardSelectDay">Select a day</string>
     <string name="dashboardSelectPeriod">Select a period</string>
     <string name="dashboardStatusTitle">Estimates by status</string>
@@ -260,7 +264,14 @@
     <string name="dashboardNoCustomerData">No customer activity yet</string>
     <string name="dashboardPeriodTitle">Estimates in this period</string>
     <string name="dashboardUnknownCustomer">Unknown customer</string>
-    <string name="dashboardEstimatesShort">estimates</string>
+    <plurals name="dashboardEstimatesShort">
+        <item quantity="one">estimate</item>
+        <item quantity="other">estimates</item>
+    </plurals>
+    <plurals name="dashboardEstimatesCount">
+        <item quantity="one">%d estimate</item>
+        <item quantity="other">%d estimates</item>
+    </plurals>
     <string name="statusApproved">Approved</string>
     <string name="statusPending">Pending</string>
     <string name="statusOverdue">Overdue</string>
