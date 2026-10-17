@@ -69,6 +69,7 @@ public class BackUpRestore extends GoogleDriveActivity {
     private DBAdapter dbAdapter;
     private IntermediateDBAdapter intermediateDBAdapter;
     private IntermediateDBHelper intermediateHelper;
+    private AlertDialog progressDialog;
 
 
     @Override
@@ -112,15 +113,9 @@ public class BackUpRestore extends GoogleDriveActivity {
 
         localRestore.setOnClickListener(v -> pickFile());
 
-        googleDriveBackup.setOnClickListener(v -> {
-            showMessage("Starting backup...");
-            performGoogleDriveBackup();
-        });
+        googleDriveBackup.setOnClickListener(v -> performGoogleDriveBackup());
 
-        googleDriveRestore.setOnClickListener(v -> {
-            showMessage("Starting restore...");
-            performGoogleDriveRestore();
-        });
+        googleDriveRestore.setOnClickListener(v -> performGoogleDriveRestore());
         if (tryRestoreGoogleDriveSession()) {
             updateSignInButtonState();
         }
@@ -149,35 +144,48 @@ public class BackUpRestore extends GoogleDriveActivity {
         }
     }
 
-    private void showProgressDialogAndExecuteTask(String loadingMessage, Runnable task) {
+    /** Shows a non-cancelable loading dialog that stays up until the operation finishes. */
+    private void showProgress(String loadingMessage) {
+        hideProgress();
         View progressView = LayoutInflater.from(this).inflate(R.layout.progress_dialog, null);
-        AlertDialog progressDialog = new AlertDialog.Builder(this)
+        TextView progressText = progressView.findViewById(R.id.progressText);
+        progressText.setText(loadingMessage);
+        progressDialog = new AlertDialog.Builder(this)
                 .setView(progressView)
                 .setCancelable(false)
                 .create();
-
-        TextView progressText = progressView.findViewById(R.id.progressText);
-        progressText.setText(loadingMessage);
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+    }
 
-        executorService.execute(() -> {
-            try {
-                task.run();
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Error in task: " + loadingMessage, e);
-                handler.post(() -> showMessage("Error: " + e.getMessage()));
-            } finally {
-                handler.post(progressDialog::dismiss);
-            }
-        });
+    private void hideProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        progressDialog = null;
+    }
+
+    /** Hides the loading dialog and shows the outcome of the operation. Must run on the main thread. */
+    private void finishOperation(boolean success, String message) {
+        hideProgress();
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle(success ? "Success" : "Error")
+                .setIcon(success ? android.R.drawable.ic_dialog_info : android.R.drawable.ic_dialog_alert)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private void performGoogleDriveBackup() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showMessage("Google Drive sign-in failed"));
+            showMessage("Please sign in with Google first");
             return;
         }
 
+        showProgress("Backing up to Google Drive...");
         executorService.execute(() -> {
             try {
                 // Open a fresh, guaranteed-open connection just for the checkpoint,
@@ -196,26 +204,28 @@ public class BackUpRestore extends GoogleDriveActivity {
 
                 googleDriveRepository.uploadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                         .addOnSuccessListener(r -> handler.post(() -> {
-                            showMessage("Backup to Google Drive successful");
-                            resetBackupReminder();          // ← added
+                            finishOperation(true, "Backup to Google Drive completed successfully.");
+                            resetBackupReminder();
                         }))
                         .addOnFailureListener(e -> handler.post(() -> {
                             Log.e(LOG_TAG, "Error uploading file", e);
-                            showMessage("Error during backup: " + e.getMessage());
+                            finishOperation(false, "Error during backup: " + e.getMessage());
                         }));
 
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error preparing database for Google Drive backup", e);
-                handler.post(() -> showMessage("Error during backup: " + e.getMessage()));
+                handler.post(() -> finishOperation(false, "Error during backup: " + e.getMessage()));
             }
         });
     }
 
     private void performGoogleDriveRestore() {
         if (googleDriveRepository == null) {
-            handler.post(() -> showMessage("Google Drive sign-in failed"));
+            showMessage("Please sign in with Google first");
             return;
         }
+
+        showProgress("Restoring from Google Drive...");
 
         File db = new File(INTERMEDIATE_DB_LOCATION);
         File walFile = new File(INTERMEDIATE_DB_LOCATION + "-wal");
@@ -228,7 +238,7 @@ public class BackUpRestore extends GoogleDriveActivity {
 
         db.getParentFile().mkdirs();
         if (db.exists() && !db.delete()) {
-            handler.post(() -> showMessage("Could not clear old intermediate database"));
+            finishOperation(false, "Could not clear old intermediate database");
             return;
         }
         if (walFile.exists()) walFile.delete();
@@ -236,12 +246,12 @@ public class BackUpRestore extends GoogleDriveActivity {
 
         googleDriveRepository.downloadFile(db, GOOGLE_DRIVE_DB_LOCATION)
                 .addOnSuccessListener(r -> updateActualDbFromIntermediateDb(
-                        () -> showMessage("Database restored from Google Drive"),
-                        e -> showMessage("Error during merge: " + e.getMessage())
+                        () -> finishOperation(true, "Database restored from Google Drive successfully."),
+                        e -> finishOperation(false, "Error during merge: " + e.getMessage())
                 ))
                 .addOnFailureListener(e -> handler.post(() -> {
                     Log.e(LOG_TAG, "Error downloading file", e);
-                    showMessage("Error during restore");
+                    finishOperation(false, "Error during restore: " + e.getMessage());
                 }));
     }
 
@@ -258,6 +268,7 @@ public class BackUpRestore extends GoogleDriveActivity {
 
     @Override
     protected void onDestroy() {
+        hideProgress();
         super.onDestroy();
         executorService.shutdown();
         try {
@@ -334,12 +345,12 @@ public class BackUpRestore extends GoogleDriveActivity {
             }
 
             updateActualDbFromIntermediateDb(
-                    () -> showMessage("Database restored successfully!"),
-                    e -> showMessage("Error during merge: " + e.getMessage())
+                    () -> finishOperation(true, "Database restored successfully."),
+                    e -> finishOperation(false, "Error during merge: " + e.getMessage())
             );
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error restoring database", e);
-            handler.post(() -> showMessage("Error restoring database: " + e.getMessage()));
+            handler.post(() -> finishOperation(false, "Error restoring database: " + e.getMessage()));
         }
     }
 
@@ -370,6 +381,7 @@ public class BackUpRestore extends GoogleDriveActivity {
                         return;
                     }
 
+                    showProgress("Backing up database...");
                     executorService.execute(() -> {
                         try (DBHelper dbHelper = new DBHelper(getApplicationContext());
                              SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -387,12 +399,12 @@ public class BackUpRestore extends GoogleDriveActivity {
                                     throw new IOException("Failed to open output stream");
                                 }
                                 os.write(baos.toByteArray());
-                                handler.post(() -> showMessage("Database backup completed successfully"));
+                                handler.post(() -> finishOperation(true, "Database backup completed successfully."));
                                 resetBackupReminder();
                             }
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             Log.e(LOG_TAG, "Error during backup", e);
-                            handler.post(() -> showMessage("Error during backup: " + e.getMessage()));
+                            handler.post(() -> finishOperation(false, "Error during backup: " + e.getMessage()));
                         }
                     });
                 }
@@ -410,7 +422,8 @@ public class BackUpRestore extends GoogleDriveActivity {
             });
 
     private void mergeFileContentWithDatabase(Uri fileUri) {
-        showProgressDialogAndExecuteTask("Merging data...", () -> restoreDatabase(fileUri));
+        showProgress("Restoring database...");
+        executorService.execute(() -> restoreDatabase(fileUri));
     }
 
     private void updateActualDbFromIntermediateDb(Runnable onSuccess, java.util.function.Consumer<Exception> onError) {
