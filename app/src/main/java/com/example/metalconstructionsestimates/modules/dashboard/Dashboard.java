@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.metalconstructionsestimates.R;
@@ -90,8 +90,10 @@ public class Dashboard extends AppCompatActivity {
         ((BarChartView) findViewById(R.id.chart_trend)).setValueFormatter(cm::formatAmount);
 
         RecyclerView list = findViewById(R.id.rv_estimates);
-        list.setLayoutManager(new LinearLayoutManager(this));
+        // Same cards and columns as the Estimates list screen
+        list.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.list_columns)));
         listAdapter = new EstimatesListAdapter(this, new ArrayList<>());
+        listAdapter.setCustomerNames(customerNames);
         list.setAdapter(listAdapter);
 
         tabLayout = findViewById(R.id.tabLayout);
