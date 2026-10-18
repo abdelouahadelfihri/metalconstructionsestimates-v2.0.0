@@ -13,6 +13,14 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="ListToolbarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">@dimen/list_toolbar_title_size</item>
+    </style>
+
+    <style name="ListToolbarSubtitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">@dimen/list_toolbar_subtitle_size</item>
+    </style>
+
     <style name="CustomRoundedTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>

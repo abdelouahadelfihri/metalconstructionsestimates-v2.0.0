@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- List screens toolbar text, scaled up on wider screens -->
+    <dimen name="list_toolbar_title_size">17sp</dimen>
+    <dimen name="list_toolbar_subtitle_size">12sp</dimen>
+</resources>
