@@ -20,7 +20,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#0066cc"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
                 app:title="@string/app_name"
+                app:logo="@drawable/ic_toolbar_home"
+                app:contentInsetStartWithNavigation="0dp"
+                app:titleMarginStart="10dp"
+                app:titleTextAppearance="@style/ListToolbarTitle"
                 app:titleTextColor="@android:color/white" />
 
         </com.google.android.material.appbar.AppBarLayout>
