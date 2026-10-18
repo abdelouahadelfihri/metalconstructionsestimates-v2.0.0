@@ -15,9 +15,6 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-import java.util.concurrent.TimeUnit;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -379,17 +376,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void scheduleBackupReminder() {
-        PeriodicWorkRequest reminderRequest =
-                new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
-                        .build();
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                "backup_reminder",
-                ExistingPeriodicWorkPolicy.KEEP,
-                reminderRequest);
+        BackupReminderWorker.schedule(this, ExistingPeriodicWorkPolicy.KEEP);
     }
 
     private void cancelBackupReminder() {
-        WorkManager.getInstance(this).cancelUniqueWork("backup_reminder");
+        BackupReminderWorker.cancel(this);
     }
 
     // ── Reading settings in other activities ───────────────────────────────

@@ -2,7 +2,6 @@ package com.example.metalconstructionsestimates.dbbackuprestore;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -15,13 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 import com.example.metalconstructionsestimates.MainActivity;
 import com.example.metalconstructionsestimates.SettingsActivity;
 import com.example.metalconstructionsestimates.BackupReminderWorker;
-import java.util.concurrent.TimeUnit;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -132,16 +127,7 @@ public class BackUpRestore extends GoogleDriveActivity {
     }
 
     private void resetBackupReminder() {
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREFS_SETTINGS, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true)) {
-            PeriodicWorkRequest reminderRequest =
-                    new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
-                            .build();
-            WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(
-                    "backup_reminder",
-                    ExistingPeriodicWorkPolicy.REPLACE,   // cancels old timer, restarts fresh from now
-                    reminderRequest);
-        }
+        BackupReminderWorker.onBackupCompleted(getApplicationContext());
     }
 
     /** Shows a non-cancelable loading dialog that stays up until the operation finishes. */

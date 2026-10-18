@@ -25,11 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -204,14 +201,7 @@ public class MainActivity extends AppCompatActivity {
         // ── Schedule backup reminder if enabled ────────────────────────────
         SharedPreferences prefs = getSharedPreferences(SettingsActivity.PREFS_SETTINGS, MODE_PRIVATE);
         if (prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true)) {
-            PeriodicWorkRequest reminderRequest =
-                    new PeriodicWorkRequest.Builder(BackupReminderWorker.class, 7, TimeUnit.DAYS)
-                            .setInitialDelay(7, TimeUnit.DAYS)   // ← added this line
-                            .build();
-            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                    "backup_reminder",
-                    ExistingPeriodicWorkPolicy.KEEP,
-                    reminderRequest);
+            BackupReminderWorker.schedule(this, ExistingPeriodicWorkPolicy.KEEP);
         }
     } // end of onCreate
 
