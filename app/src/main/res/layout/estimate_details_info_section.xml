@@ -124,6 +124,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -132,6 +134,7 @@
                 style="@style/DetailsField"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginTop="0dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/customer">
 
@@ -145,7 +148,6 @@
                 android:id="@+id/selectCustomerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="@string/selectCustomer"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
