@@ -13,7 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#0066cc"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
         app:title="@string/dashboard"
+        app:logo="@drawable/ic_toolbar_dashboard"
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleMarginStart="10dp"
+        app:titleTextAppearance="@style/ListToolbarTitle"
         app:titleTextColor="@android:color/white" />
 
     <!-- ══ Period selector (stays visible while scrolling) ══ -->
