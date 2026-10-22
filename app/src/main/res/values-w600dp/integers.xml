@@ -2,4 +2,5 @@
 <resources>
     <integer name="dashboard_columns">2</integer>
     <integer name="list_columns">2</integer>
+    <integer name="home_columns">3</integer>
 </resources>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Customer details: identity, contact and address cards with a fixed Delete / Update bar -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp">
+    android:background="@color/dashboard_bg">
 
-    <!-- Top Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -21,242 +20,271 @@
         app:titleMarginStart="10dp"
         app:titleTextAppearance="@style/ListToolbarTitle"
         app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Guideline to separate scroll and buttons -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="64dp" />
-
-    <!-- Scrollable Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:fillViewport="true"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-            <!-- Customer ID -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/idInputLayout"
+            <!-- Full width on phones, capped and centered on tablets -->
+            <LinearLayout
+                android:id="@+id/formContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/shape"
-                android:hint="@string/customer_id"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:layout_constraintWidth_max="@dimen/form_max_width">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customerIdEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:textColor="#333333"
-                    android:enabled="false"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    style="@style/FormHero">
 
-            <!-- Customer Name -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/customer_name"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/idInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <ImageView
+                        style="@style/FormHeroIcon"
+                        android:src="@drawable/ic_toolbar_customers" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <!-- Email -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/customer_email"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/nameInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <TextView
+                            style="@style/FormHeroTitle"
+                            android:text="@string/form_customer_details_title" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            style="@style/FormHeroSubtitle"
+                            android:text="@string/form_customer_details_subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
 
-            <!-- Telephone -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/telephoneInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/customer_phone"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/emailInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/telephoneEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
 
-            <!-- Mobile -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mobileInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/customer_mobile"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/telephoneInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mobileEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_form_person" />
 
-            <!-- Fax -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/faxInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/customer_fax"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/mobileInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            <LinearLayout
+                                style="@style/FormSectionText">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/faxEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_identity" />
 
-            <!-- Address -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addressInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:hint="@string/customer_address"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/faxInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_identity_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addressEditText_customer_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="100dp"
-                    android:inputType="textPostalAddress"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                        <LinearLayout
+                            style="@style/FormRow">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/idInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="12dp"
+                                android:hint="@string/form_label_id">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/customerIdEditText_customer_details"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="number"
+                                    android:enabled="false" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/nameInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:hint="@string/customer_name"
+                                app:startIconDrawable="@drawable/ic_form_person">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/nameEditText_customer_details"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="textPersonName|textCapWords" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
+
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
+
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
+
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_form_phone" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_contact" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_contact_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/emailInputLayout"
+                            style="@style/FormField"
+                            android:hint="@string/customer_email"
+                            app:startIconDrawable="@drawable/ic_form_email">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/emailEditText_customer_details"
+                                style="@style/FormFieldInput"
+                                android:inputType="textEmailAddress" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            style="@style/FormRow">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/telephoneInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="12dp"
+                                android:hint="@string/customer_phone"
+                                app:startIconDrawable="@drawable/ic_form_phone">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/telephoneEditText_customer_details"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="phone" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mobileInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:hint="@string/customer_mobile"
+                                app:startIconDrawable="@drawable/ic_form_mobile">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/mobileEditText_customer_details"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="phone" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/faxInputLayout"
+                            style="@style/FormField"
+                            android:hint="@string/customer_fax"
+                            app:startIconDrawable="@drawable/ic_form_fax">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/faxEditText_customer_details"
+                                style="@style/FormFieldInput"
+                                android:inputType="phone" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
+
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
+
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
+
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_form_place" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_address" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_address_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/addressInputLayout"
+                            style="@style/FormField"
+                            android:hint="@string/customer_address">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/addressEditText_customer_details"
+                                style="@style/FormFieldInput"
+                                android:gravity="top"
+                                android:inputType="textPostalAddress|textMultiLine|textCapSentences"
+                                android:minLines="3" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Buttons -->
-    <Button
-        android:id="@+id/buttonEdit_customer_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#0066cc"
-        android:text="@string/update"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/buttonDelete_customer_details"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonDelete_customer_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#0066cc"
-        android:text="@string/delete"
-        android:textColor="@android:color/white"
+    <!-- Actions stay visible at the bottom -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonContainer"
+        style="@style/FormActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonEdit_customer_details" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/form_max_width">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete_customer_details"
+                style="@style/FormDangerButton"
+                android:layout_marginEnd="6dp"
+                android:text="@string/delete" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEdit_customer_details"
+                style="@style/FormPrimaryButton"
+                android:layout_marginStart="6dp"
+                android:text="@string/update" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

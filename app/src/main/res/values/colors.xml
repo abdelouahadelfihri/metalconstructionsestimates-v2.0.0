@@ -39,4 +39,8 @@
     <color name="status_pending">#F59E0B</color>
     <color name="status_overdue">#DC2626</color>
     <color name="status_cancelled">#9CA3AF</color>
+
+    <!-- Forms -->
+    <color name="form_outline">#C9CFD8</color>
+    <color name="home_exit_soft">#FDECEC</color>
 </resources>

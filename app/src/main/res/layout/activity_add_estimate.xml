@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Add estimate: general, dates, customer and pricing cards with a fixed Clear / Add bar -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dashboard_bg">
 
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -19,277 +20,322 @@
         app:titleMarginStart="10dp"
         app:titleTextAppearance="@style/ListToolbarTitle"
         app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Scrollable form -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:fillViewport="true"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:padding="10dp">
 
-            <!-- Location -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/locationLayout"
+            <!-- Full width on phones, capped and centered on tablets -->
+            <LinearLayout
+                android:id="@+id/formContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"
-                android:background="@drawable/shape"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintWidth_max="@dimen/form_max_width">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/locationEditText_add_estimate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="#1A1A1A"
-                    android:textColorHint="#666666"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    style="@style/FormHero">
 
-            <TextView
-                android:id="@+id/estimate_status_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/locationLayout"
-                app:layout_constraintStart_toStartOf="parent"/>
+                    <ImageView
+                        style="@style/FormHeroIcon"
+                        android:src="@drawable/ic_toolbar_estimates" />
 
-            <Spinner
-                android:id="@+id/estimateStatusSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@+id/estimate_status_label"
-                app:layout_constraintStart_toEndOf="@+id/estimate_status_label" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <!-- Issue Date -->
-            <TextView
-                android:id="@+id/issueDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/issueDateLabel"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/estimate_status_label"
-                app:layout_constraintStart_toStartOf="parent"/>
+                        <TextView
+                            style="@style/FormHeroTitle"
+                            android:text="@string/form_new_estimate_title" />
 
-            <TextView
-                android:id="@+id/issueDateValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/issueDate"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/issueDateLabel"
-                app:layout_constraintStart_toEndOf="@id/issueDateLabel"/>
+                        <TextView
+                            style="@style/FormHeroSubtitle"
+                            android:text="@string/form_new_estimate_subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
 
-            <!-- Due Terms -->
-            <TextView
-                android:id="@+id/dueTermsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dueTerms"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@id/issueDateLabel"
-                app:layout_constraintStart_toStartOf="parent"/>
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
 
-            <Spinner
-                android:id="@+id/dueTermsSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/dueTermsLabel"
-                app:layout_constraintStart_toEndOf="@id/dueTermsLabel" />
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
 
-            <!-- Due Date -->
-            <TextView
-                android:id="@+id/dueDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dueDateLabel"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@id/dueTermsLabel"
-                app:layout_constraintStart_toStartOf="parent"/>
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
 
-            <TextView
-                android:id="@+id/dueDateValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dueDate"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/dueDateLabel"
-                app:layout_constraintStart_toEndOf="@id/dueDateLabel"/>
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_toolbar_estimates" />
 
+                            <LinearLayout
+                                style="@style/FormSectionText">
 
-            <!-- Expiration Date -->
-            <TextView
-                android:id="@+id/expirationDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/expirationDateLabel"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/dueDateLabel"
-                app:layout_constraintStart_toStartOf="parent"/>
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_general" />
 
-            <TextView
-                android:id="@+id/expirationDateValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/expirationDate"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="@id/expirationDateLabel"
-                app:layout_constraintStart_toEndOf="@id/expirationDateLabel"/>
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_general_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customerLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/customer"
-                android:background="@drawable/shape"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@+id/expirationDateLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/selectCustomerButton_add_estimate">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/locationLayout"
+                            style="@style/FormField"
+                            android:hint="@string/location"
+                            app:startIconDrawable="@drawable/ic_form_place">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/locationEditText_add_estimate"
+                                style="@style/FormFieldInput"
+                                android:inputType="textCapSentences" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customerEditText_add_estimate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:id="@+id/estimate_status_label"
+                            style="@style/FormSpinnerLabel"
+                            android:text="@string/status" />
 
-            <Button
-                android:id="@+id/selectCustomerButton_add_estimate"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="#0066cc"
-                android:text="@string/selectCustomer"
-                android:textColor="@android:color/white"
-                app:layout_constraintTop_toTopOf="@id/customerLayout"
-                app:layout_constraintBottom_toBottomOf="@id/customerLayout"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                        <Spinner
+                            android:id="@+id/estimateStatusSpinner"
+                            style="@style/FormSpinner" />
 
+                        <TextView
+                            android:id="@+id/dueTermsLabel"
+                            style="@style/FormSpinnerLabel"
+                            android:text="@string/dueTerms" />
 
-            <!-- Discount -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/discountLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/discount"
-                android:background="@drawable/shape"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@id/selectCustomerButton_add_estimate"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                        <Spinner
+                            android:id="@+id/dueTermsSpinner"
+                            style="@style/FormSpinner" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/discountEditText_add_estimate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
 
-            <!-- VAT -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/vatLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/vat"
-                android:background="@drawable/shape"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@id/discountLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/vatEditText_add_estimate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
 
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_calendar" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_dates" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_dates_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/DetailsRow">
+                            <TextView
+                                android:id="@+id/issueDateLabel"
+                                style="@style/DetailsLabel"
+                                android:text="@string/issueDateLabel" />
+
+                            <TextView
+                                android:id="@+id/issueDateValue"
+                                style="@style/DetailsDateValue"
+                                android:text="@string/issueDate" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/DetailsRow">
+                            <TextView
+                                android:id="@+id/dueDateLabel"
+                                style="@style/DetailsLabel"
+                                android:text="@string/dueDateLabel" />
+
+                            <TextView
+                                android:id="@+id/dueDateValue"
+                                style="@style/DetailsDateValue"
+                                android:text="@string/dueDate" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/DetailsRow">
+                            <TextView
+                                android:id="@+id/expirationDateLabel"
+                                style="@style/DetailsLabel"
+                                android:text="@string/expirationDateLabel" />
+
+                            <TextView
+                                android:id="@+id/expirationDateValue"
+                                style="@style/DetailsDateValue"
+                                android:text="@string/expirationDate" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
+
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
+
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
+
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_toolbar_customers" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_customer" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_customer_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/FormRow">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/customerLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:hint="@string/customer"
+                                app:startIconDrawable="@drawable/ic_form_person">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/customerEditText_add_estimate"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="textPersonName" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/selectCustomerButton_add_estimate"
+                                style="@style/FormTonalButton"
+                                android:text="@string/selectCustomer" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
+
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
+
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
+
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_form_money" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_pricing" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_pricing_estimate_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/FormRow">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/discountLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="12dp"
+                                android:hint="@string/discount">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/discountEditText_add_estimate"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/vatLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:hint="@string/vat">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/vatEditText_add_estimate"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="numberDecimal" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom buttons (responsive stacking for small screens) -->
+    <!-- Actions stay visible at the bottom -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
+        style="@style/FormActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/addButton_add_estimate"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/add"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/clearButton_add_estimate"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/clearButton_add_estimate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/clear"
-            android:textColor="@android:color/white"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/addButton_add_estimate" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/form_max_width">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clearButton_add_estimate"
+                style="@style/FormSecondaryButton"
+                android:layout_marginEnd="6dp"
+                android:text="@string/clear" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addButton_add_estimate"
+                style="@style/FormPrimaryButton"
+                android:layout_marginStart="6dp"
+                android:text="@string/add" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

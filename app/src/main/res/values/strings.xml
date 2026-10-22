@@ -51,10 +51,10 @@
     <string name="dashboard">Dashboard</string>
     <string name="steelId">Steel Id</string>
     <string name="estimateLineDetails">Estimate Line Details</string>
-    <string name="issueDateLabel">Issue Date :</string>
+    <string name="issueDateLabel">Issue date</string>
     <string name="issueDate">--/--/----</string>
     <string name="dueDate">--/--/----</string>
-    <string name="expirationDateLabel">Expiration Date :</string>
+    <string name="expirationDateLabel">Expiration date</string>
     <string name="expirationDate">--/--/----</string>
     <string name="error_amount_paid_greater">Amount paid cannot be greater than total</string>
     <string name="weight">Weight</string>
@@ -88,8 +88,8 @@
     <string name="discount">Discount</string>
     <string name="vat">Vat</string>
     <string name="unit">Unit</string>
-    <string name="unitLabel">Unit :</string>
-    <string name="shapeLabel">Geometric shape :</string>
+    <string name="unitLabel">Unit</string>
+    <string name="shapeLabel">Geometric shape</string>
     <string name="steelType">Steel Type</string>
     <string name="localBackup">Local Backup</string>
     <string name="localRestore">Local Restore</string>
@@ -165,7 +165,7 @@
     <string name="overdue">Overdue</string>
     <string name="cancel">Cancel</string>
     <string name="dueTerms">Due Terms</string>
-    <string name="dueDateLabel">Due Date</string>
+    <string name="dueDateLabel">Due date</string>
     <string name="status">Status</string>
     <string name="allEstimatesButton">All</string>
     <string name="pendingEstimatesButton">Pending</string>
@@ -334,4 +334,61 @@
         <item quantity="one">%d line</item>
         <item quantity="other">%d lines</item>
     </plurals>
+
+    <!-- Add / details forms -->
+    <string name="form_new_steel_title">New steel</string>
+    <string name="form_new_steel_subtitle">Add a profile or sheet to your catalog</string>
+    <string name="form_steel_details_title">Steel details</string>
+    <string name="form_steel_details_subtitle">Review and update this steel</string>
+    <string name="form_new_customer_title">New customer</string>
+    <string name="form_new_customer_subtitle">Save a customer to use in your estimates</string>
+    <string name="form_customer_details_title">Customer details</string>
+    <string name="form_customer_details_subtitle">Review and update this customer</string>
+    <string name="form_new_estimate_title">New estimate</string>
+    <string name="form_new_estimate_subtitle">Set up the estimate, then add its lines</string>
+    <string name="form_new_line_title">New estimate line</string>
+    <string name="form_new_line_subtitle">Pick a steel, then enter quantities and prices</string>
+    <string name="form_line_details_title">Estimate line</string>
+    <string name="form_line_details_subtitle">Review and update this line</string>
+    <string name="form_section_profile">Profile</string>
+    <string name="form_section_profile_subtitle">Type and shape of the steel</string>
+    <string name="form_section_weight">Weight</string>
+    <string name="form_section_weight_subtitle">Weight and its unit</string>
+    <string name="form_section_identity">Identity</string>
+    <string name="form_section_identity_subtitle">Who the customer is</string>
+    <string name="form_section_contact">Contact</string>
+    <string name="form_section_contact_subtitle">How to reach them</string>
+    <string name="form_section_address">Address</string>
+    <string name="form_section_address_subtitle">Where they are located</string>
+    <string name="form_section_general">General</string>
+    <string name="form_section_general_subtitle">Location, status and payment terms</string>
+    <string name="form_section_dates">Dates</string>
+    <string name="form_section_dates_subtitle">Tap a date to change it</string>
+    <string name="form_section_customer">Customer</string>
+    <string name="form_section_customer_subtitle">Who the estimate is for</string>
+    <string name="form_section_pricing">Pricing</string>
+    <string name="form_section_pricing_estimate_subtitle">Discount and VAT</string>
+    <string name="form_section_pricing_line_subtitle">Margin and prices</string>
+    <string name="form_section_steel">Steel</string>
+    <string name="form_section_steel_subtitle">The steel used on this line</string>
+    <string name="form_section_dimensions">Quantity and dimensions</string>
+    <string name="form_section_dimensions_subtitle">Available fields depend on the steel shape</string>
+    <string name="form_section_reference">Reference</string>
+    <string name="form_section_reference_subtitle">Line, estimate and steel</string>
+
+    <!-- Home screen -->
+    <string name="home_welcome">Welcome back</string>
+    <string name="home_headline">Manage your steel estimates</string>
+    <string name="home_quick_access">Quick access</string>
+    <string name="home_caption_customers">Your client list</string>
+    <string name="home_caption_estimates">Quotes and totals</string>
+    <string name="home_caption_steels">Profiles catalog</string>
+    <string name="home_caption_dashboard">Stats and charts</string>
+    <string name="home_caption_business">Your company info</string>
+    <string name="home_caption_backup">Save and restore data</string>
+    <string name="home_caption_settings">App preferences</string>
+    <string name="home_caption_exit">Close the app</string>
+    <string name="form_label_id">ID</string>
+    <string name="form_label_line_id">Line ID</string>
+    <string name="zero" translatable="false">0</string>
 </resources>

@@ -3,4 +3,7 @@
     <!-- List screens toolbar text, scaled up on wider screens -->
     <dimen name="list_toolbar_title_size">17sp</dimen>
     <dimen name="list_toolbar_subtitle_size">12sp</dimen>
+
+    <!-- Add / details forms stop growing past this width and stay centered on tablets -->
+    <dimen name="form_max_width">640dp</dimen>
 </resources>

@@ -4,4 +4,6 @@
     <integer name="dashboard_columns">1</integer>
     <!-- Columns in the steels / customers / estimates lists: 1 on phones, more on wide screens -->
     <integer name="list_columns">1</integer>
+    <!-- Tiles per row on the home screen -->
+    <integer name="home_columns">2</integer>
 </resources>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Steel details: profile and weight cards with a fixed Delete / Update bar -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp">
+    android:background="@color/dashboard_bg">
 
-    <!-- Top Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="#0066cc"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
@@ -20,181 +20,206 @@
         app:titleMarginStart="10dp"
         app:titleTextAppearance="@style/ListToolbarTitle"
         app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Scrollable form content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/formScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:fillViewport="true"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:padding="10dp">
 
-            <!-- Steel ID -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/steelIdInputLayout"
+            <!-- Full width on phones, capped and centered on tablets -->
+            <LinearLayout
+                android:id="@+id/formContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/steelId"
-                android:layout_marginHorizontal="8dp"
-                android:background="@drawable/shape"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintWidth_max="@dimen/form_max_width">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/steelIdEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    style="@style/FormHero">
 
-            <!-- Steel Type -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/steelTypeInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/steelType"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@id/steelIdInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                    <ImageView
+                        style="@style/FormHeroIcon"
+                        android:src="@drawable/ic_toolbar_steels" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/steelTypeEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <!-- Shape Label -->
-            <TextView
-                android:id="@+id/shapeSpinnerLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:text="@string/shapeLabel"
-                app:layout_constraintTop_toBottomOf="@id/steelTypeInputLayout"
-                app:layout_constraintStart_toStartOf="parent" />
+                        <TextView
+                            style="@style/FormHeroTitle"
+                            android:text="@string/form_steel_details_title" />
 
-            <!-- Shape Spinner -->
-            <Spinner
-                android:id="@+id/shapeSpinner"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/shapeSpinnerLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                        <TextView
+                            style="@style/FormHeroSubtitle"
+                            android:text="@string/form_steel_details_subtitle" />
+                    </LinearLayout>
+                </LinearLayout>
 
-            <!-- Weight -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/weightInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/weight"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:layout_constraintTop_toBottomOf="@id/shapeSpinner"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/weightEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:textColor="#333333"
-                    android:textColorHint="#4A4A4A"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
 
-            <!-- Unit Label -->
-            <TextView
-                android:id="@+id/unitSpinnerLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:text="@string/unitLabel"
-                app:layout_constraintTop_toBottomOf="@id/weightInputLayout"
-                app:layout_constraintStart_toStartOf="parent" />
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
 
-            <!-- Unit Spinner -->
-            <Spinner
-                android:id="@+id/unitSpinner"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape"
-                app:layout_constraintTop_toBottomOf="@id/unitSpinnerLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_toolbar_steels" />
 
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_profile" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_profile_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/FormRow">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/steelIdInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="12dp"
+                                android:hint="@string/steelId">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/steelIdEditText"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="number"
+                                    android:enabled="false" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/steelTypeInputLayout"
+                                style="@style/FormField"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:hint="@string/steelType">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/steelTypeEditText"
+                                    style="@style/FormFieldInput"
+                                    android:inputType="text" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/shapeSpinnerLabel"
+                            style="@style/FormSpinnerLabel"
+                            android:text="@string/shapeLabel" />
+
+                        <Spinner
+                            android:id="@+id/shapeSpinner"
+                            style="@style/FormSpinner" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/FormCard">
+
+                    <LinearLayout
+                        style="@style/DashboardCardContent">
+
+                        <LinearLayout
+                            style="@style/FormSectionHeader">
+
+                            <ImageView
+                                style="@style/FormSectionIcon"
+                                android:src="@drawable/ic_form_scale" />
+
+                            <LinearLayout
+                                style="@style/FormSectionText">
+
+                                <TextView
+                                    style="@style/DashboardCardTitle"
+                                    android:text="@string/form_section_weight" />
+
+                                <TextView
+                                    style="@style/DashboardCardSubtitle"
+                                    android:text="@string/form_section_weight_subtitle" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/weightInputLayout"
+                            style="@style/FormField"
+                            android:hint="@string/weight">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/weightEditText"
+                                style="@style/FormFieldInput"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/unitSpinnerLabel"
+                            style="@style/FormSpinnerLabel"
+                            android:text="@string/unitLabel" />
+
+                        <Spinner
+                            android:id="@+id/unitSpinner"
+                            style="@style/FormSpinner" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Buttons pinned to bottom -->
+    <!-- Actions stay visible at the bottom -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
+        style="@style/FormActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/updateButton"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/update"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/deleteButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:backgroundTint="#0066cc"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toEndOf="@id/updateButton"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintWidth_max="@dimen/form_max_width">
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteButton"
+                style="@style/FormDangerButton"
+                android:layout_marginEnd="6dp"
+                android:text="@string/delete" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateButton"
+                style="@style/FormPrimaryButton"
+                android:layout_marginStart="6dp"
+                android:text="@string/update" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

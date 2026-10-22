@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.metalconstructionsestimates.database.DBAdapter;
@@ -203,7 +204,28 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getBoolean(SettingsActivity.KEY_BACKUP_REMINDER, true)) {
             BackupReminderWorker.schedule(this, ExistingPeriodicWorkPolicy.KEEP);
         }
+        // The whole tile is tappable, not just its icon
+        int[][] tiles = {
+                {R.id.tileCustomers, R.id.imageViewCustomers}, {R.id.tileEstimates, R.id.imageViewEstimates},
+                {R.id.tileSteels, R.id.imageViewSteels}, {R.id.tileDashboard, R.id.imageViewDashboard},
+                {R.id.tileBusiness, R.id.imageViewBusiness}, {R.id.tileBackups, R.id.imageViewBackups},
+                {R.id.tileSettings, R.id.imageViewSettings}, {R.id.tileExit, R.id.imageViewExit}};
+        for (int[] tile : tiles) {
+            View icon = findViewById(tile[1]);
+            findViewById(tile[0]).setOnClickListener(v -> icon.performClick());
+        }
     } // end of onCreate
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh the welcome card counts when coming back from the other screens
+        DBAdapter dbAdapter = new DBAdapter(getApplicationContext());
+        ((TextView) findViewById(R.id.homeCustomersCount)).setText(String.valueOf(dbAdapter.getCustomersCount()));
+        ((TextView) findViewById(R.id.homeEstimatesCount)).setText(String.valueOf(dbAdapter.getEstimatesCount()));
+        ((TextView) findViewById(R.id.homeSteelsCount)).setText(String.valueOf(dbAdapter.getSteelsCount()));
+        dbAdapter.close();
+    }
 
     private void handleExitClick() {
         if (System.currentTimeMillis() - lastExitPressTime < EXIT_TIME_INTERVAL) {
